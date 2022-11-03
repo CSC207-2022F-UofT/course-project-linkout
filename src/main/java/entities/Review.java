@@ -1,7 +1,7 @@
 package entities;
 
 public class Review {
-    private float rating;
+    private int rating;
     private String comment;
     private static int count = 0;
     private int id;
@@ -13,7 +13,7 @@ public class Review {
      * @param comment the comment of this single Review.
      */
 
-    public Review(float rating, String comment) {
+    public Review(int rating, String comment) {
         this.rating = rating;
         this.comment = comment;
         this.id = count++;
@@ -21,6 +21,10 @@ public class Review {
 
     public int getId() {
         return id;
+    }
+
+    public int getRating() {
+        return rating;
     }
 
     @Override
