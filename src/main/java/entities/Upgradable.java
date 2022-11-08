@@ -1,5 +1,9 @@
 package entities;
 
 public interface Upgradable {
-    public void upgrade();
+
+    /**
+     * Any class implement this interface can have the function to upgrade.
+     */
+    public VipUser upgrade();
 }

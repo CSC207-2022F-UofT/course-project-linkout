@@ -1,17 +1,26 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
-abstract class User {
+class User {
 
     private Profile profile;
     private ArrayList<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
-    private ArrayList<User> liked = new ArrayList<>();
-    private ArrayList<User> likedme = new ArrayList<>();
-    private ArrayList<Review> reviews = new ArrayList<Review>();
+    private List<User> liked = new ArrayList<>();
+    private List<User> likedme = new ArrayList<>();
+    private Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
     private float restrictedTime = 0;
 
+
+    /**
+     * Create a user with its profile and can be a vip user if isVIP param is true.
+     *
+     * @param profile the profile for this user.
+     * @param isVIP the VIP status of this user.
+     */
 
     // For VIPUser constructor
     public User(Profile profile, boolean isVIP){
@@ -19,42 +28,34 @@ abstract class User {
         this.isVIP = isVIP;
     }
 
-
     // For RegularUser constructor
-    public User(Profile profile){
-        this.profile = profile;
-    }
+    public User(Profile profile){ this.profile = profile;}
 
-    public float getRestrictedTime(){
-        return this.restrictedTime;
-    }
+    public float getRestrictedTime(){ return this.restrictedTime;}
 
-    public void setRestrictedTime(float setTime){
-        this.restrictedTime = setTime;
-    }
+    public void setRestrictedTime(float setTime){ this.restrictedTime = setTime;}
 
-    public Profile displayProfile(){
-        return this.profile;
-    }
+    public Profile displayProfile(){ return this.profile;}
 
-    public ArrayList<User> showBlocked(){
-        return this.blocked;
-    }
+    public ArrayList<User> showBlocked(){ return this.blocked;}
 
-    public ArrayList<User> showLiked(){
-        return this.liked;
-    }
+    public List<User> showLiked(){ return this.liked;}
 
-    public ArrayList<User> showLikedMe(){
-        return this.likedme;
-    }
+    public List<User> showLikedMe(){ return this.likedme;}
 
-    public ArrayList<Review> getReviews(){
-        return this.reviews;
-    }
+    public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
 
     public void addReviews(Review review){
-        this.reviews.add(review);
+        Integer revId = review.getId();
+        List<Object> revBody = extractReviewBody(review);
+        this.reviews.put(revId, revBody);
+    }
+
+    private List<Object> extractReviewBody(Review review){
+        List<Object> revBody = new ArrayList<>();
+        revBody.add(review.getRating());
+        revBody.add(review.getComment());
+        return revBody;
     }
 
 }

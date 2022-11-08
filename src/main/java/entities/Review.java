@@ -27,6 +27,8 @@ public class Review {
         return rating;
     }
 
+    public String getComment(){ return comment;}
+
     @Override
     public String toString() {
         return "Review{" +
