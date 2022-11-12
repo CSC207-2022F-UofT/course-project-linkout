@@ -26,7 +26,7 @@ public class Profile {
      * @param selfDescription the selfDescription of this single Profile.
      */
 
-    public Profile(String location, String gender, String age, String sexuality,
+    public Profile(String location, String gender, int age, String sexuality,
                    String hobbies, int height, int weight, int contactInformation,
                    String selfDescription) {
         this.location = location;
@@ -68,7 +68,7 @@ public class Profile {
         return selfDescription;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
     public void setContactInformation(int contactInformation) {
