@@ -3,7 +3,7 @@ package entities;
 public class Profile {
     private String location;
     private String gender;
-    private String age;
+    private int age;
     private String sexuality;
     private String hobbies;
     private int height;
