@@ -46,7 +46,7 @@ public class Profile {
     public int getWeight() {
         return weight;
     }
-    public String getAge() {
+    public int getAge() {
         return age;
     }
     public int getHeight() {
