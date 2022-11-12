@@ -1,11 +1,9 @@
 package useCases.review_use_case;
 
-import entities.User;
-
 public class ReviewRequestModel {
-    private int rating;
+    private float rating;
     private String comment;
-    private User user;
+    private String user;
     private boolean isComplete;
 
 
@@ -18,18 +16,18 @@ public class ReviewRequestModel {
      */
 
 
-    public ReviewRequestModel(int rating, String comment, User user) {
+    public ReviewRequestModel(float rating, String comment, String user) {
         this.rating = rating;
         this.comment = comment;
         this.user = user;
-        this.isComplete = rating != 0 && comment != null && user != null;
+        this.isComplete = rating > 0 && comment != null && user != null;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
@@ -41,11 +39,11 @@ public class ReviewRequestModel {
         this.comment = comment;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

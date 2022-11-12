@@ -1,7 +1,7 @@
 package entities;
 
 public class Review implements Savable{
-    private int rating;
+    private float rating;
     private String comment;
     private User user;
     private static int count;
@@ -10,12 +10,12 @@ public class Review implements Savable{
     /**
      * Create a new Review with rating, comment, user and its unique id (start from 1)
      *
-     * @param rating the rating of this single Review (1,2,3,4,5).
+     * @param rating the rating of this single Review.
      * @param comment the comment of this single Review.
      * @param user the user who receives this single Review.
      */
 
-    public Review(int rating, String comment, User user) {
+    public Review(float rating, String comment, User user) {
         this.rating = rating;
         this.comment = comment;
         this.user = user;
@@ -30,7 +30,7 @@ public class Review implements Savable{
         this.id = id;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
@@ -64,8 +64,9 @@ public class Review implements Savable{
                 '}';
     }
 
+
     @Override
     public String toSavableFormat() {
-        return user.toString() + "," + rating + "," + comment + "," + id;
+        return rating + "," + comment + user.toString() + "," + "," + id;
     }
 }
