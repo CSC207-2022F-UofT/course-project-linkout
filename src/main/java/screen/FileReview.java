@@ -37,9 +37,9 @@ public class FileReview implements ReviewGateway {
             Review review;
             while((line = reader.readLine()) != null){
                 String[] data = line.split(",");
-                if (id == Integer.valueOf(data[3])){
+                if (id == Integer.parseInt(data[3])){
                     //TODO: Implement the method
-                };
+                }
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -67,8 +67,8 @@ public class FileReview implements ReviewGateway {
                 String[] data = line.split(",");
                 User user = new RegularUser();
                 //TODO: initialize the user
-                review = new Review(Integer.valueOf(data[0]), data[1], user);
-                review.setId(Integer.valueOf(data[3]));
+                review = new Review(Integer.parseInt(data[1]), data[2], user);
+                review.setId(Integer.parseInt(data[3]));
                 reviews.add(review);
             }
             reader.close();

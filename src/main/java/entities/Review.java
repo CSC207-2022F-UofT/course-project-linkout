@@ -67,6 +67,6 @@ public class Review implements Savable{
 
     @Override
     public String toSavableFormat() {
-        return rating + "," + comment + user.toString() + "," + "," + id;
+        return user.toString() + "," + rating + "," + comment + "," + id;
     }
 }
