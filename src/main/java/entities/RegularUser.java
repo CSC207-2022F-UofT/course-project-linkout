@@ -13,14 +13,16 @@ public class RegularUser extends User implements Upgradable{
      * @param profile the profile associated with this regular user.
      */
 
-    public RegularUser(Profile profile){
-        super(profile);
+    public RegularUser(String password, String accountName, Profile profile){
+        super(password, accountName, profile);
     }
 
     @Override
     public VipUser upgrade() {
         this.isVIP = true;
         Profile profile = this.displayProfile();
-        return new VipUser(profile, true);
+        String password = this.getPassword();
+        String accountName = this.getAccountName();
+        return new VipUser(password, accountName, profile, true);
     }
 }

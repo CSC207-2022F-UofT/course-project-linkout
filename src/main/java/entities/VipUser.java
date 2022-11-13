@@ -20,8 +20,8 @@ public class VipUser extends User{
      */
 
 
-    public VipUser(Profile profile, boolean isVIP){
-        super(profile, isVIP);
+    public VipUser(String password, String accountName, Profile profile, boolean isVIP){
+        super(password, accountName, profile, isVIP);
     }
 
     public void setInvisible(boolean arg){

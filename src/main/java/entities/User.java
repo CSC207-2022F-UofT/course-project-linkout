@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-class User {
+abstract class User extends Account{
 
     private Profile profile;
     private ArrayList<User> blocked = new ArrayList<>();
@@ -23,13 +23,17 @@ class User {
      */
 
     // For VIPUser constructor
-    public User(Profile profile, boolean isVIP){
+    public User(String password, String accountName, Profile profile, boolean isVIP){
+        super(password, accountName);
         this.profile = profile;
         this.isVIP = isVIP;
     }
 
     // For RegularUser constructor
-    public User(Profile profile){ this.profile = profile;}
+    public User(String password, String accountName, Profile profile){
+        super(password, accountName);
+        this.profile = profile;
+    }
 
     public float getRestrictedTime(){ return this.restrictedTime;}
 
@@ -37,7 +41,7 @@ class User {
 
     public Profile displayProfile(){ return this.profile;}
 
-    public ArrayList<User> showBlocked(){ return this.blocked;}
+    public List<User> showBlocked(){ return this.blocked;}
 
     public List<User> showLiked(){ return this.liked;}
 
@@ -57,5 +61,6 @@ class User {
         revBody.add(review.getComment());
         return revBody;
     }
+
 
 }
