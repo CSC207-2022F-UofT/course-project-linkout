@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-abstract class User extends Account{
+public abstract class User extends Account{
 
     private Profile profile;
     private ArrayList<User> blocked = new ArrayList<>();

@@ -1,10 +1,10 @@
 package entities;
 
 public class Review {
-    private int rating;
-    private String comment;
+    private final int rating;
+    private final String comment;
     private static int count = 0;
-    private int id;
+    private final int id;
 
     /**
      * Create a new Review with rating, comment, and its unique id (start from 1)
