@@ -7,7 +7,7 @@ import java.util.List;
 abstract class User extends Account{
 
     private Profile profile;
-    private ArrayList<User> blocked = new ArrayList<>();
+    private List<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
     private List<User> liked = new ArrayList<>();
     private List<User> likedme = new ArrayList<>();
