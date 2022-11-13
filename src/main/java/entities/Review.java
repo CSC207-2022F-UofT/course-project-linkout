@@ -1,6 +1,6 @@
 package entities;
 
-public class Review implements Savable{
+public class Review{
     private int rating;
     private String comment;
     private User user;
@@ -64,7 +64,7 @@ public class Review implements Savable{
                 '}';
     }
 
-    @Override
+    //@Override
     public String toSavableFormat() {
         return user.toString() + "," + rating + "," + comment + "," + id;
     }
