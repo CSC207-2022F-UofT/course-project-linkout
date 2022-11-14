@@ -61,7 +61,7 @@ public abstract class User extends Account{
         this.reviews.put(revId, revBody);
     }
 
-    public void countDownRestrictionTime(){
+    public boolean countDownRestrictionTime(){
         LocalDateTime expire = LocalDateTime.now().plusSeconds((long)this.restrictedTime);
         while (LocalDateTime.now().compareTo(expire) < 0){
             this.restrictedTime = Duration.between(expire, LocalDateTime.now()).toSeconds();
@@ -71,6 +71,7 @@ public abstract class User extends Account{
                 System.out.println(this.restrictedTime);
             }
         }
+        return true; // will return true if restriction is cleared.
     }
 
     private List<Object> extractReviewBody(Review review){
