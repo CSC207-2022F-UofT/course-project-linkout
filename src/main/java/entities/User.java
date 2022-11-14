@@ -1,5 +1,7 @@
 package entities;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -45,6 +47,10 @@ public abstract class User extends Account{
 
     public List<User> showLiked(){ return this.liked;}
 
+    public boolean showVip(){ return this.isVIP;}
+
+    public void setVipStatus(boolean isvip){ this.isVIP = isvip;}
+
     public List<User> showLikedMe(){ return this.likedme;}
 
     public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
@@ -55,12 +61,26 @@ public abstract class User extends Account{
         this.reviews.put(revId, revBody);
     }
 
+    public void countDownRestrictionTime(){
+        LocalDateTime expire = LocalDateTime.now().plusSeconds((long)this.restrictedTime);
+        while (LocalDateTime.now().compareTo(expire) < 0){
+            this.restrictedTime = Duration.between(expire, LocalDateTime.now()).toSeconds();
+            if (this.restrictedTime > 60) {
+                System.out.println("More than 1 minutes");
+            }else{
+                System.out.println(this.restrictedTime);
+            }
+        }
+    }
+
     private List<Object> extractReviewBody(Review review){
         List<Object> revBody = new ArrayList<>();
         revBody.add(review.getRating());
         revBody.add(review.getComment());
         return revBody;
     }
+
+
 
 
 }
