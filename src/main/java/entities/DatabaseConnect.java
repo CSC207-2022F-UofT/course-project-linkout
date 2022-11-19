@@ -13,9 +13,12 @@ public class DatabaseConnect {
 
     private String profilesfile;
 
-    public DatabaseConnect(String likespath, String profilespath){
+    private String reviewsfile;
+
+    public DatabaseConnect(String likespath, String profilespath, String reviewspath){
         this.likesfile = likespath;
         this.profilesfile = profilespath;
+        this.reviewsfile = reviewspath;
     }
 
     private HSSFWorkbook ProfilesBook() throws IOException {
@@ -27,9 +30,18 @@ public class DatabaseConnect {
         return wb;
     }
 
-    private HSSFWorkbook LikesSheet() throws IOException {
+    private HSSFWorkbook LikesBook() throws IOException {
         //obtaining input bytes from a file
         FileInputStream fis=new FileInputStream(new File(this.likesfile));
+        //creating workbook instance that refers to .xls file
+        HSSFWorkbook wb=new HSSFWorkbook(fis);
+
+        return wb;
+    }
+
+    private HSSFWorkbook ReviewsBook() throws IOException {
+        //obtaining input bytes from a file
+        FileInputStream fis=new FileInputStream(new File(this.reviewsfile));
         //creating workbook instance that refers to .xls file
         HSSFWorkbook wb=new HSSFWorkbook(fis);
 
