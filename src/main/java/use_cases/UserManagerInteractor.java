@@ -1,13 +1,10 @@
 package use_cases;
 
-import entities.Profile;
-import entities.User;
-
-import java.time.LocalDateTime;
+import entities.*;
+import java.util.Hashtable;
 import java.util.List;
 
 public class UserManagerInteractor {
-
 
     protected User user;
 
@@ -19,11 +16,19 @@ public class UserManagerInteractor {
         return user.showLiked();
     }
 
-    public boolean viewAccountStatus(){
+    public String viewAccountStatus(){
+        return "User is VIP: " + showVIPStatus() + "; User is restricted: " + showRestrictionStatus();
+    }
+
+    public boolean showVIPStatus(){
         return user.showVip();
     }
 
-    public void changeAccountStatus(boolean isvip){
+    public boolean showRestrictionStatus(){
+        return user.getRestrictedTime() != 0;
+    }
+
+    public void changeVIPStatus(boolean isvip){
         user.setVipStatus(isvip);
     }
 
@@ -43,6 +48,18 @@ public class UserManagerInteractor {
         return user.countDownRestrictionTime();
     }
 
-
+    public User upgrade(){
+        if (!showVIPStatus()) {
+            Upgradable upgrade_user = (Upgradable) user;
+            Hashtable<String, Object> info = upgrade_user.upgrade();
+            UserFactory factory  = new UserFactory();
+            return factory.create(
+                    (String) info.get("password"),
+                    (String) info.get("accountName"),
+                    (Profile) info.get("profile"),
+                    true);
+        }
+        throw new IllegalArgumentException("User cannot be upgraded");
+    }
 
 }
