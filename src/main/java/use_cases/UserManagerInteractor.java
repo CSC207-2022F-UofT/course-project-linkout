@@ -52,6 +52,7 @@ public class UserManagerInteractor {
         if (!showVIPStatus()) {
             Upgradable upgrade_user = (Upgradable) user;
             Hashtable<String, Object> info = upgrade_user.upgrade();
+            // TODO: Need to delete the regularUser with the same accountName first then create the VIPUser
             UserFactory factory  = new UserFactory();
             return factory.create(
                     (String) info.get("password"),
