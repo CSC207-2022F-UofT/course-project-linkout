@@ -19,9 +19,9 @@ public class RecommendModel {
         this.db = new DatabaseConnect(workingdir);
     }
 
-    private void UpdatePopular() throws IOException {
+    private void UpdatePopular(String username) throws IOException {
         String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", this.workingdir),
-                String.format("%s/src/main/data", this.workingdir), "popular"};
+                String.format("%s/src/main/data", this.workingdir), "popular", String.format("--username=%s", username)};
 
         String s;
         Runtime runtime = Runtime.getRuntime();
@@ -40,6 +40,27 @@ public class RecommendModel {
         }
     }
 
+    private void UpdatePopular(String username, int k) throws IOException {
+        String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", this.workingdir),
+                String.format("%s/src/main/data", this.workingdir), "popular", String.format("--username=%s", username),
+                String.format("--maxusers=%o", k)};
+
+        String s;
+        Runtime runtime = Runtime.getRuntime();
+        Process process = runtime.exec(command);
+
+        System.out.println("Here is the standard output of the command:\n");
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        while ((s = stdInput.readLine()) != null) {
+            System.out.println(s);
+        }
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+        // Read any errors from the attempted command
+        System.out.println("Here is the standard error of the command (if any):\n");
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
+    }
     private void UpdateSimilar(String username, String userviewed, int k) throws IOException {
         String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", this.workingdir),
                 String.format("%s/src/main/data", this.workingdir), "similar", String.format("--username=%s", username),
@@ -149,8 +170,14 @@ public class RecommendModel {
         }
     }
 
-    public ArrayList<User> Popular() throws IOException, InvalidAttributeValueException {
-        UpdatePopular();
+    public ArrayList<User> Popular(String username, int k) throws IOException, InvalidAttributeValueException {
+        UpdatePopular(username, k);
+        ArrayList<User> popular = db.LoadAllUser("popular");
+        return popular;
+    }
+
+    public ArrayList<User> Popular(String username) throws IOException, InvalidAttributeValueException {
+        UpdatePopular(username);
         ArrayList<User> popular = db.LoadAllUser("popular");
         return popular;
     }

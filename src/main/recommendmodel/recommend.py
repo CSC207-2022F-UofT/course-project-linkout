@@ -13,8 +13,15 @@ class RecommendModel(object):
         self.likes = pd.read_excel(workingdir+"/likes.xls")
         self.reviews = pd.read_excel(workingdir+"/reviews.xls")
 
-    def popular_users(self):
-        selected = self.likes["userviewed"].value_counts()[:10].index.tolist()
+    def popular_users(self, username, num=20):
+        popular_ls = self.likes["userviewed"].value_counts().index.tolist()
+        seen = self.likes.loc[self.likes["username"] == username, "userviewed"].values
+        selected = []
+        while (len(selected) < num) and (len(popular_ls) > 0):
+            if popular_ls[0] not in seen:
+                selected.append(popular_ls.pop(0))
+            else:
+                popular_ls.pop(0)
         pop_data = self.profiles[self.profiles["username"].isin(selected)]
         pop_data.to_excel(self.workingdir+"/popular.xls",
                           index=False)
@@ -151,15 +158,17 @@ def cli(ctx, workingdir):
 
 @cli.command()
 @click.pass_context
-def popular(ctx):
-    ctx.obj.popular_users()
+@click.option('--username', required=True)
+@click.option('--maxusers', default=20)
+def popular(ctx, username, maxusers):
+    ctx.obj.popular_users(username=username, num=maxusers)
     click.echo("updated popular.xls")
 
 @cli.command()
 @click.pass_context
 @click.option('--username', required=True)
 @click.option('--userviewed', required=True)
-@click.option('--maxusers', default=10)
+@click.option('--maxusers', default=20)
 def similar(ctx, username, userviewed, maxusers):
     ctx.obj.similar_user(userid=username, userviewed_id=userviewed, k=maxusers)
     click.echo("updated similar.xls")
