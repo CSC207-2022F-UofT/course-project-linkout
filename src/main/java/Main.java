@@ -1,5 +1,5 @@
 import controller.ReviewController;
-import entities.RegUserFactory;
+import entities.UserFactory;
 import presenter.ReviewPresenter;
 import screen.FileReview;
 import screen.ReviewCreationScreen;
@@ -23,7 +23,7 @@ public class Main {
         ReviewGateway review;
         review = new FileReview("reviews.csv");
         ReviewOutputBoundary presenter = new ReviewPresenter();
-        RegUserFactory userFactory = new RegUserFactory();
+        UserFactory userFactory = new UserFactory();
         ReviewInputBoundary interactor = new ReviewInteractor(
                 presenter, review, userFactory );
         ReviewController reviewController = new ReviewController(interactor);

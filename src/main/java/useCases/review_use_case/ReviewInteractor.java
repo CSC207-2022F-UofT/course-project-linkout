@@ -1,16 +1,15 @@
 package useCases.review_use_case;
-
-import entities.RegUserFactory;
 import entities.RegularUser;
 import entities.Review;
 import entities.User;
+import entities.UserFactory;
 
 import java.time.LocalDateTime;
 
 public class ReviewInteractor implements ReviewInputBoundary{
     private final ReviewOutputBoundary outputBoundary;
     private final ReviewGateway reviewGateway;
-    private final RegUserFactory userFactory;
+    private final UserFactory userFactory;
 
 
     /**
@@ -20,7 +19,7 @@ public class ReviewInteractor implements ReviewInputBoundary{
      * @param userFactory a UserFactory object
      */
 
-    public ReviewInteractor(ReviewOutputBoundary outputBoundary, ReviewGateway reviewGateway, RegUserFactory userFactory) {
+    public ReviewInteractor(ReviewOutputBoundary outputBoundary, ReviewGateway reviewGateway, UserFactory userFactory) {
         this.outputBoundary = outputBoundary;
         this.reviewGateway = reviewGateway;
         this.userFactory = userFactory;
@@ -33,6 +32,7 @@ public class ReviewInteractor implements ReviewInputBoundary{
 
     @Override
     public ReviewResponseModel addReview(ReviewRequestModel review){
+
         User user = new RegularUser(null, null, null);
         Review reviewObject = new Review(review.getRating(), review.getComment(), user);
         //TODO: add this reviewObject to a User's review list
