@@ -5,7 +5,7 @@ from scipy.sparse import csr_matrix
 import random
 import click
 
-class RecommendModel:
+class RecommendModel(object):
 
     def __init__(self, workingdir):
         self.workingdir = workingdir
@@ -71,7 +71,7 @@ class RecommendModel:
         if kmax == 0:
             recm_data = pd.DataFrame(columns=self.profiles.columns)
         else:
-            similar_ids = self.find_similar_users(self.likes, userviewed_id=userviewed_id, k=k)
+            similar_ids = self.find_similar_users(userviewed_id=userviewed_id, k=k)
             selected = [i for i in similar_ids if i not in self.likes.loc[self.likes["username"] == userid, "userviewed"].values]
             recm_data = self.profiles[self.profiles["username"].isin(selected)]
         recm_data.to_excel(self.workingdir + "/similar.xls",
@@ -144,36 +144,35 @@ class RecommendModel:
 
 
 @click.group()
-def cli():
-    pass
-
-@click.command()
+@click.pass_context
 @click.argument('workingdir', type=click.Path(exists=True))
-def popular(workingdir):
-    db = recommend(workingdir)
-    db.popular_users()
+def cli(ctx, workingdir):
+    ctx.obj = RecommendModel(workingdir)
 
-@click.command()
-@click.argument('workingdir', type=click.Path(exists=True))
-@click.argument('username')
-@click.argument('userviewed')
-@click.argument('maxusers')
-def similar(workingdir, username, userviewed, maxusers=10):
-    db = recommend(workingdir)
-    db.similar_user(userid=username, userviewed_id=userviewed, k=maxusers)
+@cli.command()
+@click.pass_context
+def popular(ctx):
+    ctx.obj.popular_users()
+    click.echo("updated popular.xls")
 
-@click.command()
-@click.argument('workingdir', type=click.Path(exists=True))
-@click.argument('username')
-@click.argument('numNN')
-@click.argument('maxusers')
-def recommend(workingdir, username, numNN=5, maxusers=20):
-    db = recommend(workingdir)
-    db.recommend(userid = username, k=numNN, num=maxusers)
+@cli.command()
+@click.pass_context
+@click.option('--username', required=True)
+@click.option('--userviewed', required=True)
+@click.option('--maxusers', default=10)
+def similar(ctx, username, userviewed, maxusers):
+    ctx.obj.similar_user(userid=username, userviewed_id=userviewed, k=maxusers)
+    click.echo("updated similar.xls")
 
-cli.add_command(popular)
-cli.add_command(similar)
-cli.add_command(recommend)
+@cli.command()
+@click.pass_context
+@click.option('--username', required=True)
+@click.option('--k', default=5)
+@click.option('--maxusers', default=20)
+def recommend(ctx, username, k, maxusers):
+    ctx.obj.recommend(userid = username, k=k, num=maxusers)
+    click.echo("updated recommend.xls and recommend_base.xls")
+
 
 if __name__ == "__main__":
     cli()
