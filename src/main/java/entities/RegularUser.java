@@ -1,6 +1,8 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class RegularUser extends User implements Upgradable{
 
@@ -18,11 +20,15 @@ public class RegularUser extends User implements Upgradable{
     }
 
     @Override
-    public VipUser upgrade() {
+    public Hashtable<String, Object> upgrade() {
         this.isVIP = true;
         Profile profile = this.displayProfile();
         String password = this.getPassword();
         String accountName = this.getAccountName();
-        return new VipUser(password, accountName, profile, true);
+        Hashtable<String, Object> lstInfo = new Hashtable<>();
+        lstInfo.put("profile", profile);
+        lstInfo.put("password", password);
+        lstInfo.put("accountName", accountName);
+        return lstInfo;
     }
 }
