@@ -8,12 +8,12 @@ import java.util.List;
 
 public abstract class User extends Account{
 
-    private Profile profile;
-    private List<User> blocked = new ArrayList<>();
+    private final Profile profile;
+    private final List<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
-    private List<User> liked = new ArrayList<>();
-    private List<User> likedme = new ArrayList<>();
-    private Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
+    private final List<User> liked = new ArrayList<>();
+    private final List<User> likedme = new ArrayList<>();
+    private final Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
     private float restrictedTime = 0;
 
 
@@ -81,6 +81,9 @@ public abstract class User extends Account{
         return revBody;
     }
 
+    public void like(User user){
+        this.liked.add(user);
+    }
 
 
 
