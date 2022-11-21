@@ -12,7 +12,7 @@ public class UserManagerInteractor {
         this.user = user;
     }
 
-    public List<User> viewLiked(){
+    public List<String> viewLiked(){
         return user.showLiked();
     }
 

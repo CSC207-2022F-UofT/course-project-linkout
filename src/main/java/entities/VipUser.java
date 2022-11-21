@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 public class VipUser extends User{
 
     private boolean isInvisible;
-    private List<User> visitors;
+    private List<String> visitors;
     private Hashtable<Integer, List<Object>> hiddenReviews = new Hashtable<>();
 
     /**
@@ -20,23 +20,24 @@ public class VipUser extends User{
      */
 
 
-    public VipUser(String password, String accountName, Profile profile, boolean isVIP){
-        super(password, accountName, profile, isVIP);
+    public VipUser(String password, String accountName, Profile profile, boolean isVIP,
+                   List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
+        super(password, accountName, profile, isVIP, liked, likedme, reviews);
     }
 
     public void setInvisible(boolean arg){
         this.isInvisible = arg;
     }
 
-    public List<User> showLikedMe(){
+    public List<String> showLikedMe(){
         return super.showLikedMe();
     }
 
-    public List<User> showVisitor(){
+    public List<String> showVisitor(){
         return this.visitors;
     }
 
-    public void addVisitor(User visitor){
+    public void addVisitor(String visitor){
         this.visitors.add(visitor);
     }
 

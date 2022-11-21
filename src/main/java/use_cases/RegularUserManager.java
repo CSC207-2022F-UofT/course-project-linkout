@@ -4,6 +4,7 @@ package use_cases;
 import entities.*;
 
 import java.util.Hashtable;
+import java.util.List;
 
 public class RegularUserManager extends UserManagerInteractor{
 
@@ -21,7 +22,10 @@ public class RegularUserManager extends UserManagerInteractor{
                     (String) info.get("password"),
                     (String) info.get("accountName"),
                     (Profile) info.get("profile"),
-                    true);
+                    true,
+                    (List<String>)  info.get("liked"),
+                    (List<String>) info.get("likedMe"),
+                    (Hashtable<Integer, List<Object>>) info.get("review"));
         }
         throw new IllegalArgumentException("User cannot be upgraded");
     }

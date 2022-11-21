@@ -9,7 +9,7 @@ import java.util.List;
 public class VIPUserManager extends UserManagerInteractor{
 
 
-    private VipUser vipUser;
+    private final VipUser vipUser;
 
     public VIPUserManager(VipUser vipUser){
         super(vipUser);
@@ -24,11 +24,11 @@ public class VIPUserManager extends UserManagerInteractor{
         vipUser.setInvisible(invisible);
     }
 
-    public List<User> showLikeMe(){
+    public List<String> showLikeMe(){
         return vipUser.showLikedMe();
     }
 
-    public List<User> showVisitor(){
+    public List<String> showVisitor(){
         return vipUser.showVisitor();
     }
 }
