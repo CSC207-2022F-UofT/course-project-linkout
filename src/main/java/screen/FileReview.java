@@ -21,7 +21,7 @@ public class FileReview implements ReviewGateway {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             for (Review review: reviews){
-                writer.write(review.toString() + "\n");
+                writer.write(review.toSavableFormat() + "\n");
             }
             writer.close();
         } catch (IOException e) {

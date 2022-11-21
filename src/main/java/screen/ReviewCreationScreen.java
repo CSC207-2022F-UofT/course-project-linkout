@@ -66,7 +66,7 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
         try {
             int ratingInt = parseInt(rating.getText());
             reviewController.addReview(ratingInt, comment.getText(), username.getText());
-            JOptionPane.showMessageDialog(this, username.getText() + "created.");
+            JOptionPane.showMessageDialog(this, username.getText() + "'s review created.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

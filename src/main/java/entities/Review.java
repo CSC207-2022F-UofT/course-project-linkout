@@ -22,6 +22,13 @@ public class Review implements Savable{
         this.id = count++;
     }
 
+    public Review(int rating, String comment, User user, int id) {
+        this.rating = rating;
+        this.comment = comment;
+        this.user = user;
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
