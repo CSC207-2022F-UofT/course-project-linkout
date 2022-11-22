@@ -1,11 +1,8 @@
 package entities;
-
-
-public class Review {
+public class Review{
     private int rating;
     private String comment;
     private String writer;
-
     private String receiver;
     private static int count;
     private int id;
@@ -65,11 +62,10 @@ public class Review {
         return db.findUser(writer);
     }
 
-    public User getReceiver() {
-        return db.findUser(receiver);
-    }
-
     public void setWriter(String writer) {
         this.writer = writer;
+        
+    public User getReceiver() {
+        return db.findUser(receiver);
     }
 }
