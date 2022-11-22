@@ -9,10 +9,16 @@ public class Report {
     private String reportID;
     private String category;
     private String reportText;
-    private List<String> supportingEvidence;
+    private ArrayList<String> supportingEvidence;
 
-    /*
-    Constructor for the report class. Note that the reportID is self-generated.
+    /**
+     * Constructor for the report class. Note that the reportID is self-generated.
+     *
+     * @param r1    The ID of the user who made the report.
+     * @param r2    The ID of the user which the report concerns.
+     * @param c     The category of the report.
+     * @param t     The text of the report.
+     * @param se    Any supporting evidence (e.g., links to images) for the report.
      */
     public Report(String r1, String r2, String c, String t,
                   ArrayList<String> se) {
@@ -29,7 +35,10 @@ public class Report {
      */
     public String getReportingUserID() { return reportingUserID; }
     public String getReportedUserID() { return reportedUserID; }
+    public String getReportID() { return reportID; }
     public String getCategory() { return category; }
+    public String getReportText() { return reportText; }
+    public ArrayList<String> getSupportingEvidence() { return supportingEvidence; }
 
     /*
     Setter methods.

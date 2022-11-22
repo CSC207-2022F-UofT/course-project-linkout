@@ -3,7 +3,7 @@ package entities;
 public class Profile {
     private String location;
     private String gender;
-    private String age;
+    private int age;
     private String sexuality;
     private String hobbies;
     private int height;
@@ -26,7 +26,7 @@ public class Profile {
      * @param selfDescription the selfDescription of this single Profile.
      */
 
-    public Profile(String location, String gender, String age, String sexuality,
+    public Profile(String location, String gender, int age, String sexuality,
                    String hobbies, int height, int weight, int contactInformation,
                    String selfDescription) {
         this.location = location;
@@ -46,7 +46,7 @@ public class Profile {
     public int getWeight() {
         return weight;
     }
-    public String getAge() {
+    public int getAge() {
         return age;
     }
     public int getHeight() {
@@ -68,7 +68,7 @@ public class Profile {
         return selfDescription;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
     public void setContactInformation(int contactInformation) {
