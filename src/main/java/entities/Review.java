@@ -1,5 +1,6 @@
 package entities;
 
+
 public class Review {
     private final int rating;
     private final String comment;
@@ -37,4 +38,5 @@ public class Review {
                 ", id=" + id +
                 '}';
     }
+
 }
