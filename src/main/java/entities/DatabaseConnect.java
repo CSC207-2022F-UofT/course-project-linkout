@@ -86,61 +86,37 @@ public class DatabaseConnect {
         return wb;
     }
 
+    private String loadStringCell(Cell cell){
+        String toreturn;
+        if ((cell != null) & (cell.toString() != "")) {
+            toreturn = cell.toString();
+        } else {
+            toreturn = "Unknown";
+        }
+        return toreturn;
+    }
+
+    private int loadIntCell(Cell cell){
+        int toreturn;
+        if ((cell != null) & (cell.toString() != "")) {
+            toreturn = Double.valueOf(cell.toString()).intValue();
+        } else {
+            toreturn = -1;
+        }
+        return toreturn;
+    }
+
+
     private Profile CreateProfile(Row row) {
-        String location;
-        if ((row.getCell(2) != null) & (row.getCell(2).toString() != "")) {
-            location = row.getCell(2).toString();
-        } else {
-            location = "Unknown";
-        }
-        String gender;
-        if ((row.getCell(1) != null) & (row.getCell(1).toString() != "")) {
-            gender = row.getCell(1).toString();
-        } else {
-            gender = "Unknown";
-        }
-        int age;
-        if ((row.getCell(0) != null) & (row.getCell(0).toString() != "")) {
-            age = Double.valueOf(row.getCell(0).toString()).intValue();
-        } else {
-            age = -1;
-        }
-        String sexuality;
-        if ((row.getCell(3) != null) & (row.getCell(3).toString() != "")) {
-            sexuality = row.getCell(3).toString();
-        } else {
-            sexuality = "Unknown";
-        }
-        String hobbies;
-        if ((row.getCell(7) != null) & (row.getCell(7).toString() != "")) {
-            hobbies = row.getCell(7).toString();
-        } else {
-            hobbies = "Unknown";
-        }
-        int height;
-        if ((row.getCell(4) != null) & (row.getCell(4).toString() != "")) {
-            height = Double.valueOf(row.getCell(4).toString()).intValue();
-        } else {
-            height = -1;
-        }
-        int weight;
-        if ((row.getCell(6) != null) & (row.getCell(6).toString() != "")) {
-            weight = Double.valueOf(row.getCell(6).toString()).intValue();
-        } else {
-            weight = -1;
-        }
-        int contactInformation;
-        if ((row.getCell(11) != null) & (row.getCell(11).toString() != "")) {
-            contactInformation = Double.valueOf(row.getCell(11).toString()).intValue();
-        } else {
-            contactInformation = -1;
-        }
-        String selfDescription;
-        if ((row.getCell(5) != null) & (row.getCell(5).toString() != "")) {
-            selfDescription = row.getCell(5).toString();
-        } else {
-            selfDescription = "Unknown";
-        }
+        String location = loadStringCell(row.getCell(2));
+        String gender = loadStringCell(row.getCell(1));
+        int age = loadIntCell(row.getCell(0));
+        String sexuality = loadStringCell(row.getCell(3));
+        String hobbies = loadStringCell(row.getCell(7));
+        int height = loadIntCell(row.getCell(4));
+        int weight = loadIntCell(row.getCell(6));
+        int contactInformation = loadIntCell(row.getCell(11));
+        String selfDescription = loadStringCell(row.getCell(5));
         Profile profile = new Profile(
                 location, gender, age, sexuality, hobbies, height, weight, contactInformation, selfDescription
         );
@@ -176,8 +152,8 @@ public class DatabaseConnect {
             if (currname.equals(usrname)) {
                 Row row = sheet.getRow(i);
                 Profile profile = CreateProfile(row);
-                String password = row.getCell(9).toString();
-                String isVip = row.getCell(10).toString();
+                String password = loadStringCell(row.getCell(9));
+                String isVip = loadStringCell(row.getCell(10));
                 if (isVip.equals("TRUE")){
                     user = new VipUser(password, usrname, profile, true);
                 } else {
@@ -186,6 +162,25 @@ public class DatabaseConnect {
             }
         }
         return user;
+    }
+
+    public Review findReview(int reviewId) throws IOException, InvalidAttributeValueException{
+        HSSFWorkbook wb = ReviewsBook();
+        //creating a Sheet object to retrieve the object
+        HSSFSheet sheet=wb.getSheetAt(0);
+        String stringid = Integer.toString(reviewId);
+        Review review = null;
+        String currid;
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            currid = sheet.getRow(i).getCell(0).toString();
+            if (currid.equals(stringid)) {
+                Row row = sheet.getRow(i);
+                int rating = loadIntCell(row.getCell(1));
+                String comment = loadStringCell(row.getCell(2));
+                review = new Review(rating, comment, reviewId);
+            }
+        }
+        return review;
     }
 
     public ArrayList<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException {

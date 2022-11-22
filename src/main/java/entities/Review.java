@@ -20,6 +20,12 @@ public class Review {
         this.id = count++;
     }
 
+    public Review(int rating, String comment, int id) {
+        this.rating = rating;
+        this.comment = comment;
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
