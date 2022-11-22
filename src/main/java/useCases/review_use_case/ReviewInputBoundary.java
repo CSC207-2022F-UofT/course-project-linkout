@@ -8,6 +8,4 @@ public interface ReviewInputBoundary {
     ReviewResponseModel deleteReview(int id);
 
     ReviewResponseModel hideReview(int id);
-
-    void updateRating(ReviewRequestModel requestModel);
 }

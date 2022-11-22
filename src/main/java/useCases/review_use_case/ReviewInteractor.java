@@ -32,8 +32,8 @@ public class ReviewInteractor implements ReviewInputBoundary{
 
     @Override
     public ReviewResponseModel addReview(ReviewRequestModel review){
-
-        User user = new RegularUser(null, null, null);
+        //TODO: find user by username, create the user instance
+        User user = new RegularUser(null,null,null);
         Review reviewObject = new Review(review.getRating(), review.getComment(), user);
         //TODO: add this reviewObject to a User's review list
         //TODO: implement ReviewGateway to save this reviewObject
@@ -56,9 +56,4 @@ public class ReviewInteractor implements ReviewInputBoundary{
         return null;
     }
 
-    @Override
-    public void updateRating(ReviewRequestModel review){
-        float rating = review.getRating();
-        // TODO: implement the method
-    }
 }
