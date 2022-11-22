@@ -1,6 +1,6 @@
 package entities;
 
-public class Review implements Savable{
+public class Review{
     private int rating;
     private String comment;
     private String username;
@@ -71,8 +71,4 @@ public class Review implements Savable{
         this.username = username;
     }
 
-    @Override
-    public String toSavableFormat() {
-        return this.getUserCommented().getAccountName() + "," + rating + "," + comment + "," + id;
-    }
 }
