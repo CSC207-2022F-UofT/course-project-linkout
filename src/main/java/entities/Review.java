@@ -2,6 +2,9 @@ package entities;
 
 import Gateway.DatabaseConnect;
 
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
+
 public class Review{
     private int rating;
     private String comment;
@@ -61,7 +64,7 @@ public class Review{
         this.comment = comment;
     }
 
-    public User getWriter() {
+    public User getWriter() throws IOException, InvalidAttributeValueException {
         return db.findUser(writer);
     }
 
@@ -69,7 +72,7 @@ public class Review{
         this.writer = writer;
     }
 
-    public User getReceiver() {
+    public User getReceiver() throws IOException, InvalidAttributeValueException {
         return db.findUser(receiver);
     }
 }

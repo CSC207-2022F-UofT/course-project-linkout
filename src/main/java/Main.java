@@ -1,7 +1,6 @@
 import controller.ReviewController;
 import entities.UserFactory;
 import presenter.ReviewPresenter;
-import screen.FileReview;
 import screen.ReviewCreationScreen;
 import useCases.review_use_case.ReviewGateway;
 import useCases.review_use_case.ReviewInputBoundary;
