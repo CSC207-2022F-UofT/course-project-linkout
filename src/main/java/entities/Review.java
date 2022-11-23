@@ -2,15 +2,11 @@ package entities;
 
 import Gateway.DatabaseConnect;
 
-import javax.management.InvalidAttributeValueException;
-import java.io.IOException;
-
-public class Review {
+public class Review{
     private int rating;
     private String comment;
-    private String username;
-
-    private String userviewed;
+    private String writer;
+    private String receiver;
     private static int count;
     private int id;
 
@@ -21,22 +17,23 @@ public class Review {
      *
      * @param rating the rating of this single Review (1,2,3,4,5).
      * @param comment the comment of this single Review.
-     * @param username the user who receives this single Review.
+     * @param writer the accountname of the user who wrote this single Review.
+     * @param receiver the accountname of the user who receives this single Review.
      */
 
-    public Review(int rating, String comment, String username, String userviewed) {
+    public Review(int rating, String comment, String writer, String receiver) {
         this.rating = rating;
         this.comment = comment;
-        this.userviewed = userviewed;
-        this.username = username;
+        this.writer = writer;
+        this.receiver = receiver;
         this.id = count++;
     }
 
-    public Review(int rating, String comment, String username, String userviewed, int id) {
+    public Review(int rating, String comment, String writer, String receiver, int id) {
         this.rating = rating;
         this.comment = comment;
-        this.userviewed = userviewed;
-        this.username = username;
+        this.writer = writer;
+        this.receiver = receiver;
         this.id = id;
     }
 
@@ -64,20 +61,15 @@ public class Review {
         this.comment = comment;
     }
 
-    public User getUser() throws IOException, InvalidAttributeValueException {
-        return db.findUser(username);
+    public User getWriter() {
+        return db.findUser(writer);
     }
 
-    public User getUserCommented() throws IOException, InvalidAttributeValueException {
-        return db.findUser(userviewed);
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
-    public void setUser(String username) {
-        this.username = username;
+    public User getReceiver() {
+        return db.findUser(receiver);
     }
-
-    //@Override
-    //public String toSavableFormat() {
-    //    return this.getUserCommented().getAccountName() + "," + rating + "," + comment + "," + id;
-    //}
 }

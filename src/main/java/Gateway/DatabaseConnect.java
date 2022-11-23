@@ -1,4 +1,4 @@
-package entities;
+package Gateway;
 import java.awt.*;
 import java.io.*;
 import java.io.File;
@@ -8,6 +8,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
+import entities.*;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -129,12 +130,15 @@ public class DatabaseConnect {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
-        String stringid = Integer.toString(reviewId);
-        String currid;
+        int currid;
         Hashtable<String, String> userinfo = new Hashtable<>();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            currid = sheet.getRow(i).getCell(3).toString();
-            if (currid.equals(stringid)) {
+            if (sheet.getRow(i).getPhysicalNumberOfCells() == 4){
+                currid = loadIntCell(sheet.getRow(i).getCell(3));
+            }else{
+                continue;
+            }
+            if (currid == reviewId) {
                 Row row = sheet.getRow(i);
                 String username = loadStringCell(row.getCell(0));
                 String userviewed = loadStringCell(row.getCell(1));
@@ -152,13 +156,13 @@ public class DatabaseConnect {
         HSSFSheet sheet=wb.getSheetAt(0);
         String stringid = Integer.toString(reviewId);
         Review review = null;
-        String currid;
+        int currid;
         int rating = -1;
         String comment = "";
         boolean found = false;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            currid = sheet.getRow(i).getCell(0).toString();
-            if (currid.equals(stringid)) {
+            currid = loadIntCell(sheet.getRow(i).getCell(0));
+            if (currid == reviewId) {
                 Row row = sheet.getRow(i);
                 rating = loadIntCell(row.getCell(1));
                 comment = loadStringCell(row.getCell(2));
@@ -183,7 +187,7 @@ public class DatabaseConnect {
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             currname = sheet.getRow(i).getCell(1).toString();
-            if (currname.equals(usrname)) {
+            if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4)) {
                 Row row = sheet.getRow(i);
                 int reviewId = loadIntCell(row.getCell(3));
                 Review review = findReview(reviewId);
@@ -278,8 +282,6 @@ public class DatabaseConnect {
         }
         return user;
     }
-
-
 
 
     public List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException {

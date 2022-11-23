@@ -26,17 +26,10 @@ public class RegularUser extends User implements Upgradable{
         Profile profile = this.displayProfile();
         String password = this.getPassword();
         String accountName = this.getAccountName();
-        List<String> liked = this.showLiked();
-        List<String> likedMe = this.showLikedMe();
-        Hashtable<Integer, List<Object>> review = this.getReviews();
-
         Hashtable<String, Object> lstInfo = new Hashtable<>();
         lstInfo.put("profile", profile);
         lstInfo.put("password", password);
         lstInfo.put("accountName", accountName);
-        lstInfo.put("liked", liked);
-        lstInfo.put("likedMe", likedMe);
-        lstInfo.put("review", review);
         return lstInfo;
     }
 }
