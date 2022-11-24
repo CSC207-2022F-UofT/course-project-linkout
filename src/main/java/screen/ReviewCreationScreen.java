@@ -7,11 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class ReviewCreationScreen extends JPanel implements ActionListener {
-    JTextField username = new JTextField(15);
+    JTextField receivername = new JTextField(15);
+    JTextField writername = new JTextField(15);
     JTextField comment = new JTextField(15);
     JTextField rating = new JTextField(15);
 
@@ -27,15 +27,18 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
 
         this.reviewController = controller;
 
-        JLabel title = new JLabel("Review Creation Screen");
+        JLabel title = new JLabel("Review Deletion Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Choose username"), username);
+        LabelTextPanel receivernameInfo = new LabelTextPanel(
+                new JLabel("Input receiver's name"), receivername);
+        LabelTextPanel writernameInfo = new LabelTextPanel(
+                new JLabel("Input writer's name"), writername);
         LabelTextPanel commentInfo = new LabelTextPanel(
-                new JLabel("Add comment"), comment);
+                new JLabel("Input comment"), comment);
         LabelTextPanel ratingInfo = new LabelTextPanel(
-                new JLabel("Add rating"), rating);
+                new JLabel("Input rating"), rating);
+
 
         JButton create = new JButton("Create");
         JButton cancel = new JButton("Cancel");
@@ -50,7 +53,8 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(usernameInfo);
+        this.add(receivernameInfo);
+        this.add(writernameInfo);
         this.add(commentInfo);
         this.add(ratingInfo);
         this.add(buttons);
@@ -65,8 +69,8 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
 
         try {
             int ratingInt = parseInt(rating.getText());
-            reviewController.addReview(ratingInt, comment.getText(), username.getText());
-            JOptionPane.showMessageDialog(this, username.getText() + "'s review created.");
+            reviewController.addReview(ratingInt, comment.getText(), writername.getText(), receivername.getText());
+            JOptionPane.showMessageDialog(this, receivername.getText() + "'s review created.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

@@ -6,15 +6,20 @@ import useCases.review_use_case.ReviewOutputBoundary;
 import useCases.review_use_case.ReviewResponseModel;
 
 public class ReviewPresenter implements ReviewOutputBoundary{
+    /**
+     * this method reports the status pf a review after an action (add,delete,hide) is performed on this
+     * review，along with the time the action is performed.
+     *
+     * @param responseModel a ReviewResponseModel containing the content, status and action time of a review
+     *                      when the review is added. When a review is deleted or hided, the response model will
+     *                      only have the status and action time of the review.
+     * @return ReviewResponseModel
+     */
     @Override
-    public ReviewResponseModel reportReviewSuccess(ReviewResponseModel responseModel) {
+    public ReviewResponseModel reportReview(ReviewResponseModel responseModel) {
         LocalDateTime responseTime = LocalDateTime.parse(responseModel.getCreationTime());
         responseModel.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
         return responseModel;
     }
 
-    @Override
-    public ReviewResponseModel reportReviewFailure(String error) {
-        throw new ReviewCreationFailed(error);
-    }
 }
