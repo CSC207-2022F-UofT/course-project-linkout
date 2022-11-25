@@ -64,7 +64,4 @@ public class ReviewRequestModel {
         return isComplete;
     }
 
-    public void setComplete(boolean complete) {
-        isComplete = complete;
-    }
 }
