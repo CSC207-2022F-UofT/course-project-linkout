@@ -1,8 +1,9 @@
-package screens;
+package screen;
 
 import user_action_use_case.UserActInputBoundary;
 import user_action_use_case.UserActInputData;
 
+// Interface Adapter Layer
 public class UserActController {
 
     private final UserActInputBoundary userInput;
@@ -12,9 +13,9 @@ public class UserActController {
         this.userInput = userInput;
     }
 
-    String action(String accName, String targetName, boolean isLiking){
+    String like(String accName, String targetName){
         //RequestModel
-        UserActInputData inputData = new UserActInputData(accName, targetName, isLiking);
+        UserActInputData inputData = new UserActInputData(accName, targetName);
         return userInput.action(inputData);
     }
 
