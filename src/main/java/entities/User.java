@@ -59,10 +59,14 @@ public abstract class User extends Account{
         this.reviews.put(revId, revBody);
     }
 
+    public void deleteReview(int id){
+        this.reviews.remove(id);
+    }
+
     public boolean countDownRestrictionTime(){
         LocalDateTime expire = LocalDateTime.now().plusSeconds((long)this.restrictedTime);
         while (LocalDateTime.now().compareTo(expire) < 0){
-            this.restrictedTime = Duration.between(expire, LocalDateTime.now()).toSeconds();
+            this.restrictedTime = Duration.between(expire, LocalDateTime.now()).getSeconds();
             if (this.restrictedTime > 60) {
                 System.out.println("More than 1 minutes");
             }else{
