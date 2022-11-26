@@ -1,4 +1,4 @@
-package regular_user_register_use_case;
+package user_register_use_case;
 
 import entities.Profile;
 

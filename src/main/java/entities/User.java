@@ -90,6 +90,10 @@ public abstract class User extends Account{
     }
 
 
-
-
+    public boolean passwordIsValid() {
+        if (this.getPassword().length() >= 3){
+            return true;
+        }
+        return false;
+    }
 }

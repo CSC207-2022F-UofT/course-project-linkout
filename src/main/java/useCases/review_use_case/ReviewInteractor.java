@@ -15,7 +15,7 @@ public class ReviewInteractor implements ReviewInputBoundary{
     /**
      * Initialize a ReviewInteractor
      * @param outputBoundary a ReviewOutputBoundary object
-     * @param reviewGateway a ReviewGateway object
+     * @param reviewGateway a DatabaseConnect object
      * @param userFactory a UserFactory object
      */
 
@@ -36,8 +36,7 @@ public class ReviewInteractor implements ReviewInputBoundary{
         User user = new RegularUser(null,null,null, null, null, null);
         User receiver = new RegularUser(null,null,null, null, null, null);
         Review reviewObject = new Review(review.getRating(), review.getComment(), user.getAccountName(), receiver.getAccountName());
-        //TODO: add this reviewObject to a User's review list
-        //TODO: implement ReviewGateway to save this reviewObject
+
         String reviewString = "Review:\n" + "Comment: " + review.getComment() + "\n" +
                 "Rating: " + review.getRating() + "\n" + "User: " + review.getUser().toString();
         LocalDateTime now = LocalDateTime.now();
