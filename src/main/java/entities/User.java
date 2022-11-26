@@ -7,7 +7,6 @@ import java.util.Hashtable;
 import java.util.List;
 
 public abstract class User extends Account{
-
     private Profile profile;
     private List<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
