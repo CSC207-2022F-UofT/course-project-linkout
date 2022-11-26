@@ -25,8 +25,9 @@ public class VipUser extends User{
         super(password, accountName, profile, isVIP, liked, likedme, reviews);
     }
 
-    public void setInvisible(boolean arg){
+    public boolean setInvisible(boolean arg){
         this.isInvisible = arg;
+        return true;
     }
 
     public List<String> showLikedMe(){
@@ -41,15 +42,16 @@ public class VipUser extends User{
         this.visitors.add(visitor);
     }
 
-    public void hideReview(ArrayList<Integer> review_ids){
+    public boolean hideReview(ArrayList<Integer> review_ids){
         for (Integer id : review_ids){
             if (this.getReviews().containsKey(id)){
                 hiddenReviews.put(id, this.getReviews().get(id));
             }
             else {
-                throw new NoSuchElementException("Review " + id + "Not Found") ;
+                return false ;
             }
         }
+        return true;
     }
 
 }

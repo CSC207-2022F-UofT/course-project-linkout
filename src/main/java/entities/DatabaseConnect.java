@@ -142,7 +142,8 @@ public class DatabaseConnect {
             selfDescription = "Unknown";
         }
         Profile profile = new Profile(
-                location, gender, age, sexuality, hobbies, height, weight, contactInformation, selfDescription
+                location, gender, String.valueOf(age), sexuality, hobbies, String.valueOf(height), String.valueOf(weight)
+                , String.valueOf(contactInformation), selfDescription
         );
         return profile;
     }

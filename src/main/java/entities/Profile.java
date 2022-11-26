@@ -3,12 +3,12 @@ package entities;
 public class Profile {
     private String location;
     private String gender;
-    private int age;
+    private String age;
     private String sexuality;
     private String hobbies;
-    private int height;
-    private int weight;
-    private int contactInformation;
+    private String height;
+    private String weight;
+    private String contactInformation;
     private String selfDescription;
 
     /**
@@ -26,8 +26,8 @@ public class Profile {
      * @param selfDescription the selfDescription of this single Profile.
      */
 
-    public Profile(String location, String gender, int age, String sexuality,
-                   String hobbies, int height, int weight, int contactInformation,
+    public Profile(String location, String gender, String age, String sexuality,
+                   String hobbies, String height, String weight, String contactInformation,
                    String selfDescription) {
         this.location = location; this.gender = gender;
         this.age = age;
@@ -39,18 +39,18 @@ public class Profile {
         this.selfDescription = selfDescription;
     }
 
-    public int getContactInformation() {
+    public String getContactInformation() {
         return contactInformation;
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 
@@ -74,11 +74,11 @@ public class Profile {
         return selfDescription;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public void setContactInformation(int contactInformation) {
+    public void setContactInformation(String contactInformation) {
         this.contactInformation = contactInformation;
     }
 
@@ -86,7 +86,7 @@ public class Profile {
         this.gender = gender;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
@@ -106,7 +106,7 @@ public class Profile {
         this.selfDescription = selfDescription;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 }

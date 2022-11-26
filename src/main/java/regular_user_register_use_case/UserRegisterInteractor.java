@@ -4,6 +4,9 @@ import entities.User;
 import entities.UserFactory;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class UserRegisterInteractor implements UserRegisterInputBoundary {
 
@@ -28,11 +31,14 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
             return userPresenter.prepareFailView("Passwords don't match.");
         }
 
-        User user = regUserFactory.create(requestModel.getPassword(),
-                requestModel.getAccountName(), requestModel.getProfile());
-        if (!user.passwordIsValid()) {
-            return userPresenter.prepareFailView("User password must have more than 3 characters.");
-        }
+        List<String> likedList = new ArrayList<>();
+        List<String> likemeList = new ArrayList<>();
+        Hashtable<Integer, List<Object>> reviewList = new Hashtable<>();
+        User user = regUserFactory.create(requestModel.getPassword(), requestModel.getAccountName(),
+                requestModel.getProfile(), false, likedList, likemeList, reviewList);
+//        if (!user.passwordIsValid()) {
+//            return userPresenter.prepareFailView("User password must have more than 3 characters.");
+//        }
 
         LocalDateTime now = LocalDateTime.now();
         UserRegisterDsRequestModel userDsModel = new UserRegisterDsRequestModel(user.getAccountName(),

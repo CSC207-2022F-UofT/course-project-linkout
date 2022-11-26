@@ -8,25 +8,20 @@ import java.util.List;
 
 public class RegularUserManager extends UserManagerInteractor{
 
-    public RegularUserManager(User regularUser){
-        super(regularUser);
+    public RegularUserManager(UserDsGateway userDsGateway, UserOutputBoundary userPresenter,
+                              UserFactory userFactory){
+        super(userDsGateway, userPresenter, userFactory);
     }
 
-    public User upgrade(){
-        if (!showVIPStatus()) {
-            Upgradable upgrade_user = (Upgradable) user;
-            Hashtable<String, Object> info = upgrade_user.upgrade();
-            // TODO: Need to delete the regularUser with the same accountName first then create the VIPUser
-            UserFactory factory  = new UserFactory();
-            return factory.create(
-                    (String) info.get("password"),
-                    (String) info.get("accountName"),
-                    (Profile) info.get("profile"),
-                    true,
-                    (List<String>)  info.get("liked"),
-                    (List<String>) info.get("likedMe"),
-                    (Hashtable<Integer, List<Object>>) info.get("review"));
+    public void upgrade(UserRequestModel username){
+        if (userDsGateway.existByName(username.getAccName())) {
+            User user = super.findUserByName(username.getAccName());
+            if (!user.showVip()){
+                userDsGateway.upgrade(username.getAccName(), true);
+                userPresenter.prepareSuccessView(true);
+            }
+            userPresenter.prepareFailedView("User cannot be upgraded");
         }
-        throw new IllegalArgumentException("User cannot be upgraded");
+        userPresenter.prepareFailedView("User does not exist.");
     }
 }

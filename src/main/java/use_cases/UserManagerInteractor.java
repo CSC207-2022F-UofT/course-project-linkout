@@ -1,53 +1,98 @@
 package use_cases;
 
 import entities.*;
-import java.util.Hashtable;
-import java.util.List;
 
-public class UserManagerInteractor {
+public class UserManagerInteractor implements UserInputBoundary {
 
-    protected User user;
+    final UserDsGateway userDsGateway;
+    final UserOutputBoundary userPresenter;
+    final UserFactory userFactory;
 
-    public UserManagerInteractor(User user){
-        this.user = user;
+
+    public UserManagerInteractor(UserDsGateway userDsGateway, UserOutputBoundary userPresenter,
+                                 UserFactory userFactory){
+        this.userDsGateway = userDsGateway;
+        this.userPresenter = userPresenter;
+        this.userFactory = userFactory;
     }
 
-    public List<String> viewLiked(){
-        return user.showLiked();
+    public void viewLiked(UserRequestModel userRequestModel) {
+        if (userDsGateway.existByName(userRequestModel.getAccName())) {
+            User user = findUserByName(userRequestModel.getAccName());
+            userPresenter.prepareLikedView(user.showLiked());
+        }
+        userPresenter.prepareFailedView("User does not exist.");
     }
 
-    public String viewAccountStatus(){
-        return "User is VIP: " + showVIPStatus() + "; User is restricted: " + showRestrictionStatus();
+    public void viewAccountStatus(UserRequestModel userRequestModel){
+        if (userDsGateway.existByName(userRequestModel.getAccName())){
+            User user = findUserByName(userRequestModel.getAccName());
+            userPresenter.prepareAccStatusView(user.showVip(), user.getRestrictedTime());
+        }
+        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public boolean showVIPStatus(){
-        return user.showVip();
+    public void showVIPStatus(UserRequestModel userRequestModel){
+        if (userDsGateway.existByName(userRequestModel.getAccName())){
+            User user = findUserByName(userRequestModel.getAccName());
+            userPresenter.prepareVipStatusView(user.showVip());
+        }
+        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public boolean showRestrictionStatus(){
-        return user.getRestrictedTime() != 0;
+    public void showRestrictedStatus(UserRequestModel userRequestModel){
+        if (userDsGateway.existByName(userRequestModel.getAccName())){
+            User user = findUserByName(userRequestModel.getAccName());
+            userPresenter.prepareRestrictionStatusView(user.getRestrictedTime());
+        }
+        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public void changeVIPStatus(boolean isvip){
-        user.setVipStatus(isvip);
+    public void changeVIPStatus(UserRequestModel userRequestModel){
+        if (userDsGateway.existByName(userRequestModel.getAccName())){
+            User user = findUserByName(userRequestModel.getAccName());
+            if (user.showVip()){
+                userPresenter.prepareFailedView("User is already VIP");
+            }
+            userPresenter.prepareSuccessView(user.setVipStatus(true));
+        }
+        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public float getRestrictionTime(){
-        return user.getRestrictedTime();
+    public void getRestrictionTime(UserRequestModel userRequestModel){
+        if (userDsGateway.existByName(userRequestModel.getAccName())){
+            User user = findUserByName(userRequestModel.getAccName());
+            if (user.getRestrictedTime() != 0){
+                userPresenter.prepareRestrictionStatusView(user.getRestrictedTime());
+            }
+            userPresenter.prepareFailedView("User is not restricted");
+        }
+        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public void setRestrictionTime(float time){
-        user.setRestrictedTime(time);
+    public void setRestrictionTime(UserRequestModel userRequestModel){
+        if (userDsGateway.existByName(userRequestModel.getAccName())){
+            User user = findUserByName(userRequestModel.getAccName());
+            if (user.getRestrictedTime() != 0){
+                userPresenter.prepareFailedView("User already restricted");
+            }
+            user.countDownRestrictionTime();
+            userPresenter.prepareSuccessView(user.setRestrictedTime(userRequestModel.getRestrictionTime()));
+        }
+        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public Profile showProfile(){
-        return user.displayProfile();
+    public void showProfile(UserRequestModel userRequestModel){
+        if (userDsGateway.existByName(userRequestModel.getAccName())){
+            User user = findUserByName(userRequestModel.getAccName());
+            Profile profile = user.displayProfile();
+            userPresenter.prepareProfileView(profile);
+        }
+        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public boolean countDownRestriction(){
-        return user.countDownRestrictionTime();
+    User findUserByName(String accName){
+        return this.userDsGateway.findUser(accName);
     }
-
-
 
 }

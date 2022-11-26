@@ -1,4 +1,8 @@
 package entities;
+
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
+
 public class Review{
     private int rating;
     private String comment;
@@ -58,14 +62,14 @@ public class Review{
         this.comment = comment;
     }
 
-    public User getWriter() {
+    public User getWriter() throws IOException, InvalidAttributeValueException {
         return db.findUser(writer);
     }
 
-    public void setWriter(String writer) {
+    public void setWriter(String writer) throws IOException, InvalidAttributeValueException {
         this.writer = writer;
-        
-    public User getReceiver() {
-        return db.findUser(receiver);
+    }
+    public User getReceiver() throws IOException, InvalidAttributeValueException {
+        return db.findUser(this.receiver);
     }
 }

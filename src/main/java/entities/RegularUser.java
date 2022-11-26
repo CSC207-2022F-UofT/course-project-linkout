@@ -6,7 +6,7 @@ import java.util.List;
 
 public class RegularUser extends User implements Upgradable{
 
-    private boolean isVIP = false;
+    private boolean isVIP;
 
 
     /**
@@ -15,9 +15,10 @@ public class RegularUser extends User implements Upgradable{
      * @param profile the profile associated with this regular user.
      */
 
-    public RegularUser(String password, String accountName, Profile profile,
+    public RegularUser(String password, String accountName, Profile profile, boolean isVip,
                        List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
         super(password, accountName, profile, liked, likedme, reviews);
+        this.isVIP = isVip;
     }
 
     @Override

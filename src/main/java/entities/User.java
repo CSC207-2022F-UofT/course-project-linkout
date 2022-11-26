@@ -46,7 +46,10 @@ public abstract class User extends Account{
 
     public float getRestrictedTime(){ return this.restrictedTime;}
 
-    public void setRestrictedTime(float setTime){ this.restrictedTime = setTime;}
+    public boolean setRestrictedTime(float setTime){
+        this.restrictedTime = setTime;
+        return true;
+    }
 
     public Profile displayProfile(){ return this.profile;}
 
@@ -54,7 +57,10 @@ public abstract class User extends Account{
 
     public boolean showVip(){ return this.isVIP;}
 
-    public void setVipStatus(boolean isvip){ this.isVIP = isvip;}
+    public boolean setVipStatus(boolean isvip){
+        this.isVIP = isvip;
+        return true;
+    }
 
     public List<String> showLikedMe(){ return this.likedme;}
 
