@@ -15,7 +15,8 @@ public abstract class User extends Account{
     private List<User> likedme = new ArrayList<>();
     private Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
     private float restrictedTime = 0;
-
+    private int restrictionDuration;
+    private ArrayList<Report> reports = new ArrayList<Report>();
 
     /**
      * Create a user with its profile and can be a vip user if isVIP param is true.
@@ -37,9 +38,13 @@ public abstract class User extends Account{
         this.profile = profile;
     }
 
-    public float getRestrictedTime(){ return this.restrictedTime;}
+    public int getRestrictionDuration() { return restrictionDuration; }
 
-    public void setRestrictedTime(float setTime){ this.restrictedTime = setTime;}
+    public void setRestrictionDuration(int restrictionDuration) { this.restrictionDuration = restrictionDuration; }
+
+    public void addReport(Report report) {
+        this.reports.add(report);
+    }
 
     public Profile displayProfile(){ return this.profile;}
 
@@ -61,7 +66,7 @@ public abstract class User extends Account{
         this.reviews.put(revId, revBody);
     }
 
-    //TODO
+    //TODO: Modify this
     public boolean countDownRestrictionTime(){
         LocalDateTime expire = LocalDateTime.now().plusSeconds((long)this.restrictedTime);
         while (LocalDateTime.now().compareTo(expire) < 0){
