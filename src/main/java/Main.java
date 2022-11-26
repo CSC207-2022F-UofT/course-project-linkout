@@ -1,7 +1,8 @@
 import controller.ReviewController;
-import entities.UserFactory;
+import entities.DatabaseConnect;
 import presenter.ReviewPresenter;
 import screen.ReviewCreationScreen;
+import screen.ReviewDeletionScreen;
 import useCases.review_use_case.ReviewGateway;
 import useCases.review_use_case.ReviewInputBoundary;
 import useCases.review_use_case.ReviewInteractor;
@@ -17,6 +18,7 @@ public class Main {
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
+
 
 
     }

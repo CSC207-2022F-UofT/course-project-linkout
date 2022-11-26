@@ -1,8 +1,4 @@
 package entities;
-
-import Gateway.DatabaseGateway;
-import useCases.review_use_case.ReviewGateway;
-
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
@@ -32,6 +28,16 @@ public class Review{
         this.id = count++;
     }
 
+    /**
+     * Overload the Review construtor. If the Review is already in the database, create a new Review
+     * with rating, comment, user and its existing id .
+     *
+     * @param rating the rating of this single Review (1,2,3,4,5).
+     * @param comment the comment of this single Review.
+     * @param writer the accountname of the user who wrote this single Review.
+     * @param receiver the accountname of the user who receives this single Review.
+     * @param id the id of the eisting Review.
+     */
     public Review(int rating, String comment, String writer, String receiver, int id) {
         this.rating = rating;
         this.comment = comment;
@@ -64,8 +70,10 @@ public class Review{
         this.comment = comment;
     }
 
+
     public String getWriter() throws IOException, InvalidAttributeValueException {
         return writer;
+
     }
 
     public void setWriter(String writer) {
