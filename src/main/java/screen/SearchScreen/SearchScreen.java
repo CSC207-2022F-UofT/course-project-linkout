@@ -1,5 +1,6 @@
-package Search;
+package screen.SearchScreen;
 
+import Search.Search;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -26,7 +27,9 @@ import java.awt.event.ActionListener;
 
 import java.awt.event.ActionEvent;
 
-public class SearchUI extends JFrame {
+
+
+public class SearchScreen extends JFrame {
 
     private JTextField txtKeyword;
 
@@ -37,12 +40,12 @@ public class SearchUI extends JFrame {
      */
 
     public static void main(String[] args) {
-        SearchUI frame = new SearchUI();
+        SearchScreen frame = new SearchScreen();
         frame.setVisible(true);
     }
 
 
-    public SearchUI() {
+    public SearchScreen() {
 
         // Build the empty frame for UI
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,6 +127,13 @@ public class SearchUI extends JFrame {
 
         model.addColumn("Username");
 
+        model.addColumn("Like");
+
+        model.addColumn("Review");
+
+        model.addColumn("Report");
+
+
         try {
             // Load the database
             FileInputStream file = new FileInputStream(new File(
@@ -139,10 +149,11 @@ public class SearchUI extends JFrame {
             Search excelSearch = new Search();
 
             // Storing the value as a String
-            String searchText = txtKeyword.getText();
+            String searchTexts = txtKeyword.getText();
+
 
             // Obtain an arrayList that contains al the matching users along with their corresponding profile
-            ArrayList<Row> rows = excelSearch.searchSheet(searchText, sheet);
+            ArrayList<Row> rows = excelSearch.searchSheet(searchTexts, sheet);
 
             // Iterating the arraylist of matched users and updating the models with these matched users and
             // their corresponding profile
@@ -170,6 +181,12 @@ public class SearchUI extends JFrame {
 
                 model.setValueAt(currentRow.getCell(8), i, 8);
 
+                model.setValueAt(new ButtonColumnLike(table, (need Action being filled in), 9), i, 9);
+
+                model.setValueAt(new ButtonColumnReview(table, (need Action being filled in), 10), i, 10);
+
+                model.setValueAt(new ButtonColumnReport(table, (need Action being filled in),11), i, 11);
+
             }
 
             file.close();
@@ -179,3 +196,4 @@ public class SearchUI extends JFrame {
         }
     }
 }
+
