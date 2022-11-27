@@ -7,20 +7,19 @@ import java.time.LocalDateTime;
 
 public class ReviewInteractor implements ReviewInputBoundary{
     private final ReviewOutputBoundary outputBoundary;
-    private final ReviewGateway reviewGateway;
-    private final DatabaseConnect db;
+    private final ReviewGateway db;
+
 
 
     /**
      * Initialize a ReviewInteractor
      * @param outputBoundary a ReviewOutputBoundary object
-     * @param reviewGateway a ReviewGateway object
-     * @param db a DatabaseConnect object
+     * @param db a ReviewGateway object
+
      */
 
-    public ReviewInteractor(ReviewOutputBoundary outputBoundary, ReviewGateway reviewGateway, DatabaseConnect db) {
+    public ReviewInteractor(ReviewOutputBoundary outputBoundary, ReviewGateway db) {
         this.outputBoundary = outputBoundary;
-        this.reviewGateway = reviewGateway;
         this.db = db;
     }
 
@@ -35,12 +34,10 @@ public class ReviewInteractor implements ReviewInputBoundary{
     @Override
     public ReviewResponseModel addReview(ReviewRequestModel review) throws IOException, InvalidAttributeValueException {
         //TODO: find user by username, create the user instance
-        User receiver = db.findUser(review.getReceiver());
-        Review reviewObject = new Review(review.getRating(), review.getComment(), review.getWriter(), review.getReceiver());
-        receiver.addReviews(reviewObject);
-        reviewGateway.saveReview(reviewObject);
-        //TODO: add this reviewObject to a User's review list
-        //TODO: implement ReviewGateway to save this reviewObject
+        User user = new RegularUser(null,null,null, null, null, null);
+        User receiver = new RegularUser(null,null,null, null, null, null);
+        Review reviewObject = new Review(review.getRating(), review.getComment(), user.getAccountName(), receiver.getAccountName());
+
         String reviewString = "Review:\n" + "Comment: " + review.getComment() + "\n" +
                 "Rating: " + review.getRating() + "\n" + "Writer: " + review.getWriter() + "\n" +
                 "Receiver: " + review.getReceiver();
@@ -62,7 +59,7 @@ public class ReviewInteractor implements ReviewInputBoundary{
     public ReviewResponseModel deleteReview(int id, String receivername) throws IOException, InvalidAttributeValueException {
         // TODO: implement the method
         User receiver = db.findUser(receivername);
-        reviewGateway.moveReview(id, receiver);
+        db.RemoveReview(id, receiver);
         LocalDateTime now = LocalDateTime.now();
         ReviewResponseModel response = new ReviewResponseModel("deleted", now.toString());
         return outputBoundary.reportReview(response);

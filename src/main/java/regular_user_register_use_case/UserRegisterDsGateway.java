@@ -1,7 +1,14 @@
 package regular_user_register_use_case;
 
-public interface UserRegisterDsGateway {
-    boolean existsByName(String identifier);
+import entities.User;
 
-    void save(UserRegisterDsRequestModel requestModel);
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
+
+public interface UserRegisterDsGateway {
+    boolean existsByName(String identifier) throws IOException, InvalidAttributeValueException;
+
+    void saveUser(user_register_use_case.UserRegisterDsRequestModel requestModel) throws IOException, InvalidAttributeValueException;
+
+    void RemoveUser(User user) throws IOException, InvalidAttributeValueException;
 }

@@ -1,5 +1,4 @@
 package entities;
-
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
@@ -11,7 +10,6 @@ public class Review{
     private static int count;
     private int id;
 
-    private DatabaseConnect db = new DatabaseConnect(System.getProperty("user.dir"));
 
     /**
      * Create a new Review with rating, comment, user and its unique id (start from 1)
@@ -72,14 +70,17 @@ public class Review{
         this.comment = comment;
     }
 
-    public User getWriter() throws IOException, InvalidAttributeValueException {
-        return db.findUser(writer);
+
+    public String getWriter() throws IOException, InvalidAttributeValueException {
+        return writer;
+
     }
 
     public void setWriter(String writer) {
         this.writer = writer;
     }
-    public User getReceiver() throws IOException, InvalidAttributeValueException {
-        return db.findUser(receiver);
+
+    public String getReceiver() throws IOException, InvalidAttributeValueException {
+        return receiver;
     }
 }

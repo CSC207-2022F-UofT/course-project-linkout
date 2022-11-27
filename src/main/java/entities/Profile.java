@@ -10,7 +10,6 @@ public class Profile {
     private String weight;
     private String contactInformation;
     private String selfDescription;
-
     /**
      * Create a new Profile with location, gender, age, sexuality, hobbies, height, weight,
      * contactInformation, and selfDescription.
