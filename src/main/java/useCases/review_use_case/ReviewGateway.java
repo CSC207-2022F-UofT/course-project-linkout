@@ -1,11 +1,17 @@
 package useCases.review_use_case;
 
 import entities.Review;
-import entities.User;
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.List;
 
 public interface ReviewGateway {
-    void saveReview(Review review);
-    void moveReview(int id, User user);
-    void softdeleteReview(int id, User user);
-//    List<Review> getReviews();
+
+    Hashtable<Integer, List<Object>> getReviews(String usrname) throws IOException, InvalidAttributeValueException;
+
+    void saveReview(Review review) throws IOException, InvalidAttributeValueException;
+
+    void RemoveReview(int id, String username) throws IOException, InvalidAttributeValueException;
+
 }

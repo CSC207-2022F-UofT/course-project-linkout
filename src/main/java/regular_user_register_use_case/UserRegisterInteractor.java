@@ -1,6 +1,8 @@
 package regular_user_register_use_case;
 
+import entities.AccountRegister;
 import entities.User;
+import entities.RegUserFactory;
 import entities.UserFactory;
 
 import java.time.LocalDateTime;

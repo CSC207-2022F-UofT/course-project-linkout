@@ -1,22 +1,24 @@
-package entities;
+package RecommendUseCase;
+
+import entities.User;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class RecommendModel {
+public class RecommendInteractor {
 
     private String workingdir;
 
-    private DatabaseConnect db;
+    private RecommendDsGateway db;
 
-    public RecommendModel(String workingdir){
+    public RecommendInteractor(String workingdir, RecommendDsGateway database){
         this.workingdir = workingdir;
-        this.db = new DatabaseConnect(workingdir);
+        this.db = database;
     }
 
     private void UpdatePopular(String username) throws IOException {
@@ -170,55 +172,55 @@ public class RecommendModel {
         }
     }
 
-    public ArrayList<User> Popular(String username, int k) throws IOException, InvalidAttributeValueException {
+    public List<User> Popular(String username, int k) throws IOException, InvalidAttributeValueException {
         UpdatePopular(username, k);
-        ArrayList<User> popular = db.LoadAllUser("popular");
+        List<User> popular = db.LoadAllUser("popular");
         return popular;
     }
 
-    public ArrayList<User> Popular(String username) throws IOException, InvalidAttributeValueException {
+    public List<User> Popular(String username) throws IOException, InvalidAttributeValueException {
         UpdatePopular(username);
-        ArrayList<User> popular = db.LoadAllUser("popular");
+        List<User> popular = db.LoadAllUser("popular");
         return popular;
     }
 
-    public ArrayList<User> Similar(String username, String userviewed) throws IOException, InvalidAttributeValueException {
+    public List<User> Similar(String username, String userviewed) throws IOException, InvalidAttributeValueException {
         UpdateSimilar(username, userviewed);
-        ArrayList<User> recommended = db.LoadAllUser("similar");
+        List<User> recommended = db.LoadAllUser("similar");
         return recommended;
     }
 
-    public ArrayList<User> Similar(String username, String userviewed, int k) throws IOException, InvalidAttributeValueException {
+    public List<User> Similar(String username, String userviewed, int k) throws IOException, InvalidAttributeValueException {
         UpdateSimilar(username, userviewed, k);
-        ArrayList<User> recommended = db.LoadAllUser("similar");
+        List<User> recommended = db.LoadAllUser("similar");
         return recommended;
     }
 
-    public Map<String, ArrayList<User>> Recommend(String username, int k, int maxusers) throws IOException, InvalidAttributeValueException {
+    public Map<String, List<User>> Recommend(String username, int k, int maxusers) throws IOException, InvalidAttributeValueException {
         UpdateRecommend(username, k, maxusers);
-        ArrayList<User> recommend = db.LoadAllUser("recommend");
-        ArrayList<User> recommendbase = db.LoadAllUser("recommendbase");
-        Map<String, ArrayList<User>> recommendInfo = new HashMap<>();
+        List<User> recommend = db.LoadAllUser("recommend");
+        List<User> recommendbase = db.LoadAllUser("recommendbase");
+        Map<String, List<User>> recommendInfo = new HashMap<>();
         recommendInfo.put("recommend", recommend);
         recommendInfo.put("recommendbase", recommendbase);
         return recommendInfo;
     }
 
-    public Map<String, ArrayList<User>> Recommend(String username, int maxusers) throws IOException, InvalidAttributeValueException {
+    public Map<String, List<User>> Recommend(String username, int maxusers) throws IOException, InvalidAttributeValueException {
         UpdateRecommend(username, maxusers);
-        ArrayList<User> recommend = db.LoadAllUser("recommend");
-        ArrayList<User> recommendbase = db.LoadAllUser("recommendbase");
-        Map<String, ArrayList<User>> recommendInfo = new HashMap<>();
+        List<User> recommend = db.LoadAllUser("recommend");
+        List<User> recommendbase = db.LoadAllUser("recommendbase");
+        Map<String, List<User>> recommendInfo = new HashMap<>();
         recommendInfo.put("recommend", recommend);
         recommendInfo.put("recommendbase", recommendbase);
         return recommendInfo;
     }
 
-    public Map<String, ArrayList<User>> Recommend(String username) throws IOException, InvalidAttributeValueException {
+    public Map<String, List<User>> Recommend(String username) throws IOException, InvalidAttributeValueException {
         UpdateRecommend(username);
-        ArrayList<User> recommend = db.LoadAllUser("recommend");
-        ArrayList<User> recommendbase = db.LoadAllUser("recommendbase");
-        Map<String, ArrayList<User>> recommendInfo = new HashMap<>();
+        List<User> recommend = db.LoadAllUser("recommend");
+        List<User> recommendbase = db.LoadAllUser("recommendbase");
+        Map<String, List<User>> recommendInfo = new HashMap<>();
         recommendInfo.put("recommend", recommend);
         recommendInfo.put("recommendbase", recommendbase);
         return recommendInfo;

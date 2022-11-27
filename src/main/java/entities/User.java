@@ -11,8 +11,8 @@ public abstract class User extends Account{
     private Profile profile;
     private List<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
-    private List<User> liked = new ArrayList<>();
-    private List<User> likedme = new ArrayList<>();
+    private List<String> liked = new ArrayList<>();
+    private List<String> likedme = new ArrayList<>();
     private Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
     private float restrictedTime = 0;
 
@@ -25,16 +25,24 @@ public abstract class User extends Account{
      */
 
     // For VIPUser constructor
-    public User(String password, String accountName, Profile profile, boolean isVIP){
+    public User(String password, String accountName, Profile profile, boolean isVIP,
+                List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
         super(password, accountName);
         this.profile = profile;
         this.isVIP = isVIP;
+        this.liked = liked;
+        this.likedme = likedme;
+        this.reviews = reviews;
     }
 
     // For RegularUser constructor
-    public User(String password, String accountName, Profile profile){
+    public User(String password, String accountName, Profile profile,
+                List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
         super(password, accountName);
         this.profile = profile;
+        this.liked = liked;
+        this.likedme = likedme;
+        this.reviews = reviews;
     }
 
     public float getRestrictedTime(){ return this.restrictedTime;}
@@ -45,13 +53,13 @@ public abstract class User extends Account{
 
     public List<User> showBlocked(){ return this.blocked;}
 
-    public List<User> showLiked(){ return this.liked;}
+    public List<String> showLiked(){ return this.liked;}
 
     public boolean showVip(){ return this.isVIP;}
 
     public void setVipStatus(boolean isvip){ this.isVIP = isvip;}
 
-    public List<User> showLikedMe(){ return this.likedme;}
+    public List<String> showLikedMe(){ return this.likedme;}
 
     public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
 
@@ -86,6 +94,10 @@ public abstract class User extends Account{
     }
 
 
-
-
+    public boolean passwordIsValid() {
+        if (this.getPassword().length() >= 3){
+            return true;
+        }
+        return false;
+    }
 }
