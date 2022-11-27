@@ -7,6 +7,8 @@ import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import use_cases.regular_user_register_use_case.UserRegisterDsGateway;
+import use_cases.regular_user_register_use_case.UserRegisterDsRequestModel;
 
 
 import javax.management.InvalidAttributeValueException;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
-public class UserGateway extends DatabaseGateway implements regular_user_register_use_case.UserRegisterDsGateway {
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway {
 
     private ProfileGateway profileGateway;
 
@@ -61,7 +63,7 @@ public class UserGateway extends DatabaseGateway implements regular_user_registe
     }
 
     @Override
-    public void saveUser(user_register_use_case.UserRegisterDsRequestModel requestModel) throws InvalidAttributeValueException, IOException {
+    public void saveUser(UserRegisterDsRequestModel requestModel) throws InvalidAttributeValueException, IOException {
         if (existsByName(requestModel.getName())){
             return;
         }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class ReviewGateway extends DatabaseGateway implements useCases.review_use_case.ReviewGateway {
+public class ReviewGateway extends DatabaseGateway implements use_cases.review_use_case.ReviewGateway {
 
 
     public ReviewGateway(String workingdir) {
@@ -42,6 +42,7 @@ public class ReviewGateway extends DatabaseGateway implements useCases.review_us
         return userinfo;
     }
 
+    @Override
     public Review findReview(int reviewId) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ReviewsBook();
         //creating a Sheet object to retrieve the object
@@ -71,7 +72,6 @@ public class ReviewGateway extends DatabaseGateway implements useCases.review_us
         return review;
     }
 
-    @Override
     public Hashtable<Integer, List<Object>> getReviews(String usrname) throws IOException, InvalidAttributeValueException {
         Hashtable<Integer, List<Object>> allreviews = new Hashtable<>();
         HSSFWorkbook wb = LikesBook();
@@ -138,7 +138,7 @@ public class ReviewGateway extends DatabaseGateway implements useCases.review_us
     }
 
     @Override
-    public void RemoveReview(int id, String username) throws IOException, InvalidAttributeValueException {
+    public void removeReview(int id, String username) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wblikes = LikesBook();
         HSSFSheet sheetlikes=wblikes.getSheetAt(0);
         HSSFWorkbook wbreviews = ReviewsBook();

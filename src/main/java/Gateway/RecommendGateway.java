@@ -1,6 +1,6 @@
 package Gateway;
 
-import RecommendUseCase.RecommendDsGateway;
+import use_cases.RecommendUseCase.RecommendDsGateway;
 import entities.Profile;
 import entities.RegularUser;
 import entities.User;
