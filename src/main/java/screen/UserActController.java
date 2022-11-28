@@ -16,7 +16,7 @@ public class UserActController {
     String like(String accName, String targetName){
         //RequestModel
         UserActInputData inputData = new UserActInputData(accName, targetName);
-        return userInput.action(inputData);
+        return userInput.like(inputData);
     }
 
 }
