@@ -1,4 +1,4 @@
-package screens.SearchScreen;
+package screens.search_screen;
 
 import java.awt.*;
 import java.awt.event.*;

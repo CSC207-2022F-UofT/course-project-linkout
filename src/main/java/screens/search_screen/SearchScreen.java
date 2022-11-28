@@ -1,6 +1,6 @@
-package screens.SearchScreen;
+package screens.search_screen;
 
-import Search.Search;
+import use_cases.search_use_case;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -135,17 +135,7 @@ public class SearchScreen extends JFrame {
 
 
         try {
-            // Load the database
-            FileInputStream file = new FileInputStream(new File(
-                    "/Users/xumichelle/Desktop/profiles.xls"));
-
-            // Create Workbook instance holding reference to .xlsx file
-            HSSFWorkbook workbook = new HSSFWorkbook(file);
-
-            // Get first/desired sheet from the workbook
-            HSSFSheet sheet = workbook.getSheetAt(0);
-
-            // Initialized a new search for the database
+            // Initialized a new search
             Search excelSearch = new Search();
 
             // Storing the value as a String
@@ -153,7 +143,7 @@ public class SearchScreen extends JFrame {
 
 
             // Obtain an arrayList that contains al the matching users along with their corresponding profile
-            ArrayList<Row> rows = excelSearch.searchSheet(searchTexts, sheet);
+            ArrayList<Row> rows = excelSearch.searchSheet(searchTexts);
 
             // Iterating the arraylist of matched users and updating the models with these matched users and
             // their corresponding profile
@@ -182,11 +172,14 @@ public class SearchScreen extends JFrame {
                 model.setValueAt(currentRow.getCell(8), i, 8);
 
                 model.setValueAt(new ButtonColumnLike(table, (need Action being filled in), 9), i, 9);
+                //TODO need Action being filled in
+                //model.setValueAt(new ButtonColumnLike(table, (TODO need Action being filled in), 9), i, 9);
 
                 model.setValueAt(new ButtonColumnReview(table, (need Action being filled in), 10), i, 10);
+                //model.setValueAt(new ButtonColumnReview(table, (TODO need Action being filled in), 10), i, 10);
 
                 model.setValueAt(new ButtonColumnReport(table, (need Action being filled in),11), i, 11);
-
+                //model.setValueAt(new ButtonColumnReport(table, (TODO need Action being filled in), 11), i, 11);
             }
 
             file.close();

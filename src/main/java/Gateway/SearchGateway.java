@@ -1,108 +1,102 @@
-package Gateway;
 
-import entities.User;
+package Gateway;
+import use_cases.search_use_case.SearchDSGateway;
+
+import entities.Profile;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
-public class SearchGateway extends DatabaseGateway {
-
-    private UserGateway userGateway;
-    private RecommendGateway recommendGateway;
+public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
 
     public SearchGateway(String workingdir) {
         super(workingdir);
-        userGateway = new UserGateway(workingdir);
-        recommendGateway = new RecommendGateway(workingdir);
     }
 
-    public List<User> searchSheet(String searchTexts) throws IOException, InvalidAttributeValueException {
-        HSSFWorkbook wb = ProfilesStyleBook();
-        //creating a Sheet object to retrieve the object
-        HSSFSheet sheet = wb.getSheetAt(0);
+    public ArrayList<Row> searchSheet(String searchTexts) {
+            
+            HSSFWorkbook wb = ProfileStyleBook(type)
+            //creating a Sheet object to retrieve the object
+            HSSFSheet sheet=wb.getSheetAt(0);
 
+            // Convert searchTexts to all lowercase to match database
+            String searchText = searchTexts.toLowerCase();
 
-        // Create a variable to store rows that contains the searchText
-        List<User> filteredUsers = new ArrayList<>();
+            // Separate the search text into individual keyword(e.g.['tennis', 'gay'])
+            String[] searchTextList = searchText.split(",");
 
-        // Convert searchTexts to all lowercase to match database
-        String searchText = searchTexts.toLowerCase();
+            // Create a variable to store rows that contains the searchText
+            ArrayList<Row> filteredRows = new ArrayList<>();
 
-        // Separate the search text into individual keyword(e.g.['tennis', 'gay'])
-        String[] searchTextList = searchText.split(",");
+            // Iterate through the keywords
+            for (int i=0;i<searchTextList.length;i++){
+                //Iterate rows
+                for (int j = sheet.getFirstRowNum(); j <= sheet.getLastRowNum(); j++) {
 
-        // Iterate through the keywords
-        for (int i = 0; i < searchTextList.length; i++) {
+                    HSSFRow row = sheet.getRow(j);
 
-            //Iterate rows
-            for (int j = 1; j < sheet.getPhysicalNumberOfRows(); j++) {
-
-                Row row = sheet.getRow(j);
-
-                // Handle when searchText is double
-                Double doubleValue = null;
-                try {
-                    doubleValue = Double.parseDouble(searchTextList[i]);
-                } catch (Exception e) {
-                }
-
-                String currtext;
-                User user;
-
-                // Iterate columns
-                for (int k = row.getFirstCellNum(); k < row.getLastCellNum(); k++) {
-                    Cell cell = row.getCell(k);
-
-                    // Handle empty cells
-                    if (cell == null) {
-                        continue;
+                    // Handle when searchText is double
+                    Double doubleValue = null;
+                    try {
+                        doubleValue = Double.parseDouble(searchTextList[i]);
+                    } catch(Exception e) {
                     }
 
-                    currtext = loadStringCell(cell).toLowerCase();
-                    if (searchText.equals(currtext)) {
-                        user = userGateway.findUser(loadStringCell(row.getCell(8)));
-                        filteredUsers.add(user);
-                        break;
-                    }
+                    // Iterate columns
+                    for (int k = row.getFirstCellNum(); k < row.getLastCellNum(); k++) {
+                        HSSFCell cell = row.getCell(k);
 
+                        // Handle empty cells
+                        if (cell == null) {
+                            continue;
+                        }
+
+                        // Search based on cell types (String OR Numeric)
+                        switch (cell.getCellType()) {
+
+                            // Handle cell with String values
+                            case STRING:
+                                if (searchTextList[i] != null && searchTextList[i].equals(cell.getStringCellValue())) {
+                                    filteredRows.add(row);
+                                }
+                                break;
+
+
+                            // Handle cell with numeric values
+                            case NUMERIC:
+                                if (doubleValue != null && doubleValue.doubleValue() == cell.getNumericCellValue()) {
+                                    filteredRows.add(row);
+                                }
+                                break;
+                        }
+                    }
                 }
             }
+
             // Only keep rows that has been duplicated for n(number of keywords) times(i.e. keep rows that matched with
             // all keywords
             // dup is the filter list that contains only users satisfies all keywords entered
-            ArrayList<User> dup = new ArrayList<>();
+            ArrayList<Row> dup = new ArrayList<>();
             int numberOfKeyword = searchTextList.length;
 
-            Map<User, Long> occurrences = filteredUsers.stream()
+            Map<Row, Long> occurrences = filteredRows.stream()
                     .collect(Collectors.groupingBy(
                             Function.identity(),
                             Collectors.counting()));
             occurrences.values().removeIf(v -> v < numberOfKeyword);
-            for (User user : occurrences.keySet()) {
-                dup.add(user);
+            for (Row key : occurrences.keySet() ) {
+                dup.add(key);
             }
             // Create a sub-arraylist that contains 20 of the matched users along with their corresponding profiles
-            ArrayList<User> twentyMatchedUsers = new ArrayList<>();
-            for (int idx = 0; idx < 21; idx++) {
-                twentyMatchedUsers.add(dup.get(idx));
+            ArrayList<Row> twentyMatchedUsers = new ArrayList<>();
+            for (int i=0;i<21;i++){
+                twentyMatchedUsers.add(dup.get(i));
             }
 
             // return the 20 matched users along with their corresponding profiles
             return twentyMatchedUsers;
         }
+    
 
-        public void SaveSeen (String username, String userviewed) throws IOException {
-            recommendGateway.SaveSeen(username, userviewed);
-        }
-
-    }
-}
