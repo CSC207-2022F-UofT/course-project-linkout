@@ -1,6 +1,4 @@
-package restrict_user_use_case;
-
-import record_review_use_case.RecordReportInputData;
+package use_cases.restrict_user_use_case;
 
 public interface RestrictUserInputBoundary {
     public RestrictUserOutputData restrictUser(RestrictUserInputData inputData);

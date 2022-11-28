@@ -1,4 +1,4 @@
-package record_review_use_case;
+package use_cases.record_review_use_case;
 import java.util.ArrayList;
 
 public class RecordReportInputData {

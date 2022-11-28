@@ -1,13 +1,10 @@
 package UI;
 
-import entities.Report;
-import record_review_use_case.RecordReportController;
-import record_review_use_case.RecordReportInputData;
+import use_cases.record_review_use_case.RecordReportController;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ReportFrame extends JFrame implements ActionListener {

@@ -31,7 +31,7 @@ public class Report {
     }
 
     /*
-    Getter methods. Remember to remove any unused getter methods (code smells).
+    Getter methods.
      */
     public String getReportingUserID() { return reportingUserID; }
     public String getReportedUserID() { return reportedUserID; }
@@ -39,9 +39,4 @@ public class Report {
     public String getCategory() { return category; }
     public String getReportText() { return reportText; }
     public ArrayList<String> getSupportingEvidence() { return supportingEvidence; }
-
-    /*
-    Setter methods.
-     */
-    public void setCategory(String c) { category = c; }
 }

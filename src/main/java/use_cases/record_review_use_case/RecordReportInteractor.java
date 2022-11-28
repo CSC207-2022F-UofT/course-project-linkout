@@ -1,6 +1,5 @@
-package record_review_use_case;
+package use_cases.record_review_use_case;
 import entities.*;
-import gateway.DatabaseConnect;
 
 public class RecordReportInteractor implements RecordReportInputBoundary {
     RecordReportOutputBoundary recordReportOB;
@@ -9,6 +8,7 @@ public class RecordReportInteractor implements RecordReportInputBoundary {
     public RecordReportInteractor(RecordReportOutputBoundary recordReportOB) {
         this.recordReportOB = recordReportOB;
     }
+
     @Override
     public RecordReportOutputData createReport(RecordReportInputData r) {
         Report report = new Report(r.getReportingUserID(), r.getReportedUserID(),
