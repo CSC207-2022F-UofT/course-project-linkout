@@ -1,4 +1,11 @@
 package use_cases.RecommendUseCase;
 
-public class RecommendInputBoundary {
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
+
+public interface RecommendInputBoundary {
+
+
+    RecommendResponseModel Recommend(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException;
+
 }

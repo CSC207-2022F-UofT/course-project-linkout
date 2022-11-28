@@ -76,33 +76,35 @@ public class SearchGateway extends DatabaseGateway {
 
                 }
             }
-            // Only keep rows that has been duplicated for n(number of keywords) times(i.e. keep rows that matched with
-            // all keywords
-            // dup is the filter list that contains only users satisfies all keywords entered
-            ArrayList<User> dup = new ArrayList<>();
-            int numberOfKeyword = searchTextList.length;
+        }
+        // Only keep rows that has been duplicated for n(number of keywords) times(i.e. keep rows that matched with
+        // all keywords
+        // dup is the filter list that contains only users satisfies all keywords entered
+        ArrayList<User> dup = new ArrayList<>();
+        int numberOfKeyword = searchTextList.length;
 
-            Map<User, Long> occurrences = filteredUsers.stream()
-                    .collect(Collectors.groupingBy(
-                            Function.identity(),
-                            Collectors.counting()));
-            occurrences.values().removeIf(v -> v < numberOfKeyword);
-            for (User user : occurrences.keySet()) {
-                dup.add(user);
-            }
-            // Create a sub-arraylist that contains 20 of the matched users along with their corresponding profiles
-            ArrayList<User> twentyMatchedUsers = new ArrayList<>();
-            for (int idx = 0; idx < 21; idx++) {
-                twentyMatchedUsers.add(dup.get(idx));
-            }
-
-            // return the 20 matched users along with their corresponding profiles
-            return twentyMatchedUsers;
+        Map<User, Long> occurrences = filteredUsers.stream()
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()));
+        occurrences.values().removeIf(v -> v < numberOfKeyword);
+        for (User user : occurrences.keySet()) {
+            dup.add(user);
+        }
+        // Create a sub-arraylist that contains 20 of the matched users along with their corresponding profiles
+        ArrayList<User> twentyMatchedUsers = new ArrayList<>();
+        for (int idx = 0; idx < 21; idx++) {
+            twentyMatchedUsers.add(dup.get(idx));
         }
 
-        public void SaveSeen (String username, String userviewed) throws IOException {
-            recommendGateway.SaveSeen(username, userviewed);
-        }
+        // return the 20 matched users along with their corresponding profiles
+        return twentyMatchedUsers;
+    }
 
+
+
+
+    public void SaveSeen (String username, List<String> usersviewed) throws IOException {
+        recommendGateway.SaveSeen(username, usersviewed);
     }
 }

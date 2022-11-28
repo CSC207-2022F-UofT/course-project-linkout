@@ -1,6 +1,6 @@
-package screens.SearchScreen;
+package screens.recommend_and_search_screen;
 
-import Search.Search;
+import use_cases.Search.Search;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -82,7 +82,7 @@ public class SearchScreen extends JFrame {
         txtKeyword.setColumns(10);
 
         // Create the Button Search
-        JButton btnSearch = new JButton("Search");
+        JButton btnSearch = new JButton("use_cases/Search");
 
         btnSearch.addActionListener(new ActionListener() {
 
@@ -181,11 +181,12 @@ public class SearchScreen extends JFrame {
 
                 model.setValueAt(currentRow.getCell(8), i, 8);
 
-                model.setValueAt(new ButtonColumnLike(table, (need Action being filled in), 9), i, 9);
+                //TODO need Action being filled in
+                //model.setValueAt(new ButtonColumnLike(table, (TODO need Action being filled in), 9), i, 9);
 
-                model.setValueAt(new ButtonColumnReview(table, (need Action being filled in), 10), i, 10);
+                //model.setValueAt(new ButtonColumnReview(table, (TODO need Action being filled in), 9), i, 9);
 
-                model.setValueAt(new ButtonColumnReport(table, (need Action being filled in),11), i, 11);
+                //model.setValueAt(new ButtonColumnReport(table, (TODO need Action being filled in), 9), i, 9);
 
             }
 
