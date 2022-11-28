@@ -1,4 +1,7 @@
 package use_cases.search_use_case;
+
+import Gateway.SearchGateway;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -10,11 +13,30 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+public class SearchInteractor{
+    public class SearchInteractor implements SearchInputBoundary{
+
+        private SearchGateway searchDsGateway;
+
+        public SearchInteractor(SearchGateway searchDsGateway){
+            this.searchDsGateway = searchDsGateway;
+        }
 
 
-public class Search {
+    /**
+     * this method <searchSheet> searches for the first users that matched the keywords entered from the database and return a
+     * SearchResponseModel object which includes an arraylist of 20 matched users along with their corresponding profiles.
+     *
+     * @param SearchRequestModel a SearchRequestModel with a string which are the keywords entered by the users 
+     * @return SearchResponseModel object which includes an arraylist of 20 matched users along with their corresponding profiles
+     */
+    
+    @Override
+    public SearchResponseModel searchSheet(SearchRequestModel searchrequestModel) {
+            
+            HSSFSheet sheet = searchDsGateway.getSheetOfAllUsers();
 
-        public ArrayList<Row> searchSheet(String searchTexts, HSSFSheet sheet) {
+            String searchTexts = searchrequestModel.getKeywords();
 
             // Convert searchTexts to all lowercase to match database
             String searchText = searchTexts.toLowerCase();
@@ -85,14 +107,19 @@ public class Search {
                 dup.add(key);
             }
             // Create a sub-arraylist that contains 20 of the matched users along with their corresponding profiles
-            ArrayList<Row> first20ofDup = new ArrayList<>();
+            ArrayList<Row> twentyMatchedUsers = new ArrayList<>();
             for (int i=0;i<21;i++){
-                first20ofDup.add(dup.get(i));
+                twentyMatchedUsers.add(dup.get(i));
             }
 
-            // return the 20 matched users along with their corresponding profiles
-            return first20ofDup;
+            // return a SearchResponseModel with an arraylist of 20 matched users along with their corresponding profiles
+            SearchResponseModel responseModel = new SearchResponseModel(twentyMatchedUsers);
+            return responseModel;
         }
-    }
+}
+
+
+
+
 
 
