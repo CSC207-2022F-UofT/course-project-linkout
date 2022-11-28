@@ -1,6 +1,10 @@
 package user_action_use_case;
 //import entities.DatabaseConnect;
 
+import entities.User;
+
+import java.io.IOException;
+
 public class UserActInteractor implements UserActInputBoundary{
 
     private final UserActDsGateway userActDsGateway;
@@ -16,17 +20,30 @@ public class UserActInteractor implements UserActInputBoundary{
     public String like(UserActInputData inputData) {
         String accName = inputData.getAccName();
         String targetName = inputData.getTargetName();
-        //if action already made
-        if (userActDsGateway.isLiked(accName, targetName)){
-            return presenterInterface.prepareFailView("User already liked!");
+        //if target user already liked
+        try {
+            if (userActDsGateway.isLiked(accName, targetName)){
+                return presenterInterface.prepareFailView("User already liked!");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         // save like information
-        UserActDsRequestModel dsRequestDSModel = new UserActDsRequestModel(accName, targetName);
-        userActDsGateway.save(dsRequestDSModel);
+        User actioner = userActDsGateway.findUser(accName);
+        actioner.like(targetName);
+        try {
+            userActDsGateway.setLike(accName, targetName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         // check if matched
-        if (userActDsGateway.isLiked(targetName, accName) ){
-            return presenterInterface.prepareMatchingView(targetName);
+        try {
+            if (userActDsGateway.isLiked(targetName, accName) ){
+                return presenterInterface.prepareMatchingView(targetName);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         //present liked account name
         return presenterInterface.prepareSuccessView(targetName);

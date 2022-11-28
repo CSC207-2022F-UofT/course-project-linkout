@@ -1,4 +1,4 @@
-package screen;
+package screens.UserActionScreens;
 
 import user_action_use_case.UserActInputBoundary;
 import user_action_use_case.UserActInputData;
