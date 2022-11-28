@@ -86,7 +86,7 @@ public class SearchScreen extends JFrame {
 
         btnSearch.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent arg) {
 
                 // Binding Data.
                 GenerateData();
