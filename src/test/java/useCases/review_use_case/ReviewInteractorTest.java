@@ -1,9 +1,10 @@
 package useCases.review_use_case;
 
-import entities.DatabaseConnect;
+import Gateway.UserGateway;
 import org.junit.jupiter.api.Test;
 import presenter.ReviewPresenter;
-import screen.InMemoryReview;
+import screens.review_screen.InMemoryReview;
+import use_cases.review_use_case.*;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -44,9 +45,9 @@ class ReviewInteractorTest {
             }
         };
 
-        DatabaseConnect db = new DatabaseConnect(System.getProperty("user.dir"));
+        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
         ReviewInputBoundary interactor = new ReviewInteractor(
-                presenter, reviewRepository, db);
+                presenter, reviewRepository, userGateway);
 
         // 2) Input data — we can make this up for the test. Normally it would
         // be created by the Controller.
@@ -72,9 +73,9 @@ class ReviewInteractorTest {
                 return null;
             }
         };
-        DatabaseConnect db = new DatabaseConnect(System.getProperty("user.dir"));
+        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
         ReviewInputBoundary interactor = new ReviewInteractor(
-                presenter, reviewRepository, db);
+                presenter, reviewRepository, userGateway);
 
         // 2) Input data — we can make this up for the test. Normally it would
         // be created by the Controller.
@@ -83,7 +84,7 @@ class ReviewInteractorTest {
 
         // 3) Run the use case
         interactor.addReview(inputData);
-        interactor.deleteReview(1, "Bob");
+        interactor.deleteReview(1);
 
     }
 
@@ -101,9 +102,9 @@ class ReviewInteractorTest {
                 return null;
             }
         };
-        DatabaseConnect db = new DatabaseConnect(System.getProperty("user.dir"));
+        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
         ReviewInputBoundary interactor = new ReviewInteractor(
-                presenter, reviewRepository, db);
+                presenter, reviewRepository, userGateway);
 
         // 2) Input data — we can make this up for the test. Normally it would
         // be created by the Controller.
@@ -112,7 +113,7 @@ class ReviewInteractorTest {
 
         // 3) Run the use case
         interactor.addReview(inputData);
-        interactor.hideReview(1, "Bob");
+        interactor.hideReview(1);
 
     }
 }

@@ -1,6 +1,6 @@
 package entities;
 
-public class Account {
+abstract public class Account implements AccountRegister{
     private String password;
     private String accountName;
 
@@ -31,6 +31,7 @@ public class Account {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    
+    public boolean passwordIsValid() {
+        return password != null && password.length() > 3;
+    }
 }
