@@ -1,6 +1,6 @@
 package screens.recommend_and_search_screen;
 
-import use_cases.Search.Search;
+import use_cases.search_use_case.Search;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -86,7 +86,7 @@ public class SearchScreen extends JFrame {
 
         btnSearch.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent arg) {
 
                 // Binding Data.
                 GenerateData();
