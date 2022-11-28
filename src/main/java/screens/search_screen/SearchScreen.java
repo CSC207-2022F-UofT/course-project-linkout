@@ -136,14 +136,14 @@ public class SearchScreen extends JFrame {
 
         try {
             // Initialized a new search
-            Search excelSearch = new Search();
+            Search matchedSearch = new Search();
 
             // Storing the value as a String
             String searchTexts = txtKeyword.getText();
 
 
             // Obtain an arrayList that contains al the matching users along with their corresponding profile
-            ArrayList<Row> rows = excelSearch.searchSheet(searchTexts);
+            ArrayList<Row> rows = matchedSearch.searchSheet(searchTexts);
 
             // Iterating the arraylist of matched users and updating the models with these matched users and
             // their corresponding profile

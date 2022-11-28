@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface SearchDSGateway {
 
-    ArrayList<User> searchSheet(String searchTexts) throws IOException, InvalidAttributeValueException;
+    HSSFSheet getSheetOfAllUsers() throws IOException, InvalidAttributeValueException;
 
 }
     
