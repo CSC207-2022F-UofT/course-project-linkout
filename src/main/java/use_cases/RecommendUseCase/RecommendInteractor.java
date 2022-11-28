@@ -15,7 +15,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
     private RecommendDsGateway db;
 
 
-    public RecommendInteractor(String workingdir, RecommendDsGateway database){
+    public RecommendInteractor(RecommendDsGateway database){
         this.db = database;
     }
 

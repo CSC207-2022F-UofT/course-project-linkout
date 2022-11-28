@@ -1,7 +1,4 @@
-<<<<<<< HEAD:src/main/java/use_cases/Search/Search.java
-package use_cases.Search;
-=======
->>>>>>> ae58744050e1c59bbef866ff07acf2b7789d7edb:src/main/java/use_cases/search_use_case/Search.java
+package use_cases.search_use_case;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
