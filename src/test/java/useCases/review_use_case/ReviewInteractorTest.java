@@ -1,8 +1,8 @@
 package useCases.review_use_case;
 
-import Gateway.UserGateway;
+import use_cases.regular_user_register_use_case.UserGateway;
 import org.junit.jupiter.api.Test;
-import presenter.ReviewPresenter;
+import use_cases.review_use_case.ReviewPresenter;
 import screens.review_screen.InMemoryReview;
 import use_cases.review_use_case.*;
 
