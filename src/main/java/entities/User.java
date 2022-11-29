@@ -105,4 +105,8 @@ public abstract class User extends Account{
         }
         return false;
     }
+
+    public void like(String targetName) {
+        this.liked.add(targetName);
+    }
 }
