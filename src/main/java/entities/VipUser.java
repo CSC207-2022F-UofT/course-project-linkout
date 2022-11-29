@@ -20,15 +20,16 @@ public class VipUser extends User{
      */
 
 
-    public VipUser(String password, String accountName, Profile profile, boolean isVIP){
-        super(password, accountName, profile, isVIP);
+    public VipUser(String password, String accountName, Profile profile, boolean isVIP,
+                   List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
+        super(password, accountName, profile, isVIP, liked, likedme, reviews);
     }
 
     public void setInvisible(boolean arg){
         this.isInvisible = arg;
     }
 
-    public List<User> showLikedMe(){
+    public List<String> showLikedMe(){
         return super.showLikedMe();
     }
 

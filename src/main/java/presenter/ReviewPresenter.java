@@ -2,8 +2,8 @@ package presenter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import useCases.review_use_case.ReviewOutputBoundary;
-import useCases.review_use_case.ReviewResponseModel;
+import use_cases.review_use_case.ReviewOutputBoundary;
+import use_cases.review_use_case.ReviewResponseModel;
 
 public class ReviewPresenter implements ReviewOutputBoundary{
     /**
