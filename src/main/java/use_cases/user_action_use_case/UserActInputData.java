@@ -1,5 +1,6 @@
-package user_action_use_case;
+package use_cases.user_action_use_case;
 
+// use case layer
 public class UserActInputData {
     private final String accName;
     private final String targetName;

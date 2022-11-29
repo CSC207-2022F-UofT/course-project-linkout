@@ -1,10 +1,11 @@
-package user_action_use_case;
+package use_cases.user_action_use_case;
 //import entities.DatabaseConnect;
 
 import entities.User;
 
 import java.io.IOException;
 
+//use case layer
 public class UserActInteractor implements UserActInputBoundary{
 
     private final UserActDsGateway userActDsGateway;
@@ -45,7 +46,7 @@ public class UserActInteractor implements UserActInputBoundary{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //present liked account name
+        //present successfully liked target user
         return presenterInterface.prepareSuccessView(targetName);
     }
 

@@ -1,7 +1,6 @@
-package screens.UserActionScreens;
+package use_cases.user_action_use_case;
 
-import user_action_use_case.UserActPresenterInterface;
-
+// Interface Adapter Layer
 public class UserActPresenter implements UserActPresenterInterface {
 
 
