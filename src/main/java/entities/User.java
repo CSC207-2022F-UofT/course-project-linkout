@@ -1,7 +1,5 @@
 package entities;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -14,9 +12,9 @@ public abstract class User extends Account {
     private List<User> liked = new ArrayList<>();
     private List<User> likedme = new ArrayList<>();
     private Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
-    private float restrictedTime = 0;
     private int restrictionDuration;
-    private ArrayList<Report> reports = new ArrayList<Report>();
+    private long restrictionInitialTime;
+    private List<Report> reports = new ArrayList<>();
 
     /**
      * Create a user with its profile and can be a vip user if isVIP param is true.
@@ -38,52 +36,80 @@ public abstract class User extends Account {
         this.profile = profile;
     }
 
-    public int getRestrictionDuration() { return restrictionDuration; }
-
-    public void setRestrictionDuration(int restrictionDuration) { this.restrictionDuration = restrictionDuration; }
-
+    /**
+     * Adds a report to the user's list of reports.
+     * @param report    The report filed against this user.
+     */
     public void addReport(Report report) {
-        this.reports.add(report);
+        reports.add(report);
     }
 
-    public Profile displayProfile(){ return this.profile;}
+    /**
+     * Gets the newest report filed against this user.
+     * @return      The report
+     */
+    public Report getNewestReport() { return reports.get(reports.size() - 1); }
 
-    public List<User> showBlocked(){ return this.blocked;}
-
-    public List<User> showLiked(){ return this.liked;}
-
-    public boolean showVip(){ return this.isVIP;}
-
-    public void setVipStatus(boolean isvip){ this.isVIP = isvip;}
-
-    public List<User> showLikedMe(){ return this.likedme;}
-
-    public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
-
+    /**
+     * Adds a review to the user's list of reports.
+     * @param review    The review.
+     */
     public void addReviews(Review review){
         Integer revId = review.getId();
         List<Object> revBody = extractReviewBody(review);
         this.reviews.put(revId, revBody);
     }
 
-    //TODO: Modify this
-    public boolean countDownRestrictionTime(){
-        LocalDateTime expire = LocalDateTime.now().plusSeconds((long)this.restrictedTime);
-        while (LocalDateTime.now().compareTo(expire) < 0){
-            this.restrictedTime = Duration.between(expire, LocalDateTime.now()).toSeconds();
-            if (this.restrictedTime > 60) {
-                System.out.println("More than 1 minutes");
-            }else{
-                System.out.println(this.restrictedTime);
-            }
-        }
-        return true; // will return true if restriction is cleared.
+    /**
+     * Will return true if restriction is cleared. This is determined by seeing
+     * whether the restriction duration, in seconds, have fully elapsed since the user
+     * was restricted.
+     *
+     * @return  True or false.
+     */
+    public boolean isRestricted(){
+        return System.currentTimeMillis() >= restrictionInitialTime + restrictionDuration;
     }
 
+    /**
+     * Gets the text from a review.
+     * @param review    The review object that we want to get the text from.
+     * @return          The text of the review.
+     */
     private List<Object> extractReviewBody(Review review){
         List<Object> revBody = new ArrayList<>();
         revBody.add(review.getRating());
         revBody.add(review.getComment());
         return revBody;
     }
+
+    /**
+     * Sees if the password of this user is valid.
+     * @return  True or false
+     */
+    public boolean passwordIsValid() {
+        return this.getPassword().length() >= 3;
+    }
+
+    /**
+     * Remove the review with the given id.
+     * @param id    The id of the review.
+     */
+    public void deleteReview(int id){
+        this.reviews.remove(id);
+    }
+
+    // Getters and setters
+    public float getRestrictionDuration() { return restrictionDuration; }
+    public void setRestrictionDuration(int restrictionDuration) {
+        this.restrictionDuration = restrictionDuration;
+        this.restrictionInitialTime = System.currentTimeMillis();
+    }
+    public Profile displayProfile(){ return this.profile;}
+    public List<User> showBlocked(){ return this.blocked;}
+    public List<User> showLiked(){ return this.liked;}
+    public boolean showVip(){ return this.isVIP;}
+    public void setVipStatus(boolean isvip){ this.isVIP = isvip;}
+    public List<User> showLikedMe(){ return this.likedme;}
+    public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
 }
