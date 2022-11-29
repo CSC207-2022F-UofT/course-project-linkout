@@ -11,6 +11,7 @@ import javax.management.InvalidAttributeValueException;
 
 public abstract class DatabaseGateway {
 
+    protected String workingdir;
     private String likesfile;
 
     private String profilesfile;
@@ -26,6 +27,7 @@ public abstract class DatabaseGateway {
     private String similarfile;
 
     public DatabaseGateway(String workingdir){
+        this.workingdir = workingdir;
         this.likesfile = workingdir+"/src/main/data/likes.xls";
         this.profilesfile = workingdir+"/src/main/data/profiles.xls";
         this.reviewsfile = workingdir+"/src/main/data/reviews.xls";
@@ -34,6 +36,7 @@ public abstract class DatabaseGateway {
         this.recommendbasefile = workingdir+"/src/main/data/recommend_base.xls";
         this.similarfile = workingdir+"/src/main/data/similar.xls";
     }
+
 
     protected HSSFWorkbook ProfilesStyleBook() throws IOException {
         //obtaining input bytes from a file
