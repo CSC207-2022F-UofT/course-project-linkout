@@ -9,8 +9,8 @@ public abstract class User extends Account {
     private Profile profile;
     private List<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
-    private List<User> liked = new ArrayList<>();
-    private List<User> likedme = new ArrayList<>();
+    private List<String> liked = new ArrayList<>();
+    private List<String> likedme = new ArrayList<>();
     private Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
     private int restrictionDuration;
     private long restrictionInitialTime;
@@ -99,6 +99,10 @@ public abstract class User extends Account {
         this.reviews.remove(id);
     }
 
+    public void like(String targetName) {
+        this.liked.add(targetName);
+    }
+
     // Getters and setters
     public float getRestrictionDuration() { return restrictionDuration; }
     public void setRestrictionDuration(int restrictionDuration) {
@@ -107,9 +111,9 @@ public abstract class User extends Account {
     }
     public Profile displayProfile(){ return this.profile;}
     public List<User> showBlocked(){ return this.blocked;}
-    public List<User> showLiked(){ return this.liked;}
+    public List<String> showLiked(){ return this.liked;}
     public boolean showVip(){ return this.isVIP;}
     public void setVipStatus(boolean isvip){ this.isVIP = isvip;}
-    public List<User> showLikedMe(){ return this.likedme;}
+    public List<String> showLikedMe(){ return this.likedme;}
     public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
 }
