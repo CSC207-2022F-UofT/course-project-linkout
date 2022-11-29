@@ -23,14 +23,14 @@ public abstract class User extends Account {
      * @param isVIP the VIP status of this user.
      */
 
-    // For VIPUser constructor
+    // For VIPUser constructor.
     public User(String password, String accountName, Profile profile, boolean isVIP){
         super(password, accountName);
         this.profile = profile;
         this.isVIP = isVIP;
     }
 
-    // For RegularUser constructor
+    // For RegularUser constructor.
     public User(String password, String accountName, Profile profile){
         super(password, accountName);
         this.profile = profile;
