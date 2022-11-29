@@ -1,6 +1,6 @@
 package screens.regularuser_register_screen;
 
-import user_register_use_case.UserRegisterDsGateway;
+import use_cases.regular_user_register_use_case.UserRegisterDsGateway;
 import use_cases.regular_user_register_use_case.UserRegisterDsRequestModel;
 
 import java.io.*;
@@ -72,7 +72,7 @@ public class FileUser implements UserRegisterDsGateway {
      * @param requestModel the user information to save.
      */
     @Override
-    public void save(UserRegisterDsRequestModel requestModel) {
+    public void saveUser(UserRegisterDsRequestModel requestModel) {
         accounts.put(requestModel.getName(), requestModel);
         this.save();
     }

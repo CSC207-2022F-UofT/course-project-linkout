@@ -1,6 +1,6 @@
 package screens.regularuser_register_screen;
 
-import user_register_use_case.UserRegisterDsGateway;
+import use_cases.regular_user_register_use_case.UserRegisterDsGateway;
 import use_cases.regular_user_register_use_case.UserRegisterDsRequestModel;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class InMemoryUser implements UserRegisterDsGateway {
      * @param requestModel the data to save
      */
     @Override
-    public void save(UserRegisterDsRequestModel requestModel) {
+    public void saveUser(UserRegisterDsRequestModel requestModel) {
         System.out.println("Save " + requestModel.getName());
         users.put(requestModel.getName(), requestModel);
     }

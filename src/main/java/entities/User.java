@@ -45,6 +45,11 @@ public abstract class User extends Account{
         this.reviews = reviews;
     }
 
+    public User(String password, String accountName, Profile profile){
+        super(password, accountName);
+        this.profile = profile;
+    }
+
     public float getRestrictedTime(){ return this.restrictedTime;}
 
     public void setRestrictedTime(float setTime){ this.restrictedTime = setTime;}

@@ -1,9 +1,11 @@
 package use_cases.regular_user_register_use_case;
 
+import entities.AllUserFactory;
 import entities.User;
-import entities.RegUserFactory;
 import entities.UserFactory;
 
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class UserRegisterInteractor implements UserRegisterInputBoundary {
@@ -11,18 +13,18 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
     final UserRegisterDsGateway userDsGateway;
     final UserRegisterPresenter userPresenter;
 
-    final UserFactory regUserFactory;
+    final AllUserFactory regUserFactory;
 
     public UserRegisterInteractor(UserRegisterDsGateway userRegisterDfGateway,
                                   UserRegisterPresenter userRegisterPresenter,
-                                  UserFactory regUserFactory) {
+                                  AllUserFactory regUserFactory) {
         this.userDsGateway = userRegisterDfGateway;
         this.userPresenter = userRegisterPresenter;
         this.regUserFactory = regUserFactory;
     }
 
     @Override
-    public UserRegisterResponseModel create(UserRegisterRequestModel requestModel) {
+    public UserRegisterResponseModel create(UserRegisterRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         if (userDsGateway.existsByName(requestModel.getAccountName())) {
             return userPresenter.prepareFailView("User already exists.");
         } else if (!requestModel.getPassword().equals(requestModel.getRepeatPassword())) {
@@ -42,7 +44,7 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
                 user.displayProfile().getHobbies(), user.displayProfile().getHeight(),
                 user.displayProfile().getWeight(), user.displayProfile().getContactInformation(),
                 user.displayProfile().getSelfDescription(), now);
-        userDsGateway.save(userDsModel);
+        userDsGateway.saveUser(userDsModel);
 
         UserRegisterResponseModel accountResponseModel = new UserRegisterResponseModel(user.getAccountName(),
                 now.toString());

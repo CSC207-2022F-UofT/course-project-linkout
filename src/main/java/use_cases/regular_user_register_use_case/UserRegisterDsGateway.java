@@ -9,6 +9,4 @@ public interface UserRegisterDsGateway {
     boolean existsByName(String identifier) throws IOException, InvalidAttributeValueException;
 
     void saveUser(UserRegisterDsRequestModel requestModel) throws IOException, InvalidAttributeValueException;
-
-    void RemoveUser(User user) throws IOException, InvalidAttributeValueException;
 }
