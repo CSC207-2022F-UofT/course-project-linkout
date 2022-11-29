@@ -4,25 +4,24 @@ import entities.User;
 
 
 public class SearchRequestModel {
+    
     private String keywords;
-    private String username;
 
     /**
-     * Create a new SearchRequestModel with keywords entered as the input data. 
-     * Preconditions: 
-     * (1) keywords entered is not empty
-     * (2) keywords entered is in the form that each feature intereted is separated by comma (e.g. "22,tennnis,straight")
+     * Create a new SearchRequestModel with valid keywords entered by the user as the input data. 
 
-     * @param keywords the keywords entered
-     * @param username the name of the user who initiates search 
+     * Preconditions: 
+     * (1) keywords entered is not empty;
+     * (2) keywords entered is in the form that each feature intereted is separated by comma (e.g. "tennnis, 22, straight")
+
+     * @param keywords the valid keywords entered by the user
      */
 
-
-    public SearchRequestModel(String keywords, Strinf username) {
+    public SearchRequestModel(String keywords) {
         this.keywords = keywords;
-        this.username = user.getAccountName();
     }
 
-      public String getUsername(){
-        return username;
+    public String getKeywords() {
+        return keywords;
+    }
     }

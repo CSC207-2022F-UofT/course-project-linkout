@@ -4,23 +4,22 @@ import entities.User;
 
 import java.util.List;
 
-/**
-     * Create a new SearchResponseModel with an ArrayList of users that matched with the interested features 
-     *
-     * @param MatchedUser an ArrayList of users that matched with the interested features
-     */
 
 public class SearchResponseModel {
-    
 
-    private ArrayList<User> MatchedUser;
+    private ArrayList<User> twentyMatchedUsers;
 
+    /**
+     * Create a new SearchResponseModel with an ArrayList of 20 users that matched with the interested features 
+     *
+     * @param twentyMatchedUsers an ArrayList of users that matched with the interested features
+     */
 
-    public SearchResponseModel(ArrayList<User> matchedusers){
-        this.MatchedUser = matchedusers;
+    public SearchResponseModel(ArrayList<User> twentyMatchedUsers){
+        this.twentyMatchedUsers = twentyMatchedUsers;
     }
 
-    public ArrayList<User> getAllMatchedUsers(){
-        return MatchedUsers;
+    public ArrayList<User> getTwentyMatchedUsers(){
+        return this.twentyMatchedUsers;
     }
 }
