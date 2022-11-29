@@ -29,6 +29,10 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
         reviewGateway = new ReviewGateway(workingdir);
     }
 
+    @Override
+    public String getWorkingDir(){
+        return super.workingdir;
+    }
 
     @Override
     public List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException {
@@ -56,17 +60,22 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
         return users;
     }
 
-    public void SaveSeen(String username, String userviewed) throws IOException {
+    @Override
+    public void SaveSeen(String username, List<String> usersviewed) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
-        if (likesGateway.isSeen(username, userviewed)){
-            return;
+
+        for (String userviewed:usersviewed){
+            if (likesGateway.isSeen(username, userviewed)){
+                return;
+            }
+            Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
+            row.createCell(0).setCellValue(username);
+            row.createCell(1).setCellValue(userviewed);
+            row.createCell(2).setCellValue(0);
         }
-        Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
-        row.createCell(0).setCellValue(username);
-        row.createCell(1).setCellValue(userviewed);
-        row.createCell(2).setCellValue(0);
+
     }
 
 }

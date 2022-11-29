@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/screens/recommend_and_search_screen/ButtonColumnReport.java
+package screens.recommend_and_search_screen;
+=======
 package screens.search_screen;
+>>>>>>> e5a208197c95537193da5d4d9d1b0a56992ff3af:src/main/java/screens/search_screen/ButtonColumnReport.java
 
 import java.awt.*;
 import java.awt.event.*;

@@ -1,5 +1,5 @@
+package use_cases.search_use_case;
 
-package search_use_case;
 import Gateway.SearchGateway;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
