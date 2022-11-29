@@ -1,8 +1,11 @@
 package controller;
 
-import use_cases.UserInputBoundary;
-import use_cases.UserRequestModel;
-import use_cases.UserResponseModel;
+import use_cases.*;
+
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserController {
 
@@ -10,21 +13,33 @@ public class UserController {
 
     public UserController(UserInputBoundary interactor){ this.userInput = interactor;}
 
-    public UserResponseModel viewLiked(UserRequestModel userRequestModel){ return userInput.viewLiked(userRequestModel);}
+    public void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException { userInput.viewLiked(userRequestModel);}
 
-    public UserResponseModel viewAccountStatus(UserRequestModel userRequestModel){return userInput.viewAccountStatus(userRequestModel);}
+    public void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException { userInput.viewAccountStatus(userRequestModel);}
 
-    public UserResponseModel showVIPStatus(){}
 
-    public UserResponseModel showRestrictedStatus(){}
+    public void changeVIPStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        ((RegularUserManager) userInput).upgrade(userRequestModel);}
 
-    public void changeVIPStatus(){}
 
-    public UserResponseModel getRestrictionTime(){}
+    public void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        userInput.setRestrictionTime(userRequestModel);
+    }
 
-    public void setRestrictionTime(){}
+    public void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {userInput.showProfile(userRequestModel);}
 
-    public UserResponseModel showProfile(){}
+    public void viewLikedMeVIP(UserRequestModel userRequestModel)throws IOException, InvalidAttributeValueException{
+        ((VIPUserManager) userInput).showLikeMe(userRequestModel);
+    }
 
-    public UserResponseModel countDownRestriction(){}
+    public void displayReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        userInput.showReview(userRequestModel);
+    }
+    public void hideReviewVIP(UserRequestModel userRequestModel, Integer revIds) throws IOException, InvalidAttributeValueException {
+        ((VIPUserManager) userInput).hideReview(userRequestModel, revIds);
+    }
+
+    public void setInvisibleVisit(UserRequestModel userRequestModel, boolean yesNo) throws IOException, InvalidAttributeValueException {
+        ((VIPUserManager) userInput).invisibleVisit(userRequestModel, yesNo);
+    }
 }

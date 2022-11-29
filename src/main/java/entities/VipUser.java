@@ -30,6 +30,10 @@ public class VipUser extends User{
         return true;
     }
 
+    public boolean getInvisibleStatus(){
+        return this.isInvisible;
+    }
+
     public List<String> showLikedMe(){
         return super.showLikedMe();
     }
@@ -42,15 +46,14 @@ public class VipUser extends User{
         this.visitors.add(visitor);
     }
 
-    public boolean hideReview(ArrayList<Integer> review_ids){
-        for (Integer id : review_ids){
-            if (this.getReviews().containsKey(id)){
-                hiddenReviews.put(id, this.getReviews().get(id));
+    public boolean hideReview(Integer review_ids){
+       if (this.getReviews().containsKey(review_ids)){
+           hiddenReviews.put(review_ids, this.getReviews().get(review_ids));
+           this.deleteReview(review_ids);
             }
             else {
                 return false ;
             }
-        }
         return true;
     }
 

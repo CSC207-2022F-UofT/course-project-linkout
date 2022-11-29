@@ -1,27 +1,30 @@
 package use_cases;
 
 
+import Gateway.DatabaseConnect;
 import entities.*;
 
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
 public class RegularUserManager extends UserManagerInteractor{
 
-    public RegularUserManager(UserDsGateway userDsGateway, UserOutputBoundary userPresenter,
-                              UserFactory userFactory){
-        super(userDsGateway, userPresenter, userFactory);
+    public RegularUserManager(DatabaseConnect userDsGateway, UserOutputBoundary userPresenter){
+        super(userDsGateway, userPresenter);
     }
 
-    public void upgrade(UserRequestModel username){
-        if (userDsGateway.existByName(username.getAccName())) {
+    public void upgrade(UserRequestModel username) throws IOException, InvalidAttributeValueException {
+        if (userDsGateway.findUser(username.getAccName()) != null) {
             User user = super.findUserByName(username.getAccName());
             if (!user.showVip()){
-                userDsGateway.upgrade(username.getAccName(), true);
-                userPresenter.prepareSuccessView(true);
+                userPresenter.prepareSuccessView(userDsGateway.upgrade(username.getAccName(), true));
+            }else {
+                userPresenter.prepareFailedView("User cannot be upgraded");
             }
-            userPresenter.prepareFailedView("User cannot be upgraded");
+        }else {
+            userPresenter.prepareFailedView("User does not exist.");
         }
-        userPresenter.prepareFailedView("User does not exist.");
     }
 }

@@ -2,6 +2,7 @@ package use_cases;
 
 import entities.Profile;
 
+import java.util.Hashtable;
 import java.util.List;
 
 public interface UserOutputBoundary {
@@ -11,9 +12,6 @@ public interface UserOutputBoundary {
 
     public void prepareAccStatusView(boolean status, float time);
 
-    public void prepareVipStatusView(boolean status);
-
-    public void prepareRestrictionStatusView(float time);
 
     public void prepareSuccessView(boolean status);
 
@@ -21,5 +19,5 @@ public interface UserOutputBoundary {
 
     public void prepareLikedMeView(List<String> likedMe);
 
-    public void prepareVisitorView(List<String> visitor);
+    public void prepareReviewView(Hashtable<Integer, List<Object>> reviews);
 }

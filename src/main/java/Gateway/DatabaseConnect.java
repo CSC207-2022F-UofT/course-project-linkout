@@ -12,10 +12,11 @@ import entities.*;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.hamcrest.core.IsInstanceOf;
 
 import javax.management.InvalidAttributeValueException;
 
-public class DatabaseConnect {
+public class DatabaseConnect implements UserUpgrade {
 
     private String likesfile;
 
@@ -31,21 +32,22 @@ public class DatabaseConnect {
 
     private String similarfile;
 
-    public DatabaseConnect(String workingdir){
-        this.likesfile = workingdir+"/src/main/data/likes.xls";
-        this.profilesfile = workingdir+"/src/main/data/profiles.xls";
-        this.reviewsfile = workingdir+"/src/main/data/reviews.xls";
-        this.popularfile = workingdir+"/src/main/data/popular.xls";
-        this.recommendfile = workingdir+"/src/main/data/recommend.xls";
-        this.recommendbasefile = workingdir+"/src/main/data/recommend_base.xls";
-        this.similarfile = workingdir+"/src/main/data/similar.xls";
+    public DatabaseConnect(String workingdir) {
+        this.likesfile = workingdir + "/src/main/data/likes.xls";
+        this.profilesfile = workingdir + "/src/main/data/profiles.xls";
+        this.reviewsfile = workingdir + "/src/main/data/reviews.xls";
+        this.popularfile = workingdir + "/src/main/data/popular.xls";
+        this.recommendfile = workingdir + "/src/main/data/recommend.xls";
+        this.recommendbasefile = workingdir + "/src/main/data/recommend_base.xls";
+        this.similarfile = workingdir + "/src/main/data/similar.xls";
     }
 
     private HSSFWorkbook ProfilesStyleBook() throws IOException {
         //obtaining input bytes from a file
         FileInputStream fis = new FileInputStream(new File(this.profilesfile));
         //creating workbook instance that refers to .xls file
-        HSSFWorkbook wb=new HSSFWorkbook(fis);
+        HSSFWorkbook wb = new HSSFWorkbook(fis);
+
 
         return wb;
     }
@@ -54,43 +56,43 @@ public class DatabaseConnect {
         //obtaining input bytes from a file
         FileInputStream fis;
         if (type.equals("popular")) {
-            fis=new FileInputStream(new File(this.popularfile));
+            fis = new FileInputStream(new File(this.popularfile));
         } else if (type.equals("recommend")) {
-            fis=new FileInputStream(new File(this.recommendfile));
+            fis = new FileInputStream(new File(this.recommendfile));
         } else if (type.equals("recommendbase")) {
-            fis=new FileInputStream(new File(this.recommendbasefile));
+            fis = new FileInputStream(new File(this.recommendbasefile));
         } else if (type.equals("similar")) {
-            fis=new FileInputStream(new File(this.similarfile));
+            fis = new FileInputStream(new File(this.similarfile));
         } else if (type.equals("profiles")) {
-            fis=new FileInputStream(new File(this.profilesfile));
+            fis = new FileInputStream(new File(this.profilesfile));
         } else {
             throw new InvalidAttributeValueException("ProfileStyleBook only accept [popular, recommend, recommendbase, similar, profiles]");
         }
         //creating workbook instance that refers to .xls file
-        HSSFWorkbook wb=new HSSFWorkbook(fis);
+        HSSFWorkbook wb = new HSSFWorkbook(fis);
 
         return wb;
     }
 
     private HSSFWorkbook LikesBook() throws IOException {
         //obtaining input bytes from a file
-        FileInputStream fis=new FileInputStream(new File(this.likesfile));
+        FileInputStream fis = new FileInputStream(new File(this.likesfile));
         //creating workbook instance that refers to .xls file
-        HSSFWorkbook wb=new HSSFWorkbook(fis);
+        HSSFWorkbook wb = new HSSFWorkbook(fis);
 
         return wb;
     }
 
     private HSSFWorkbook ReviewsBook() throws IOException {
         //obtaining input bytes from a file
-        FileInputStream fis=new FileInputStream(new File(this.reviewsfile));
+        FileInputStream fis = new FileInputStream(new File(this.reviewsfile));
         //creating workbook instance that refers to .xls file
-        HSSFWorkbook wb=new HSSFWorkbook(fis);
+        HSSFWorkbook wb = new HSSFWorkbook(fis);
 
         return wb;
     }
 
-    private String loadStringCell(Cell cell){
+    private String loadStringCell(Cell cell) {
         String toreturn;
         if ((cell != null) & (cell.toString() != "")) {
             toreturn = cell.toString();
@@ -100,7 +102,7 @@ public class DatabaseConnect {
         return toreturn;
     }
 
-    private int loadIntCell(Cell cell){
+    private int loadIntCell(Cell cell) {
         int toreturn;
         if ((cell != null) & (!Objects.equals(cell.toString(), ""))) {
             toreturn = Double.valueOf(cell.toString()).intValue();
@@ -122,20 +124,22 @@ public class DatabaseConnect {
         int contactInformation = loadIntCell(row.getCell(11));
         String selfDescription = loadStringCell(row.getCell(5));
         Profile profile = new Profile(
-                location, gender, age, sexuality, hobbies, height, weight, contactInformation, selfDescription
+                location, gender, String.valueOf(age), sexuality, hobbies, String.valueOf(height), String.valueOf(weight),
+                String.valueOf(contactInformation), selfDescription
         );
         return profile;
     }
+
     private Hashtable<String, String> getReviewUsername(int reviewId) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         int currid;
         Hashtable<String, String> userinfo = new Hashtable<>();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            if (sheet.getRow(i).getPhysicalNumberOfCells() == 4){
+            if (sheet.getRow(i).getPhysicalNumberOfCells() == 4) {
                 currid = loadIntCell(sheet.getRow(i).getCell(3));
-            }else{
+            } else {
                 continue;
             }
             if (currid == reviewId) {
@@ -150,10 +154,10 @@ public class DatabaseConnect {
         return userinfo;
     }
 
-    public Review findReview(int reviewId) throws IOException, InvalidAttributeValueException{
+    public Review findReview(int reviewId) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ReviewsBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         String stringid = Integer.toString(reviewId);
         Review review = null;
         int currid;
@@ -170,23 +174,40 @@ public class DatabaseConnect {
                 break;
             }
         }
-        if (found){
+        if (found) {
             Hashtable<String, String> userinfo = getReviewUsername(reviewId);
             review = new Review(rating, comment, userinfo.get("username"), userinfo.get("userviewed"), reviewId);
-        }else{
+        } else {
             return review;
         }
         return review;
     }
 
+    public void deleteReview(Integer id_rev) throws IOException {
+        HSSFWorkbook wb = ReviewsBook();
+        //creating a Sheet object to retrieve the object
+        HSSFSheet sheet = wb.getSheetAt(0);
+        int currid;
+
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            currid = loadIntCell(sheet.getRow(i).getCell(0));
+            if (currid == id_rev) {
+                Row row = sheet.getRow(i);
+                row.getCell(1).setCellValue(0);
+                row.getCell(2).setCellValue("Hidden");
+                wb.write(new File(this.reviewsfile));
+                wb.close();
+            }
+        }
+    }
     public Hashtable<Integer, List<Object>> loadAllReviewsGot(String usrname) throws IOException, InvalidAttributeValueException {
         Hashtable<Integer, List<Object>> allreviews = new Hashtable<>();
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            currname = sheet.getRow(i).getCell(1).toString();
+            currname = sheet.getRow(i).getCell(0).toString();
             if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4)) {
                 Row row = sheet.getRow(i);
                 int reviewId = loadIntCell(row.getCell(3));
@@ -203,7 +224,7 @@ public class DatabaseConnect {
     public Profile findProfile(String usrname) throws IOException {
         HSSFWorkbook wb = ProfilesStyleBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         Profile profile = null;
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
@@ -221,7 +242,7 @@ public class DatabaseConnect {
     public List<String> findLiked(String usrname) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         List<String> liked = new ArrayList<String>();
         String currname;
         String likeuser;
@@ -240,7 +261,7 @@ public class DatabaseConnect {
     public List<String> findLikedMe(String usrname) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         List<String> liked = new ArrayList<String>();
         String currname;
         String likeuser;
@@ -256,10 +277,10 @@ public class DatabaseConnect {
         return liked;
     }
 
-    public User findUser(String usrname) throws IOException, InvalidAttributeValueException{
+    public User findUser(String usrname) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ProfilesStyleBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         User user = null;
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
@@ -272,10 +293,13 @@ public class DatabaseConnect {
                 List<String> liked = findLiked(usrname);
                 List<String> likedme = findLikedMe(usrname);
                 Hashtable<Integer, List<Object>> reviews = loadAllReviewsGot(usrname);
-                if (isVip.equals("TRUE")){
+                String restrictedTime = loadStringCell(row.getCell(12));
+                if (isVip.equals("TRUE")) {
                     user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
+                    user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 } else {
                     user = new RegularUser(password, usrname, profile, false, liked, likedme, reviews);
+                    user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 }
                 break;
             }
@@ -287,7 +311,7 @@ public class DatabaseConnect {
     public List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ProfileStyleBook(type);
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
         List<User> users = new ArrayList<>();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             Row row = sheet.getRow(i);
@@ -299,14 +323,33 @@ public class DatabaseConnect {
             List<String> likedme = findLikedMe(usrname);
             Hashtable<Integer, List<Object>> reviews = loadAllReviewsGot(usrname);
             User user;
-            if (isVip.equals("TRUE")){
+            if (isVip.equals("TRUE")) {
                 user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
             } else {
-                user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
+                user = new RegularUser(password, usrname, profile, false, liked, likedme, reviews);
             }
             users.add(user);
         }
         return users;
+    }
+
+    public boolean upgrade(String accName, boolean status) throws IOException, InvalidAttributeValueException {
+        HSSFWorkbook wb = ProfilesStyleBook();
+        //creating a Sheet object to retrieve the object
+        HSSFSheet sheet = wb.getSheetAt(0);
+        String currname;
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            currname = sheet.getRow(i).getCell(8).toString();
+            if (currname.equals(accName)) {
+                sheet.getRow(i).getCell(10).setCellValue(status);
+                wb.write(new File(this.profilesfile));
+                wb.close();
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
 }

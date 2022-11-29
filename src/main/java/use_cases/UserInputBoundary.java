@@ -1,21 +1,21 @@
 package use_cases;
 
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
+
 public interface UserInputBoundary {
 
-    public void viewLiked(UserRequestModel userRequestModel);
+    public void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
-    public void viewAccountStatus(UserRequestModel userRequestModel);
+    public void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
-    public void showVIPStatus(UserRequestModel userRequestModel);
+    public void showReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
-    public void showRestrictedStatus(UserRequestModel userRequestModel);
 
-    public void changeVIPStatus(UserRequestModel userRequestModel);
 
-    public void getRestrictionTime(UserRequestModel userRequestModel);
 
-    public void setRestrictionTime(UserRequestModel userRequestModel);
+    public void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
-    public void showProfile(UserRequestModel userRequestModel);
+    public void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
 }

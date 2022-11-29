@@ -6,17 +6,17 @@ import screen.UserInformation;
 import use_cases.UserOutputBoundary;
 import use_cases.UserResponseModel;
 
+import java.util.Hashtable;
 import java.util.List;
 
 public class UserPresenter implements UserOutputBoundary {
 
-    private final UserResponseModel userResponseModel;
     private final UserInformation userInfoScreen;
 
-    public UserPresenter(UserResponseModel userResponseModel, UserInformation userInfoScreen){
-        this.userResponseModel = userResponseModel;
+    public UserPresenter(UserInformation userInfoScreen) {
         this.userInfoScreen = userInfoScreen;
     }
+
     @Override
     public void prepareLikedView(List<String> liked) {
         userInfoScreen.showLiked(liked);
@@ -32,15 +32,6 @@ public class UserPresenter implements UserOutputBoundary {
         userInfoScreen.showAccStatus(status, time);
     }
 
-    @Override
-    public void prepareVipStatusView(boolean status) {
-        userInfoScreen.showVipStatus(status);
-    }
-
-    @Override
-    public void prepareRestrictionStatusView(float time) {
-        userInfoScreen.showRestrictionStatus(time);
-    }
 
     @Override
     public void prepareSuccessView(boolean status) {
@@ -53,11 +44,12 @@ public class UserPresenter implements UserOutputBoundary {
     }
 
     @Override
-    public void prepareLikedMeView(List<String> likedMe){
+    public void prepareLikedMeView(List<String> likedMe) {
         userInfoScreen.showLikedMe(likedMe);
     }
 
-    public void prepareVisitorView(List<String> visitor){
-        userInfoScreen.showVisitor(visitor);
+
+    public void prepareReviewView(Hashtable<Integer, List<Object>> reviews){
+        userInfoScreen.showReview(reviews);
     }
 }

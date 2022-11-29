@@ -1,97 +1,80 @@
 package use_cases;
 
+import Gateway.DatabaseConnect;
 import entities.*;
+
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
 
 public class UserManagerInteractor implements UserInputBoundary {
 
-    final UserDsGateway userDsGateway;
+    final DatabaseConnect userDsGateway;
     final UserOutputBoundary userPresenter;
-    final UserFactory userFactory;
 
 
-    public UserManagerInteractor(UserDsGateway userDsGateway, UserOutputBoundary userPresenter,
-                                 UserFactory userFactory){
+
+    public UserManagerInteractor(DatabaseConnect userDsGateway, UserOutputBoundary userPresenter){
         this.userDsGateway = userDsGateway;
         this.userPresenter = userPresenter;
-        this.userFactory = userFactory;
     }
 
-    public void viewLiked(UserRequestModel userRequestModel) {
-        if (userDsGateway.existByName(userRequestModel.getAccName())) {
+    public void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        if (findUserByName(userRequestModel.getAccName()) != null) {
             User user = findUserByName(userRequestModel.getAccName());
             userPresenter.prepareLikedView(user.showLiked());
+        }else {
+            userPresenter.prepareFailedView("User does not exist");
         }
-        userPresenter.prepareFailedView("User does not exist.");
     }
 
-    public void viewAccountStatus(UserRequestModel userRequestModel){
-        if (userDsGateway.existByName(userRequestModel.getAccName())){
+    public void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
             userPresenter.prepareAccStatusView(user.showVip(), user.getRestrictedTime());
+        }else {
+            userPresenter.prepareFailedView("User does not exist");
         }
-        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public void showVIPStatus(UserRequestModel userRequestModel){
-        if (userDsGateway.existByName(userRequestModel.getAccName())){
+
+
+    public void showReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
-            userPresenter.prepareVipStatusView(user.showVip());
+            userPresenter.prepareReviewView(user.getReviews());
+        }else {
+            userPresenter.prepareFailedView("User does not exist");
         }
-        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public void showRestrictedStatus(UserRequestModel userRequestModel){
-        if (userDsGateway.existByName(userRequestModel.getAccName())){
-            User user = findUserByName(userRequestModel.getAccName());
-            userPresenter.prepareRestrictionStatusView(user.getRestrictedTime());
-        }
-        userPresenter.prepareFailedView("User does not exist");
-    }
 
-    public void changeVIPStatus(UserRequestModel userRequestModel){
-        if (userDsGateway.existByName(userRequestModel.getAccName())){
-            User user = findUserByName(userRequestModel.getAccName());
-            if (user.showVip()){
-                userPresenter.prepareFailedView("User is already VIP");
-            }
-            userPresenter.prepareSuccessView(user.setVipStatus(true));
-        }
-        userPresenter.prepareFailedView("User does not exist");
-    }
 
-    public void getRestrictionTime(UserRequestModel userRequestModel){
-        if (userDsGateway.existByName(userRequestModel.getAccName())){
-            User user = findUserByName(userRequestModel.getAccName());
-            if (user.getRestrictedTime() != 0){
-                userPresenter.prepareRestrictionStatusView(user.getRestrictedTime());
-            }
-            userPresenter.prepareFailedView("User is not restricted");
-        }
-        userPresenter.prepareFailedView("User does not exist");
-    }
 
-    public void setRestrictionTime(UserRequestModel userRequestModel){
-        if (userDsGateway.existByName(userRequestModel.getAccName())){
+
+    public void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
             if (user.getRestrictedTime() != 0){
                 userPresenter.prepareFailedView("User already restricted");
+            }else {
+                user.countDownRestrictionTime();
+                userPresenter.prepareSuccessView(user.setRestrictedTime(userRequestModel.getRestrictionTime()));
             }
-            user.countDownRestrictionTime();
-            userPresenter.prepareSuccessView(user.setRestrictedTime(userRequestModel.getRestrictionTime()));
+        }else {
+            userPresenter.prepareFailedView("User does not exist");
         }
-        userPresenter.prepareFailedView("User does not exist");
     }
 
-    public void showProfile(UserRequestModel userRequestModel){
-        if (userDsGateway.existByName(userRequestModel.getAccName())){
+    public void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+        if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
-            Profile profile = user.displayProfile();
-            userPresenter.prepareProfileView(profile);
+            userPresenter.prepareProfileView(user.displayProfile());
+        }else {
+            userPresenter.prepareFailedView("User does not exist");
         }
-        userPresenter.prepareFailedView("User does not exist");
     }
 
-    User findUserByName(String accName){
+    User findUserByName(String accName) throws IOException, InvalidAttributeValueException {
         return this.userDsGateway.findUser(accName);
     }
 

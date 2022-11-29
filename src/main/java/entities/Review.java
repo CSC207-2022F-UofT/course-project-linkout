@@ -1,5 +1,7 @@
 package entities;
 
+import Gateway.DatabaseConnect;
+
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 

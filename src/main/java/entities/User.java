@@ -12,7 +12,7 @@ public abstract class User extends Account{
     private boolean isVIP = false;
     private List<String> liked;
     private List<String> likedme;
-    private Hashtable<Integer, List<Object>> reviews;
+    protected Hashtable<Integer, List<Object>> reviews;
     private float restrictedTime = 0;
 
 
