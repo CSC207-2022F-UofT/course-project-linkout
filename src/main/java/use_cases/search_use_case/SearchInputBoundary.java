@@ -4,5 +4,5 @@ import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 public interface SearchInputBoundary {
-    SearchResponseModel searchSheet(SearchRequestModel requestModel) throws IOException, InvalidAttributeValueException;
+    SearchResponseModel search(SearchRequestModel requestModel) throws IOException, InvalidAttributeValueException;
 }

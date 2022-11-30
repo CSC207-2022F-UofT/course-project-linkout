@@ -7,19 +7,19 @@ import java.util.List;
 
 public class SearchResponseModel {
 
-    private ArrayList<User> twentyMatchedUsers;
+    private List<User> twentyMatchedUsers;
 
     /**
-     * Create a new SearchResponseModel with an ArrayList of 20 users that matched with the interested features 
+     * Create a new SearchResponseModel with a List of 20 users that matched with the interested features
      *
-     * @param twentyMatchedUsers an ArrayList of users that matched with the interested features
+     * @param twentyMatchedUsers a List of users that matched with the interested features
      */
 
-    public SearchResponseModel(ArrayList<User> twentyMatchedUsers){
+    public SearchResponseModel(List<User> twentyMatchedUsers){
         this.twentyMatchedUsers = twentyMatchedUsers;
     }
 
-    public ArrayList<User> getTwentyMatchedUsers(){
+    public List<User> getTwentyMatchedUsers(){
         return this.twentyMatchedUsers;
     }
 }

@@ -5,5 +5,5 @@ import entities.User;
 import java.util.List;
 
 public interface SearchOutputBoundary {
-    public ArrayList<User> SearchResultView(SearchResponseModel responseModel);
+    public List<User> SearchResultView(SearchResponseModel responseModel);
 }
