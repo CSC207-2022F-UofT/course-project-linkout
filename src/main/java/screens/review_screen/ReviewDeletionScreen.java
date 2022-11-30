@@ -1,6 +1,6 @@
 package screens.review_screen;
 
-import controller.ReviewController;
+import use_cases.review_use_case.ReviewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +9,7 @@ import java.awt.event.ActionListener;
 
 import static java.lang.Integer.parseInt;
 
-public class ReviewDeletionScreen extends JPanel implements ActionListener {
-    JTextField receivername = new JTextField(15);
+public class ReviewDeletionScreen extends JPanel implements ActionListener, IReviewView {
     JTextField id = new JTextField(15);
 
     /**
@@ -28,8 +27,6 @@ public class ReviewDeletionScreen extends JPanel implements ActionListener {
         JLabel title = new JLabel("Review Creation Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel receivernameInfo = new LabelTextPanel(
-                new JLabel("Input receiver's name"), receivername);
         LabelTextPanel idInfo = new LabelTextPanel(
                 new JLabel("Input id"), id);
 
@@ -50,7 +47,6 @@ public class ReviewDeletionScreen extends JPanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(receivernameInfo);
         this.add(idInfo);
         this.add(buttons);
 
@@ -63,23 +59,27 @@ public class ReviewDeletionScreen extends JPanel implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
 
         if (evt.getActionCommand().equals("Delete")){
-        try {
-            int idInt = parseInt(id.getText());
-            reviewController.deleteReview(idInt);
-            JOptionPane.showMessageDialog(this, receivername.getText() + "'s review deleted.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-
-        if (evt.getActionCommand().equals("Hide")){
             try {
                 int idInt = parseInt(id.getText());
-                reviewController.hideReview(idInt);
-                JOptionPane.showMessageDialog(this, receivername.getText() + "'s review hided.");
+                reviewController.deleteReview(idInt);
+                JOptionPane.showMessageDialog(this,  "review deleted.");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        }
-    }}
+            }}
 
+//            if (evt.getActionCommand().equals("Hide")){
+//                try {
+//                    int idInt = parseInt(id.getText());
+//                    reviewController.hideReview(idInt);
+//                } catch (Exception e) {
+//                    JOptionPane.showMessageDialog(this, e.getMessage());
+//                }
+//            }
+        }
+
+    @Override
+    public void updateMessage() {
+        JOptionPane.showMessageDialog(this, "review deleted.");
+    }
 }
+

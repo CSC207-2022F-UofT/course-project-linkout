@@ -1,8 +1,4 @@
-package controller;
-
-import use_cases.review_use_case.ReviewInputBoundary;
-import use_cases.review_use_case.ReviewRequestModel;
-import use_cases.review_use_case.ReviewResponseModel;
+package use_cases.review_use_case;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -53,13 +49,14 @@ public class ReviewController {
         return reviewInput.deleteReview(id);
     }
 
-    /**
-     * this method hides a review object from the receiver's review list if the receiver iputs thier accountname and
-     * ID of the review to be hided
-     * @param id ID of the review to be hided
-     * @return ReviewResponseModel
-     */
-    public ReviewResponseModel hideReview(int id) throws IOException, InvalidAttributeValueException {
-        return reviewInput.hideReview(id);
-    }
+//    /**
+//     * this method hides a review object from the receiver's review list if the receiver iputs thier accountname and
+//     * ID of the review to be hided
+//     * @param id ID of the review to be hided
+//     * @return ReviewResponseModel
+//     */
+//    public ReviewResponseModel hideReview(int id) throws IOException, InvalidAttributeValueException {
+//        return reviewInput.hideReview(id);
+//    }
+//    this method requires manipulating view which is implemented last, will do it if time permitted
 }

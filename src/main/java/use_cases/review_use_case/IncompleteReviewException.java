@@ -1,4 +1,4 @@
-package controller;
+package use_cases.review_use_case;
 
 public class IncompleteReviewException extends Exception{
     public IncompleteReviewException() {

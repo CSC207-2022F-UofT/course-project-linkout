@@ -1,11 +1,19 @@
-package presenter;
+package use_cases.review_use_case;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import use_cases.review_use_case.ReviewOutputBoundary;
-import use_cases.review_use_case.ReviewResponseModel;
+
+import screens.review_screen.IReviewView;
+
 
 public class ReviewPresenter implements ReviewOutputBoundary{
+
+    private IReviewView iView;
+
+    public ReviewPresenter(IReviewView iView) {
+        this.iView = iView;
+    }
+
     /**
      * this method reports the status pf a review after an action (add,delete,hide) is performed on this
      * review，along with the time the action is performed.
@@ -19,6 +27,7 @@ public class ReviewPresenter implements ReviewOutputBoundary{
     public ReviewResponseModel reportReview(ReviewResponseModel responseModel) {
         LocalDateTime responseTime = LocalDateTime.parse(responseModel.getCreationTime());
         responseModel.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+        iView.updateMessage();
         return responseModel;
     }
 

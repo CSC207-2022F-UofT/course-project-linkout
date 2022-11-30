@@ -12,4 +12,6 @@ public interface ReviewGateway {
 
     Review findReview(int reviewId) throws IOException, InvalidAttributeValueException;
 
+    int getLargestReviewId() throws IOException;
 }
+

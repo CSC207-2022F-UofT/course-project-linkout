@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import use_cases.regular_user_register_use_case.UserRegisterDsGateway;
 import use_cases.regular_user_register_use_case.UserRegisterDsRequestModel;
+import use_cases.review_use_case.ReviewGatewayImplementation;
 
 
 import javax.management.InvalidAttributeValueException;
@@ -22,12 +23,12 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     private LikesGateway likesGateway;
 
-    private ReviewGateway reviewGateway;
+    private ReviewGatewayImplementation reviewGateway;
     public UserGateway(String workingdir) {
         super(workingdir);
         profileGateway = new ProfileGateway(workingdir);
         likesGateway = new LikesGateway(workingdir);
-        reviewGateway = new ReviewGateway(workingdir);
+        reviewGateway = new ReviewGatewayImplementation(workingdir);
     }
 
     public User findUser(String usrname) throws IOException, InvalidAttributeValueException {

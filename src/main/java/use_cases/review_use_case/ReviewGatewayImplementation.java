@@ -1,5 +1,6 @@
-package Gateway;
+package use_cases.review_use_case;
 
+import Gateway.DatabaseGateway;
 import entities.Review;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -11,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class ReviewGateway extends DatabaseGateway implements use_cases.review_use_case.ReviewGateway {
+public class ReviewGatewayImplementation extends DatabaseGateway implements use_cases.review_use_case.ReviewGateway {
 
 
-    public ReviewGateway(String workingdir) {
+    public ReviewGatewayImplementation(String workingdir) {
         super(workingdir);
     }
 
@@ -169,6 +170,23 @@ public class ReviewGateway extends DatabaseGateway implements use_cases.review_u
         }
         SaveWorkbook(wblikes, "likes");
         SaveWorkbook(wbreviews, "reviews");
+    }
+
+    @Override
+    public int getLargestReviewId() throws IOException {
+        HSSFWorkbook wbreviews = ReviewsBook();
+        HSSFSheet sheetreviews=wbreviews.getSheetAt(0);
+        int currid;
+        int maxid = 0;
+        boolean found = false;
+        //Delete from likes.xls
+        for (int i = 1; i < sheetreviews.getPhysicalNumberOfRows(); i++) {
+            currid = loadIntCell(sheetreviews.getRow(i).getCell(0));
+            if (currid > maxid) {
+                maxid = currid;
+            }
+        }
+        return maxid;
     }
 
 }

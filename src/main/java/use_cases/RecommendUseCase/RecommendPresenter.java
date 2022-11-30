@@ -1,4 +1,4 @@
-package presenter;
+package use_cases.RecommendUseCase;
 
 import entities.User;
 import use_cases.RecommendUseCase.RecommendOutputBoundary;

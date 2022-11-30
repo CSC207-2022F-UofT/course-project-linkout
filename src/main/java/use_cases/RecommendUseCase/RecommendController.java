@@ -1,4 +1,4 @@
-package controller;
+package use_cases.RecommendUseCase;
 
 import entities.User;
 import use_cases.RecommendUseCase.RecommendInputBoundary;
