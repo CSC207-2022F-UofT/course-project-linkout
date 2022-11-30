@@ -1,19 +1,29 @@
 package Gateway;
 
+import entities.User;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import use_cases.user_action_use_case.UserActDsGateway;
 
+import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LikesGateway extends DatabaseGateway{
+public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
+    private UserGateway userGateway;
 
 
     public LikesGateway(String workingdir) {
         super(workingdir);
     }
+
+    public LikesGateway(String workingdir, UserGateway userGateway) {
+        super(workingdir);
+        this.userGateway = userGateway;
+    }
+
 
     public List<String> findLiked(String usrname) throws IOException {
         HSSFWorkbook wb = LikesBook();
@@ -90,6 +100,15 @@ public class LikesGateway extends DatabaseGateway{
         }
 
         return false;
+    }
+
+    @Override
+    public User findUser(String accName) {
+        try {
+            return userGateway.findUser(accName);
+        } catch (IOException | InvalidAttributeValueException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setLike(String username, String userviewed) throws IOException {
