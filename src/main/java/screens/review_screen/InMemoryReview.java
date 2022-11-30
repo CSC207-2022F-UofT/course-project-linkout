@@ -28,4 +28,9 @@ public class InMemoryReview implements ReviewGateway {
         return reviews.get(reviewId);
     }
 
+    @Override
+    public int getLargestReviewId() throws IOException {
+        return 0;
+    }
+
 }
