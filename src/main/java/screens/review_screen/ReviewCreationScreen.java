@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 
 import static java.lang.Integer.parseInt;
 
-public class ReviewCreationScreen extends JPanel implements ActionListener {
-    JTextField receivername = new JTextField(15);
-    JTextField writername = new JTextField(15);
+public class ReviewCreationScreen extends JPanel implements ActionListener, IReviewView {
+    JTextField receiverName = new JTextField(15);
+    JTextField writerName = new JTextField(15);
     JTextField comment = new JTextField(15);
     JTextField rating = new JTextField(15);
 
@@ -27,13 +27,13 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
 
         this.reviewController = controller;
 
-        JLabel title = new JLabel("Review Deletion Screen");
+        JLabel title = new JLabel("Review Creation Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel receivernameInfo = new LabelTextPanel(
-                new JLabel("Input receiver's name"), receivername);
+                new JLabel("Input receiver's name"), receiverName);
         LabelTextPanel writernameInfo = new LabelTextPanel(
-                new JLabel("Input writer's name"), writername);
+                new JLabel("Input writer's name"), writerName);
         LabelTextPanel commentInfo = new LabelTextPanel(
                 new JLabel("Input comment"), comment);
         LabelTextPanel ratingInfo = new LabelTextPanel(
@@ -69,11 +69,14 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
 
         try {
             int ratingInt = parseInt(rating.getText());
-            reviewController.addReview(ratingInt, comment.getText(), writername.getText(), receivername.getText());
-            JOptionPane.showMessageDialog(this, receivername.getText() + "'s review created.");
+            reviewController.addReview(ratingInt, comment.getText(), writerName.getText(), receiverName.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
+    @Override
+    public void updateMessage() {
+        JOptionPane.showMessageDialog(this, receiverName.getText() + "'s review created.");
+    }
 }
