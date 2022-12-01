@@ -4,7 +4,6 @@ import controller.RecommendController;
 import entities.User;
 import use_cases.search_use_case.SearchController;
 import use_cases.search_use_case.SearchDSGateway;
-import use_cases.search_use_case.SearchGateway;
 import use_cases.search_use_case.SearchResponseModel;
 import use_cases.user_action_use_case.UserActController;
 //import use_cases.RecommendUseCase.RecommendResponseModel;
@@ -19,7 +18,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 
-public class search_recommend_screen extends JFrame {
+public class Search_Recommend_Screen extends JFrame {
 
     private JTextField txtKeyword;
     private JTextField username;
@@ -32,18 +31,21 @@ public class search_recommend_screen extends JFrame {
 
     private static RecommendController recommendController;
 
-    private SearchDSGateway searchDSGateway;
-
     /**
      * Launch the SearchMatch UI window.
      */
 
-    public static void main(String[] args) {
-        search_recommend_screen frame = new search_recommend_screen();
+    public static void main(String args[]) {
+        Search_Recommend_Screen frame = new Search_Recommend_Screen(likeController,recommendController,searchController);
         frame.setVisible(true);
     }
 
-    public search_recommend_screen() {
+    public Search_Recommend_Screen(UserActController likeController, RecommendController recommendController, SearchController
+            searchController) {
+
+        this.likeController = likeController;
+        this.recommendController = recommendController;
+        this.searchController = searchController;
 
         // Build the empty frame for UI
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
