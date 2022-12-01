@@ -1,6 +1,7 @@
-package Gateway;
+package use_cases.recommend_use_case;
 
-import use_cases.RecommendUseCase.RecommendDsGateway;
+import Gateway.DatabaseGateway;
+import Gateway.LikesGateway;
 import entities.Profile;
 import entities.RegularUser;
 import entities.User;
@@ -8,6 +9,7 @@ import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import use_cases.regular_user_register_use_case.ProfileGateway;
 import use_cases.review_use_case.ReviewGatewayImplementation;
 
 import javax.management.InvalidAttributeValueException;
@@ -62,21 +64,21 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
     }
 
     @Override
-    public void SaveSeen(String username, List<String> usersviewed) throws IOException {
+    public void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
 
-        for (String userviewed:usersviewed){
-            if (likesGateway.isSeen(username, userviewed)){
+        for (User userviewed:usersviewed){
+            if (likesGateway.isSeen(username, userviewed.getAccountName())){
                 return;
             }
             Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
             row.createCell(0).setCellValue(username);
-            row.createCell(1).setCellValue(userviewed);
+            row.createCell(1).setCellValue(userviewed.getAccountName());
             row.createCell(2).setCellValue(0);
         }
-
+        SaveWorkbook(wb,"likes");
     }
 
 }

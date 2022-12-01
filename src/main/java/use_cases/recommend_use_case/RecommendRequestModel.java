@@ -1,8 +1,7 @@
-package use_cases.RecommendUseCase;
+package use_cases.recommend_use_case;
 
 import entities.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecommendRequestModel {

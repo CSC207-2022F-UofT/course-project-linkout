@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class ReviewGatewayImplementation extends DatabaseGateway implements use_cases.review_use_case.ReviewGateway {
+public class ReviewGatewayImplementation extends DatabaseGateway implements ReviewGateway {
 
 
     public ReviewGatewayImplementation(String workingdir) {
@@ -44,7 +44,7 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
     }
 
     @Override
-    public Review findReview(int reviewId) throws IOException, InvalidAttributeValueException {
+    public Review findReview(int reviewId) throws IOException {
         HSSFWorkbook wb = ReviewsBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
@@ -85,6 +85,9 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
                 Row row = sheet.getRow(i);
                 int reviewId = loadIntCell(row.getCell(3));
                 Review review = findReview(reviewId);
+                if (review == null){
+                    continue;
+                }
                 List<Object> revBody = new ArrayList<>();
                 revBody.add(review.getRating());
                 revBody.add(review.getComment());

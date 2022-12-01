@@ -1,8 +1,6 @@
 package use_cases.regular_user_register_use_case;
 
-import entities.Profile;
 import entities.User;
-import entities.UserFactory;
 import entities.UserFactory;
 
 import javax.management.InvalidAttributeValueException;

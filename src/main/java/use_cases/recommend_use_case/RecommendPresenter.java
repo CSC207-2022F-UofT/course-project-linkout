@@ -1,8 +1,6 @@
-package use_cases.RecommendUseCase;
+package use_cases.recommend_use_case;
 
 import entities.User;
-import use_cases.RecommendUseCase.RecommendOutputBoundary;
-import use_cases.RecommendUseCase.RecommendResponseModel;
 
 import java.util.List;
 

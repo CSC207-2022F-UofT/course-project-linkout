@@ -1,7 +1,6 @@
-package use_cases.RecommendUseCase;
+package use_cases.recommend_use_case;
 
 import entities.User;
-import entities.UserFactory;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.BufferedReader;
@@ -112,13 +111,16 @@ public class RecommendInteractor implements RecommendInputBoundary{
 
     @Override
     public RecommendResponseModel Recommend(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+        RecommendResponseModel responseModel;
         if (requestModel.getSimilarTo() != null){
-            return Similar(requestModel);
+            responseModel = Similar(requestModel);
         } else if (requestModel.hasLiked()){
-            return RecommendUsers(requestModel);
+            responseModel = RecommendUsers(requestModel);
         } else {
-            return Popular(requestModel);
+            responseModel = Popular(requestModel);
         }
+        db.SaveSeen(requestModel.getUsername(), responseModel.getAllUsers());
+        return responseModel;
     }
 
 }

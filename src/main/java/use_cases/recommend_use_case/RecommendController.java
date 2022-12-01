@@ -1,9 +1,6 @@
-package use_cases.RecommendUseCase;
+package use_cases.recommend_use_case;
 
 import entities.User;
-import use_cases.RecommendUseCase.RecommendInputBoundary;
-import use_cases.RecommendUseCase.RecommendRequestModel;
-import use_cases.RecommendUseCase.RecommendResponseModel;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;

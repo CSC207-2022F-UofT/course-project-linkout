@@ -1,18 +1,7 @@
-<<<<<<< HEAD:src/main/java/screens/recommend_and_search_screen/SearchScreen.java
-package screens.recommend_and_search_screen;
 
-import use_cases.search_use_case.Search;
-=======
 package screens.search_screen;
-
-import use_cases.search_use_case;
->>>>>>> e5a208197c95537193da5d4d9d1b0a56992ff3af:src/main/java/screens/search_screen/SearchScreen.java
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -177,15 +166,7 @@ public class SearchScreen extends JFrame {
 
                 model.setValueAt(currentRow.getCell(8), i, 8);
 
-<<<<<<< HEAD:src/main/java/screens/recommend_and_search_screen/SearchScreen.java
-                //TODO need Action being filled in
-                //model.setValueAt(new ButtonColumnLike(table, (TODO need Action being filled in), 9), i, 9);
 
-                //model.setValueAt(new ButtonColumnReview(table, (TODO need Action being filled in), 9), i, 9);
-
-                //model.setValueAt(new ButtonColumnReport(table, (TODO need Action being filled in), 9), i, 9);
-
-=======
                 model.setValueAt(new ButtonColumnLike(table, (need Action being filled in), 9), i, 9);
                 //TODO need Action being filled in
                 //model.setValueAt(new ButtonColumnLike(table, (TODO need Action being filled in), 9), i, 9);
@@ -195,7 +176,6 @@ public class SearchScreen extends JFrame {
 
                 model.setValueAt(new ButtonColumnReport(table, (need Action being filled in),11), i, 11);
                 //model.setValueAt(new ButtonColumnReport(table, (TODO need Action being filled in), 11), i, 11);
->>>>>>> e5a208197c95537193da5d4d9d1b0a56992ff3af:src/main/java/screens/search_screen/SearchScreen.java
             }
 
             file.close();

@@ -1,4 +1,4 @@
-package presenter;
+package use_cases.search_use_case;
 
 import entities.User;
 import use_cases.search_use_case.searchOutputBoundary;

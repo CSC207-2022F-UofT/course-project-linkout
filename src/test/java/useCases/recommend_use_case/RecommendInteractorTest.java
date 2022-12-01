@@ -1,6 +1,5 @@
 package useCases.recommend_use_case;
 
-import Gateway.RecommendGateway;
 import org.junit.Test;
 import use_cases.RecommendUseCase.RecommendDsGateway;
 

@@ -1,5 +1,7 @@
-package Gateway;
+package use_cases.regular_user_register_use_case;
 
+import Gateway.DatabaseGateway;
+import Gateway.LikesGateway;
 import entities.Profile;
 import entities.RegularUser;
 import entities.User;
@@ -7,9 +9,7 @@ import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
-import use_cases.regular_user_register_use_case.UserRegisterDsGateway;
-import use_cases.regular_user_register_use_case.UserRegisterDsRequestModel;
-
+import use_cases.review_use_case.ReviewGatewayImplementation;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;

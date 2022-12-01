@@ -1,4 +1,4 @@
-package use_cases.RecommendUseCase;
+package use_cases.recommend_use_case;
 
 import entities.User;
 
@@ -12,5 +12,6 @@ public interface RecommendDsGateway {
 
     List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException;
 
-    void SaveSeen(String username, List<String> usersviewed) throws IOException;
+
+    void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException;
 }
