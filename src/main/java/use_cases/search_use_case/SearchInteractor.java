@@ -22,7 +22,9 @@ public class SearchInteractor {
 
         @Override
         public SearchResponseModel search(SearchRequestModel searchrequestModel) throws IOException, InvalidAttributeValueException {
-            List<User> twentyMatchedUsers = searchDsGateway.searchSheet(searchrequestModel);
+            String keywords = searchrequestModel.getKeywords();
+            String username = searchrequestModel.getUsername();
+            List<User> twentyMatchedUsers = searchDsGateway.searchSheet(keywords,username);
 
             // return a SearchResponseModel with a list of 20 matched users along with their corresponding profiles
             SearchResponseModel responseModel = new SearchResponseModel(twentyMatchedUsers);

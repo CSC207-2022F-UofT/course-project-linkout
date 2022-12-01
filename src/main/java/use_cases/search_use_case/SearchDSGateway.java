@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface SearchDSGateway {
-    List<User> searchSheet(SearchRequestModel searchrequestModel) throws IOException, InvalidAttributeValueException;
+    List<User> searchSheet(String keywords, String username) throws IOException, InvalidAttributeValueException;
 
     void SaveSeen(String username, String userviewed) throws IOException, InvalidAttributeValueException;
 

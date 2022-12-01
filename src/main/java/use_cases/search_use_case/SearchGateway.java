@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class SearchGateway extends DatabaseGateway implements SearchDSGateway {
+public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
     private LikesGateway likesGateway;
     private ReviewGateway reviewGateway;
 
@@ -33,7 +33,6 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway {
             reviewGateway = new ReviewGateway(workingdir);
             profileGateway = new ProfileGateway(workingdir);
         }
-
 
     /**
      * this method <searchSheet> searches for the first users that matched the keywords entered from the database and return a
@@ -125,9 +124,8 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway {
             twentyMatchedUsers.add(dup.get(i));
         }
 
-        List<User> users = null;
+        List<User> users = Collections.emptyList();;
         for (Row row : twentyMatchedUsers) {
-            users = new ArrayList<>();
             for (int i = 1; i <= twentyMatchedUsers.size(); i++) {
                 Profile profile = profileGateway.CreateProfile(row);
                 String usrname = row.getCell(8).toString();
@@ -148,14 +146,13 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway {
         return users;
     }
 
+
     public void SaveSeen(String username, String userviewed) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet = wb.getSheetAt(0);
 
-        if (likesGateway.isSeen(username, userviewed)) {
-            return;
-        }
+        if (likesGateway.isSeen(username, userviewed)) {return;}
 
         Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
         row.createCell(0).setCellValue(username);
@@ -163,6 +160,8 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway {
         row.createCell(2).setCellValue(0);
     }
 }
+
+
 
 
 

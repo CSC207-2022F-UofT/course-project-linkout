@@ -1,8 +1,6 @@
 package use_cases.search_use_case;
 
 
-import entities.User;
-
 public class SearchRequestModel {
 
     private String keywords;
@@ -16,9 +14,10 @@ public class SearchRequestModel {
      * (2) keywords entered is in the form that each feature intereted is separated by comma (e.g. "tennnis, 22, straight")
      *
      * @param keywords the valid keywords entered by the user
+     * @param userName
      */
 
-    public SearchRequestModel(String keywords, String username) {
+    public SearchRequestModel(String keywords, String userName) {
         this.keywords = keywords;
         this.username = username;
     }
