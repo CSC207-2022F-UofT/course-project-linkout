@@ -46,6 +46,7 @@ def forgedata():
         ],
         default=None
     )
+    likes = likes.loc[0:50000,]
     likes = likes.drop('rating', axis= 1)
     reviewedind = random.sample(likes.index[likes.like == 1].tolist(), 5000)
     likes["rating"] = None
