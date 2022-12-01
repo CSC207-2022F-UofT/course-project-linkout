@@ -1,4 +1,4 @@
-package UI;
+package screens.record_report;
 import javax.swing.*;
 import java.awt.event.*;
 

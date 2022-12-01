@@ -1,4 +1,4 @@
-package UI;
+package screens.record_report;
 
 import use_cases.record_review_use_case.RecordReportController;
 

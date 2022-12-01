@@ -1,4 +1,4 @@
-package UI;
+package screens.access_report_and_restrict_user;
 
 import javax.swing.*;
 

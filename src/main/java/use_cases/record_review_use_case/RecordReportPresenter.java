@@ -1,5 +1,5 @@
 package use_cases.record_review_use_case;
-import UI.RecordReportResultViewModel;
+import screens.record_report.RecordReportResultViewModel;
 
 import java.text.SimpleDateFormat;
 

@@ -1,7 +1,7 @@
 package use_cases.restrict_user_use_case;
 
-import UI.AccessReportViewModel;
-import UI.RestrictUserResultViewModel;
+import screens.access_report_and_restrict_user.AccessReportViewModel;
+import screens.access_report_and_restrict_user.RestrictUserResultViewModel;
 
 public class RestrictUserPresenter implements RestrictUserOutputBoundary {
     RestrictUserOutputData restrictUserOutputData;
