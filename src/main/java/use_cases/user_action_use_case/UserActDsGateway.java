@@ -30,4 +30,5 @@ public interface UserActDsGateway {
      */
     User findUser(String accName);
 
+
 }

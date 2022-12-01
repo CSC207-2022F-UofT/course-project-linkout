@@ -102,6 +102,9 @@ public abstract class User extends Account {
     public void like(String targetName) {
         this.liked.add(targetName);
     }
+    public String findContactInfo(){
+        return this.profile.getContactInformation();
+    }
 
     // Getters and setters
     public float getRestrictionDuration() { return restrictionDuration; }

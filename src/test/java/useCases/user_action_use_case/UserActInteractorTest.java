@@ -31,7 +31,7 @@ class UserActInteractorTest {
             }
 
             @Override
-            public String prepareMatchingView(String targetName) {
+            public String prepareMatchingView(String targetName, String contactInfo) {
                 fail("wrongly went to matching vew!");
                 return null;
             }
@@ -72,7 +72,7 @@ class UserActInteractorTest {
             }
 
             @Override
-            public String prepareMatchingView(String targetName) {
+            public String prepareMatchingView(String targetName, String contactInfo) {
                 try {
                     // is czz1 liked czz2
                     assertTrue(database.isLiked("czz1", "czz2"));
@@ -118,7 +118,7 @@ class UserActInteractorTest {
             }
 
             @Override
-            public String prepareMatchingView(String targetName) {
+            public String prepareMatchingView(String targetName, String contactInfo) {
                 fail("wrongly went to matching view!");
                 return null;
             }
