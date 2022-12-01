@@ -9,7 +9,6 @@ import java.util.List;
 public abstract class User extends Account{
 
     private Profile profile;
-    private List<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
     private List<String> liked = new ArrayList<>();
     private List<String> likedme = new ArrayList<>();
@@ -56,7 +55,6 @@ public abstract class User extends Account{
 
     public Profile displayProfile(){ return this.profile;}
 
-    public List<User> showBlocked(){ return this.blocked;}
 
     public List<String> showLiked(){ return this.liked;}
 
@@ -100,13 +98,14 @@ public abstract class User extends Account{
 
 
     public boolean passwordIsValid() {
-        if (this.getPassword().length() >= 3){
-            return true;
-        }
-        return false;
+        return this.getPassword().length() >= 3;
     }
 
     public void like(String targetName) {
         this.liked.add(targetName);
+    }
+
+    public boolean didLike(String targetName) {
+        return this.liked.contains(targetName);
     }
 }

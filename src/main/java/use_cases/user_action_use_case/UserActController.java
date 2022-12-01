@@ -1,5 +1,7 @@
 package use_cases.user_action_use_case;
 
+import java.io.IOException;
+
 // Interface Adapter Layer
 public class UserActController {
 
@@ -12,6 +14,7 @@ public class UserActController {
 
 
     /** A user wants to like another user.
+     * Precondition: Two users must be registered.
      * @param accName like performer's account name
      * @param targetName target user's account name
      * @return a string which is a message created by presenter.
@@ -19,7 +22,11 @@ public class UserActController {
     public String like(String accName, String targetName){
         //RequestModel
         UserActInputData inputData = new UserActInputData(accName, targetName);
-        return userInput.like(inputData);
+        try {
+            return userInput.like(inputData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
