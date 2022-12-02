@@ -1,7 +1,9 @@
 package use_cases.user_action_use_case;
 
+import java.io.IOException;
+
 // use case layer
 public interface UserActInputBoundary {
-    public String like(UserActInputData inputData);
+    String like(UserActInputData inputData) throws IOException;
 
 }

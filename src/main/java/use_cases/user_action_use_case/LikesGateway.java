@@ -1,11 +1,12 @@
-package Gateway;
+package use_cases.user_action_use_case;
 
+import Gateway.DatabaseGateway;
 import entities.User;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import use_cases.regular_user_register_use_case.ProfileGateway;
 import use_cases.regular_user_register_use_case.UserGateway;
-import use_cases.user_action_use_case.UserActDsGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
     private UserGateway userGateway;
+    private ProfileGateway profileGateway;
 
 
     public LikesGateway(String workingdir) {
@@ -111,6 +113,7 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
             throw new RuntimeException(e);
         }
     }
+
 
     public void setLike(String username, String userviewed) throws IOException {
         HSSFWorkbook wb = LikesBook();
