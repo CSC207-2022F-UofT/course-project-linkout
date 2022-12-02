@@ -39,6 +39,18 @@ public class Profile {
         this.selfDescription = selfDescription;
     }
 
+    // This empty constructor is for testing purpose.
+    public Profile(){
+        this.location = "";
+        this.gender = "";
+        this.age = "";
+        this.sexuality = "";
+        this.hobbies = "";
+        this.height = "";
+        this.weight = "";
+        this.contactInformation = "";
+        this.selfDescription = "";
+    }
     public String getContactInformation() {
         return contactInformation;
     }
