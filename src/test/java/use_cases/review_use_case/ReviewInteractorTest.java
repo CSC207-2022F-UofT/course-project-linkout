@@ -1,10 +1,11 @@
 package use_cases.review_use_case;
 
+import entities.Review;
 import org.junit.jupiter.api.Test;
 import screens.review_screen.IReviewView;
-import screens.review_screen.InMemoryReview;
 import screens.review_screen.ReviewTestScreen;
-import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.regular_user_register_use_case.*;
+import screens.review_screen.InMemoryReview;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -17,7 +18,6 @@ class ReviewInteractorTest {
     void addReview() throws IOException, InvalidAttributeValueException {
         ReviewGateway reviewRepository = new InMemoryReview();
         IReviewView iView =  new ReviewTestScreen();
-
         ReviewOutputBoundary presenter = new ReviewPresenter(iView) {
             @Override
             public ReviewResponseModel reportReview(ReviewResponseModel review) {
@@ -31,6 +31,9 @@ class ReviewInteractorTest {
         ReviewInputBoundary interactor = new ReviewInteractor(
                 presenter, reviewRepository, userGateway);
 
+        UserRegisterDsRequestModel userRegisterDsRequestModel = new UserRegisterDsRequestModel("Bob", "password", "password",
+                null, null, null, null, null, null, null, null, null);
+        userGateway.saveUser(userRegisterDsRequestModel);
         ReviewRequestModel inputData = new ReviewRequestModel(
                 1, "good guy", "Alice", "Bob");
 
@@ -54,13 +57,12 @@ class ReviewInteractorTest {
         ReviewInputBoundary interactor = new ReviewInteractor(
                 presenter, reviewRepository, userGateway);
 
-        ReviewRequestModel inputData = new ReviewRequestModel(
-                1, "good guy", "Alice", "Bob");
+        Review review = new Review(5, "good guy", "Alice", "Bob", 1);
+        reviewRepository.saveReview(review);
 
-        interactor.addReview(inputData);
         interactor.deleteReview(1);
+
     }
-}
 
 //    @Test
 //    void hideReview() throws IOException, InvalidAttributeValueException {
@@ -91,3 +93,4 @@ class ReviewInteractorTest {
 //        interactor.hideReview(1);
 //
 //    }
+}
