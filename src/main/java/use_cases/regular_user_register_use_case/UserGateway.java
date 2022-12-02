@@ -1,7 +1,7 @@
 package use_cases.regular_user_register_use_case;
 
 import Gateway.DatabaseGateway;
-import Gateway.LikesGateway;
+import use_cases.user_action_use_case.LikesGateway;
 import entities.Profile;
 import entities.RegularUser;
 import entities.User;
