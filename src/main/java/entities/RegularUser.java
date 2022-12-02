@@ -18,6 +18,10 @@ public class RegularUser extends User implements Upgradable{
         super(password, accountName, profile, liked, likedme, reviews);
     }
 
+    public RegularUser(String password, String accountName, Profile profile) {
+        super(password, accountName, profile);
+    }
+
     @Override
     public VipUser upgrade() {
         this.isVIP = true;

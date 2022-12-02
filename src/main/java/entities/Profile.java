@@ -3,12 +3,12 @@ package entities;
 public class Profile {
     private String location;
     private String gender;
-    private int age;
+    private String age;
     private String sexuality;
     private String hobbies;
-    private int height;
-    private int weight;
-    private int contactInformation;
+    private String height;
+    private String weight;
+    private String contactInformation;
     private String selfDescription;
     /**
      * Create a new Profile with location, gender, age, sexuality, hobbies, height, weight,
@@ -25,8 +25,8 @@ public class Profile {
      * @param selfDescription the selfDescription of this single Profile.
      */
 
-    public Profile(String location, String gender, int age, String sexuality,
-                   String hobbies, int height, int weight, int contactInformation,
+    public Profile(String location, String gender, String age, String sexuality,
+                   String hobbies, String height, String weight, String contactInformation,
                    String selfDescription) {
         this.location = location;
         this.gender = gender;
@@ -39,59 +39,86 @@ public class Profile {
         this.selfDescription = selfDescription;
     }
 
-    public int getContactInformation() {
+    // This empty constructor is for testing purpose.
+    public Profile(){
+        this.location = "";
+        this.gender = "";
+        this.age = "";
+        this.sexuality = "";
+        this.hobbies = "";
+        this.height = "";
+        this.weight = "";
+        this.contactInformation = "";
+        this.selfDescription = "";
+    }
+    public String getContactInformation() {
         return contactInformation;
     }
-    public int getWeight() {
+
+    public String getWeight() {
         return weight;
     }
-    public int getAge() {
+
+    public String getAge() {
         return age;
     }
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
+
     public String getHobbies() {
         return hobbies;
     }
+
     public String getGender() {
         return gender;
     }
+
     public String getLocation() {
         return location;
     }
+
     public String getSexuality() {
         return sexuality;
     }
+
     public String getSelfDescription() {
         return selfDescription;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
-    public void setContactInformation(int contactInformation) {
+
+    public void setContactInformation(String contactInformation) {
         this.contactInformation = contactInformation;
     }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
-    public void setHeight(int height) {
+
+    public void setHeight(String height) {
         this.height = height;
     }
+
     public void setHobbies(String hobbies) {
         this.hobbies = hobbies;
     }
+
     public void setLocation(String location) {
         this.location = location;
     }
+
     public void setSexuality(String sexuality) {
         this.sexuality = sexuality;
     }
+
     public void setSelfDescription(String selfDescription) {
         this.selfDescription = selfDescription;
     }
-    public void setWeight(int weight) {
+
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 }

@@ -1,9 +1,12 @@
 package use_cases.regular_user_register_use_case;
 
+import entities.Profile;
 import entities.User;
-import entities.RegUserFactory;
+import entities.UserFactory;
 import entities.UserFactory;
 
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class UserRegisterInteractor implements UserRegisterInputBoundary {
@@ -22,13 +25,12 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
     }
 
     @Override
-    public UserRegisterResponseModel create(UserRegisterRequestModel requestModel) {
+    public UserRegisterResponseModel create(UserRegisterRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         if (userDsGateway.existsByName(requestModel.getAccountName())) {
             return userPresenter.prepareFailView("User already exists.");
         } else if (!requestModel.getPassword().equals(requestModel.getRepeatPassword())) {
             return userPresenter.prepareFailView("Passwords don't match.");
         }
-
         User user = regUserFactory.create(requestModel.getPassword(),
                 requestModel.getAccountName(), requestModel.getProfile());
         if (!user.passwordIsValid()) {
@@ -42,7 +44,7 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
                 user.displayProfile().getHobbies(), user.displayProfile().getHeight(),
                 user.displayProfile().getWeight(), user.displayProfile().getContactInformation(),
                 user.displayProfile().getSelfDescription(), now);
-        userDsGateway.save(userDsModel);
+        userDsGateway.saveUser(userDsModel);
 
         UserRegisterResponseModel accountResponseModel = new UserRegisterResponseModel(user.getAccountName(),
                 now.toString());

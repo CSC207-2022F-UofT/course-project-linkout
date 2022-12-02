@@ -1,6 +1,6 @@
 package screens.review_screen;
 
-import controller.ReviewController;
+import use_cases.review_use_case.ReviewController;
 
 import javax.swing.*;
 import java.awt.*;

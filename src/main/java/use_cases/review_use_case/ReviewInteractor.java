@@ -1,5 +1,5 @@
 package use_cases.review_use_case;
-import Gateway.UserGateway;
+import use_cases.regular_user_register_use_case.UserGateway;
 import entities.*;
 
 import javax.management.InvalidAttributeValueException;

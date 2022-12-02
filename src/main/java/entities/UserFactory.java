@@ -14,4 +14,7 @@ public class UserFactory {
         return new RegularUser(password, accountName, profile, liked, likedme, reviews);
     }
 
+    public User create(String password, String accountName, Profile profile) {
+        return new RegularUser(password, accountName, profile);
+    }
 }
