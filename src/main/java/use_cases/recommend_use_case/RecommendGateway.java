@@ -3,7 +3,7 @@ package use_cases.recommend_use_case;
 import Gateway.DatabaseGateway;
 import use_cases.user_action_use_case.LikesGateway;
 import use_cases.regular_user_register_use_case.ProfileGateway;
-import use_cases.review_use_case.ReviewsGateway;
+import use_cases.review_use_case.ReviewGatewayImplementation;
 import entities.Profile;
 import entities.RegularUser;
 import entities.User;
@@ -23,13 +23,13 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
     private ProfileGateway profileGateway;
     private LikesGateway likesGateway;
 
-    private ReviewsGateway reviewGateway;
+    private ReviewGatewayImplementation reviewGateway;
 
     public RecommendGateway(String workingdir) {
         super(workingdir);
         profileGateway = new ProfileGateway(workingdir);
         likesGateway = new LikesGateway(workingdir);
-        reviewGateway = new ReviewsGateway(workingdir);
+        reviewGateway = new ReviewGatewayImplementation(workingdir);
     }
 
     @Override
