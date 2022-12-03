@@ -1,12 +1,13 @@
 package use_cases.search_use_case.search_screen;
 
+import Gateway.LikesGateway;
+import Gateway.UserGateway;
 import controller.RecommendController;
 import controller.ReviewController;
 import entities.User;
 import presenter.ReviewPresenter;
 import screens.review_screen.ReviewCreationScreen;
-import use_cases.review_use_case.ReviewInputBoundary;
-import use_cases.review_use_case.ReviewInputBoundaryImplementation;
+import use_cases.review_use_case.*;
 import use_cases.search_use_case.*;
 import use_cases.user_action_use_case.*;
 import use_cases.RecommendUseCase.RecommendResponseModel;
@@ -43,6 +44,9 @@ public class Search_Recommend_Screen extends JFrame {
 
     private static ReviewCreationScreen reviewCreationScreen;
 
+    private static ReviewInteractor reviewInteractor;
+
+
     /**
      * Launch the SearchMatch UI window.
      */
@@ -53,20 +57,25 @@ public class Search_Recommend_Screen extends JFrame {
         SearchController searchController = new SearchController(searchInput);
 
         //like function
-        UserActInputBoundary userInputControler = new UserActInputBoundaryImplementation();
-        UserActController likeController = new UserActController(userInputControler);
+        LikesGateway userActDsGateway = new LikesGateway("/Users/xumichelle/Desktop/course-project-linkout");
+        UserActPresenter userActPresenter= new UserActPresenter();
+        UserActInteractor userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
+        UserActController likeController = new UserActController(userActInteractor);
         UserActPresenter likePresenter = new UserActPresenter();
 
         //review function
-        ReviewInputBoundary reviewInputBoundary = new ReviewInputBoundaryImplementation();
-        ReviewController reviewController = new ReviewController(reviewInputBoundary);
+        ReviewPresenter reviewPresenter = new ReviewPresenter();
+        ReviewsGateway reviewsGateway = new ReviewsGateway("/Users/xumichelle/Desktop/course-project-linkout");
+        UserGateway userGateway = new UserGateway("/Users/xumichelle/Desktop/course-project-linkout");
+        ReviewInteractor reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateway);
+        ReviewController reviewController = new ReviewController(reviewInteractor);
 
 
 //        //recommend function
 //        RecommendController recommendController = new RecommendController();
 
         Search_Recommend_Screen frame = new Search_Recommend_Screen(searchController, likeController, likePresenter,
-                 reviewController);
+                reviewController);
         frame.setVisible(true);
 
     }
@@ -80,6 +89,7 @@ public class Search_Recommend_Screen extends JFrame {
 //        recommendController = recommendcontroller;
         searchController = searchcontroller;
         reviewController = reviewcontroller;
+
 
         // Build the empty frame for UI
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -232,16 +242,18 @@ public class Search_Recommend_Screen extends JFrame {
                 // Create the Button Like
                 Action likeAction = new AbstractAction()
                 {
+                    @Override
                     public void actionPerformed(ActionEvent e)
                     {
                         int currRow = Integer.valueOf( e.getActionCommand() );
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        likeController.like(userName,targetName);
                         String message = likePresenter.prepareSuccessView(targetName);
                         JOptionPane.showMessageDialog(getContentPane(),message);
+                        likeController.like(userName,targetName);
                     }
                 };
                 ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
+
 
 
                 // Create the Button Review

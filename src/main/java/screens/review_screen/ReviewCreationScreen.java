@@ -1,8 +1,11 @@
 package screens.review_screen;
 
+import Gateway.UserGateway;
 import controller.ReviewController;
+import presenter.ReviewPresenter;
 import use_cases.review_use_case.ReviewInputBoundary;
-import use_cases.review_use_case.ReviewInputBoundaryImplementation;
+import use_cases.review_use_case.ReviewInteractor;
+import use_cases.review_use_case.ReviewsGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +21,11 @@ public class ReviewCreationScreen extends JFrame implements ActionListener {
     JTextField rating = new JTextField(15);
 
     public static void main(String[] args){
-        ReviewInputBoundary reviewInputBoundary = new ReviewInputBoundaryImplementation();
-        ReviewController reviewController = new ReviewController(reviewInputBoundary);
+        ReviewPresenter reviewPresenter = new ReviewPresenter();
+        ReviewsGateway reviewsGateway = new ReviewsGateway("/Users/xumichelle/Desktop/course-project-linkout");
+        UserGateway userGateway = new UserGateway("/Users/xumichelle/Desktop/course-project-linkout");
+        ReviewInteractor reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateway);
+        ReviewController reviewController = new ReviewController(reviewInteractor);
         ReviewCreationScreen frame = new ReviewCreationScreen(reviewController);
         frame.setVisible(true);
     }
@@ -33,8 +39,6 @@ public class ReviewCreationScreen extends JFrame implements ActionListener {
      * A window with a title and a JButton.
      */
     public ReviewCreationScreen(ReviewController controller)  {
-
-
 
         setBounds(150, 150, 680, 342);
 
@@ -84,8 +88,8 @@ public class ReviewCreationScreen extends JFrame implements ActionListener {
 
         try {
             int ratingInt = parseInt(rating.getText());
-            reviewController.addReview(ratingInt, comment.getText(), writername.getText(), receivername.getText());
             JOptionPane.showMessageDialog(this, receivername.getText() + "'s review created.");
+            reviewController.addReview(ratingInt, comment.getText(), writername.getText(), receivername.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
