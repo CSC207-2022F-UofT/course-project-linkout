@@ -7,7 +7,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import use_cases.regular_user_register_use_case.ProfileGateway;
 import use_cases.regular_user_register_use_case.UserGateway;
-import use_cases.user_action_use_case.UserActDsGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;

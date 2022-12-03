@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class ReviewsGateway extends DatabaseGateway implements use_cases.review_use_case.ReviewGateway {
+public class ReviewGatewayImplementation extends DatabaseGateway implements use_cases.review_use_case.ReviewGateway {
 
 
-    public ReviewsGateway(String workingdir) {
+    public ReviewGatewayImplementation(String workingdir) {
         super(workingdir);
     }
 

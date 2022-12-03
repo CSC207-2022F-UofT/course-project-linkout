@@ -3,8 +3,6 @@ package screens.review_screen;
 import entities.Review;
 import use_cases.review_use_case.ReviewGateway;
 
-import javax.management.InvalidAttributeValueException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +27,7 @@ public class InMemoryReview implements ReviewGateway {
     }
 
     @Override
-    public int getLargestReviewId() throws IOException {
+    public int getLargestReviewId(){
         return 0;
     }
 

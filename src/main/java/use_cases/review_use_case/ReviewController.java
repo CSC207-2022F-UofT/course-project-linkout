@@ -49,13 +49,15 @@ public class ReviewController {
         return reviewInput.deleteReview(id);
     }
 
-    /**
-     * this method hides a review object from the receiver's review list if the receiver iputs thier accountname and
-     * ID of the review to be hided
-     * @param id ID of the review to be hided
-     * @return ReviewResponseModel
-     */
-    public ReviewResponseModel hideReview(int id) throws IOException, InvalidAttributeValueException {
-        return reviewInput.hideReview(id);
-    }
+//    /**
+//     * this method hides a review object from the receiver's review list if the receiver iputs thier accountname and
+//     * ID of the review to be hided
+//     * @param id ID of the review to be hided
+//     * @return ReviewResponseModel
+//     */
+//    public ReviewResponseModel hideReview(int id) throws IOException, InvalidAttributeValueException {
+//        return reviewInput.hideReview(id);
+//    }
+//    this method requires manipulating view which is implemented last, will do it if time permitted
 }
+
