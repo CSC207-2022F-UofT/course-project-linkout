@@ -2,19 +2,16 @@ package use_cases.search_use_case;
 import Gateway.DatabaseGateway;
 import Gateway.LikesGateway;
 import Gateway.ProfileGateway;
-import Gateway.ReviewGateway;
+import use_cases.review_use_case.ReviewsGateway;
 import entities.RegularUser;
 import entities.User;
 import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
-import use_cases.search_use_case.SearchDSGateway;
-
 import entities.Profile;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
-import use_cases.search_use_case.SearchRequestModel;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -24,13 +21,13 @@ import java.util.stream.Collectors;
 
 public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
     private LikesGateway likesGateway;
-    private ReviewGateway reviewGateway;
+    private ReviewsGateway reviewGateway;
 
     private ProfileGateway profileGateway;
     public SearchGateway(String workingdir)  {
             super(workingdir);
             likesGateway = new LikesGateway(workingdir);
-            reviewGateway = new ReviewGateway(workingdir);
+            reviewGateway = new ReviewsGateway(workingdir);
             profileGateway = new ProfileGateway(workingdir);
         }
 
@@ -44,7 +41,7 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
 
     public List<User> searchSheet(String keywords, String type) throws IOException, InvalidAttributeValueException {
 
-        HSSFWorkbook wb = ProfileStyleBook(type);
+        HSSFWorkbook wb = ProfilesStyleBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet = wb.getSheetAt(0);
 
@@ -57,7 +54,8 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
         String[] searchTextList = searchText.split(",");
 
         // Create a variable to store rows that contains the searchText
-        List<Row> filteredRows = Collections.<Row>emptyList();
+        List<Row> filteredRows = new ArrayList<Row>();
+        ;
 
         // Iterate through the keywords
         for (int i = 0; i < searchTextList.length; i++) {
@@ -107,7 +105,8 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
         // Only keep rows that has been duplicated for n(number of keywords) times(i.e. keep rows that matched with
         // all keywords
         // dup is the filter list that contains only users satisfies all keywords entered
-        List<Row> dup = Collections.emptyList();
+        List<Row> dup = new ArrayList<Row>();
+        ;
         int numberOfKeyword = searchTextList.length;
 
         Map<Row, Long> occurrences = filteredRows.stream()
@@ -118,30 +117,40 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
         for (Row key : occurrences.keySet()) {
             dup.add(key);
         }
-        // Create a sub-arraylist that contains 20 of the matched users along with their corresponding profiles
-        List<Row> twentyMatchedUsers = Collections.emptyList();
-        for (int i = 0; i < 21; i++) {
-            twentyMatchedUsers.add(dup.get(i));
-        }
 
-        List<User> users = Collections.emptyList();;
-        for (Row row : twentyMatchedUsers) {
-            for (int i = 1; i <= twentyMatchedUsers.size(); i++) {
-                Profile profile = profileGateway.CreateProfile(row);
-                String usrname = row.getCell(8).toString();
-                String password = row.getCell(9).toString();
-                String isVip = row.getCell(10).toString();
-                List<String> liked = likesGateway.findLiked(usrname);
-                List<String> likedme = likesGateway.findLikedMe(usrname);
-                Hashtable<Integer, List<Object>> reviews = reviewGateway.getReviews(usrname);
-                User user;
-                if (isVip.equals("TRUE")) {
-                    user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
-                } else {
-                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
+        // Create a sub-arraylist that contains 20 of the matched users along with their corresponding profiles
+        List<Row> twentyMatchedUsers = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+        if (dup.size() != 0) {
+            List<Row> uniqueDup = dup
+                    .stream() // get stream for original list
+                    .distinct() // distinct method removes duplicates
+                    .collect(Collectors.toList());
+
+            // Make sure we only count the at most 20 users that satisfied features identified from keywords entered
+            if (dup.size() > 20) {
+                for (int i = 0; i < 20; i++) {
+                    twentyMatchedUsers.add(uniqueDup.get(i));
                 }
-                users.add(user);
             }
+            else{twentyMatchedUsers = uniqueDup;}
+
+            for (Row row : twentyMatchedUsers) {
+                    Profile profile = profileGateway.CreateProfile(row);
+                    String usrname = row.getCell(8).toString();
+                    String password = row.getCell(9).toString();
+                    String isVip = row.getCell(10).toString();
+                    List<String> liked = likesGateway.findLiked(usrname);
+                    List<String> likedme = likesGateway.findLikedMe(usrname);
+                    Hashtable<Integer, List<Object>> reviews = reviewGateway.getReviews(usrname);
+                    User user;
+                    if (isVip.equals("TRUE")) {
+                        user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
+                    } else {
+                        user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
+                    }
+                    users.add(user);
+                }
         }
         return users;
     }
@@ -159,6 +168,7 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
         row.createCell(1).setCellValue(userviewed);
         row.createCell(2).setCellValue(0);
     }
+
 }
 
 

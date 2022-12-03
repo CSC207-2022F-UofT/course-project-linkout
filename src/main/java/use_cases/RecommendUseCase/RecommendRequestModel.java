@@ -23,6 +23,7 @@ public class RecommendRequestModel {
         similarTo = userviewed;
     }
 
+
     public String getUsername(){
         return username;
     }

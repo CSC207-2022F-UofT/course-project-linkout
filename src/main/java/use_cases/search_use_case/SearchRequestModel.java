@@ -17,7 +17,7 @@ public class SearchRequestModel {
      * @param userName
      */
 
-    public SearchRequestModel(String keywords, String userName) {
+    public SearchRequestModel(String keywords, String username) {
         this.keywords = keywords;
         this.username = username;
     }

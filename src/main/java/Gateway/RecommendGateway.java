@@ -8,6 +8,7 @@ import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import use_cases.review_use_case.ReviewsGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -20,13 +21,13 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
     private ProfileGateway profileGateway;
     private LikesGateway likesGateway;
 
-    private ReviewGateway reviewGateway;
+    private ReviewsGateway reviewGateway;
 
     public RecommendGateway(String workingdir) {
         super(workingdir);
         profileGateway = new ProfileGateway(workingdir);
         likesGateway = new LikesGateway(workingdir);
-        reviewGateway = new ReviewGateway(workingdir);
+        reviewGateway = new ReviewsGateway(workingdir);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package screens.review_screen;
 
 import controller.ReviewController;
+import use_cases.review_use_case.ReviewInputBoundary;
+import use_cases.review_use_case.ReviewInputBoundaryImplementation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,11 +11,18 @@ import java.awt.event.ActionListener;
 
 import static java.lang.Integer.parseInt;
 
-public class ReviewCreationScreen extends JPanel implements ActionListener {
+public class ReviewCreationScreen extends JFrame implements ActionListener {
     JTextField receivername = new JTextField(15);
     JTextField writername = new JTextField(15);
     JTextField comment = new JTextField(15);
     JTextField rating = new JTextField(15);
+
+    public static void main(String[] args){
+        ReviewInputBoundary reviewInputBoundary = new ReviewInputBoundaryImplementation();
+        ReviewController reviewController = new ReviewController(reviewInputBoundary);
+        ReviewCreationScreen frame = new ReviewCreationScreen(reviewController);
+        frame.setVisible(true);
+    }
 
     /**
      * The controller
@@ -23,11 +32,15 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
     /**
      * A window with a title and a JButton.
      */
-    public ReviewCreationScreen(ReviewController controller) {
+    public ReviewCreationScreen(ReviewController controller)  {
+
+
+
+        setBounds(150, 150, 680, 342);
 
         this.reviewController = controller;
 
-        JLabel title = new JLabel("Review Deletion Screen");
+        JLabel title = new JLabel("Review creation Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel receivernameInfo = new LabelTextPanel(
@@ -50,7 +63,9 @@ public class ReviewCreationScreen extends JPanel implements ActionListener {
         create.addActionListener(this);
         cancel.addActionListener(this);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        getContentPane().setLayout(
+                new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)
+        );
 
         this.add(title);
         this.add(receivernameInfo);
