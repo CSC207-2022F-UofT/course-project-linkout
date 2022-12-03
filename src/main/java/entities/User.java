@@ -36,6 +36,16 @@ public abstract class User extends Account {
         this.profile = profile;
     }
 
+    public User(String password, String accountName, Profile profile, List<String> liked,
+                List<String> likedme, Hashtable<Integer, List<Object>> reviews) {
+        super(password, accountName);
+        this.profile = profile;
+        this.liked = liked;
+        this.likedme = likedme;
+        this.reviews = reviews;
+
+    }
+
     /**
      * Adds a report to the user's list of reports.
      * @param report    The report filed against this user.
