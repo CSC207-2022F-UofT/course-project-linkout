@@ -88,7 +88,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         SaveWorkbook(wb, "profiles");
     }
 
-    @Override
+
     public void RemoveUser(User user) throws IOException, InvalidAttributeValueException {
         String username = user.getAccountName();
         if (existsByName(username)){
