@@ -253,7 +253,7 @@ public class SearchRecommendScreen extends JFrame {
                     {
                         int currRow = Integer.valueOf( e.getActionCommand() );
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-//                        likeController.like(userName,targetName);
+                        likeController.like(userName,targetName);
                         String message = likePresenter.prepareSuccessView(targetName);
                         JOptionPane.showMessageDialog(getContentPane(),message);
                     }
@@ -297,7 +297,7 @@ public class SearchRecommendScreen extends JFrame {
 //                       //report action defines here
 //                    }
 //                };
-//                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
+//                ButtonColumnRev reportButton = new ButtonColumnReview(table, reportAction, 11);
             }
 
         } catch (Exception e) {

@@ -208,7 +208,9 @@ public class DatabaseConnect implements UserUpgrade {
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             currname = sheet.getRow(i).getCell(0).toString();
-            if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4)) {
+            if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4)
+                    & (sheet.getRow(i).getCell(3).getNumericCellValue() != 0.0)) {
+
                 Row row = sheet.getRow(i);
                 int reviewId = loadIntCell(row.getCell(3));
                 Review review = findReview(reviewId);

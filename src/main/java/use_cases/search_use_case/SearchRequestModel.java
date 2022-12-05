@@ -14,7 +14,7 @@ public class SearchRequestModel {
      * (2) keywords entered is in the form that each feature intereted is separated by comma (e.g. "tennnis, 22, straight")
      *
      * @param keywords the valid keywords entered by the user
-     * @param userName
+     * @param username
      */
 
     public SearchRequestModel(String keywords, String username) {
