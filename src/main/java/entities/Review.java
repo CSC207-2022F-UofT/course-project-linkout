@@ -1,4 +1,8 @@
 package entities;
+
+
+import Gateway.DatabaseConnect;
+
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
@@ -76,7 +80,7 @@ public class Review{
 
     }
 
-    public void setWriter(String writer) {
+    public void setWriter(String writer) throws IOException, InvalidAttributeValueException {
         this.writer = writer;
     }
 
