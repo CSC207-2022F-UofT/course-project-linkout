@@ -208,7 +208,7 @@ public class DatabaseConnect implements UserUpgrade {
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             currname = sheet.getRow(i).getCell(0).toString();
-            if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4)) {
+            if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4) & (sheet.getRow(i).getCell(3).getNumericCellValue() != 0.0)) {
                 Row row = sheet.getRow(i);
                 int reviewId = loadIntCell(row.getCell(3));
                 Review review = findReview(reviewId);
@@ -293,13 +293,13 @@ public class DatabaseConnect implements UserUpgrade {
                 List<String> liked = findLiked(usrname);
                 List<String> likedme = findLikedMe(usrname);
                 Hashtable<Integer, List<Object>> reviews = loadAllReviewsGot(usrname);
-                String restrictedTime = loadStringCell(row.getCell(12));
+                //String restrictedTime = loadStringCell(row.getCell(12));
                 if (isVip.equals("TRUE")) {
                     user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
-                    user.setRestrictedTime(Float.parseFloat(restrictedTime));
+                    //user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 } else {
                     user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
-                    user.setRestrictedTime(Float.parseFloat(restrictedTime));
+                    //user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 }
                 break;
             }

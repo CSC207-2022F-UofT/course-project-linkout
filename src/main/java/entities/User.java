@@ -171,5 +171,14 @@ public abstract class User extends Account {
 
     }
 
+    public float calculateRemainingTime(){
+        float currentTime = System.currentTimeMillis();
+        if (currentTime >= restrictionDuration + restrictionInitialTime){
+            return 0;
+        }else{
+            return restrictionInitialTime + restrictionDuration - currentTime;
+        }
+    }
+
 
 }
