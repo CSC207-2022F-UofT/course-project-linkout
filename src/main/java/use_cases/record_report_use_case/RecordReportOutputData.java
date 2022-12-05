@@ -1,4 +1,4 @@
-package use_cases.record_review_use_case;
+package use_cases.record_report_use_case;
 
 public class RecordReportOutputData {
     private String timestamp;
