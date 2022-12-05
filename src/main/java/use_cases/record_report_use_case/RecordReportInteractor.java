@@ -1,6 +1,5 @@
-package use_cases.record_review_use_case;
+package use_cases.record_report_use_case;
 import entities.*;
-import Gateway.UserGateway;
 
 public class RecordReportInteractor implements RecordReportInputBoundary {
     RecordReportOutputBoundary recordReportOB;
@@ -21,7 +20,7 @@ public class RecordReportInteractor implements RecordReportInputBoundary {
 
         try {
             User user = recordReportGateway.findUser(r.getReportingUserID());
-            Admin admin = (Admin) recordReportGateway.findUser(adminID);
+            Admin admin = recordReportGateway.findAdmin(adminID);
             if (user != null && admin != null) {
                 user.addReport(report);
                 String message = "A new report has been filed against " + report.getReportedUserID() + ". Check their reports attribute to find the report.";

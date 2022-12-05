@@ -1,6 +1,5 @@
 package use_cases.restrict_user_use_case;
 import entities.*;
-import Gateway.UserGateway;
 
 public class RestrictUserInteractor implements RestrictUserInputBoundary{
     RestrictUserOutputBoundary restrictUserOB;
