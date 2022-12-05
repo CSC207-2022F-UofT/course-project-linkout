@@ -39,6 +39,7 @@ public class Profile {
         this.selfDescription = selfDescription;
     }
 
+
     // This empty constructor is for testing purpose.
     public Profile(){
         this.location = "";

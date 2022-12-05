@@ -6,6 +6,9 @@ import entities.UserFactory;
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class UserRegisterInteractor implements UserRegisterInputBoundary {
 
@@ -29,6 +32,7 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
         } else if (!requestModel.getPassword().equals(requestModel.getRepeatPassword())) {
             return userPresenter.prepareFailView("Passwords don't match.");
         }
+
         User user = regUserFactory.create(requestModel.getPassword(),
                 requestModel.getAccountName(), requestModel.getProfile());
         if (!user.passwordIsValid()) {
