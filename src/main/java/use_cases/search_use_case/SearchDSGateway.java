@@ -8,6 +8,6 @@ import java.util.List;
 public interface SearchDSGateway {
     List<User> searchSheet(String keywords, String username) throws IOException, InvalidAttributeValueException;
 
-    void SaveSeen(String username, String userviewed) throws IOException, InvalidAttributeValueException;
+    void SaveSeen(String username, List<User> usersViewed) throws IOException, InvalidAttributeValueException;
 
 }

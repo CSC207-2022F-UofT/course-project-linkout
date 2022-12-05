@@ -1,8 +1,8 @@
 package use_cases.search_use_case;
 import Gateway.DatabaseGateway;
-import Gateway.LikesGateway;
-import Gateway.ProfileGateway;
-import use_cases.review_use_case.ReviewsGateway;
+
+import use_cases.regular_user_register_use_case.ProfileGateway;
+import use_cases.review_use_case.ReviewGatewayImplementation;
 import entities.RegularUser;
 import entities.User;
 import entities.VipUser;
@@ -12,6 +12,7 @@ import entities.Profile;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import use_cases.user_action_use_case.LikesGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -21,13 +22,13 @@ import java.util.stream.Collectors;
 
 public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
     private LikesGateway likesGateway;
-    private ReviewsGateway reviewGateway;
+    private ReviewGatewayImplementation reviewGateway;
 
     private ProfileGateway profileGateway;
     public SearchGateway(String workingdir)  {
             super(workingdir);
             likesGateway = new LikesGateway(workingdir);
-            reviewGateway = new ReviewsGateway(workingdir);
+            reviewGateway = new ReviewGatewayImplementation(workingdir);
             profileGateway = new ProfileGateway(workingdir);
         }
 
@@ -39,7 +40,7 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
      * @return List<User> a list of 20 matched users along with their corresponding profiles
      */
 
-    public List<User> searchSheet(String keywords, String type) throws IOException, InvalidAttributeValueException {
+    public List<User> searchSheet(String keywords, String username) throws IOException, InvalidAttributeValueException {
 
         HSSFWorkbook wb = ProfilesStyleBook();
         //creating a Sheet object to retrieve the object
@@ -152,21 +153,30 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
                     users.add(user);
                 }
         }
+        //save twenty matched users as seen for recommend usage
+        this.SaveSeen(username, users);
+
+        //return the twenty matched users in the form of List<User>
         return users;
     }
 
 
-    public void SaveSeen(String username, String userviewed) throws IOException {
+    @Override
+    public void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
-        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFSheet sheet=wb.getSheetAt(0);
 
-        if (likesGateway.isSeen(username, userviewed)) {return;}
-
-        Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
-        row.createCell(0).setCellValue(username);
-        row.createCell(1).setCellValue(userviewed);
-        row.createCell(2).setCellValue(0);
+        for (User userviewed:usersviewed){
+            if (likesGateway.isSeen(username, userviewed.getAccountName())){
+                return;
+            }
+            Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
+            row.createCell(0).setCellValue(username);
+            row.createCell(1).setCellValue(userviewed.getAccountName());
+            row.createCell(2).setCellValue(0);
+        }
+        SaveWorkbook(wb,"likes");
     }
 
 }

@@ -1,24 +1,25 @@
 package use_cases.regular_user_register_use_case;
 
-import entities.Profile;
-import entities.User;
-import entities.UserFactory;
+import entities.*;
 import entities.UserFactory;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class UserRegisterInteractor implements UserRegisterInputBoundary {
 
     final UserRegisterDsGateway userDsGateway;
     final UserRegisterPresenter userPresenter;
 
-    final UserFactory regUserFactory;
+    final AllUserFactory regUserFactory;
 
     public UserRegisterInteractor(UserRegisterDsGateway userRegisterDfGateway,
                                   UserRegisterPresenter userRegisterPresenter,
-                                  UserFactory regUserFactory) {
+                                  AllUserFactory regUserFactory) {
         this.userDsGateway = userRegisterDfGateway;
         this.userPresenter = userRegisterPresenter;
         this.regUserFactory = regUserFactory;
@@ -31,6 +32,7 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
         } else if (!requestModel.getPassword().equals(requestModel.getRepeatPassword())) {
             return userPresenter.prepareFailView("Passwords don't match.");
         }
+
         User user = regUserFactory.create(requestModel.getPassword(),
                 requestModel.getAccountName(), requestModel.getProfile());
         if (!user.passwordIsValid()) {

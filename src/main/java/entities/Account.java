@@ -16,7 +16,6 @@ abstract public class Account implements AccountRegister{
         this.accountName = accountName;
     }
 
-
     public String getAccountName() {
         return accountName;
     }

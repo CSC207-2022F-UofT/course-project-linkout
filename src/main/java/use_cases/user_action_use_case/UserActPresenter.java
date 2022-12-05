@@ -10,8 +10,8 @@ public class UserActPresenter implements UserActPresenterInterface {
     }
 
     @Override
-    public String prepareMatchingView(String targetName) {
-        return "Matched with " + targetName + " !";
+    public String prepareMatchingView(String targetName, String contactInfo) {
+        return "Matched with " + targetName + " ! /n" + "Contact Information:" + contactInfo;
     }
 
     @Override

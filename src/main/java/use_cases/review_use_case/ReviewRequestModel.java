@@ -32,32 +32,16 @@ public class ReviewRequestModel {
         return rating;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
     public String getComment() {
         return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     public String getWriter() {
         return writer;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
     public String getReceiver() {
         return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
     }
 
     public boolean isComplete() {

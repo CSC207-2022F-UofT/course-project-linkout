@@ -7,14 +7,16 @@ import java.util.List;
 public abstract class User extends Account {
 
     private Profile profile;
-    private List<User> blocked = new ArrayList<>();
     private boolean isVIP = false;
+
+
     private List<String> liked = new ArrayList<>();
     private List<String> likedme = new ArrayList<>();
-    private Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
+    protected Hashtable<Integer, List<Object>> reviews = new Hashtable<>();
     private int restrictionDuration;
-    private long restrictionInitialTime;
+    private float restrictionInitialTime;
     private List<Report> reports = new ArrayList<>();
+
 
     /**
      * Create a user with its profile and can be a vip user if isVIP param is true.
@@ -23,6 +25,19 @@ public abstract class User extends Account {
      * @param isVIP the VIP status of this user.
      */
 
+
+    // For VIPUser constructor
+    public User(String password, String accountName, Profile profile, boolean isVIP,
+                List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
+        super(password, accountName);
+        this.profile = profile;
+        this.isVIP = isVIP;
+        this.liked = liked;
+        this.likedme = likedme;
+        this.reviews = reviews;
+
+    }
+
     // For VIPUser constructor.
     public User(String password, String accountName, Profile profile, boolean isVIP){
         super(password, accountName);
@@ -30,29 +45,23 @@ public abstract class User extends Account {
         this.isVIP = isVIP;
     }
 
+
+
     // For RegularUser constructor.
     public User(String password, String accountName, Profile profile){
         super(password, accountName);
         this.profile = profile;
     }
 
-    public User(String password, String accountName, Profile profile, List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews) {
+    public User(String password, String accountName, Profile profile, List<String> liked,
+                List<String> likedme, Hashtable<Integer, List<Object>> reviews) {
         super(password, accountName);
         this.profile = profile;
         this.liked = liked;
         this.likedme = likedme;
         this.reviews = reviews;
-    }
 
-    public User(String password, String accountName, Profile profile, boolean isVIP, List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews) {
-        super(password, accountName);
-        this.profile = profile;
-        this.isVIP = true;
-        this.liked = liked;
-        this.likedme = likedme;
-        this.reviews = reviews;
     }
-
 
     /**
      * Adds a report to the user's list of reports.
@@ -62,11 +71,33 @@ public abstract class User extends Account {
         reports.add(report);
     }
 
+
+    public boolean setRestrictedTime(float setTime){
+        this.restrictionInitialTime = setTime;
+        return true;
+    }
+
+    public Profile displayProfile(){ return this.profile;}
+
+    public List<String> showLiked(){ return this.liked;}
+
+    public boolean showVip(){ return this.isVIP;}
+
+    public boolean setVipStatus(boolean isvip){
+        this.isVIP = isvip;
+        return true;
+    }
+
+    public List<String> showLikedMe(){ return this.likedme;}
+
+    public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
+
     /**
      * Gets the newest report filed against this user.
      * @return      The report
      */
     public Report getNewestReport() { return reports.get(reports.size() - 1); }
+
 
     /**
      * Adds a review to the user's list of reports.
@@ -120,18 +151,17 @@ public abstract class User extends Account {
     public void like(String targetName) {
         this.liked.add(targetName);
     }
+    public String findContactInfo(){
+        return this.profile.getContactInformation();
+    }
 
     // Getters and setters
     public float getRestrictionDuration() { return restrictionDuration; }
     public void setRestrictionDuration(int restrictionDuration) {
         this.restrictionDuration = restrictionDuration;
         this.restrictionInitialTime = System.currentTimeMillis();
+
     }
-    public Profile displayProfile(){ return this.profile;}
-    public List<User> showBlocked(){ return this.blocked;}
-    public List<String> showLiked(){ return this.liked;}
-    public boolean showVip(){ return this.isVIP;}
-    public void setVipStatus(boolean isvip){ this.isVIP = isvip;}
-    public List<String> showLikedMe(){ return this.likedme;}
-    public Hashtable<Integer, List<Object>> getReviews(){ return this.reviews;}
+
+
 }
