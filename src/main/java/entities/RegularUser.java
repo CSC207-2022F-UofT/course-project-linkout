@@ -15,10 +15,16 @@ public class RegularUser extends User implements Upgradable{
      * @param profile the profile associated with this regular user.
      */
 
-    public RegularUser(String password, String accountName, Profile profile, boolean isVip,
+
+
+    public RegularUser(String password, String accountName, Profile profile,
                        List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
         super(password, accountName, profile, liked, likedme, reviews);
-        this.isVIP = isVip;
+    }
+
+    public RegularUser(String password, String accountName, Profile profile) {
+        super(password, accountName, profile);
+
     }
 
     @Override

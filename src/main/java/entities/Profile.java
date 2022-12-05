@@ -10,7 +10,6 @@ public class Profile {
     private String weight;
     private String contactInformation;
     private String selfDescription;
-
     /**
      * Create a new Profile with location, gender, age, sexuality, hobbies, height, weight,
      * contactInformation, and selfDescription.
@@ -29,7 +28,8 @@ public class Profile {
     public Profile(String location, String gender, String age, String sexuality,
                    String hobbies, String height, String weight, String contactInformation,
                    String selfDescription) {
-        this.location = location; this.gender = gender;
+        this.location = location;
+        this.gender = gender;
         this.age = age;
         this.sexuality = sexuality;
         this.hobbies = hobbies;
@@ -39,6 +39,19 @@ public class Profile {
         this.selfDescription = selfDescription;
     }
 
+
+    // This empty constructor is for testing purpose.
+    public Profile(){
+        this.location = "";
+        this.gender = "";
+        this.age = "";
+        this.sexuality = "";
+        this.hobbies = "";
+        this.height = "";
+        this.weight = "";
+        this.contactInformation = "";
+        this.selfDescription = "";
+    }
     public String getContactInformation() {
         return contactInformation;
     }

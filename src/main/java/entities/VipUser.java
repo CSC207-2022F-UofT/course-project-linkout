@@ -30,6 +30,7 @@ public class VipUser extends User{
         return true;
     }
 
+
     public boolean getInvisibleStatus(){
         return this.isInvisible;
     }

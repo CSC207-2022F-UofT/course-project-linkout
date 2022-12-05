@@ -298,7 +298,7 @@ public class DatabaseConnect implements UserUpgrade {
                     user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
                     user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 } else {
-                    user = new RegularUser(password, usrname, profile, false, liked, likedme, reviews);
+                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
                     user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 }
                 break;
@@ -326,7 +326,7 @@ public class DatabaseConnect implements UserUpgrade {
             if (isVip.equals("TRUE")) {
                 user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
             } else {
-                user = new RegularUser(password, usrname, profile, false, liked, likedme, reviews);
+                user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
             }
             users.add(user);
         }

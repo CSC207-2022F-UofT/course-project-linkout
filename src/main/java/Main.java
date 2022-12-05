@@ -1,16 +1,22 @@
+
 import Gateway.DatabaseConnect;
-import controller.UserController;
-import presenter.UserPresenter;
-import screen.UserInfoScreen;
+import use_cases.review_use_case.UserController;
+import use_cases.review_use_case.UserPresenter;
+import screens.review_screen.UserInfoScreen;
 import use_cases.UserInputBoundary;
 import use_cases.UserManagerInteractor;
 import use_cases.UserOutputBoundary;
+import entities.User;
+import use_cases.recommend_use_case.RecommendController;
+import use_cases.recommend_use_case.RecommendRequestModel;
+import use_cases.recommend_use_case.RecommendResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
+
 
 
         new UserInfoScreen();
@@ -38,6 +44,7 @@ public class Main {
 //
 //        ReviewDeletionScreen deletionScreen = new ReviewDeletionScreen(reviewController);
 //        screens.add(deletionScreen, "delete or hide");
+
 
     }
 }

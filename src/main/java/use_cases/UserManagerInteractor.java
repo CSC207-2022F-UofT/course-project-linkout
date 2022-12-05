@@ -30,7 +30,7 @@ public class UserManagerInteractor implements UserInputBoundary {
     public void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
-            userPresenter.prepareAccStatusView(user.showVip(), user.getRestrictedTime());
+            userPresenter.prepareAccStatusView(user.showVip(), user.getRestrictionDuration());
         }else {
             userPresenter.prepareFailedView("User does not exist");
         }
@@ -54,10 +54,9 @@ public class UserManagerInteractor implements UserInputBoundary {
     public void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
-            if (user.getRestrictedTime() != 0){
+            if (user.getRestrictionDuration() != 0){
                 userPresenter.prepareFailedView("User already restricted");
             }else {
-                user.countDownRestrictionTime();
                 userPresenter.prepareSuccessView(user.setRestrictedTime(userRequestModel.getRestrictionTime()));
             }
         }else {
