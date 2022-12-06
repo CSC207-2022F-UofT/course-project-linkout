@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
 import random
-import xlwt
 import click
+import xlwt
+
 
 @click.command()
 def forgedata():
@@ -46,6 +47,7 @@ def forgedata():
         ],
         default=None
     )
+    likes = likes.loc[0:50000,]
     likes = likes.drop('rating', axis= 1)
     reviewedind = random.sample(likes.index[likes.like == 1].tolist(), 5000)
     likes["rating"] = None
@@ -67,5 +69,6 @@ def forgedata():
     reviews.to_excel("/Users/tristalli/Desktop/CSC207/course-project-linkout/src/main/data/reviews.xls", index=False)
 
 
-
+if __name__=="__main__":
+    forgedata()
 

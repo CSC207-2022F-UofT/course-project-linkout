@@ -87,6 +87,7 @@ public class ReviewCreationScreen extends JFrame implements ActionListener, IRev
 
         try {
             int ratingInt = parseInt(rating.getText());
+            JOptionPane.showMessageDialog(this, "Review is created sucessfully");
             reviewController.addReview(ratingInt, comment.getText(), writerName.getText(), receiverName.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

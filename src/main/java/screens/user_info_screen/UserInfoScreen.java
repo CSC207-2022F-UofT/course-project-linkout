@@ -1,28 +1,19 @@
 package screens.user_info_screen;
 
-
 import Gateway.DatabaseConnect;
-
+import screens.regularuser_register_screen.LabelTextPanel;
+import use_cases.user_manager_user_case.*;
 import entities.Profile;
 
-import screens.regularuser_register_screen.LabelTextPanel;
-import screens.review_screen.IReviewViewImplementation;
-import screens.review_screen.ReviewCreationScreen;
-import use_cases.*;
-import use_cases.regular_user_register_use_case.UserGateway;
-import use_cases.review_use_case.ReviewController;
-import use_cases.review_use_case.ReviewGatewayImplementation;
-import use_cases.review_use_case.ReviewInteractor;
-import use_cases.review_use_case.ReviewPresenter;
-import use_cases.user_manager_user_case.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.*;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class UserInfoScreen extends JPanel implements UserInformation, ActionListener {
 
@@ -31,10 +22,6 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
 
     private JTextField revId = new JTextField(20);
 
-    public static void main(String[] args) throws IOException {
-        UserInfoScreen frame = new UserInfoScreen();
-        frame.setVisible(true);
-    }
 
     public UserInfoScreen(){
         JFrame application = new JFrame("User Information");
@@ -69,7 +56,6 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         JButton buttonStatus = new JButton("Status");
         JButton buttonReview = new JButton("Show Review");
         JButton buttonUpgrade = new JButton("Upgrade");
-//        JButton buttonHideReview = new JButton("Hide Review (VIP)");
         JButton buttonLikeMe = new JButton("Liked Me (VIP)");
         JButton buttonInvisible = new JButton("Set as Invisible (VIP)");
 
@@ -83,8 +69,6 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         buttonReview.setPreferredSize(new Dimension(100, 50));
         buttonUpgrade.addActionListener(this);
         buttonUpgrade.setPreferredSize(new Dimension(90, 50));
-//        buttonHideReview.addActionListener(this);
-//        buttonHideReview.setPreferredSize(new Dimension(150, 50));
         buttonLikeMe.addActionListener(this);
         buttonLikeMe.setPreferredSize(new Dimension(100, 50));
         buttonInvisible.addActionListener(this);
@@ -96,7 +80,6 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         application.add(buttonStatus);
         application.add(buttonReview);
         application.add(buttonUpgrade);
-//        application.add(buttonHideReview);
         application.add(buttonLikeMe);
         application.add(buttonInvisible);
         application.pack();
@@ -155,59 +138,6 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         application.setVisible(true);
     }
 
-//    public boolean showConfirmWindow(){
-//        JFrame application = new JFrame("ARE U SURE?");
-//        application.getContentPane().setBackground( Color.gray );
-//        application.setLayout(new FlowLayout());
-//        CardLayout cardLayout = new CardLayout();
-//        JPanel screens = new JPanel(cardLayout);
-//        application.add(screens);
-//        JTextField response = new JTextField(3);
-//        LabelTextPanel confirm = new LabelTextPanel(
-//                new JLabel("Type 'yes' to confirm, 'no' to cancel"), response);
-//        application.add(confirm);
-//        JButton confirmButton = new JButton("I Confirm");
-//        confirmButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (e.getSource() == confirmButton) {
-//                    showSuccessMessage("Confirmed!");
-//
-//                }
-//
-//            }
-//        });
-//        application.add(confirmButton);
-//        application.setVisible(true);
-//        System.out.println(response.getText());
-//        return Objects.equals(response.getText(), "yes");
-//    }
-
-
-
-//    public String showHideReviewWindow(){
-//        JFrame application = new JFrame("Hide Review");
-//        application.getContentPane().setBackground( Color.gray );
-//        application.setLayout(new FlowLayout());
-//        CardLayout cardLayout = new CardLayout();
-//        JPanel screens = new JPanel(cardLayout);
-//        application.add(screens);
-//        JTextField response = new JTextField(15);
-//        LabelTextPanel hide = new LabelTextPanel(
-//                new JLabel("Type the id of review you want to hide"), revId);
-//        application.add(hide);
-//        JButton confirmButton = new JButton("I Confirm");
-//        confirmButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                showSuccessMessage("Hiding Review");
-//            }
-//        });
-//        application.add(confirmButton);
-//        application.pack();
-//        application.setVisible(true);
-//        return revId.getText();
-//    }
 
     @Override
     public void showSuccessMessage(String message) {
@@ -342,19 +272,6 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
-//        else if (Objects.equals(evt.getActionCommand(), "Hide Review (VIP)")) {
-//            try {
-//                UserOutputBoundary presenter4 = new UserPresenter(this);
-//                DatabaseConnect db4 = new DatabaseConnect(System.getProperty("user.dir"));
-//                VIPUserManager vipUserManager = new VIPUserManager(db4, presenter4);
-//                UserController controller4 = new UserController(vipUserManager);
-//                String revIds = showHideReviewWindow();
-//                controller4.hideReviewVIP(model, Integer.valueOf(revIds));
-//                JOptionPane.showMessageDialog(this, "Upgrade to VIP");
-//            } catch (Exception e) {
-//                JOptionPane.showMessageDialog(this, e.getMessage());
-//            }
-//        }
         else if(Objects.equals(evt.getActionCommand(), "Liked Me (VIP)")){
             try {
                 UserOutputBoundary presenter1 = new UserPresenter(this);

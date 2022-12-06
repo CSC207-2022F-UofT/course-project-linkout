@@ -9,6 +9,9 @@ import use_cases.user_manager_user_case.UserResponseModel;
 import java.util.Hashtable;
 import java.util.List;
 
+import java.util.Hashtable;
+import java.util.List;
+
 public class UserPresenter implements UserOutputBoundary {
 
     private final UserInformation userInfoScreen;

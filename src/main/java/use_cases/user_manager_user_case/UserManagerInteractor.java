@@ -6,10 +6,13 @@ import entities.*;
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
+
 public class UserManagerInteractor implements UserInputBoundary {
 
     final DatabaseConnect userDsGateway;
     final UserOutputBoundary userPresenter;
+
+
 
     public UserManagerInteractor(DatabaseConnect userDsGateway, UserOutputBoundary userPresenter){
         this.userDsGateway = userDsGateway;

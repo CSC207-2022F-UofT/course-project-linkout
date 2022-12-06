@@ -6,6 +6,7 @@ public class IReviewViewImplementation implements IReviewView{
 
     @Override
     public void updateMessage(){
+
         JOptionPane.showMessageDialog(null, "Review has successfully created.");
     }
 }

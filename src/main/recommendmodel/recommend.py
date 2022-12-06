@@ -4,7 +4,7 @@ from sklearn.neighbors import NearestNeighbors
 from scipy.sparse import csr_matrix
 import random
 import click
- 
+
 class RecommendModel(object):
 
     def __init__(self, workingdir):
