@@ -4,7 +4,7 @@ import Gateway.DatabaseConnect;
 import use_cases.review_use_case.UserController;
 import entities.Profile;
 import use_cases.review_use_case.UserPresenter;
-import use_cases.*;
+import use_cases.user_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;

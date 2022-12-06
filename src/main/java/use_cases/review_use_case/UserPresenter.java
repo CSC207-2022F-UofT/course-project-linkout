@@ -1,10 +1,8 @@
 package use_cases.review_use_case;
 
 import entities.Profile;
-import entities.User;
 import screens.review_screen.UserInformation;
-import use_cases.UserOutputBoundary;
-import use_cases.UserResponseModel;
+import use_cases.user_use_case.UserOutputBoundary;
 
 import java.util.Hashtable;
 import java.util.List;

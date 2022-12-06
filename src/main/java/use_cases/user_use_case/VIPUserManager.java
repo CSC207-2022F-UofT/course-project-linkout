@@ -1,14 +1,11 @@
-package use_cases;
+package use_cases.user_use_case;
 
 import Gateway.DatabaseConnect;
 import entities.User;
-import entities.UserFactory;
 import entities.VipUser;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VIPUserManager extends UserManagerInteractor{
 

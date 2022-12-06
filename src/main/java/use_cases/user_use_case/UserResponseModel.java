@@ -1,4 +1,4 @@
-package use_cases;
+package use_cases.user_use_case;
 
 import java.util.List;
 
