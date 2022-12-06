@@ -21,23 +21,23 @@ public class RegisterScreen extends JPanel implements ActionListener {
      */
     JPasswordField repeatPassword = new JPasswordField(15);
 
-    JPasswordField location = new JPasswordField(15);
+    JTextField location = new JTextField(15);
 
-    JPasswordField gender = new JPasswordField(15);
+    JTextField gender = new JTextField(15);
 
-    JPasswordField age = new JPasswordField(15);
+    JTextField age = new JTextField(15);
 
-    JPasswordField sexuality = new JPasswordField(15);
+    JTextField sexuality = new JTextField(15);
 
-    JPasswordField hobbies = new JPasswordField(15);
+    JTextField hobbies = new JTextField(15);
 
-    JPasswordField height = new JPasswordField(15);
+    JTextField height = new JTextField(15);
 
-    JPasswordField weight = new JPasswordField(15);
+    JTextField weight = new JTextField(15);
 
-    JPasswordField contactInformation = new JPasswordField(15);
+    JTextField contactInformation = new JTextField(15);
 
-    JPasswordField selfDescription = new JPasswordField(15);
+    JTextField selfDescription = new JTextField(15);
     /**
      * The controller
      */
@@ -118,11 +118,11 @@ public class RegisterScreen extends JPanel implements ActionListener {
                     String.valueOf(password.getPassword()),
                     String.valueOf(repeatPassword.getPassword()),
                     String.valueOf(location.getText()), String.valueOf(gender.getText()),
-                    String.valueOf(age.getPassword()),
+                    String.valueOf(age.getText()),
                     String.valueOf(sexuality.getText()),
-                    String.valueOf(hobbies.getText()), String.valueOf(height.getPassword()),
-                    String.valueOf(weight.getPassword()),
-                    String.valueOf(contactInformation.getPassword()), String.valueOf(selfDescription.getText()));
+                    String.valueOf(hobbies.getText()), String.valueOf(height.getText()),
+                    String.valueOf(weight.getText()),
+                    String.valueOf(contactInformation.getText()), String.valueOf(selfDescription.getText()));
             JOptionPane.showMessageDialog(this, username.getText() + " created.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
