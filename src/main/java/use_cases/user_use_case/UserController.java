@@ -1,4 +1,4 @@
-package use_cases.review_use_case;
+package use_cases.user_use_case;
 
 import use_cases.user_use_case.RegularUserManager;
 import use_cases.user_use_case.UserInputBoundary;

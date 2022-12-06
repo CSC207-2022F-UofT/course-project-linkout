@@ -1,9 +1,9 @@
 package screens.review_screen;
 
 import Gateway.DatabaseConnect;
-import use_cases.review_use_case.UserController;
+import use_cases.user_use_case.UserController;
 import entities.Profile;
-import use_cases.review_use_case.UserPresenter;
+import use_cases.user_use_case.UserPresenter;
 import use_cases.user_use_case.*;
 
 import javax.swing.*;
@@ -229,6 +229,9 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         UserRequestModel model = new UserRequestModel(
                 username.getText(),
                 0);
+        if (username.getText() == ""){
+            JOptionPane.showMessageDialog(this, "Please enter account name first");
+        }
 
         if (Objects.equals(evt.getActionCommand(), "Profile")) {
             try {

@@ -1,4 +1,4 @@
-package use_cases.review_use_case;
+package use_cases.user_use_case;
 
 import entities.Profile;
 import screens.review_screen.UserInformation;
