@@ -1,5 +1,4 @@
 package Gateway;
-import java.awt.*;
 import java.io.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +11,6 @@ import entities.*;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.hamcrest.core.IsInstanceOf;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -208,16 +206,21 @@ public class DatabaseConnect implements UserUpgrade {
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             currname = sheet.getRow(i).getCell(0).toString();
+            //CellType a = sheet.getRow(i).getCell(3).getCellType();
+            boolean b = sheet.getRow(i).getPhysicalNumberOfCells() == 4;
+            boolean c = sheet.getRow(i).getCell(3) == null;
             if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4)
-                    & (sheet.getRow(i).getCell(3).getNumericCellValue() != 0.0)) {
+                    & (sheet.getRow(i).getCell(3) != null)){
+                    if (sheet.getRow(i).getCell(3).getCellType() != CellType.BLANK){
 
-                Row row = sheet.getRow(i);
-                int reviewId = loadIntCell(row.getCell(3));
-                Review review = findReview(reviewId);
-                List<Object> revBody = new ArrayList<>();
-                revBody.add(review.getRating());
-                revBody.add(review.getComment());
-                allreviews.put(reviewId, revBody);
+                        Row row = sheet.getRow(i);
+                        int reviewId = loadIntCell(row.getCell(3));
+                        Review review = findReview(reviewId);
+                        List<Object> revBody = new ArrayList<>();
+                        revBody.add(review.getRating());
+                        revBody.add(review.getComment());
+                        allreviews.put(reviewId, revBody);
+                    }
             }
         }
         return allreviews;
@@ -295,13 +298,13 @@ public class DatabaseConnect implements UserUpgrade {
                 List<String> liked = findLiked(usrname);
                 List<String> likedme = findLikedMe(usrname);
                 Hashtable<Integer, List<Object>> reviews = loadAllReviewsGot(usrname);
-                String restrictedTime = loadStringCell(row.getCell(12));
+                //String restrictedTime = loadStringCell(row.getCell(12));
                 if (isVip.equals("TRUE")) {
                     user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
-                    user.setRestrictedTime(Float.parseFloat(restrictedTime));
+                    //user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 } else {
                     user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
-                    user.setRestrictedTime(Float.parseFloat(restrictedTime));
+                    //user.setRestrictedTime(Float.parseFloat(restrictedTime));
                 }
                 break;
             }
