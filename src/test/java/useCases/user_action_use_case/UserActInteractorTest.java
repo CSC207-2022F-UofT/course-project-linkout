@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import screens.user_like_screen.InMemoryUserLike;
 import use_cases.user_action_use_case.*;
 
+import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -48,7 +49,7 @@ class UserActInteractorTest {
         // 3) run the use case
         try {
             interactor.like(inputData);
-        } catch (IOException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }
@@ -59,7 +60,7 @@ class UserActInteractorTest {
         UserActDsGateway database = new InMemoryUserLike();
         try {
             database.setLike("czz2", "czz1");
-        } catch (IOException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
 
@@ -94,7 +95,7 @@ class UserActInteractorTest {
         // 3) run the use case
         try {
             interactor.like(inputData);
-        } catch (IOException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }
@@ -105,7 +106,7 @@ class UserActInteractorTest {
         UserActDsGateway database = new InMemoryUserLike();
         try {
             database.setLike("czz1", "czz2");
-        } catch (IOException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
 
@@ -135,7 +136,7 @@ class UserActInteractorTest {
         // 3) run the use case
         try {
             interactor.like(inputData);
-        } catch (IOException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }

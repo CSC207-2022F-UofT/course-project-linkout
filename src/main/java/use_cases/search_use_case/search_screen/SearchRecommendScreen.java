@@ -12,6 +12,7 @@ import use_cases.search_use_case.*;
 import use_cases.user_action_use_case.*;
 
 import javax.swing.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchRecommendScreen extends JFrame {
 
@@ -51,17 +53,19 @@ public class SearchRecommendScreen extends JFrame {
         SearchInputBoundaryImplementation searchInput = new SearchInputBoundaryImplementation();
         SearchController searchController = new SearchController(searchInput);
 
+
         //like function
-        LikesGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"));
-        UserActPresenter userActPresenter= new UserActPresenter();
-        UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
+        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
+        UserActDsGateway likeGateway = new LikesGateway(System.getProperty("user.dir"), userGateway);
+        UserActPresenterInterface likePresenter = new UserActPresenter();
+        UserActInputBoundary userActInteractor = new UserActInteractor(likeGateway, likePresenter);
         UserActController userActController = new UserActController(userActInteractor);
 
         //review function
         IReviewViewImplementation viewReview = new IReviewViewImplementation();
         ReviewPresenter reviewPresenter = new ReviewPresenter(viewReview);
         ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
-        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
+        //UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
         ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateway);
         ReviewController reviewController = new ReviewController(reviewInteractor);
 
@@ -79,8 +83,8 @@ public class SearchRecommendScreen extends JFrame {
 //        //recommend function
 //        RecommendController recommendController = new RecommendController();
 
-        SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController, userActPresenter,
-                reviewController);
+        SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController,
+                (UserActPresenter) likePresenter, reviewController);
         frame.setVisible(true);
     }
 
@@ -255,7 +259,8 @@ public class SearchRecommendScreen extends JFrame {
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
                         likeController.like(userName,targetName);
                         String message = likePresenter.prepareSuccessView(targetName);
-                        JOptionPane.showMessageDialog(getContentPane(),message);
+                        //String message = likeController.like(userName,targetName);
+                        JOptionPane.showMessageDialog(getContentPane(), message);
                     }
                 };
                 ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
@@ -297,7 +302,7 @@ public class SearchRecommendScreen extends JFrame {
 //                       //report action defines here
 //                    }
 //                };
-//                ButtonColumnRev reportButton = new ButtonColumnReview(table, reportAction, 11);
+//                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
             }
 
         } catch (Exception e) {

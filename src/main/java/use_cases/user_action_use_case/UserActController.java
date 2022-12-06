@@ -1,5 +1,6 @@
 package use_cases.user_action_use_case;
 
+import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 // Interface Adapter Layer
@@ -24,7 +25,7 @@ public class UserActController {
         UserActInputData inputData = new UserActInputData(accName, targetName);
         try {
             return userInput.like(inputData);
-        } catch (IOException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }
