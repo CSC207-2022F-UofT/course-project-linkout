@@ -248,15 +248,21 @@ public class SearchRecommendScreen extends JFrame {
                 model.setValueAt(currentUser.getAccountName(), i, 8);
 
                 // Create the Button Like
-                Action likeAction = new AbstractAction()
-                {
+                Action likeAction = new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        int currRow = Integer.valueOf( e.getActionCommand() );
+                    public void actionPerformed(ActionEvent e) {
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = likeController.like(userName,targetName);
-                        JOptionPane.showMessageDialog(getContentPane(),message);
+                        //likeController.like(userName,targetName);
+                        //String message = likePresenter.prepareSuccessView(targetName);
+                        try {
+                            String message = likeController.like(userName, targetName);
+                            JOptionPane.showMessageDialog(getContentPane(), message);
+                        }
+                        // if target user already liked
+                        catch (UserActionFailed error) {
+                            JOptionPane.showMessageDialog(getContentPane(), error.getMessage());
+                        }
                     }
                 };
                 ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
