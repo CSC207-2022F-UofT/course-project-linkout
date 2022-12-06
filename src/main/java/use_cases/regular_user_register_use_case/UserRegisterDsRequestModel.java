@@ -25,6 +25,8 @@ public class UserRegisterDsRequestModel {
 
     private String selfDescription;
     private final LocalDateTime creationTime;
+    private int restrictionDuration;
+    private float restrictionStartTime; // May be long
 
     public UserRegisterDsRequestModel(String name, String password, String location,
                                       String gender, String age, String sexuality, String hobbies,
@@ -42,6 +44,8 @@ public class UserRegisterDsRequestModel {
         this.weight = weight;
         this.selfDescription = selfDescription;
         this.creationTime = creationTime;
+        this.restrictionDuration = 0;
+        this.restrictionStartTime = 0;
     }
 
     public String getName() {
@@ -132,5 +136,11 @@ public class UserRegisterDsRequestModel {
         return creationTime;
     }
 
+    public int getRestrictionDuration() { return restrictionDuration; }
 
+    public void setRestrictionDuration(int restrictionDuration) { this.restrictionDuration = restrictionDuration; }
+
+    public float getRestrictionStartTime() { return restrictionStartTime; }
+
+    public void setRestrictionStartTime(float restrictionStartTime) { this.restrictionStartTime = restrictionStartTime; }
 }
