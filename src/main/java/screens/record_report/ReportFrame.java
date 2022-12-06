@@ -1,6 +1,6 @@
 package screens.record_report;
 
-import use_cases.record_review_use_case.RecordReportController;
+import use_cases.record_report_use_case.RecordReportController;
 
 import javax.swing.*;
 import java.awt.event.*;
