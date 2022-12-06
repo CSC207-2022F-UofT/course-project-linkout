@@ -7,13 +7,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.2'
     implementation 'org.apache.poi:poi:5.2.2'
     implementation 'org.apache.poi:poi-ooxml:5.2.2'
     implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2'
     implementation 'org.apache.xmlbeans:xmlbeans:5.0.3'
     implementation 'commons-collections:commons-collections:3.2.2'
-    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.9.0')
 }
 
 test {

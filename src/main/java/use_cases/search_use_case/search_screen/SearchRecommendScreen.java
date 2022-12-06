@@ -1,27 +1,24 @@
 package use_cases.search_use_case.search_screen;
-import entities.User;
 
+import entities.User;
 import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.ReviewCreationScreen;
 import screens.user_info_screen.UserInfoScreen;
-import use_cases.recommend_use_case.*;
-import use_cases.record_review_use_case.*;
+import use_cases.recommend_use_case.RecommendController;
+import use_cases.record_review_use_case.RecordReportController;
 import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.review_use_case.*;
-import use_cases.search_use_case.*;
+import use_cases.search_use_case.SearchController;
+import use_cases.search_use_case.SearchInputBoundaryImplementation;
+import use_cases.search_use_case.SearchResponseModel;
 import use_cases.user_action_use_case.*;
 
 import javax.swing.*;
-import static javax.swing.JOptionPane.showMessageDialog;
-
 import javax.swing.table.DefaultTableModel;
-
-import java.awt.event.ActionListener;
-
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 public class SearchRecommendScreen extends JFrame {
 
@@ -250,28 +247,31 @@ public class SearchRecommendScreen extends JFrame {
                 model.setValueAt(currentUser.getAccountName(), i, 8);
 
                 // Create the Button Like
-                Action likeAction = new AbstractAction()
-                {
+                Action likeAction = new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        int currRow = Integer.valueOf( e.getActionCommand() );
+                    public void actionPerformed(ActionEvent e) {
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        likeController.like(userName,targetName);
-                        String message = likePresenter.prepareSuccessView(targetName);
-                        //String message = likeController.like(userName,targetName);
-                        JOptionPane.showMessageDialog(getContentPane(), message);
+                        //likeController.like(userName,targetName);
+                        //String message = likePresenter.prepareSuccessView(targetName);
+                        try {
+                            String message = likeController.like(userName, targetName);
+                            JOptionPane.showMessageDialog(getContentPane(), message);
+                        }
+                        // if target user already liked
+                        catch (UserActionFailed error) {
+                            JOptionPane.showMessageDialog(getContentPane(), error.getMessage());
+                        }
                     }
                 };
+
                 ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
 
 
                 // Create the Button Review
-                Action reviewAction = new AbstractAction()
-                {
+                Action reviewAction = new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reviewController);
                         reviewCreationScreen.setVisible(true);
                         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -280,11 +280,9 @@ public class SearchRecommendScreen extends JFrame {
                 ButtonColumnReview reviewButton = new ButtonColumnReview(table, reviewAction, 10);
 
                 // Create the Button Profile
-                Action profileAction = new AbstractAction()
-                {
+                Action profileAction = new AbstractAction() {
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         UserInfoScreen userinfoScreen = new UserInfoScreen();
                         userinfoScreen.setVisible(true);
                         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -308,8 +306,6 @@ public class SearchRecommendScreen extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
 //    private void GenerateRecommendResult() {
 //
 //        // Make the table in UI empty -- Initialization
@@ -447,5 +443,5 @@ public class SearchRecommendScreen extends JFrame {
 //            e.printStackTrace();
 //        }
 //    }
-
+    }
 }

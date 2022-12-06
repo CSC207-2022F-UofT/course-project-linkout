@@ -24,7 +24,7 @@ public class UserActInteractor implements UserActInputBoundary{
      *
      */
     @Override
-    public String like(UserActInputData inputData) throws IOException, InvalidAttributeValueException {
+    public String like(UserActInputData inputData) throws IOException, InvalidAttributeValueException{
         String actionerName = inputData.getAccName();
         String targetName = inputData.getTargetName();
         //User actioner = userActDsGateway.findUser(actionerName);
