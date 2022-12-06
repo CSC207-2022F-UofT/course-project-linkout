@@ -1,4 +1,4 @@
-package use_cases;
+package use_cases.user_use_case;
 
 
 import Gateway.DatabaseConnect;
@@ -6,8 +6,6 @@ import entities.*;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.List;
 
 public class RegularUserManager extends UserManagerInteractor{
 

@@ -1,11 +1,12 @@
 package use_cases.review_use_case;
 
-import use_cases.*;
+import use_cases.user_use_case.RegularUserManager;
+import use_cases.user_use_case.UserInputBoundary;
+import use_cases.user_use_case.UserRequestModel;
+import use_cases.user_use_case.VIPUserManager;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserController {
 
