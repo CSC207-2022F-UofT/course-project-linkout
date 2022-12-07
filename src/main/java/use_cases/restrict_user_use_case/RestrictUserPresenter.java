@@ -1,11 +1,11 @@
 package use_cases.restrict_user_use_case;
 
-import screens.access_report_and_restrict_user.AccessReportViewModel;
+import screens.access_report_and_restrict_user.AccessReportResultViewModel;
 import screens.access_report_and_restrict_user.RestrictUserResultViewModel;
 
 public class RestrictUserPresenter implements RestrictUserOutputBoundary {
     RestrictUserOutputData restrictUserOutputData;
-    AccessReportViewModel accessReportViewModel;
+    AccessReportResultViewModel accessReportViewModel;
     RestrictUserResultViewModel restrictUserResultViewModel;
 
     public RestrictUserPresenter(RestrictUserOutputData restrictUserOutputData,
@@ -14,7 +14,7 @@ public class RestrictUserPresenter implements RestrictUserOutputBoundary {
         this.restrictUserResultViewModel = restrictUserResultViewModel;
     }
 
-    public RestrictUserPresenter(AccessReportViewModel accessReportViewModel) {
+    public RestrictUserPresenter(AccessReportResultViewModel accessReportViewModel) {
         this.accessReportViewModel = accessReportViewModel;
     }
 
