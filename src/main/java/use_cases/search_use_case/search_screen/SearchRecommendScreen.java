@@ -321,16 +321,20 @@ public class SearchRecommendScreen extends JFrame {
                 ButtonColumnProfile profileButton = new ButtonColumnProfile(table, profileAction, 12);
 
 
-//                // Create the Button Report
-//                Action reportAction = new AbstractAction()
-//                {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e)
-//                    {
-//                       //report action defines here
-//                    }
-//                };
-//                ButtonColumnRev reportButton = new ButtonColumnReview(table, reportAction, 11);
+               // Create the Button Report
+               Action reportAction = new AbstractAction()
+               {
+                   @Override
+                   public void actionPerformed(ActionEvent e)
+                   {
+                        int currRow = Integer.valueOf(e.getActionCommand());
+                        String userID = (String) table.getModel().getValueAt(currRow, 8);
+                        ReportFrame reportFrame = new ReportFrame(reportController, userID);
+                        reportFrame.setVisible(true);
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                   }
+               };
+               ButtonColumnRev reportButton = new ButtonColumnReview(table, reportAction, 11);
             }
 
         } catch (Exception e) {
@@ -456,6 +460,8 @@ public class SearchRecommendScreen extends JFrame {
                    @Override
                    public void actionPerformed(ActionEvent e)
                    {
+                        int currRow = Integer.valueOf(e.getActionCommand());
+                        String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
                         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -588,6 +594,8 @@ public class SearchRecommendScreen extends JFrame {
                    @Override
                    public void actionPerformed(ActionEvent e)
                    {
+                        int currRow = Integer.valueOf(e.getActionCommand());
+                        String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
                         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
