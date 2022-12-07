@@ -3,7 +3,7 @@ import entities.*;
 
 public class RecordReportInteractor implements RecordReportInputBoundary {
     RecordReportOutputBoundary recordReportOB;
-    RecordReportDatabaseGateway recordReportDG;
+    ReportDatabaseGateway recordReportDG;
     RecordReportGateway recordReportGateway;
     boolean success;
     String adminID;
@@ -15,7 +15,7 @@ public class RecordReportInteractor implements RecordReportInputBoundary {
      * @param recordReportDB        The instance of the database gateway.
      * @param adminID               The admin ID (to be determined outside this use case).
      */
-    public RecordReportInteractor(RecordReportOutputBoundary recordReportOB, RecordReportGateway recordReportGateway, RecordReportDatabaseGateway recordReportDB, String adminID) {
+    public RecordReportInteractor(RecordReportOutputBoundary recordReportOB, RecordReportGateway recordReportGateway, ReportDatabaseGateway recordReportDB, String adminID) {
         this.recordReportOB = recordReportOB;
         this.recordReportDG = recordReportDG;
         this.recordReportGateway = recordReportGateway;
