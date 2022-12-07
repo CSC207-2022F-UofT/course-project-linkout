@@ -1,13 +1,15 @@
 package use_cases.search_use_case.search_screen;
 import entities.User;
 
+import screens.record_report.RecordReportResultFrame;
+import screens.record_report.ReportFrame;
 import screens.review_screen.IReviewView;
 import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.ReviewCreationScreen;
 import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.user_info_screen.UserInfoScreen;
 import use_cases.recommend_use_case.*;
-import use_cases.record_review_use_case.*;
+import use_cases.record_report_use_case.*;
 import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.review_use_case.*;
 import use_cases.search_use_case.*;
@@ -43,6 +45,8 @@ public class SearchRecommendScreen extends JFrame {
     private ReviewController reviewController;
 
     private static RecordReportController reportController;
+    
+    private RecordReportController reportController;
 
 
     /**
@@ -70,33 +74,34 @@ public class SearchRecommendScreen extends JFrame {
         ReviewController reviewController = new ReviewController(reviewInteractor);
 
 
-//        //report function (stilmouseRl need recordReportGateway class)
-//        RecordReportOutputData recordReportOD = new RecordReportOutputData();
-//        RecordReportResultFrame viewReport = new RecordReportResultFrame();
-//        RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
-//
-//        RecordReportGateway recordReportGateway = new RecordReportGateway(System.getProperty("user.dir"));
-//
-//        RecordReportInteractor reportInteractor = new RecordReportInteractor(recordReportOD, reportPresenter, recordReportGateway);
+        //report
+        RecordReportOutputData recordReportOD = new RecordReportOutputData();
+        RecordReportResultFrame viewReport = new RecordReportResultFrame();
+        RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
+        RecordReportDatabaseGateway recordReportDatabaseGateway = new RecordReportDatabaseGateway(System.getProperty("user.dir"));
+        RecordReportInteractor reportInteractor = new RecordReportInteractor(recordReportOD, reportPresenter, recordReportGateway, recordReportDatabaseGateway);
+        RecordReportController recordReportController = new RecordReportController(reportInteractor);
 
 
 //        //recommend function
 //        RecommendController recommendController = new RecommendController();
 
         SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController, userActPresenter,
-                reviewController);
+                reviewController, recordReportController);
         frame.setVisible(true);
     }
 
 
     public SearchRecommendScreen(SearchController searchcontroller, UserActController likecontroller,
-                                 UserActPresenter likepresenter, ReviewController reviewcontroller) {
+                                 UserActPresenter likepresenter, ReviewController reviewcontroller,
+                                RecordReportController reportcontroller) {
 
         likeController = likecontroller;
         likePresenter = likepresenter;
 //        recommendController = recommendcontroller;
         searchController = searchcontroller;
         reviewController = reviewcontroller;
+        reportController = reportcontroller;
 
 
         // Build the empty frame for UI
@@ -445,18 +450,18 @@ public class SearchRecommendScreen extends JFrame {
                 ButtonColumnProfile profileButton = new ButtonColumnProfile(table, profileAction, 12);
 
 
-//                // Create the Button Report
-//                Action reportAction = new AbstractAction()
-//                {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e)
-//                    {
-//                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reportController);
-//                        reviewCreationScreen.setVisible(true);
-//                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//                    }
-//                };
-//                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
+               // Create the Button Report
+               Action reportAction = new AbstractAction()
+               {
+                   @Override
+                   public void actionPerformed(ActionEvent e)
+                   {
+                        ReportFrame reportFrame = new ReportFrame(reportController, userID);
+                        reportFrame.setVisible(true);
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                   }
+               };
+               ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -577,18 +582,18 @@ public class SearchRecommendScreen extends JFrame {
                 ButtonColumnProfile profileButton = new ButtonColumnProfile(table, profileAction, 12);
 
 
-//                // Create the Button Report
-//                Action reportAction = new AbstractAction()
-//                {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e)
-//                    {
-//                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reportController);
-//                        reviewCreationScreen.setVisible(true);
-//                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//                    }
-//                };
-//                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
+               // Create the Button Report
+               Action reportAction = new AbstractAction()
+               {
+                   @Override
+                   public void actionPerformed(ActionEvent e)
+                   {
+                        ReportFrame reportFrame = new ReportFrame(reportController, userID);
+                        reportFrame.setVisible(true);
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                   }
+               };
+               ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
             }
         } catch (Exception e) {
             e.printStackTrace();
