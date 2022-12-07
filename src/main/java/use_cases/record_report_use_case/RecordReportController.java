@@ -1,7 +1,7 @@
 package use_cases.record_report_use_case;
 
 public class RecordReportController {
-    RecordReportInputBoundary recordReportIB; // Should this be final?
+    RecordReportInputBoundary recordReportIB;
 
     /**
      * Constructor
