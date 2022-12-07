@@ -16,7 +16,7 @@ public class RecommendController {
         this.recommendInput = input;
     }
 
-    RecommendResponseModel recommend(String username, String userSimilar) throws IOException, InvalidAttributeValueException {
+    public RecommendResponseModel recommend(String username, String userSimilar) throws IOException, InvalidAttributeValueException {
         RecommendRequestModel requestModel = new RecommendRequestModel(username, userSimilar);
 
         return recommendInput.Recommend(requestModel);
