@@ -115,7 +115,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
         RecommendResponseModel responseModel;
         if (requestModel.getSimilarTo() != null){
             responseModel = Similar(requestModel);
-        } else if (requestModel.hasLiked()){
+        } else if (db.hasLiked(requestModel.getUsername())){
             responseModel = RecommendUsers(requestModel);
         } else {
             responseModel = Popular(requestModel);

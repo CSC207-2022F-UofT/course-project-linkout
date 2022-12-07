@@ -26,6 +26,9 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
         int currid;
         Hashtable<String, String> userinfo = new Hashtable<>();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            if (sheet.getRow(i) == null){
+                continue;
+            }
             if (sheet.getRow(i).getPhysicalNumberOfCells() == 4){
                 currid = loadIntCell(sheet.getRow(i).getCell(3));
             }else{
@@ -48,13 +51,15 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
         HSSFWorkbook wb = ReviewsBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
-        String stringid = Integer.toString(reviewId);
         Review review = null;
         int currid;
         int rating = -1;
         String comment = "";
         boolean found = false;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            if (sheet.getRow(i) == null){
+                continue;
+            }
             currid = loadIntCell(sheet.getRow(i).getCell(0));
             if (currid == reviewId) {
                 Row row = sheet.getRow(i);
@@ -80,8 +85,14 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
         HSSFSheet sheet=wb.getSheetAt(0);
         String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            if (sheet.getRow(i) == null){
+                continue;
+            }
             currname = sheet.getRow(i).getCell(1).toString();
             if ((currname.equals(usrname)) & (sheet.getRow(i).getPhysicalNumberOfCells() == 4)) {
+                 if (sheet.getRow(i).getCell(3).getNumericCellValue() == 0.0){
+                     continue;
+                 }
                 Row row = sheet.getRow(i);
                 int reviewId = loadIntCell(row.getCell(3));
                 Review review = findReview(reviewId);
@@ -110,6 +121,7 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
         String currusername;
         String curruserviewed;
         int currliked;
+        boolean added = false;
 
         if (findReview(review.getId()) != null){
             return;
@@ -131,10 +143,23 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
             return;
         }
 
-        rowReview = sheetreviews.createRow(sheetreviews.getPhysicalNumberOfRows());
-        rowReview.createCell(0).setCellValue(review.getId());
-        rowReview.createCell(1).setCellValue(review.getRating());
-        rowReview.createCell(2).setCellValue(review.getComment());
+        for (int i = 1; i < sheetreviews.getPhysicalNumberOfRows(); i++) {
+            if (sheetreviews.getRow(i) == null) {
+                rowReview = sheetreviews.createRow(i);
+                rowReview.createCell(0).setCellValue(review.getId());
+                rowReview.createCell(1).setCellValue(review.getRating());
+                rowReview.createCell(2).setCellValue(review.getComment());
+                added = true;
+                break;
+            }
+        }
+
+        if (!added){
+            rowReview = sheetreviews.createRow(sheetreviews.getPhysicalNumberOfRows());
+            rowReview.createCell(0).setCellValue(review.getId());
+            rowReview.createCell(1).setCellValue(review.getRating());
+            rowReview.createCell(2).setCellValue(review.getComment());
+        }
 
 
         SaveWorkbook(wblikes, "likes");
@@ -152,11 +177,15 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
         boolean found = false;
         //Delete from likes.xls
         for (int i = 1; i < sheetlikes.getPhysicalNumberOfRows(); i++) {
+            if (sheetlikes.getRow(i).getPhysicalNumberOfCells() != 4){
+                continue;
+            }
             currusername = loadStringCell(sheetlikes.getRow(i).getCell(0));
-            currid = loadIntCell(sheetlikes.getRow(i).getCell(2));
+            currid = loadIntCell(sheetlikes.getRow(i).getCell(3));
             if ((currusername.equals(username)) & (currid == id)) {
-                sheetlikes.getRow(i).removeCell(sheetlikes.getRow(i).getCell(2));
+                sheetlikes.getRow(i).removeCell(sheetlikes.getRow(i).getCell(3));
                 found = true;
+                break;
             }
         }
 
@@ -168,9 +197,11 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
         for (int i = 1; i < sheetlikes.getPhysicalNumberOfRows(); i++) {
             currid = loadIntCell(sheetreviews.getRow(i).getCell(0));
             if (currid == id) {
-                sheetlikes.removeRow(sheetlikes.getRow(i));
+                sheetreviews.removeRow(sheetreviews.getRow(i));
+                break;
             }
         }
+
         SaveWorkbook(wblikes, "likes");
         SaveWorkbook(wbreviews, "reviews");
     }
@@ -184,6 +215,9 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
         boolean found = false;
         //Delete from likes.xls
         for (int i = 1; i < sheetreviews.getPhysicalNumberOfRows(); i++) {
+            if (sheetreviews.getRow(i) == null){
+                continue;
+            }
             currid = loadIntCell(sheetreviews.getRow(i).getCell(0));
             if (currid > maxid) {
                 maxid = currid;

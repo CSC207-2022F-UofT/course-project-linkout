@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import screens.user_like_screen.InMemoryUserLike;
 import use_cases.user_action_use_case.*;
 
+import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -50,6 +51,8 @@ class UserActInteractorTest {
             interactor.like(inputData);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,6 +63,8 @@ class UserActInteractorTest {
         try {
             database.setLike("czz2", "czz1");
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
 
@@ -96,6 +101,8 @@ class UserActInteractorTest {
             interactor.like(inputData);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -106,6 +113,8 @@ class UserActInteractorTest {
         try {
             database.setLike("czz1", "czz2");
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
 
@@ -136,6 +145,8 @@ class UserActInteractorTest {
         try {
             interactor.like(inputData);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }

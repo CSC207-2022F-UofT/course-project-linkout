@@ -16,14 +16,14 @@ public class RecommendController {
         this.recommendInput = input;
     }
 
-    RecommendResponseModel recommend(User user, String userSimilar) throws IOException, InvalidAttributeValueException {
-        RecommendRequestModel requestModel = new RecommendRequestModel(user, userSimilar);
+    public RecommendResponseModel recommend(String username, String userSimilar) throws IOException, InvalidAttributeValueException {
+        RecommendRequestModel requestModel = new RecommendRequestModel(username, userSimilar);
 
         return recommendInput.Recommend(requestModel);
     }
 
-    RecommendResponseModel recommend(User user) throws IOException, InvalidAttributeValueException {
-        RecommendRequestModel requestModel = new RecommendRequestModel(user);
+    public RecommendResponseModel recommend(String username) throws IOException, InvalidAttributeValueException {
+        RecommendRequestModel requestModel = new RecommendRequestModel(username);
 
         return recommendInput.Recommend(requestModel);
     }

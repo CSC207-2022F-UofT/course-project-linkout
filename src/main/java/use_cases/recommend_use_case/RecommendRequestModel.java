@@ -8,18 +8,15 @@ import java.util.List;
 public class RecommendRequestModel {
 
     private String username;
-    private List<String> liked;
 
     private String similarTo = null;
 
-    public RecommendRequestModel(User user){
-        username = user.getAccountName();
-        liked = user.showLiked();
+    public RecommendRequestModel(String usrname){
+        username = usrname;
     }
 
-    public RecommendRequestModel(User user, String userviewed){
-        username = user.getAccountName();
-        liked = user.showLiked();
+    public RecommendRequestModel(String usrname, String userviewed){
+        username = usrname;
         similarTo = userviewed;
     }
 
@@ -31,12 +28,5 @@ public class RecommendRequestModel {
         return similarTo;
     }
 
-    public List<String> getLiked(){
-        return liked;
-    }
-
-    public boolean hasLiked(){
-        return (liked.size() != 0);
-    }
 
 }

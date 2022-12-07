@@ -3,6 +3,7 @@ package use_cases.user_action_use_case;
 
 import entities.User;
 
+import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 //use case layer
@@ -23,7 +24,7 @@ public class UserActInteractor implements UserActInputBoundary{
      *
      */
     @Override
-    public String like(UserActInputData inputData) throws IOException {
+    public String like(UserActInputData inputData) throws IOException, InvalidAttributeValueException {
         String actionerName = inputData.getAccName();
         String targetName = inputData.getTargetName();
         User actioner = userActDsGateway.findUser(actionerName);

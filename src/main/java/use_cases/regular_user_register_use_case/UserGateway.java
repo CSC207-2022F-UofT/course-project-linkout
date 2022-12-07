@@ -16,6 +16,7 @@ import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Objects;
 
 public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway {
 
@@ -32,30 +33,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
     }
 
     public User findUser(String usrname) throws IOException, InvalidAttributeValueException {
-        HSSFWorkbook wb = ProfilesStyleBook();
-        //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
-        User user = null;
-        String currname;
-        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            currname = sheet.getRow(i).getCell(8).toString();
-            if (currname.equals(usrname)) {
-                Row row = sheet.getRow(i);
-                Profile profile = profileGateway.CreateProfile(row);
-                String password = loadStringCell(row.getCell(9));
-                String isVip = loadStringCell(row.getCell(10));
-                List<String> liked = likesGateway.findLiked(usrname);
-                List<String> likedme = likesGateway.findLikedMe(usrname);
-                Hashtable<Integer, List<Object>> reviews = reviewGateway.getReviews(usrname);
-                if (isVip.equals("TRUE")){
-                    user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
-                } else {
-                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
-                }
-                break;
-            }
-        }
-        return user;
+        return likesGateway.findUser(usrname);
     }
 
     @Override
@@ -88,24 +66,4 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         SaveWorkbook(wb, "profiles");
     }
 
-    @Override
-    public void RemoveUser(User user) throws IOException, InvalidAttributeValueException {
-        String username = user.getAccountName();
-        if (existsByName(username)){
-            return;
-        }
-        HSSFWorkbook wb = ProfilesStyleBook();
-        HSSFSheet sheet=wb.getSheetAt(0);
-
-        String currusername;
-
-        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            currusername = loadStringCell(sheet.getRow(i).getCell(8));
-            if (currusername == username) {
-                sheet.removeRow(sheet.getRow(i));
-            }
-        }
-
-        SaveWorkbook(wb, "profiles");
-    }
 }
