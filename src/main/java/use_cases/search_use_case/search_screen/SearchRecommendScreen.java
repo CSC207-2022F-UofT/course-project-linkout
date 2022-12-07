@@ -78,8 +78,8 @@ public class SearchRecommendScreen extends JFrame {
         RecordReportOutputData recordReportOD = new RecordReportOutputData();
         RecordReportResultFrame viewReport = new RecordReportResultFrame();
         RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
-        RecordReportDatabaseGateway recordReportDatabaseGateway = new RecordReportDatabaseGateway(System.getProperty("user.dir"));
-        RecordReportInteractor reportInteractor = new RecordReportInteractor(recordReportOD, reportPresenter, recordReportGateway, recordReportDatabaseGateway, "Admin");
+        ReportDatabaseGateway reportDatabaseGateway = new reportDatabase(System.getProperty("user.dir"));
+        RecordReportInteractor reportInteractor = new RecordReportInteractor(recordReportOD, reportPresenter, recordReportGateway, reportDatabaseGateway, "Admin");
         RecordReportController recordReportController = new RecordReportController(reportInteractor);
 
 
