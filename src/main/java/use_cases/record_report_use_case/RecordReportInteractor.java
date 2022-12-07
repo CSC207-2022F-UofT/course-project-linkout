@@ -3,6 +3,7 @@ import entities.*;
 
 public class RecordReportInteractor implements RecordReportInputBoundary {
     RecordReportOutputBoundary recordReportOB;
+    RecordReportDatabaseGateway recordReportDG;
     RecordReportGateway recordReportGateway;
     boolean success;
     String adminID;
@@ -11,10 +12,12 @@ public class RecordReportInteractor implements RecordReportInputBoundary {
      * The constructor of an interactor object.
      * @param recordReportOB        The instance of the output boundary.
      * @param recordReportGateway   The instance of the gateway.
+     * @param recordReportDB        The instance of the database gateway.
      * @param adminID               The admin ID (to be determined outside this use case).
      */
-    public RecordReportInteractor(RecordReportOutputBoundary recordReportOB, RecordReportGateway recordReportGateway, String adminID) {
+    public RecordReportInteractor(RecordReportOutputBoundary recordReportOB, RecordReportGateway recordReportGateway, RecordReportDatabaseGateway recordReportDB, String adminID) {
         this.recordReportOB = recordReportOB;
+        this.recordReportDG = recordReportDG;
         this.recordReportGateway = recordReportGateway;
         this.adminID = adminID;
     }
@@ -39,7 +42,8 @@ public class RecordReportInteractor implements RecordReportInputBoundary {
             Admin admin = recordReportGateway.findAdmin(adminID);
             if (user != null && admin != null) {
                 user.addReport(report);
-                String message = "A new report has been filed against " + report.getReportedUserID() + ". Check their reports attribute to find the report.";
+                recordReportDB.saveReport(report);
+                String message = "A new report has been filed against " + report.getReportedUserID();
                 admin.addMessage(message);
                 success = true;
             }
