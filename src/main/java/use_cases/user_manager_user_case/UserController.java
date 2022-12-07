@@ -32,9 +32,6 @@ public class UserController {
     public void displayReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         userInput.showReview(userRequestModel);
     }
-    public void hideReviewVIP(UserRequestModel userRequestModel, Integer revIds) throws IOException, InvalidAttributeValueException {
-        ((VIPUserManager) userInput).hideReview(userRequestModel, revIds);
-    }
 
     public void setInvisibleVisit(UserRequestModel userRequestModel, boolean yesNo) throws IOException, InvalidAttributeValueException {
         ((VIPUserManager) userInput).invisibleVisit(userRequestModel, yesNo);

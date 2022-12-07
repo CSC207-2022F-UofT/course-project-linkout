@@ -1,7 +1,12 @@
 package screens.user_info_screen;
 
-import Gateway.DatabaseConnect;
+
 import screens.regularuser_register_screen.LabelTextPanel;
+import screens.review_screen.IReviewView;
+import screens.review_screen.ReviewCreationSuccessScreen;
+import screens.review_screen.ReviewDeletionScreen;
+import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.review_use_case.*;
 import use_cases.user_manager_user_case.*;
 import entities.Profile;
 
@@ -31,7 +36,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         application.add(screens);
 
         UserOutputBoundary presenter = new UserPresenter(this);
-        DatabaseConnect db = new DatabaseConnect(System.getProperty("user.dir"));
+        UserGateway db = new UserGateway(System.getProperty("user.dir"));
         UserInputBoundary interactor = new UserManagerInteractor(db, presenter);
         this.controller = new UserController(interactor);
 
@@ -55,6 +60,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         JButton buttonLiked = new JButton("Liked");
         JButton buttonStatus = new JButton("Status");
         JButton buttonReview = new JButton("Show Review");
+        JButton buttonDeleteReview = new JButton("Delete Review");
         JButton buttonUpgrade = new JButton("Upgrade");
         JButton buttonLikeMe = new JButton("Liked Me (VIP)");
         JButton buttonInvisible = new JButton("Set as Invisible (VIP)");
@@ -67,6 +73,8 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         buttonStatus.setPreferredSize(new Dimension(50, 50));
         buttonReview.addActionListener(this);
         buttonReview.setPreferredSize(new Dimension(100, 50));
+        buttonDeleteReview.addActionListener(this);
+        buttonDeleteReview.setPreferredSize(new Dimension(100, 50));
         buttonUpgrade.addActionListener(this);
         buttonUpgrade.setPreferredSize(new Dimension(90, 50));
         buttonLikeMe.addActionListener(this);
@@ -79,6 +87,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         application.add(buttonLiked);
         application.add(buttonStatus);
         application.add(buttonReview);
+        application.add(buttonDeleteReview);
         application.add(buttonUpgrade);
         application.add(buttonLikeMe);
         application.add(buttonInvisible);
@@ -260,10 +269,24 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
+        else if (Objects.equals(evt.getActionCommand(), "Delete Review")) {
+            try {
+                IReviewView screen = new ReviewCreationSuccessScreen();
+                ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
+                ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
+                UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
+                ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
+                ReviewController reviewController = new ReviewController(reviewInteractor);
+                new ReviewDeletionScreen(reviewController);
+                JOptionPane.showMessageDialog(this, "Deleting Reviews.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
         else if (Objects.equals(evt.getActionCommand(), "Upgrade")) {
             try {
                 UserOutputBoundary presenter3 = new UserPresenter(this);
-                DatabaseConnect db3 = new DatabaseConnect(System.getProperty("user.dir"));
+                UserGateway db3 = new UserGateway(System.getProperty("user.dir"));
                 RegularUserManager RegUserManager = new RegularUserManager(db3, presenter3);
                 UserController controller3 = new UserController(RegUserManager);
                 controller3.changeVIPStatus(model);
@@ -275,7 +298,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         else if(Objects.equals(evt.getActionCommand(), "Liked Me (VIP)")){
             try {
                 UserOutputBoundary presenter1 = new UserPresenter(this);
-                DatabaseConnect db1 = new DatabaseConnect(System.getProperty("user.dir"));
+                UserGateway db1 = new UserGateway(System.getProperty("user.dir"));
                 VIPUserManager userManagerInteractor = new VIPUserManager(db1, presenter1);
                 UserController controller1 = new UserController(userManagerInteractor);
                 controller1.viewLikedMeVIP(model);
@@ -286,7 +309,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         }else if(Objects.equals(evt.getActionCommand(), "Set as Invisible (VIP)")){
             try {
                 UserOutputBoundary presenter1 = new UserPresenter(this);
-                DatabaseConnect db1 = new DatabaseConnect(System.getProperty("user.dir"));
+                UserGateway db1 = new UserGateway(System.getProperty("user.dir"));
                 VIPUserManager userManagerInteractor = new VIPUserManager(db1, presenter1);
                 UserController controller1 = new UserController(userManagerInteractor);
                 controller1.setInvisibleVisit(model, true);

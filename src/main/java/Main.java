@@ -1,18 +1,4 @@
-
-import Gateway.DatabaseConnect;
-import use_cases.user_manager_user_case.UserController;
-import use_cases.user_manager_user_case.UserPresenter;
-import screens.review_screen.UserInfoScreen;
-import use_cases.user_manager_user_case.UserInputBoundary;
-import use_cases.user_manager_user_case.UserManagerInteractor;
-import use_cases.user_manager_user_case.UserOutputBoundary;
-import entities.User;
-import use_cases.recommend_use_case.RecommendController;
-import use_cases.recommend_use_case.RecommendRequestModel;
-import use_cases.recommend_use_case.RecommendResponseModel;
-
-import javax.swing.*;
-import java.awt.*;
+import screens.user_info_screen.UserInfoScreen;
 
 public class Main {
     public static void main(String[] args) {
