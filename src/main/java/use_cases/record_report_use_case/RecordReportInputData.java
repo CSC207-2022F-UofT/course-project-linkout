@@ -14,7 +14,7 @@ public class RecordReportInputData {
         reportedUserID = r2;
         category = c;
         reportText = t;
-        supportingEvidence = new ArrayList<String>(se);
+        supportingEvidence = se;
     }
 
     /*

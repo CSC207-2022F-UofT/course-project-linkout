@@ -184,6 +184,9 @@ class ReviewGatewayImplementationTest {
         }
         assertFalse(foundreview);
 
+        Review reviewFound = reviewGateway.findReview(3728);
+        assertNull(reviewFound);
+
         FileInputStream fislikes=new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/data/likes.xls"));
         HSSFWorkbook wblikes=new HSSFWorkbook(fislikes);
         HSSFSheet sheetlikes = wblikes.getSheetAt(0);

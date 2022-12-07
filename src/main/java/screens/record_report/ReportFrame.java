@@ -53,12 +53,14 @@ public class ReportFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (((JButton) e.getSource()).getName().equals("ok")) {
             try {
+                ArrayList se = new ArrayList<String>();
+                se.add(additional.getText());
                 controller.createReport(
                         reportingUserID.getText(),
                         userID,
                         Integer.toString(category.getSelectedIndex()),
                         reportText.getText(),
-                        additional.getText()
+                        se
                 );
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage());

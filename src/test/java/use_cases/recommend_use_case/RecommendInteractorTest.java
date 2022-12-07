@@ -55,7 +55,7 @@ public class RecommendInteractorTest {
         presenter.PrepareRecommendView(responseModel2);
 
         // Test Similar
-        RecommendRequestModel requestModel3 = new RecommendRequestModel("acc1", "acc47");
+        RecommendRequestModel requestModel3 = new RecommendRequestModel("acc1", "acc10");
         RecommendResponseModel responseModel3 = interactor.Recommend(requestModel3);
 
         presenter.PrepareRecommendView(responseModel3);

@@ -29,19 +29,19 @@ class RecommendModel(object):
     ## Data cleaning
 
     def create_matrix(self):
-        N = len(self.likes['username'].unique())
-        M = len(self.likes['userviewed'].unique())
+        N = len(self.likes['username'].astype(str).unique())
+        M = len(self.likes['userviewed'].astype(str).unique())
 
         # Map Ids to indices
-        user_mapper = dict(zip(np.unique(self.likes['username']), list(range(N))))
-        userviewed_mapper = dict(zip(np.unique(self.likes['userviewed']), list(range(M))))
+        user_mapper = dict(zip(np.unique(self.likes['username'].astype(str)), list(range(N))))
+        userviewed_mapper = dict(zip(np.unique(self.likes['userviewed'].astype(str)), list(range(M))))
 
         # Map indices to IDs
-        user_inv_mapper = dict(zip(list(range(N)), np.unique(self.likes['username'])))
-        userviewed_inv_mapper = dict(zip(list(range(M)), np.unique(self.likes['userviewed'])))
+        user_inv_mapper = dict(zip(list(range(N)), np.unique(self.likes['username'].astype(str))))
+        userviewed_inv_mapper = dict(zip(list(range(M)), np.unique(self.likes['userviewed'].astype(str))))
 
-        user_index = [user_mapper[i] for i in self.likes['username']]
-        userviewed_index = [userviewed_mapper[i] for i in self.likes['userviewed']]
+        user_index = [user_mapper[i] for i in self.likes['username'].astype(str)]
+        userviewed_index = [userviewed_mapper[i] for i in self.likes['userviewed'].astype(str)]
 
         X = csr_matrix((self.likes["like"], (userviewed_index, user_index)), shape=(M, N))
 
