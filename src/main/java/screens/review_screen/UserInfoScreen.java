@@ -1,6 +1,8 @@
 package screens.review_screen;
 
 import Gateway.DatabaseConnect;
+import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.review_use_case.*;
 import use_cases.user_use_case.UserController;
 import entities.Profile;
 import use_cases.user_use_case.UserPresenter;
@@ -55,6 +57,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         JButton buttonLiked = new JButton("Liked");
         JButton buttonStatus = new JButton("Status");
         JButton buttonReview = new JButton("Show Review");
+        JButton buttonDeleteReview = new JButton("Delete Review");
         JButton buttonUpgrade = new JButton("Upgrade");
         JButton buttonLikeMe = new JButton("Liked Me (VIP)");
         JButton buttonInvisible = new JButton("Set as Invisible (VIP)");
@@ -67,6 +70,8 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         buttonStatus.setPreferredSize(new Dimension(50, 50));
         buttonReview.addActionListener(this);
         buttonReview.setPreferredSize(new Dimension(100, 50));
+        buttonDeleteReview.addActionListener(this);
+        buttonDeleteReview.setPreferredSize(new Dimension(100, 50));
         buttonUpgrade.addActionListener(this);
         buttonUpgrade.setPreferredSize(new Dimension(90, 50));
         buttonLikeMe.addActionListener(this);
@@ -79,6 +84,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         application.add(buttonLiked);
         application.add(buttonStatus);
         application.add(buttonReview);
+        application.add(buttonDeleteReview);
         application.add(buttonUpgrade);
         application.add(buttonLikeMe);
         application.add(buttonInvisible);
@@ -258,6 +264,20 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         else if (Objects.equals(evt.getActionCommand(), "Show Review")) {
             try {
                 controller.displayReview(model);
+                JOptionPane.showMessageDialog(this, "Displaying Reviews.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+        else if (Objects.equals(evt.getActionCommand(), "Delete Review")) {
+            try {
+                IReviewView screen = new ReviewCreationSuccessScreen();
+                ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
+                ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
+                UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
+                ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
+                ReviewController reviewController = new ReviewController(reviewInteractor);
+                new ReviewDeletionScreen(reviewController);
                 JOptionPane.showMessageDialog(this, "Displaying Reviews.");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());

@@ -24,31 +24,29 @@ public class ReviewDeletionScreen extends JPanel implements ActionListener, IRev
 
         this.reviewController = controller;
 
-        JLabel title = new JLabel("Review Creation Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JFrame application = new JFrame("Review Creation Screen");
+        application.setLayout(new FlowLayout());
+        CardLayout cardLayout = new CardLayout();
+        JPanel screens = new JPanel(cardLayout);
+        application.add(screens);
 
         LabelTextPanel idInfo = new LabelTextPanel(
                 new JLabel("Input id"), id);
 
         JButton delete = new JButton("Delete");
 
-        JButton hide = new JButton("Hide");
         JButton cancel = new JButton("Cancel");
 
         JPanel buttons = new JPanel();
         buttons.add(delete);
-        buttons.add(hide);
         buttons.add(cancel);
+        application.add(buttons);
+        application.add(idInfo);
+        application.setVisible(true);
 
         delete.addActionListener(this);
-        hide.addActionListener(this);
         cancel.addActionListener(this);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(idInfo);
-        this.add(buttons);
 
     }
 

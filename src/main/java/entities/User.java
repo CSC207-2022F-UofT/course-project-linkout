@@ -46,15 +46,7 @@ public abstract class User extends Account {
     }
 
 
-    // For RegularUser constructor
-    public User(String password, String accountName, Profile profile,
-                List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
-        super(password, accountName);
-        this.profile = profile;
-        this.liked = liked;
-        this.likedme = likedme;
-        this.reviews = reviews;
-    }
+
     // For RegularUser constructor.
     public User(String password, String accountName, Profile profile){
         super(password, accountName);
