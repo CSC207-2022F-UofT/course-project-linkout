@@ -84,6 +84,8 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         row.createCell(9).setCellValue(requestModel.getPassword());
         row.createCell(10).setCellValue("FALSE");
         row.createCell(11).setCellValue(requestModel.getContactInformation());
+        row.createCell(12).setCellValue(requestModel.getRestrictionStartTime());
+        row.createCell(13).setCellValue(requestModel.getRestrictionDuration());
 
         SaveWorkbook(wb, "profiles");
     }
