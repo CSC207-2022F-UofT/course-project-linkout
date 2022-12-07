@@ -3,7 +3,7 @@ import entities.*;
 
 public class RecordReportInteractor implements RecordReportInputBoundary {
     RecordReportOutputBoundary recordReportOB;
-    ReportDatabaseGateway recordReportDG;
+    ReportDatabaseGateway recordReportDB;
     RecordReportGateway recordReportGateway;
     boolean success;
     String adminID;
