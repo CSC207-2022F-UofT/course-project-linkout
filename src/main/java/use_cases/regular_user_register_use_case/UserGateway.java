@@ -1,11 +1,9 @@
 package use_cases.regular_user_register_use_case;
 
 import Gateway.DatabaseGateway;
+import entities.*;
+import use_cases.record_report_use_case.RecordReportGateway;
 import use_cases.user_action_use_case.LikesGateway;
-import entities.Profile;
-import entities.RegularUser;
-import entities.User;
-import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -17,7 +15,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
-public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway {
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway {
 
     private ProfileGateway profileGateway;
 
@@ -31,6 +29,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         reviewGateway = new ReviewGatewayImplementation(workingdir);
     }
 
+    @Override
     public User findUser(String usrname) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ProfilesStyleBook();
         //creating a Sheet object to retrieve the object
@@ -56,6 +55,11 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
             }
         }
         return user;
+    }
+
+    @Override
+    public Admin findAdmin(String adminID) {
+        return new Admin("Admin", "Admin");
     }
 
     @Override
