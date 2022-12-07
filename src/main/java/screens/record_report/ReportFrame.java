@@ -1,6 +1,6 @@
 package screens.record_report;
 
-import use_cases.record_review_use_case.RecordReportController;
+import use_cases.record_report_use_case.RecordReportController;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -58,7 +58,7 @@ public class ReportFrame extends JFrame implements ActionListener {
                         userID,
                         Integer.toString(category.getSelectedIndex()),
                         reportText.getText(),
-                        new ArrayList<String>(Collections.singletonList(additional.getText()))
+                        additional.getText()
                 );
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage());

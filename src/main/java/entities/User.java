@@ -46,7 +46,6 @@ public abstract class User extends Account {
     }
 
 
-
     // For RegularUser constructor.
     public User(String password, String accountName, Profile profile){
         super(password, accountName);
@@ -162,6 +161,5 @@ public abstract class User extends Account {
         this.restrictionInitialTime = System.currentTimeMillis();
 
     }
-
 
 }
