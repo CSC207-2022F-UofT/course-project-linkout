@@ -25,6 +25,7 @@ public abstract class DatabaseGateway {
     private String recommendbasefile;
 
     private String similarfile;
+    private String reportsfile;
 
     public DatabaseGateway(String workingdir){
         this.workingdir = workingdir;
@@ -35,6 +36,7 @@ public abstract class DatabaseGateway {
         this.recommendfile = workingdir+"/src/main/data/recommend.xls";
         this.recommendbasefile = workingdir+"/src/main/data/recommend_base.xls";
         this.similarfile = workingdir+"/src/main/data/similar.xls";
+        this.reportsfile = workingdir+"/src/main/data/reports.xls";
     }
 
 
@@ -93,6 +95,11 @@ public abstract class DatabaseGateway {
         return wb;
     }
 
+    protected HSSFWorkbook ReportsBook() throws IOException {
+        FileInputStream fis = new FileInputStream(new File(this.reportsfile));
+        return new HSSFWorkbook(fis);
+    }
+
     protected void SaveWorkbook(HSSFWorkbook wb, String type) throws IOException, InvalidAttributeValueException {
         OutputStream fileOut;
         switch (type) {
@@ -116,6 +123,9 @@ public abstract class DatabaseGateway {
                 break;
             case "reviews":
                 fileOut = new FileOutputStream(this.reviewsfile);
+                break;
+            case "reports":
+                fileOut = new FileOutputStream(this.reportsfile);
                 break;
             default:
                 throw new InvalidAttributeValueException("SaveWorkbook only accept [popular, recommend, recommendbase, similar, profiles, likes, reviews]");
