@@ -1,12 +1,14 @@
 package screens.review_screen;
 
 import Gateway.DatabaseConnect;
+import entities.User;
 import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.review_use_case.*;
-import use_cases.user_use_case.UserController;
+import use_cases.user_manager_user_case.UserController;
 import entities.Profile;
-import use_cases.user_use_case.UserPresenter;
-import use_cases.user_use_case.*;
+import use_cases.user_manager_user_case.UserPresenter;
+import use_cases.user_manager_user_case.*;
+import screens.user_info_screen.UserInformation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -278,7 +280,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
                 ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
                 ReviewController reviewController = new ReviewController(reviewInteractor);
                 new ReviewDeletionScreen(reviewController);
-                JOptionPane.showMessageDialog(this, "Displaying Reviews.");
+                JOptionPane.showMessageDialog(this, "Deleting Reviews.");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
