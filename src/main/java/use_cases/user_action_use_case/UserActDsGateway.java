@@ -2,6 +2,7 @@ package use_cases.user_action_use_case;
 
 import entities.User;
 
+import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 // use case layer
@@ -13,7 +14,7 @@ public interface UserActDsGateway {
      * @param targetName The account name of the target user
      * @throws IOException if failed in searching in database, throw IOException.
      */
-    void setLike(String accName, String targetName) throws IOException;
+    void setLike(String accName, String targetName) throws IOException, InvalidAttributeValueException;
 
 
     /**

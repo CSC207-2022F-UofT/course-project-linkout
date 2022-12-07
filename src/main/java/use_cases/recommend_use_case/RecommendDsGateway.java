@@ -13,5 +13,7 @@ public interface RecommendDsGateway {
     List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException;
 
 
+    boolean hasLiked(String username) throws IOException, InvalidAttributeValueException;
+
     void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException;
 }

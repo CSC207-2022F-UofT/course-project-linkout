@@ -1,19 +1,32 @@
 package screens.review_screen;
 
-import use_cases.review_use_case.ReviewController;
+import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.review_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import static java.lang.Integer.parseInt;
 
-public class ReviewCreationScreen extends JPanel implements ActionListener, IReviewView {
+public class ReviewCreationScreen extends JFrame implements ActionListener, IReviewView {
     JTextField receiverName = new JTextField(15);
     JTextField writerName = new JTextField(15);
     JTextField comment = new JTextField(15);
     JTextField rating = new JTextField(15);
+
+    public static void main(String[] args) throws IOException {
+        IReviewViewImplementation viewReview = new IReviewViewImplementation();
+        ReviewPresenter reviewPresenter = new ReviewPresenter(viewReview);
+        ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
+        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
+        ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateway);
+        ReviewController reviewController = new ReviewController(reviewInteractor);
+        ReviewCreationScreen frame = new ReviewCreationScreen(reviewController);
+        frame.setVisible(true);
+    }
 
     /**
      * The controller
@@ -24,6 +37,8 @@ public class ReviewCreationScreen extends JPanel implements ActionListener, IRev
      * A window with a title and a JButton.
      */
     public ReviewCreationScreen(ReviewController controller) {
+
+        setBounds(150, 150, 680, 342);
 
         this.reviewController = controller;
 
@@ -50,14 +65,17 @@ public class ReviewCreationScreen extends JPanel implements ActionListener, IRev
         create.addActionListener(this);
         cancel.addActionListener(this);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        getContentPane().setLayout(
+                new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)
+        );
 
-        this.add(title);
-        this.add(receivernameInfo);
-        this.add(writernameInfo);
-        this.add(commentInfo);
-        this.add(ratingInfo);
-        this.add(buttons);
+
+        getContentPane().add(title);
+        getContentPane().add(receivernameInfo);
+        getContentPane().add(writernameInfo);
+        getContentPane().add(commentInfo);
+        getContentPane().add(ratingInfo);
+        getContentPane().add(buttons);
 
     }
 
@@ -69,6 +87,7 @@ public class ReviewCreationScreen extends JPanel implements ActionListener, IRev
 
         try {
             int ratingInt = parseInt(rating.getText());
+            JOptionPane.showMessageDialog(this, "Review is created sucessfully");
             reviewController.addReview(ratingInt, comment.getText(), writerName.getText(), receiverName.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -77,6 +96,6 @@ public class ReviewCreationScreen extends JPanel implements ActionListener, IRev
 
     @Override
     public void updateMessage() {
-        JOptionPane.showMessageDialog(this, receiverName.getText() + "'s review created.");
+        JOptionPane.showMessageDialog(getContentPane(), receiverName.getText() + "'s review created.");
     }
 }

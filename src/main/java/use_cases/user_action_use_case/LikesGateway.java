@@ -115,7 +115,7 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
     }
 
 
-    public void setLike(String username, String userviewed) throws IOException {
+    public void setLike(String username, String userviewed) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
@@ -130,7 +130,7 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
                 sheet.getRow(i).getCell(2).setCellValue(1);
             }
         }
-
+        SaveWorkbook(wb, "likes");
     }
 
 }
