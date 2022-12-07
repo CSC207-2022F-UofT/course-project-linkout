@@ -33,20 +33,20 @@ public class RecommendInteractorTest {
 
         // Test Popular
         User user1 = userGateway.findUser("acc0");
-        RecommendRequestModel requestModel1 = new RecommendRequestModel(user1);
+        RecommendRequestModel requestModel1 = new RecommendRequestModel("acc0");
         RecommendResponseModel responseModel1 = interactor.Recommend(requestModel1);
 
         presenter.PrepareRecommendView(responseModel1);
 
         // Test Recommend
         User user2 = userGateway.findUser("acc1");
-        RecommendRequestModel requestModel2 = new RecommendRequestModel(user2);
+        RecommendRequestModel requestModel2 = new RecommendRequestModel("acc1");
         RecommendResponseModel responseModel2 = interactor.Recommend(requestModel2);
 
         presenter.PrepareRecommendView(responseModel2);
 
         // Test Similar
-        RecommendRequestModel requestModel3 = new RecommendRequestModel(user2, "acc47");
+        RecommendRequestModel requestModel3 = new RecommendRequestModel("acc1", "acc47");
         RecommendResponseModel responseModel3 = interactor.Recommend(requestModel3);
 
         presenter.PrepareRecommendView(responseModel3);

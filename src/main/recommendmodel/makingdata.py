@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
 import random
-import xlwt
 import click
+import xlwt
+
 
 @click.command()
 def forgedata():
@@ -68,5 +69,6 @@ def forgedata():
     reviews.to_excel("/Users/tristalli/Desktop/CSC207/course-project-linkout/src/main/data/reviews.xls", index=False)
 
 
-
+if __name__=="__main__":
+    forgedata()
 

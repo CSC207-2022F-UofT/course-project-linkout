@@ -46,22 +46,20 @@ public abstract class User extends Account {
     }
 
 
+    // For RegularUser constructor.
+    public User(String password, String accountName, Profile profile){
+        super(password, accountName);
+        this.profile = profile;
+    }
 
-    // For RegularUser constructor
-    public User(String password, String accountName, Profile profile,
-                List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
+    public User(String password, String accountName, Profile profile, List<String> liked,
+                List<String> likedme, Hashtable<Integer, List<Object>> reviews) {
         super(password, accountName);
         this.profile = profile;
         this.liked = liked;
         this.likedme = likedme;
         this.reviews = reviews;
-    }
 
-
-    // For RegularUser constructor.
-    public User(String password, String accountName, Profile profile){
-        super(password, accountName);
-        this.profile = profile;
     }
 
     /**
@@ -163,15 +161,5 @@ public abstract class User extends Account {
         this.restrictionInitialTime = System.currentTimeMillis();
 
     }
-
-    public float calculateRemainingTime(){
-        float currentTime = System.currentTimeMillis();
-        if (currentTime >= restrictionDuration + restrictionInitialTime){
-            return 0;
-        }else{
-            return restrictionInitialTime + restrictionDuration - currentTime;
-        }
-    }
-
 
 }
