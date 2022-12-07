@@ -1,5 +1,7 @@
 package Gateway;
+
 import java.awt.*;
+
 import java.io.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.hamcrest.core.IsInstanceOf;
+
 
 import javax.management.InvalidAttributeValueException;
 
@@ -216,6 +219,7 @@ public class DatabaseConnect implements UserUpgrade {
                 revBody.add(review.getRating());
                 revBody.add(review.getComment());
                 allreviews.put(reviewId, revBody);
+
             }
         }
         return allreviews;

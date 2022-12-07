@@ -64,6 +64,12 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
     }
 
     @Override
+    public boolean hasLiked(String username) throws IOException, InvalidAttributeValueException {
+        List<String> liked = likesGateway.findLiked(username);
+        return (!liked.isEmpty());
+    }
+
+    @Override
     public void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
