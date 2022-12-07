@@ -2,6 +2,7 @@ package screens.regularuser_register_screen;
 
 import use_cases.regular_user_register_use_case.UserRegisterDsGateway;
 import use_cases.regular_user_register_use_case.UserRegisterDsRequestModel;
+import use_cases.user_login_use_case.UserLoginDsGateway;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -10,13 +11,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class FileUser implements UserRegisterDsGateway {
+public class FileUser implements UserRegisterDsGateway, UserLoginDsGateway {
 
     private final File xlsFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<String, UserRegisterDsRequestModel> accounts = new HashMap<>();
+    private final Map<String, String> accountPassword = new HashMap<>();
 
     public FileUser(String xlsPath) throws IOException {
         xlsFile = new File(xlsPath);
@@ -61,6 +63,7 @@ public class FileUser implements UserRegisterDsGateway {
                         location, gender, age, sexuality, hobbies, height, weight, contactInformation,
                         selfDescription, ldt);
                 accounts.put(username, user);
+                accountPassword.put(username, password);
             }
 
             reader.close();
@@ -110,6 +113,15 @@ public class FileUser implements UserRegisterDsGateway {
     @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
+    }
+    @Override
+    public boolean MatchingNameAndPassword(String accountName, String Password) {
+        return accountPassword.get(accountName).equals(Password);
+    }
+
+    @Override
+    public boolean NotExist(String accountName) {
+        return !existsByName(accountName);
     }
 
 }
