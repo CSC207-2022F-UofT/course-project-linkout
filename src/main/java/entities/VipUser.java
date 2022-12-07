@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 public class VipUser extends User{
 
     private boolean isInvisible;
-    private List<User> visitors;
+    private List<String> visitors;
     private Hashtable<Integer, List<Object>> hiddenReviews = new Hashtable<>();
 
     /**
@@ -25,31 +25,37 @@ public class VipUser extends User{
         super(password, accountName, profile, isVIP, liked, likedme, reviews);
     }
 
-    public void setInvisible(boolean arg){
+    public boolean setInvisible(boolean arg){
         this.isInvisible = arg;
+        return true;
+    }
+
+
+    public boolean getInvisibleStatus(){
+        return this.isInvisible;
     }
 
     public List<String> showLikedMe(){
         return super.showLikedMe();
     }
 
-    public List<User> showVisitor(){
+    public List<String> showVisitor(){
         return this.visitors;
     }
 
-    public void addVisitor(User visitor){
+    public void addVisitor(String visitor){
         this.visitors.add(visitor);
     }
 
-    public void hideReview(ArrayList<Integer> review_ids){
-        for (Integer id : review_ids){
-            if (this.getReviews().containsKey(id)){
-                hiddenReviews.put(id, this.getReviews().get(id));
+    public boolean hideReview(Integer review_ids){
+       if (this.getReviews().containsKey(review_ids)){
+           hiddenReviews.put(review_ids, this.getReviews().get(review_ids));
+           this.deleteReview(review_ids);
             }
             else {
-                throw new NoSuchElementException("Review " + id + "Not Found") ;
+                return false ;
             }
-        }
+        return true;
     }
 
 }

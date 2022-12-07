@@ -1,4 +1,4 @@
-package use_cases.record_review_use_case;
+package use_cases.record_report_use_case;
 import screens.record_report.RecordReportResultViewModel;
 
 import java.text.SimpleDateFormat;

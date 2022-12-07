@@ -1,11 +1,9 @@
 package use_cases.regular_user_register_use_case;
 
 import Gateway.DatabaseGateway;
+import entities.*;
+import use_cases.record_report_use_case.RecordReportGateway;
 import use_cases.user_action_use_case.LikesGateway;
-import entities.Profile;
-import entities.RegularUser;
-import entities.User;
-import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,13 +16,14 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
-public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway {
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway {
 
     private ProfileGateway profileGateway;
 
     private LikesGateway likesGateway;
 
     private ReviewGatewayImplementation reviewGateway;
+
     public UserGateway(String workingdir) {
         super(workingdir);
         profileGateway = new ProfileGateway(workingdir);
@@ -32,8 +31,14 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         reviewGateway = new ReviewGatewayImplementation(workingdir);
     }
 
+    @Override
     public User findUser(String usrname) throws IOException, InvalidAttributeValueException {
         return likesGateway.findUser(usrname);
+    }
+
+    @Override
+    public Admin findAdmin(String adminID) {
+        return new Admin("Admin", "Admin");
     }
 
     @Override
@@ -43,11 +48,11 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     @Override
     public void saveUser(UserRegisterDsRequestModel requestModel) throws InvalidAttributeValueException, IOException {
-        if (existsByName(requestModel.getName())){
+        if (existsByName(requestModel.getName())) {
             return;
         }
         HSSFWorkbook wb = ProfilesStyleBook();
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
 
         Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
         row.createCell(0).setCellValue(requestModel.getAge());
@@ -62,8 +67,10 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         row.createCell(9).setCellValue(requestModel.getPassword());
         row.createCell(10).setCellValue("FALSE");
         row.createCell(11).setCellValue(requestModel.getContactInformation());
+        row.createCell(12).setCellValue(requestModel.getRestrictionStartTime());
+        row.createCell(13).setCellValue(requestModel.getRestrictionDuration());
 
         SaveWorkbook(wb, "profiles");
     }
-
 }
+

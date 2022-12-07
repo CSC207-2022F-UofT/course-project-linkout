@@ -1,4 +1,5 @@
-package screens.regularuser_register_screen;
+package screens.user_login;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,12 +17,14 @@ public class LoginScreen extends JFrame implements ActionListener {
      * The password
      */
     JPasswordField password = new JPasswordField(15);
+    UserLoginController userLoginController;
 
 
     /**
      * A window with a title and a JButton.
      */
-    public LoginScreen() {
+    public LoginScreen(UserLoginController userLoginController) {
+        this.userLoginController = userLoginController;
 
         JLabel title = new JLabel("Login Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -57,6 +60,15 @@ public class LoginScreen extends JFrame implements ActionListener {
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
+
         System.out.println("Click " + evt.getActionCommand());
+        try{
+            userLoginController.create(username.getText(),
+                    String.valueOf(password.getPassword()));
+            JOptionPane.showMessageDialog(this, username.getText() + " log in.");
+
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 }
