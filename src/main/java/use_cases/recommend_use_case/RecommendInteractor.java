@@ -20,12 +20,17 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
     private void UpdatePopular(String username) throws IOException {
+
+        String[] activateCommand = {"source", String.format("%s/src/main/recommendmodel/venv/bin/activate", db.getWorkingDir())};
         String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir()),
                 String.format("%s/src/main/data", db.getWorkingDir()), "popular", String.format("--username=%s", username)};
+        String[] deactivateCommand = {"deactivate"};
 
         String s;
         Runtime runtime = Runtime.getRuntime();
+        runtime.exec(activateCommand);
         Process process = runtime.exec(command);
+        runtime.exec(deactivateCommand);
 
         System.out.println("Here is the standard output of the command:\n");
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -42,13 +47,18 @@ public class RecommendInteractor implements RecommendInputBoundary{
 
 
     private void UpdateSimilar(String username, String userviewed) throws IOException {
+
+        String[] activateCommand = {"source", String.format("%s/src/main/recommendmodel/venv/bin/activate", db.getWorkingDir())};
         String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir()),
                 String.format("%s/src/main/data", db.getWorkingDir()), "similar", String.format("--username=%s", username),
                 String.format("--userviewed=%s", userviewed)};
+        String[] deactivateCommand = {"deactivate"};
 
         String s;
         Runtime runtime = Runtime.getRuntime();
+        runtime.exec(activateCommand);
         Process process = runtime.exec(command);
+        runtime.exec(deactivateCommand);
 
         System.out.println("Here is the standard output of the command:\n");
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -64,12 +74,17 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
     private void UpdateRecommend(String username) throws IOException {
+
+        String[] activateCommand = {"source", String.format("%s/src/main/recommendmodel/venv/bin/activate", db.getWorkingDir())};
         String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir()),
                 String.format("%s/src/main/data", db.getWorkingDir()), "recommend", String.format("--username=%s", username)};
+        String[] deactivateCommand = {"deactivate"};
 
         String s;
         Runtime runtime = Runtime.getRuntime();
+        runtime.exec(activateCommand);
         Process process = runtime.exec(command);
+        runtime.exec(deactivateCommand);
 
         System.out.println("Here is the standard output of the command:\n");
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
