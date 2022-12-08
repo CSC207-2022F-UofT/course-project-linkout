@@ -1,9 +1,9 @@
 package use_cases.regular_user_register_use_case;
 
 import Gateway.DatabaseGateway;
+import Gateway.UserUpgrade;
 import entities.*;
 import use_cases.record_report_use_case.RecordReportGateway;
-import use_cases.restrict_user_use_case.RestrictUserGateway;
 import use_cases.user_action_use_case.LikesGateway;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -12,17 +12,20 @@ import use_cases.review_use_case.ReviewGatewayImplementation;
 
 
 import javax.management.InvalidAttributeValueException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Objects;
 
-public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, RestrictUserGateway {
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade {
 
     private ProfileGateway profileGateway;
 
     private LikesGateway likesGateway;
 
     private ReviewGatewayImplementation reviewGateway;
+
     public UserGateway(String workingdir) {
         super(workingdir);
         profileGateway = new ProfileGateway(workingdir);
@@ -32,30 +35,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     @Override
     public User findUser(String usrname) throws IOException, InvalidAttributeValueException {
-        HSSFWorkbook wb = ProfilesStyleBook();
-        //creating a Sheet object to retrieve the object
-        HSSFSheet sheet=wb.getSheetAt(0);
-        User user = null;
-        String currname;
-        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            currname = sheet.getRow(i).getCell(8).toString();
-            if (currname.equals(usrname)) {
-                Row row = sheet.getRow(i);
-                Profile profile = profileGateway.CreateProfile(row);
-                String password = loadStringCell(row.getCell(9));
-                String isVip = loadStringCell(row.getCell(10));
-                List<String> liked = likesGateway.findLiked(usrname);
-                List<String> likedme = likesGateway.findLikedMe(usrname);
-                Hashtable<Integer, List<Object>> reviews = reviewGateway.getReviews(usrname);
-                if (isVip.equals("TRUE")){
-                    user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
-                } else {
-                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
-                }
-                break;
-            }
-        }
-        return user;
+        return likesGateway.findUser(usrname);
     }
 
     @Override
@@ -70,11 +50,11 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     @Override
     public void saveUser(UserRegisterDsRequestModel requestModel) throws InvalidAttributeValueException, IOException {
-        if (existsByName(requestModel.getName())){
+        if (existsByName(requestModel.getName())) {
             return;
         }
         HSSFWorkbook wb = ProfilesStyleBook();
-        HSSFSheet sheet=wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheetAt(0);
 
         Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());
         row.createCell(0).setCellValue(requestModel.getAge());
@@ -96,23 +76,24 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
     }
 
 
-    public void RemoveUser(User user) throws IOException, InvalidAttributeValueException {
-        String username = user.getAccountName();
-        if (existsByName(username)){
-            return;
-        }
+
+
+    public boolean upgrade(String accName, boolean status) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ProfilesStyleBook();
-        HSSFSheet sheet=wb.getSheetAt(0);
-
-        String currusername;
-
+        //creating a Sheet object to retrieve the object
+        HSSFSheet sheet = wb.getSheetAt(0);
+        String currname;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-            currusername = loadStringCell(sheet.getRow(i).getCell(8));
-            if (currusername == username) {
-                sheet.removeRow(sheet.getRow(i));
+            currname = sheet.getRow(i).getCell(8).toString();
+            if (currname.equals(accName)) {
+                sheet.getRow(i).getCell(10).setCellValue(status);
+                SaveWorkbook(wb, "profiles");
+                return true;
             }
         }
 
-        SaveWorkbook(wb, "profiles");
+        return false;
+
     }
 }
+

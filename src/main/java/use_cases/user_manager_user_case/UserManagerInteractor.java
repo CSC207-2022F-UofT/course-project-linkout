@@ -1,20 +1,20 @@
 package use_cases.user_manager_user_case;
 
-import Gateway.DatabaseConnect;
-import entities.*;
 
+import entities.*;
+import use_cases.regular_user_register_use_case.UserGateway;
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 
 public class UserManagerInteractor implements UserInputBoundary {
 
-    final DatabaseConnect userDsGateway;
+    final UserGateway userDsGateway;
     final UserOutputBoundary userPresenter;
 
 
 
-    public UserManagerInteractor(DatabaseConnect userDsGateway, UserOutputBoundary userPresenter){
+    public UserManagerInteractor(UserGateway userDsGateway, UserOutputBoundary userPresenter){
         this.userDsGateway = userDsGateway;
         this.userPresenter = userPresenter;
     }

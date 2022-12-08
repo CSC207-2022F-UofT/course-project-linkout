@@ -25,9 +25,7 @@ public class UserActController {
         UserActInputData inputData = new UserActInputData(accName, targetName);
         try {
             return userInput.like(inputData);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidAttributeValueException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }

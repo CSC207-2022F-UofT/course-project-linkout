@@ -39,7 +39,7 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
 
     @Override
     public List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException {
-        HSSFWorkbook wb = ProfileStyleBook(type);
+        HSSFWorkbook wb = ProfilesStyleBook(type);
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
         List<User> users = new ArrayList<>();

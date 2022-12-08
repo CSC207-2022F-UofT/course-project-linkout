@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class FileUser implements UserRegisterDsGateway, UserLoginDsGateway {
@@ -116,7 +117,7 @@ public class FileUser implements UserRegisterDsGateway, UserLoginDsGateway {
     }
     @Override
     public boolean MatchingNameAndPassword(String accountName, String Password) {
-        return accountPassword.get(accountName).equals(Password);
+        return Objects.equals(accountPassword.get(accountName), Password);
     }
 
     @Override
