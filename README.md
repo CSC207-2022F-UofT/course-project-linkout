@@ -148,6 +148,41 @@ Here is the UML for Recommend Use Case
 
 ![](images/recommendTestCoverage.png)
 
+#### Search Use Case
+
+>Everyone has their personal preference in terms of what type of <the one> they are interested in. The search use case provides the users with the functionality of search according to thier preference.\
+  
+>Search Function Workflow\
+  (1) User log in successfully and automatically being promoted to the main page;\
+  (2) User could type in the features they are looking in the field provide;\
+  (3) Press search button;\
+  (4) The app will generate a list of users that satisfied the following condition:\
+      (a) matches with the features; \
+      (b) max of 20 matched users being displayed (for the purpose of overwhelming results that will exhasuted user's eyes);\
+      (c) similar to recommend, the list of matched users have not been seen by the user(who press the search button) beofre.\
+  (5) After the result being generated, the user could go through the basic info one by one (line by line) and navigate any function of the app they woudl   like to use (e.g. like the user, write review for the user, report the user, check profile, find similar)
+ 
+##### Search Classes
+>SearchController\
+>SearchRequestModel\
+SearchInputBoundary\
+SearchInteratcor\
+SearchDSGateway\
+SearchGateway\
+SearchOutputBoundary\
+SearchPresenter\
+SearchResponseModel
+
+###### How the code works
+
+> The SearchController takes in the input information(keywords entered + username) from the screen, it then
+> constructs a SearchRequestModel and puts all input information into the request model, it then calls SearchInputBoundary
+> to search the keywords. The SearchInteratcor which implements SearchInputBoundary will construct the searchGateway
+> to search from the database for the users that matched the keywords entered, and call SearchoutputBoundary to prepare the success
+> search result, and the SearchPresenter which implements the SearchOutputBoundary will execute the implemented
+> method and return a SearchResponseModel.
+
+
 ### Looking forward
 
 We surmise that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.
