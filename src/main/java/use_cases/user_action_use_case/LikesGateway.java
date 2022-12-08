@@ -1,30 +1,32 @@
 package use_cases.user_action_use_case;
 
 import Gateway.DatabaseGateway;
+import entities.Profile;
+import entities.RegularUser;
 import entities.User;
+import entities.VipUser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import use_cases.regular_user_register_use_case.ProfileGateway;
 import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.review_use_case.ReviewGatewayImplementation;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
-    private UserGateway userGateway;
+    private ReviewGatewayImplementation reviewGateway;
     private ProfileGateway profileGateway;
 
 
     public LikesGateway(String workingdir) {
         super(workingdir);
-    }
-
-    public LikesGateway(String workingdir, UserGateway userGateway) {
-        super(workingdir);
-        this.userGateway = userGateway;
+        this.profileGateway = new ProfileGateway(workingdir);
+        this.reviewGateway = new ReviewGatewayImplementation(workingdir);
     }
 
 
@@ -79,7 +81,6 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -106,12 +107,31 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
     }
 
     @Override
-    public User findUser(String accName) {
-        try {
-            return userGateway.findUser(accName);
-        } catch (IOException | InvalidAttributeValueException e) {
-            throw new RuntimeException(e);
+    public User findUser(String usrname) throws IOException, InvalidAttributeValueException {
+        HSSFWorkbook wb = ProfilesStyleBook();
+        //creating a Sheet object to retrieve the object
+        HSSFSheet sheet=wb.getSheetAt(0);
+        User user = null;
+        String currname;
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            currname = sheet.getRow(i).getCell(8).toString();
+            if (currname.equals(usrname)) {
+                Row row = sheet.getRow(i);
+                Profile profile = profileGateway.CreateProfile(row);
+                String password = loadStringCell(row.getCell(9));
+                String isVip = loadStringCell(row.getCell(10));
+                List<String> liked = findLiked(usrname);
+                List<String> likedme = findLikedMe(usrname);
+                Hashtable<Integer, List<Object>> reviews = reviewGateway.getReviews(usrname);
+                if (isVip.equals("TRUE")){
+                    user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
+                } else {
+                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
+                }
+                break;
+            }
         }
+        return user;
     }
 
 

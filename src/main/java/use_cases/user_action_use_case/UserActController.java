@@ -20,7 +20,7 @@ public class UserActController {
      * @param targetName target user's account name
      * @return a string which is a message created by presenter.
      */
-    public String like(String accName, String targetName){
+    public String like(String accName, String targetName) throws InvalidAttributeValueException {
         //RequestModel
         UserActInputData inputData = new UserActInputData(accName, targetName);
         try {

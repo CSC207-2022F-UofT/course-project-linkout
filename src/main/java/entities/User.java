@@ -27,24 +27,20 @@ public abstract class User extends Account {
 
 
     // For VIPUser constructor
-    public User(String password, String accountName, Profile profile, boolean isVIP,
-                List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
-        super(password, accountName);
-        this.profile = profile;
-        this.isVIP = isVIP;
-        this.liked = liked;
-        this.likedme = likedme;
-        this.reviews = reviews;
-
-    }
-
-    // For VIPUser constructor.
     public User(String password, String accountName, Profile profile, boolean isVIP){
         super(password, accountName);
         this.profile = profile;
         this.isVIP = isVIP;
     }
 
+    public User(String password, String accountName, Profile profile, boolean isVIP, List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
+        super(password, accountName);
+        this.profile = profile;
+        this.liked = liked;
+        this.likedme = likedme;
+        this.reviews = reviews;
+        this.isVIP = isVIP;
+    }
 
     // For RegularUser constructor.
     public User(String password, String accountName, Profile profile){
@@ -52,15 +48,14 @@ public abstract class User extends Account {
         this.profile = profile;
     }
 
-    public User(String password, String accountName, Profile profile, List<String> liked,
-                List<String> likedme, Hashtable<Integer, List<Object>> reviews) {
+    public User(String password, String accountName, Profile profile, List<String> liked, List<String> likedme, Hashtable<Integer, List<Object>> reviews){
         super(password, accountName);
         this.profile = profile;
         this.liked = liked;
         this.likedme = likedme;
         this.reviews = reviews;
-
     }
+
 
     /**
      * Adds a report to the user's list of reports.
