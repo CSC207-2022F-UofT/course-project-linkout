@@ -6,6 +6,7 @@ public class RecordReportInputData {
     private String category;
     private String reportText;
     private String supportingEvidence;
+
     
     /**
      * The constructor instantiating an input data object containing the
@@ -17,6 +18,7 @@ public class RecordReportInputData {
      * @param t     The text of the report.
      * @param se    Any supporting evidence (e.g., links to images) for the report.
      */
+
     public RecordReportInputData(String r1, String r2, String c,
                                  String t, String se) {
         reportingUserID = r1;
