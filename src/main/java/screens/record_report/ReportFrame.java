@@ -1,17 +1,12 @@
 package screens.record_report;
 
-import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.LabelTextPanel;
-import screens.review_screen.ReviewCreationScreen;
 import use_cases.record_report_use_case.*;
 import use_cases.regular_user_register_use_case.UserGateway;
-import use_cases.review_use_case.*;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class ReportFrame extends JFrame implements ActionListener {
     RecordReportController controller;
@@ -67,7 +62,9 @@ public class ReportFrame extends JFrame implements ActionListener {
         buttons.add(cancel);
 
         ok.addActionListener(this);
-        cancel.addActionListener(this);
+        cancel.addActionListener(e -> {
+            this.dispose();
+        });
 
         getContentPane().setLayout(
                 new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)
@@ -93,9 +90,6 @@ public class ReportFrame extends JFrame implements ActionListener {
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage());
             }
-        } else if (e.getSource() == cancel) {
-            //Do stuff
-            System.out.println("Hello");
         }
     }
 }
