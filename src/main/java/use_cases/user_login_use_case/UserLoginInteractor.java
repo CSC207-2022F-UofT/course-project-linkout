@@ -16,9 +16,9 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
 
     @Override
     public UserLoginResponseModel create(UserLoginRequestModel requestModel) {
-        if (!userLoginDsGateway.NotExist(requestModel.getUsername())) {
+        if (userLoginDsGateway.NotExist(requestModel.getUsername())) {
             return userLoginPresenter.LoginFailView("User does not exists.");
-        } else if(userLoginDsGateway.MatchingNameAndPassword(requestModel.getUsername(), requestModel.getPassword())) {
+        } else if(!userLoginDsGateway.MatchingNameAndPassword(requestModel.getUsername(), requestModel.getPassword())) {
             return userLoginPresenter.LoginFailView("Passwords don't match.");
         }
         LocalDateTime now = LocalDateTime.now();
