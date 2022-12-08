@@ -4,11 +4,13 @@ import Gateway.DatabaseGateway;
 import Gateway.UserUpgrade;
 import entities.*;
 import use_cases.record_report_use_case.RecordReportGateway;
+import use_cases.restrict_user_use_case.RestrictUserGateway;
 import use_cases.user_action_use_case.LikesGateway;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import use_cases.review_use_case.ReviewGatewayImplementation;
+import use_cases.user_login_use_case.UserLoginDsGateway;
 
 
 import javax.management.InvalidAttributeValueException;
@@ -18,7 +20,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
-public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade {
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade,
+        UserLoginDsGateway {
 
     private ProfileGateway profileGateway;
 
@@ -94,6 +97,24 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
         return false;
 
+    }
+
+    @Override
+    public boolean MatchingNameAndPassword(String accountName, String Password) throws IOException,
+            InvalidAttributeValueException {
+        if (existsByName(accountName)) {
+            return false;
+        }
+
+        User userLogin = findUser(accountName);
+        String password = userLogin.getPassword();
+
+        return password.equals(Password);
+    }
+
+    @Override
+    public boolean NotExist(String accountName) throws IOException, InvalidAttributeValueException {
+        return !existsByName(accountName);
     }
 }
 

@@ -1,32 +1,51 @@
 package screens.record_report;
 
-import use_cases.record_report_use_case.RecordReportController;
+import screens.review_screen.LabelTextPanel;
+import use_cases.record_report_use_case.*;
+import use_cases.regular_user_register_use_case.UserGateway;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.IOException;
 
 public class ReportFrame extends JFrame implements ActionListener {
     RecordReportController controller;
     String userID;
 
-    JTextField reportingUserID;
-    JTextField reportText;
-    JTextField additional;
+    JTextField reportingUserID = new JTextField(15);
+    JTextField reportText = new JTextField(15);
+    JTextField additional = new JTextField(15);
     JComboBox<String> category;
+    JButton ok, cancel;
+
+    public static void main(String[] args) throws IOException {
+        RecordReportOutputData recordReportOD = new RecordReportOutputData();
+        RecordReportResultFrame viewReport = new RecordReportResultFrame();
+        UserGateway recordReportGateway = new UserGateway(System.getProperty("user.dir"));
+        RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
+        ReportDatabaseGateway recordReportDatabaseGateway = new ReportDatabase(System.getProperty("user.dir"));
+        RecordReportInteractor reportInteractor = new RecordReportInteractor(reportPresenter, recordReportGateway,
+                recordReportDatabaseGateway, "Admin");
+        RecordReportController recordReportController = new RecordReportController(reportInteractor);
+        ReportFrame frame = new ReportFrame(recordReportController, "User");
+        frame.setVisible(true);
+    }
     public ReportFrame(RecordReportController controller, String userID) {
+        setBounds(150, 150, 780, 442);
         this.controller = controller;
         this.userID = userID;
 
         JLabel title = new JLabel("Report this user");
         title.setAlignmentX(0.5f);
 
-        reportingUserID = new JTextField("Your username");
-        reportText = new JTextField("Write your report here");
-        additional = new JTextField("Include any additional information here");
-        JButton ok = new JButton("OK");
-        JButton cancel = new JButton("Cancel");
+        LabelTextPanel r1 = new LabelTextPanel(
+                new JLabel("Your username:"), reportingUserID);
+        LabelTextPanel re = new LabelTextPanel(
+                new JLabel("Write your report here:"), reportText);
+        LabelTextPanel se = new LabelTextPanel(
+                new JLabel("Include any additional information here:"), additional);
+        ok = new JButton("OK");
+        cancel = new JButton("Cancel");
 
         //Dropdown option menu
         String[] categories = {
@@ -35,23 +54,29 @@ public class ReportFrame extends JFrame implements ActionListener {
                 "Other"};
         category = new JComboBox<String>(categories);
 
-        ok.addActionListener(this);
-        cancel.addActionListener(this);
 
         JPanel buttons = new JPanel();
         buttons.add(ok);
         buttons.add(cancel);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(reportingUserID);
-        this.add(reportText);
-        this.add(additional);
+        ok.addActionListener(this);
+        cancel.addActionListener(e -> {
+            this.dispose();
+        });
+
+        getContentPane().setLayout(
+                new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)
+        );
+        getContentPane().add(r1);
+        getContentPane().add(re);
+        getContentPane().add(se);
         this.add(category);
+        this.add(buttons);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (((JButton) e.getSource()).getName().equals("ok")) {
+        if (e.getSource() == ok) {
             try {
                 controller.createReport(
                         reportingUserID.getText(),
@@ -63,9 +88,6 @@ public class ReportFrame extends JFrame implements ActionListener {
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage());
             }
-        } else if (((JButton) e.getSource()).getName().equals("cancel")) {
-            //Do stuff
-            System.out.println("Hello");
         }
     }
 }

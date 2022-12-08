@@ -38,10 +38,8 @@ public class RecordReportInteractor implements RecordReportInputBoundary {
                 r.getCategory(), r.getReportText(), r.getSupportingEvidence());
 
         try {
-            User user = recordReportGateway.findUser(r.getReportingUserID());
             Admin admin = recordReportGateway.findAdmin(adminID);
-            if (user != null && admin != null) {
-                user.addReport(report);
+            if (admin != null) {
                 recordReportDB.saveReport(report);
                 String message = "A new report has been filed against " + report.getReportedUserID();
                 admin.addMessage(message);
