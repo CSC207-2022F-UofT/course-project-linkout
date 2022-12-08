@@ -7,8 +7,7 @@ A versatile modern dating application for all your relationship needs! The inter
 - The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
 
 ## Group members:
-Joe ?
-Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
+Joe Cui, Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
 
 ## Project outline
 
