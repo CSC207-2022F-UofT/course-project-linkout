@@ -48,7 +48,7 @@ class RecommendGatewayTest {
         RecommendRequestModel requestModel = new RecommendRequestModel("acc1");
         RecommendInteractor interactor = new RecommendInteractor(db){
             @Override
-            public RecommendResponseModel RecommendUsers(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+            public RecommendResponseModel Recommend(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
                 List<User> recommend = db.LoadAllUser("recommend");
                 assertNotNull(recommend);
 
@@ -60,7 +60,7 @@ class RecommendGatewayTest {
                 return null;
             }
         };
-        interactor.RecommendUsers(requestModel);
+        interactor.Recommend(requestModel);
     }
 
     @Test

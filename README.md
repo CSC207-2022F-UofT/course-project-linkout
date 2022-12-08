@@ -12,6 +12,16 @@ Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
 
 ## Project outline
 
+- Yanlin Li: Recommend User Case, Gateway
+- Yifei Zhang
+- Ryan Shi
+- Chensheng Xu
+- Qingyi Hu
+- Zezhou Cui
+- Alex
+
+## Project outline:
+
 ### Entities
 
 - The central entity is the account. Its childen are Admin and Profile, which in turn has children User, RegularUser, and VipUser.
@@ -88,7 +98,16 @@ ReviewResponseModel
 
 We have implemented the Factory design pattern for the User entity.
 
-Design patterns which would be useful if added:
+#### Recommend Use Case
+Here is the UML for Recommend Use Case
+
+![](images/recommendUseCase.png)
+
+### Testing:
+
+#### Recommend Use Case
+
+![](images/recommendTestCoverage.png)
 
 ### Testing
 
