@@ -6,8 +6,6 @@ import use_cases.regular_user_register_use_case.UserGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.List;
 
 public class RegularUserManager extends UserManagerInteractor {
 
@@ -15,6 +13,9 @@ public class RegularUserManager extends UserManagerInteractor {
         super(userDsGateway, userPresenter);
     }
 
+    /**
+     * @param username the username of the Regular User who wants to upgrade
+     */
     public void upgrade(UserRequestModel username) throws IOException, InvalidAttributeValueException {
         if (userDsGateway.findUser(username.getAccName()) != null) {
             User user = super.findUserByName(username.getAccName());

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface UserDsGateway {
 
-    public User findUser(String name) throws IOException, InvalidAttributeValueException;
+    User findUser(String name) throws IOException, InvalidAttributeValueException;
 
-    public boolean upgrade(String accName, boolean status) throws IOException, InvalidAttributeValueException;
+    boolean upgrade(String accName, boolean status) throws IOException, InvalidAttributeValueException;
 }
