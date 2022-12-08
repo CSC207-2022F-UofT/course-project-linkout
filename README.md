@@ -98,7 +98,7 @@ ReviewResponseModel
       (c) similar to recommend, the list of matched users have not been seen by the user(who press the search button) beofre.\
   (5) After the result being generated, the user could go through the basic info one by one (line by line) and navigate any function of the app they woudl   like to use (e.g. like the user, write review for the user, report the user, check profile, find similar)
  
-#### Search Classes
+##### Search Classes
 >SearchController\
 >SearchRequestModel\
 SearchInputBoundary\
@@ -109,7 +109,7 @@ SearchOutputBoundary\
 SearchPresenter\
 SearchResponseModel
 
-  ##### How the code works
+  ###### How the code works
 
 > The SearchController takes in the input information(keywords entered + username) from the screen, it then
 > constructs a SearchRequestModel and puts all input information into the request model, it then calls SearchInputBoundary
