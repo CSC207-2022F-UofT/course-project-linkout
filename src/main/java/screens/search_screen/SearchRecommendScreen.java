@@ -1,21 +1,27 @@
-package use_cases.search_use_case.search_screen;
-
+package screens.search_screen;
 import entities.User;
-import screens.review_screen.IReviewViewImplementation;
+
+import screens.review_screen.IReviewView;
 import screens.review_screen.ReviewCreationScreen;
+import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.user_info_screen.UserInfoScreen;
 import use_cases.recommend_use_case.*;
 import use_cases.record_report_use_case.RecordReportController;
-import use_cases.review_use_case.*;
+
 import use_cases.regular_user_register_use_case.UserGateway;
-//import use_cases.review_use_case.*;
+
+import use_cases.review_use_case.*;
 import use_cases.search_use_case.*;
 import use_cases.user_action_use_case.*;
 
+import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
+
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
+
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
