@@ -59,7 +59,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     @Override
     public Admin findAdmin(String adminID) {
-        return new Admin("Admin", "Admin");
+        return new Admin("Admin", adminID);
     }
 
     @Override
