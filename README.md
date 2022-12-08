@@ -6,24 +6,24 @@ A versatile modern dating application for all your relationship needs! The inter
 - This app can only accommodate MacOS system!!!
 - The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
 
-## Group members:
-Joe Cui, Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
-
 ## Project outline
 
-- Yanlin Li: Recommend User Case, Gateway
-- Yifei Zhang
-- Ryan Shi
-- Chensheng Xu
-- Qingyi Hu
-- Zezhou Cui
-- Weilin Yin: User Manager Use case, User, RegularUser, VipUser
+## Group members & responsibilities:
+Everyone collborated on each other's tasks, making a clear definition of the responsibilities rather difficult. However, in general, the group members had the following responsibilities:
+- Yanlin (Tristal) Li: Recommend User Case, Gateway
+- Yifei Zhang: Register, login
+- Chengyan (Ryan) Shi: Report, report gateway, record report, access report, restrict user
+- Chensheng (Michelle) Xu: Search
+- Qingyi (Clara) Hu
+- Zezhou (Joe) Cui
+- Weilin (Alex) Yin: User Manager Use case, User, RegularUser, VipUser
 
 ## Project outline:
 
 ### Entities
 
 - The central entity is the account. Its childen are Admin and Profile, which in turn has children User, RegularUser, and VipUser.
+- Entities that represent creations by a user are Review and Report.
 
 ### Use cases / functionality
 
@@ -104,6 +104,32 @@ ReviewResponseModel
 - Click `Like Me (VIP)` to display all users the current user has liked (Function only available for VIP User)
 - Click `Set Invisible` to set the current user to invisible (Function only available for VIP User)
 
+#### Filing and saving / record report use case
+
+Key features:
+- A user can file a report against another user by the UI.
+- The report is stored in the database.
+- The admin is notified.
+- The user sees if this was successful by the UI.
+Relevant entities: User, Admin, Report
+
+#### Accessing report	use case
+
+Key features:
+- An admin enters the ID of the report to access by the UI.
+- The report is retrieved from the database.
+- The admin then sees the report shown by the UI.
+Relevant entities: Admin, Report
+
+#### Restrict user use case
+
+Key features:
+- An admin, after viewing the report, can restrict a user by the UI.
+- A restriction duration is set for the user (in Unix seconds).
+- The admin sees if this was successful by the UI.
+- The user can no longer log in for this amount of time.
+Relevant entities: User, Admin
+
 ### Design patterns
 
 We have implemented the Factory design pattern for the User entity.
@@ -119,10 +145,6 @@ Here is the UML for Recommend Use Case
 
 ![](images/recommendTestCoverage.png)
 
-### Testing
-
-Our testing code coverage is displayed in the following screenshot:
-
 ### Looking forward
 
-We surmise that we can extend our project by [].
+We surmise that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.

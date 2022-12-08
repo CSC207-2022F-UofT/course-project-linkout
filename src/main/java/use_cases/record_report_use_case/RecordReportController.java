@@ -6,7 +6,7 @@ public class RecordReportController {
 
     /**
      * Constructor
-     * @param recordReportIB
+     * @param recordReportIB    The instance of the input boundary (usually the interactor).
      */
     public RecordReportController(RecordReportInputBoundary recordReportIB) {
         this.recordReportIB = recordReportIB;

@@ -1,10 +1,12 @@
 package screens.user_login;
 
 
+import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 // Frameworks/Drivers layer
 
@@ -69,6 +71,10 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
+            throw new RuntimeException(e);
         }
     }
 }

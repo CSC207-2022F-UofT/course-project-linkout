@@ -4,6 +4,10 @@ public class UserLoginResponseModel {
     String login;
     String creationTime;
 
+    /**
+     * @param login the account name
+     * @param creationTime the time of person login
+     */
     public UserLoginResponseModel(String login, String creationTime) {
         this.login = login;
         this.creationTime = creationTime;

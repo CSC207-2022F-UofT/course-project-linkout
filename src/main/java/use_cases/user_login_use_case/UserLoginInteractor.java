@@ -1,5 +1,7 @@
 package use_cases.user_login_use_case;
 
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 
@@ -8,6 +10,10 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
     final UserLoginDsGateway userLoginDsGateway;
     final UserLoginPresenter userLoginPresenter;
 
+    /**
+     * @param userLoginDsGateway the gateway of account
+     * @param userLoginPresenter the presenter of account
+     */
     public UserLoginInteractor(UserLoginDsGateway userLoginDsGateway, UserLoginPresenter userLoginPresenter) {
         this.userLoginDsGateway = userLoginDsGateway;
         this.userLoginPresenter = userLoginPresenter;
@@ -15,7 +21,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
 
 
     @Override
-    public UserLoginResponseModel create(UserLoginRequestModel requestModel) {
+    public UserLoginResponseModel create(UserLoginRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         if (userLoginDsGateway.NotExist(requestModel.getUsername())) {
             return userLoginPresenter.LoginFailView("User does not exists.");
         } else if(!userLoginDsGateway.MatchingNameAndPassword(requestModel.getUsername(), requestModel.getPassword())) {

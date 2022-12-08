@@ -28,6 +28,20 @@ public class UserRegisterDsRequestModel {
     private int restrictionDuration;
     private float restrictionStartTime; // May be long
 
+    /**
+     * @param name the name of account
+     * @param password the password of user
+     * @param location the location of user
+     * @param gender the gender of user
+     * @param age the age of user
+     * @param sexuality the sexuality of user
+     * @param hobbies the hobbies of user
+     * @param height the height of user
+     * @param weight the weight of user
+     * @param contactInformation the contactInformation of user
+     * @param selfDescription the selfDescription of user
+     * @param creationTime the creation time of user
+     */
     public UserRegisterDsRequestModel(String name, String password, String location,
                                       String gender, String age, String sexuality, String hobbies,
                                       String height, String weight, String contactInformation,
