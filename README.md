@@ -71,30 +71,27 @@ app will display the users with the desired gender.
 
 ##### Classes
 
->- ReviewController
->- ReviewRequestModel
->- ReviewInputBoundary
->- ReviewInteratcor
->- ReviewGateway
->- ReviewGatewayImplementation
->- ReviewOutputBoundary
->- ReviewPresenter
->- ReviewResponseModel
+>ReviewController\
+>ReviewRequestModel
+ReviewInputBoundary\
+ReviewInteratcor\
+ReviewGateway
+ReviewGatewayImplementation
+ReviewOutputBoundary\
+ReviewPresenter\
+ReviewResponseModel
 
 ##### How the code works
 
-> #### The add review’s flow goes like this:
-> when the ReviewController takes in the input information from the screen, it then
+>The add review’s flow goes like this: when the ReviewController takes in the input information from the screen, it then
 > constructs a ReviewRequestModel and puts all input information into the request model, it then calls ReviewInputBoundary
 > to add the review to the system. The ReviewInteratcor which implements ReviewInputBoundary will construct the review
 > object, call the ReviewGateway to save the review to the database, and call ReviewOutputBoundary to report the success
 > of adding the review, and the ReviewPresenter which implements the ReviewOutputBoundary will execute the implemented
 > method and return a ReviewResponseModel.
 
-> #### The delete review’s flow is basically the same:
-> It’s just now a request model is not needed since the user only need to
+>The delete review’s flow is basically the same. It’s just now a request model is not needed since the user only need to
 > input the review’s id to delete it.
-
 
 #### User Use Case
 
@@ -133,6 +130,12 @@ Key features:
 - The user can no longer log in for this amount of time.
 Relevant entities: User, Admin
 
+#### UserLike use case
+>1. A user is able to like another user.
+>2. If two users both liked each other, they are matched, and have access to each other's contact information.
+##### The flow
+When User A clicked a like button somewhere on a screen, it triggered the action perform method inside the screen class, and the action perform method is going to call the controller and pass in necessary data. Then the controller bunddle the input data into an instance of class InputData, and tell the interactor to do its job through an interface meanwhile passing in the input data. After the interactor has done its work, it will first save the user A’s action into database through UserActDsGateway interface(implemented by LikeGateway), then it asks the presenter to return a view, meanwhile the controller detected the result, then the view module detected the change in controller, and updates the screen, so user gets alerted.
+
 ### Design patterns
 
 We have implemented the Factory design pattern for the User entity.
@@ -147,41 +150,6 @@ Here is the UML for Recommend Use Case
 #### Recommend Use Case
 
 ![](images/recommendTestCoverage.png)
-
-#### Search Use Case
-
->Everyone has their personal preference in terms of what type of <the one> they are interested in. The search use case provides the users with the functionality of search according to thier preference.\
-  
->Search Function Workflow\
-  (1) User log in successfully and automatically being promoted to the main page;\
-  (2) User could type in the features they are looking in the field provide;\
-  (3) Press search button;\
-  (4) The app will generate a list of users that satisfied the following condition:\
-      (a) matches with the features; \
-      (b) max of 20 matched users being displayed (for the purpose of overwhelming results that will exhasuted user's eyes);\
-      (c) similar to recommend, the list of matched users have not been seen by the user(who press the search button) beofre.\
-  (5) After the result being generated, the user could go through the basic info one by one (line by line) and navigate any function of the app they woudl   like to use (e.g. like the user, write review for the user, report the user, check profile, find similar)
- 
-##### Search Classes
->SearchController\
->SearchRequestModel\
-SearchInputBoundary\
-SearchInteratcor\
-SearchDSGateway\
-SearchGateway\
-SearchOutputBoundary\
-SearchPresenter\
-SearchResponseModel
-
-###### How the code works
-
-> The SearchController takes in the input information(keywords entered + username) from the screen, it then
-> constructs a SearchRequestModel and puts all input information into the request model, it then calls SearchInputBoundary
-> to search the keywords. The SearchInteratcor which implements SearchInputBoundary will construct the searchGateway
-> to search from the database for the users that matched the keywords entered, and call SearchoutputBoundary to prepare the success
-> search result, and the SearchPresenter which implements the SearchOutputBoundary will execute the implemented
-> method and return a SearchResponseModel.
-
 
 ### Looking forward
 
