@@ -23,7 +23,7 @@ public class AccessReportFrame extends JFrame implements ActionListener {
         RestrictUserOutputBoundary presenter = new RestrictUserPresenter(outputData, vm);
         RestrictUserInputBoundary interactor = new RestrictUserInteractor(presenter, gateway, database);
         RestrictUserController controller = new RestrictUserController(interactor);
-        AdminStartScreen frame = new AdminStartScreen(controller);
+        AccessReportFrame frame = new AccessReportFrame(controller);
         frame.setVisible(true);
     }
 
