@@ -91,7 +91,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
 
-    public RecommendResponseModel Popular(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+    private RecommendResponseModel Popular(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
         UpdatePopular(username);
         List<User> popular = db.LoadAllUser("popular");
@@ -99,7 +99,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
 
-    public RecommendResponseModel Similar(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+    private RecommendResponseModel Similar(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
         UpdateSimilar(username, requestModel.getSimilarTo());
         List<User> recommended = db.LoadAllUser("similar");
@@ -108,7 +108,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
 
 
 
-    public RecommendResponseModel RecommendUsers(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+    private RecommendResponseModel RecommendUsers(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
         UpdateRecommend(username);
         List<User> recommend = db.LoadAllUser("recommend");

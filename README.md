@@ -5,6 +5,14 @@ A versatile modern dating application for all your relationship needs! The inter
 
 ## Group members:
 
+- Yanlin Li: Recommend User Case, Gateway
+- Yifei Zhang
+- Ryan Shi
+- Chensheng Xu
+- Qingyi Hu
+- Zezhou Cui
+- Alex
+
 ## Project outline:
 
 ### Entities:
@@ -49,6 +57,15 @@ app will display the users with the desired gender.
 
 We have implemented the Factory design pattern for the User entity.
 
-Design patterns which would be useful if added:
+#### Recommend Use Case
+Here is the UML for Recommend Use Case
+
+![](images/recommendUseCase.png)
 
 ### Testing:
+
+#### Recommend Use Case
+
+![](images/recommendTestCoverage.png)
+
+

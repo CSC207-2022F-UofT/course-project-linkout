@@ -23,7 +23,7 @@ public class ReportDatabase extends DatabaseGateway implements ReportDatabaseGat
             rowReport.createCell(2).setCellValue(report.getReportID());
             rowReport.createCell(3).setCellValue(report.getCategory());
             rowReport.createCell(4).setCellValue(report.getReportText());
-            rowReport.createCell(5).setCellValue(report.getSupportingEvidenceAsString());
+            rowReport.createCell(5).setCellValue(report.getSupportingEvidence());
 
             SaveWorkbook(w, "reports");
         } catch (Exception e) {

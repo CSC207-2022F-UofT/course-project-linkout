@@ -51,7 +51,7 @@ public abstract class DatabaseGateway {
         return wb;
     }
 
-    protected HSSFWorkbook ProfileStyleBook(String type) throws IOException, InvalidAttributeValueException {
+    protected HSSFWorkbook ProfilesStyleBook(String type) throws IOException, InvalidAttributeValueException {
         //obtaining input bytes from a file
         FileInputStream fis;
         switch (type) {
