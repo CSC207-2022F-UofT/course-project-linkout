@@ -29,7 +29,7 @@ public interface UserActDsGateway {
      * @param accName a valid account name
      * @return a user instance
      */
-    User findUser(String accName);
+    User findUser(String accName) throws IOException, InvalidAttributeValueException;
 
 
 }
