@@ -1,5 +1,7 @@
 package screens.regularuser_register_screen;
 
+import screens.user_login.UserLoginController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +23,7 @@ public class LoginScreen extends JFrame implements ActionListener {
     /**
      * A window with a title and a JButton.
      */
-    public LoginScreen() {
+    public LoginScreen(UserLoginController userLoginController) {
 
         JLabel title = new JLabel("Login Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

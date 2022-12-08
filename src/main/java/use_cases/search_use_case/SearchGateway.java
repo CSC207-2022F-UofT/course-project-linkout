@@ -160,7 +160,10 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
         return users;
     }
 
-
+    @Override
+    public String getWorkingDir(){
+        return super.workingdir;
+    }
     @Override
     public void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = LikesBook();

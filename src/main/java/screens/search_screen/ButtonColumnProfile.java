@@ -1,4 +1,4 @@
-package use_cases.search_use_case.search_screen;
+package screens.search_screen;
 
 import java.awt.*;
 import java.awt.event.*;

@@ -1,4 +1,4 @@
-package use_cases.search_use_case.search_screen;
+package screens.search_screen;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,10 +7,10 @@ import javax.swing.border.*;
 import javax.swing.table.*;
 
 /**
- *  The ButtonColumnReport class provides a renderer and an editor that appears as a
- *  JButton for Report Column.
+ *  The ButtonColumnLike class provides a renderer and an editor that appears as a
+ *  JButton for Like Column.
  */
-public class ButtonColumnReport extends AbstractCellEditor
+public class ButtonColumnLike extends AbstractCellEditor
         implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener
 {
     private JTable table;
@@ -18,7 +18,6 @@ public class ButtonColumnReport extends AbstractCellEditor
     private int mnemonic;
     private Border originalBorder;
     private Border focusBorder;
-
     private JButton renderButton;
     private JButton editButton;
     private Object editorValue;
@@ -30,11 +29,11 @@ public class ButtonColumnReport extends AbstractCellEditor
      *  of the specified column.
      *
      *  @param table the table containing the button renderer/editor
-    //     *  @param action the Action to be invoked when the button is invoked
+     *  @param action the Action to be invoked when the button is invoked
      *  @param column the column to which the button renderer/editor is added
      */
-//    public ButtonColumn(JTable table, Action action, int column)
-    public ButtonColumnReport(JTable table,Action action, int column){
+
+    public ButtonColumnLike(JTable table,Action action, int column){
         this.table = table;
         this.action = action;
 
@@ -54,14 +53,14 @@ public class ButtonColumnReport extends AbstractCellEditor
     public void setFocusBorder(Border focusBorder)
     {
         this.focusBorder = focusBorder;
-        editButton.setBorder( focusBorder );
+        editButton.setBorder(focusBorder);
     }
 
     @Override
     public Component getTableCellEditorComponent(
             JTable table, Object value, boolean isSelected, int row, int column)
     {
-        editButton.setText("Already Reported");
+        editButton.setText("Already Liked");
         editButton.setIcon(null);
         this.editorValue = value;
         return editButton;
@@ -96,8 +95,8 @@ public class ButtonColumnReport extends AbstractCellEditor
             renderButton.setBorder(originalBorder);
         }
 
-        renderButton.setText("Report");
-        renderButton.setIcon(null);
+            renderButton.setText("Like");
+            renderButton.setIcon(null);
 
         return renderButton;
     }

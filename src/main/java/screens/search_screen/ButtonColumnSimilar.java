@@ -1,4 +1,4 @@
-package use_cases.search_use_case.search_screen;
+package screens.search_screen;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ import javax.swing.table.*;
  *  The ButtonColumnReview class provides a renderer and an editor that appears as a
  *  JButton for Review Column.
  */
-public class ButtonColumnReview extends AbstractCellEditor
+public class ButtonColumnSimilar extends AbstractCellEditor
         implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener
 {
     private JTable table;
@@ -34,11 +34,11 @@ public class ButtonColumnReview extends AbstractCellEditor
      *  @param column the column to which the button renderer/editor is added
      */
 //    public ButtonColumn(JTable table, Action action, int column)
-    public ButtonColumnReview(JTable table,Action action, int column){
+    public ButtonColumnSimilar(JTable table,Action action, int column){
         this.table = table;
         this.action = action;
 
-        renderButton = new JButton("Like");
+        renderButton = new JButton("Similar");
         editButton = new JButton();
         editButton.setFocusPainted(false);
         editButton.addActionListener(this);
@@ -61,7 +61,7 @@ public class ButtonColumnReview extends AbstractCellEditor
     public Component getTableCellEditorComponent(
             JTable table, Object value, boolean isSelected, int row, int column)
     {
-        editButton.setText("Already Reviewed");
+        editButton.setText("Loading");
         editButton.setIcon(null);
         this.editorValue = value;
         return editButton;
@@ -96,7 +96,7 @@ public class ButtonColumnReview extends AbstractCellEditor
             renderButton.setBorder(originalBorder);
         }
 
-        renderButton.setText("Review");
+        renderButton.setText("Similar");
         renderButton.setIcon(null);
 
         return renderButton;

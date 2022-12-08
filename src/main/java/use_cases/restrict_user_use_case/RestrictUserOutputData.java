@@ -7,15 +7,15 @@ public class RestrictUserOutputData {
     private String reportedUserID;
     private String category;
     private String reportText;
-    private ArrayList<String> supportingEvidence;
+    private String supportingEvidence;
 
     public RestrictUserOutputData(String r1, String r2, String c,
-                                  String t, ArrayList<String> se) {
+                                  String t, String se) {
         reportingUserID = r1;
         reportedUserID = r2;
         category = c;
         reportText = t;
-        supportingEvidence = new ArrayList<String>(se);
+        supportingEvidence = se;
     }
 
     /*
@@ -25,5 +25,5 @@ public class RestrictUserOutputData {
     public String getReportedUserID() { return reportedUserID; }
     public String getCategory() { return category; }
     public String getReportText() { return reportText; }
-    public ArrayList<String> getSupportingEvidence() { return supportingEvidence; }
+    public String getSupportingEvidence() { return supportingEvidence; }
 }
