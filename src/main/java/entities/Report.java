@@ -27,6 +27,7 @@ public class Report {
         category = c;
         reportText = t;
         supportingEvidence = se;
+
     }
 
     /**
@@ -47,6 +48,7 @@ public class Report {
         category = c;
         reportText = t;
         supportingEvidence = se;
+
     }
 
     /*

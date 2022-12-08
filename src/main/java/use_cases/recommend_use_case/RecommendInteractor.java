@@ -20,8 +20,10 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
     private void UpdatePopular(String username) throws IOException {
-        String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir()),
-                String.format("%s/src/main/data", db.getWorkingDir()), "popular", String.format("--username=%s", username)};
+
+        String[] command = {"bash", "-c", "source "+String.format("%s/src/main/recommendmodel/venv/bin/activate; ", db.getWorkingDir())+
+                "python "+String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir())+
+                String.format(" %s/src/main/data", db.getWorkingDir())+" popular "+String.format("--username=%s", username)};
 
         String s;
         Runtime runtime = Runtime.getRuntime();
@@ -42,9 +44,11 @@ public class RecommendInteractor implements RecommendInputBoundary{
 
 
     private void UpdateSimilar(String username, String userviewed) throws IOException {
-        String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir()),
-                String.format("%s/src/main/data", db.getWorkingDir()), "similar", String.format("--username=%s", username),
-                String.format("--userviewed=%s", userviewed)};
+
+        String[] command = {"bash", "-c", "source "+String.format("%s/src/main/recommendmodel/venv/bin/activate; ", db.getWorkingDir())+
+                "python "+String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir())+
+                String.format(" %s/src/main/data", db.getWorkingDir())+" similar "+String.format("--username=%s", username)+
+                String.format(" --userviewed=%s", userviewed)};
 
         String s;
         Runtime runtime = Runtime.getRuntime();
@@ -64,8 +68,10 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
     private void UpdateRecommend(String username) throws IOException {
-        String[] command = {"python", String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir()),
-                String.format("%s/src/main/data", db.getWorkingDir()), "recommend", String.format("--username=%s", username)};
+
+        String[] command = {"bash", "-c", "source "+String.format("%s/src/main/recommendmodel/venv/bin/activate; ", db.getWorkingDir())+
+                "python "+String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir())+
+                String.format(" %s/src/main/data", db.getWorkingDir())+" recommend "+String.format("--username=%s", username)};
 
         String s;
         Runtime runtime = Runtime.getRuntime();
@@ -85,7 +91,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
 
-    public RecommendResponseModel Popular(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+    private RecommendResponseModel Popular(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
         UpdatePopular(username);
         List<User> popular = db.LoadAllUser("popular");
@@ -93,7 +99,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
 
-    public RecommendResponseModel Similar(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+    private RecommendResponseModel Similar(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
         UpdateSimilar(username, requestModel.getSimilarTo());
         List<User> recommended = db.LoadAllUser("similar");
@@ -102,7 +108,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
 
 
 
-    public RecommendResponseModel RecommendUsers(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
+    private RecommendResponseModel RecommendUsers(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
         UpdateRecommend(username);
         List<User> recommend = db.LoadAllUser("recommend");

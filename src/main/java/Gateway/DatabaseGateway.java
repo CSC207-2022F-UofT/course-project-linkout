@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Objects;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
@@ -49,7 +51,7 @@ public abstract class DatabaseGateway {
         return wb;
     }
 
-    protected HSSFWorkbook ProfileStyleBook(String type) throws IOException, InvalidAttributeValueException {
+    protected HSSFWorkbook ProfilesStyleBook(String type) throws IOException, InvalidAttributeValueException {
         //obtaining input bytes from a file
         FileInputStream fis;
         switch (type) {
@@ -104,25 +106,25 @@ public abstract class DatabaseGateway {
         OutputStream fileOut;
         switch (type) {
             case "popular":
-                fileOut = new FileOutputStream(this.popularfile);
+                fileOut = new FileOutputStream(new File(this.popularfile));
                 break;
             case "recommend":
-                fileOut = new FileOutputStream(this.recommendfile);
+                fileOut = new FileOutputStream(new File(this.recommendfile));
                 break;
             case "recommendbase":
-                fileOut = new FileOutputStream(this.recommendbasefile);
+                fileOut = new FileOutputStream(new File(this.recommendbasefile));
                 break;
             case "similar":
-                fileOut = new FileOutputStream(this.similarfile);
+                fileOut = new FileOutputStream(new File(this.similarfile));
                 break;
             case "profiles":
-                fileOut = new FileOutputStream(this.profilesfile);
+                fileOut = new FileOutputStream(new File(this.profilesfile));
                 break;
             case "likes":
-                fileOut = new FileOutputStream(this.likesfile);
+                fileOut = new FileOutputStream(new File(this.likesfile));
                 break;
             case "reviews":
-                fileOut = new FileOutputStream(this.reviewsfile);
+                fileOut = new FileOutputStream(new File(this.reviewsfile));
                 break;
             case "reports":
                 fileOut = new FileOutputStream(this.reportsfile);
@@ -133,11 +135,16 @@ public abstract class DatabaseGateway {
         //creating workbook instance that refers to .xls file
         wb.write(fileOut);
         wb.close();
+        fileOut.flush();
+        fileOut.close();
     }
 
     protected String loadStringCell(Cell cell){
         String toreturn;
-        if ((cell != null) & (cell.toString() != "")) {
+        if (cell == null){
+            return "Unknown";
+        }
+        if (cell.toString() != "") {
             toreturn = cell.toString();
         } else {
             toreturn = "Unknown";
@@ -147,7 +154,10 @@ public abstract class DatabaseGateway {
 
     protected int loadIntCell(Cell cell){
         int toreturn;
-        if ((cell != null) & (!Objects.equals(cell.toString(), ""))) {
+        if (cell == null){
+            return -1;
+        }
+        if (!Objects.equals(cell.toString(), "")) {
             toreturn = Double.valueOf(cell.toString()).intValue();
         } else {
             toreturn = -1;

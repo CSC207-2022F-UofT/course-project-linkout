@@ -1,4 +1,4 @@
-package use_cases;
+package use_cases.user_manager_user_case;
 
 import entities.User;
 

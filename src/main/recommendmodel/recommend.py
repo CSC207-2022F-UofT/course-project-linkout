@@ -13,7 +13,11 @@ class RecommendModel(object):
         self.likes = pd.read_excel(workingdir+"/likes.xls")
         self.reviews = pd.read_excel(workingdir+"/reviews.xls")
 
-    def popular_users(self, username, num=20):
+    def popular_users(self, username, num=40):
+        if username not in self.profiles['username'].unique():
+            return
+
+        user_profile = self.profiles[self.profiles["username"] == username]
         popular_ls = self.likes["userviewed"].value_counts().index.tolist()
         seen = self.likes.loc[self.likes["username"] == username, "userviewed"].values
         selected = []
@@ -23,25 +27,33 @@ class RecommendModel(object):
             else:
                 popular_ls.pop(0)
         pop_data = self.profiles[self.profiles["username"].isin(selected)]
+
+        if (user_profile["Sexuality"].tolist()[0] == "straight" and user_profile["Gender"].tolist()[0] == "f") or \
+                (user_profile["Sexuality"].tolist()[0] == "gay" and user_profile["Gender"].tolist()[0] == "m"):
+            pop_data = pop_data[pop_data["Gender"] == "m"]
+        elif (user_profile["Sexuality"].tolist()[0] == "straight" and user_profile["Gender"].tolist()[0] == "m") or \
+                (user_profile["Sexuality"].tolist()[0] == "gay" and user_profile["Gender"].tolist()[0] == "f"):
+            pop_data = pop_data[pop_data["Gender"] == "f"]
+
         pop_data.to_excel(self.workingdir+"/popular.xls",
                           index=False)
 
     ## Data cleaning
 
     def create_matrix(self):
-        N = len(self.likes['username'].unique())
-        M = len(self.likes['userviewed'].unique())
+        N = len(self.likes['username'].astype(str).unique())
+        M = len(self.likes['userviewed'].astype(str).unique())
 
         # Map Ids to indices
-        user_mapper = dict(zip(np.unique(self.likes['username']), list(range(N))))
-        userviewed_mapper = dict(zip(np.unique(self.likes['userviewed']), list(range(M))))
+        user_mapper = dict(zip(np.unique(self.likes['username'].astype(str)), list(range(N))))
+        userviewed_mapper = dict(zip(np.unique(self.likes['userviewed'].astype(str)), list(range(M))))
 
         # Map indices to IDs
-        user_inv_mapper = dict(zip(list(range(N)), np.unique(self.likes['username'])))
-        userviewed_inv_mapper = dict(zip(list(range(M)), np.unique(self.likes['userviewed'])))
+        user_inv_mapper = dict(zip(list(range(N)), np.unique(self.likes['username'].astype(str))))
+        userviewed_inv_mapper = dict(zip(list(range(M)), np.unique(self.likes['userviewed'].astype(str))))
 
-        user_index = [user_mapper[i] for i in self.likes['username']]
-        userviewed_index = [userviewed_mapper[i] for i in self.likes['userviewed']]
+        user_index = [user_mapper[i] for i in self.likes['username'].astype(str)]
+        userviewed_index = [userviewed_mapper[i] for i in self.likes['userviewed'].astype(str)]
 
         X = csr_matrix((self.likes["like"], (userviewed_index, user_index)), shape=(M, N))
 
@@ -67,31 +79,51 @@ class RecommendModel(object):
 
     ## Prediction
 
-    def similar_user(self, userid, userviewed_id, k=10):
+    def similar_user(self, userid, userviewed_id, k=20):
         '''
         Recommend similar users, if k > maximum possible recommend number, recommend every users left
         :param userid: recommend for user with username = userid
         :param userviewedid: recommend according to userviewedid
         :param k: maximum number of users to recommend
         '''
+
+        if userid not in self.profiles['username'].unique():
+            return
+
         kmax = len(self.profiles['username'].unique()) - len(self.likes.loc[self.likes["username"] == userid, "userviewed"].unique())
+        user_profile = self.profiles[self.profiles["username"] == userid]
         if kmax == 0:
             recm_data = pd.DataFrame(columns=self.profiles.columns)
+            recm_data.to_excel(self.workingdir + "/similar.xls",
+                               index=False)
+            return
         else:
             similar_ids = self.find_similar_users(userviewed_id=userviewed_id, k=k)
             selected = [i for i in similar_ids if i not in self.likes.loc[self.likes["username"] == userid, "userviewed"].values]
             recm_data = self.profiles[self.profiles["username"].isin(selected)]
+
+        if (user_profile["Sexuality"].tolist()[0] == "straight" and user_profile["Gender"].tolist()[0] == "f") or \
+                (user_profile["Sexuality"].tolist()[0] == "gay" and user_profile["Gender"].tolist()[0] == "m"):
+            recm_data = recm_data[recm_data["Gender"] == "m"]
+        elif (user_profile["Sexuality"].tolist()[0] == "straight" and user_profile["Gender"].tolist()[0] == "m") or \
+                (user_profile["Sexuality"].tolist()[0] == "gay" and user_profile["Gender"].tolist()[0] == "f"):
+            recm_data = recm_data[recm_data["Gender"] == "f"]
+
         recm_data.to_excel(self.workingdir + "/similar.xls",
                           index=False)
 
-    def recommend(self, userid, k=5, num=20):
+    def recommend(self, userid, k=10, num=40):
         '''
         Recommend according to the highly rated users and liked users (optimally k << num)
         :param userid: recommend for user with username = userid
         :param k: number of users to recommend according to each record
         :param num: total number of users to recommend
         '''
+        if userid not in self.profiles['username'].unique():
+            return
+
         user_info = self.likes[self.likes["username"] == userid]
+        user_profile = self.profiles[self.profiles["username"] == userid]
         if len(user_info) == 0:
             raise ValueError("Non-existed user")
         kmax = len(self.profiles['username'].unique()) - len(user_info["username"].unique())
@@ -146,6 +178,14 @@ class RecommendModel(object):
             to_recommend = self.profiles[self.profiles["username"].isin(users_recommend)]
         based_on = self.profiles[self.profiles["username"].isin(users_base)]
 
+
+        if (user_profile["Sexuality"].tolist()[0] == "straight" and user_profile["Gender"].tolist()[0] == "f") or \
+                (user_profile["Sexuality"].tolist()[0] == "gay" and user_profile["Gender"].tolist()[0] == "m"):
+            to_recommend = to_recommend[to_recommend["Gender"] == "m"]
+        elif (user_profile["Sexuality"].tolist()[0] == "straight" and user_profile["Gender"].tolist()[0] == "m") or \
+                (user_profile["Sexuality"].tolist()[0] == "gay" and user_profile["Gender"].tolist()[0] == "f"):
+            to_recommend = to_recommend[to_recommend["Gender"] == "f"]
+
         to_recommend.to_excel(self.workingdir + "/recommend.xls", index=False)
         based_on.to_excel(self.workingdir + "/recommend_base.xls", index=False)
 
@@ -159,7 +199,7 @@ def cli(ctx, workingdir):
 @cli.command()
 @click.pass_context
 @click.option('--username', required=True)
-@click.option('--maxusers', default=20)
+@click.option('--maxusers', default=40)
 def popular(ctx, username, maxusers):
     ctx.obj.popular_users(username=username, num=maxusers)
     click.echo("updated popular.xls")
@@ -176,8 +216,8 @@ def similar(ctx, username, userviewed, maxusers):
 @cli.command()
 @click.pass_context
 @click.option('--username', required=True)
-@click.option('--k', default=5)
-@click.option('--maxusers', default=20)
+@click.option('--k', default=10)
+@click.option('--maxusers', default=40)
 def recommend(ctx, username, k, maxusers):
     ctx.obj.recommend(userid = username, k=k, num=maxusers)
     click.echo("updated recommend.xls and recommend_base.xls")

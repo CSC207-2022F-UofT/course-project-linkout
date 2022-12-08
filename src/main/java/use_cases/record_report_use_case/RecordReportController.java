@@ -1,5 +1,6 @@
 package use_cases.record_report_use_case;
 
+
 public class RecordReportController {
     RecordReportInputBoundary recordReportIB;
 
