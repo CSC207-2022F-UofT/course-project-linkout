@@ -1,4 +1,4 @@
-package Gateway;
+package use_cases.user_use_case;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;

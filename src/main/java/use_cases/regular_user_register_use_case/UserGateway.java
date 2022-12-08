@@ -1,7 +1,7 @@
 package use_cases.regular_user_register_use_case;
 
 import Gateway.DatabaseGateway;
-import Gateway.UserUpgrade;
+import use_cases.user_use_case.UserUpgrade;
 import entities.*;
 import use_cases.record_report_use_case.RecordReportGateway;
 import use_cases.restrict_user_use_case.RestrictUserGateway;
@@ -15,11 +15,7 @@ import use_cases.user_manager_user_case.UserDsGateway;
 
 
 import javax.management.InvalidAttributeValueException;
-import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Objects;
 
 public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade,
         UserLoginDsGateway, UserDsGateway, RestrictUserGateway{
