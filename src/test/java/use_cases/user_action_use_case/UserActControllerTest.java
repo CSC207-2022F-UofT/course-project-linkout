@@ -2,15 +2,13 @@ package use_cases.user_action_use_case;
 
 import org.junit.jupiter.api.Test;
 import screens.user_like_screen.InMemoryUserLike;
-import use_cases.user_action_use_case.*;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
-class UserActInteractorTest {
+class UserActControllerTest {
 
     // new InMemoryUserLike() initialize two users, czz1 and czz2 for testing.
     @Test
@@ -21,7 +19,7 @@ class UserActInteractorTest {
         UserActPresenterInterface presenter = new UserActPresenterInterface() {
             // 4) check User successfully liked another user
             @Override
-            public String prepareSuccessView(String targetName){
+            public String prepareSuccessView(String targetName) {
                 try {
                     // is czz1 liked czz2
                     assertTrue(database.isLiked("czz1", "czz2"));
@@ -45,17 +43,14 @@ class UserActInteractorTest {
         };
         //2) Input data
         UserActInputBoundary interactor = new UserActInteractor(database, presenter);
-        UserActInputData inputData = new UserActInputData("czz1", "czz2");
+        //UserActInputData inputData = new UserActInputData("czz1", "czz2");
+        UserActController controller = new UserActController(interactor);
         // 3) run the use case
-        try {
-            interactor.like(inputData);
-        } catch (IOException | InvalidAttributeValueException e) {
-            throw new RuntimeException(e);
-        }
+        controller.like("czz1", "czz2");
     }
 
     @Test
-     void testMatch() {
+    void testMatch() {
         //1) UserActInteractor and prerequisite objects
         UserActDsGateway database = new InMemoryUserLike();
         try {
@@ -91,13 +86,10 @@ class UserActInteractorTest {
         };
         //2) Input data
         UserActInputBoundary interactor = new UserActInteractor(database, presenter);
-        UserActInputData inputData = new UserActInputData("czz1", "czz2");
+        //UserActInputData inputData = new UserActInputData("czz1", "czz2");
+        UserActController controller = new UserActController(interactor);
         // 3) run the use case
-        try {
-            interactor.like(inputData);
-        } catch (IOException | InvalidAttributeValueException e) {
-            throw new RuntimeException(e);
-        }
+        controller.like("czz1", "czz2");
     }
 
     @Test
@@ -132,12 +124,10 @@ class UserActInteractorTest {
         };
         //2) Input data
         UserActInputBoundary interactor = new UserActInteractor(database, presenter);
-        UserActInputData inputData = new UserActInputData("czz1", "czz2");
+        //UserActInputData inputData = new UserActInputData("czz1", "czz2");
+        UserActController controller = new UserActController(interactor);
         // 3) run the use case
-        try {
-            interactor.like(inputData);
-        } catch (IOException | InvalidAttributeValueException e) {
-            throw new RuntimeException(e);
-        }
+        controller.like("czz1", "czz2");
     }
+
 }

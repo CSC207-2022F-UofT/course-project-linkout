@@ -1,3 +1,4 @@
+
 package screens.user_login;
 
 
@@ -20,4 +21,5 @@ public class UserLoginController {
 
         return userInput.create(requestModel);
     }
+
 }

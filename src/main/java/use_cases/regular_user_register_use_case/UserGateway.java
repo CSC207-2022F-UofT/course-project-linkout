@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import use_cases.review_use_case.ReviewGatewayImplementation;
 import use_cases.user_login_use_case.UserLoginDsGateway;
+import use_cases.user_manager_user_case.UserDsGateway;
 
 
 import javax.management.InvalidAttributeValueException;
@@ -20,7 +21,10 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
-public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade, UserLoginDsGateway, RestrictUserGateway {
+
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade,
+        UserLoginDsGateway, UserDsGateway, RestrictUserGateway{
+
 
     private ProfileGateway profileGateway;
 

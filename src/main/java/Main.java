@@ -5,10 +5,7 @@ import screens.regularuser_register_screen.*;
 import screens.user_login.UserLoginController;
 import screens.user_login.UserLoginResponseFormatter;
 import screens.user_login.LoginScreen;
-import use_cases.regular_user_register_use_case.UserRegisterDsGateway;
-import use_cases.regular_user_register_use_case.UserRegisterInputBoundary;
-import use_cases.regular_user_register_use_case.UserRegisterInteractor;
-import use_cases.regular_user_register_use_case.UserRegisterPresenter;
+import use_cases.regular_user_register_use_case.*;
 import use_cases.user_login_use_case.UserLoginDsGateway;
 import use_cases.user_login_use_case.UserLoginInputBoundary;
 import use_cases.user_login_use_case.UserLoginInteractor;
@@ -32,9 +29,9 @@ public class Main {
 
         UserRegisterDsGateway user;
         try {
-            user = new screens.user_login.FileUser("./users.xls");
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create file.");
+            user = new UserGateway(System.getProperty("user.dir"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         UserRegisterPresenter presenter = new UserRegisterResponseFormatter();
         AllUserFactory userFactory = new RegUserFactory();
@@ -54,9 +51,9 @@ public class Main {
         UserLoginPresenter loginpresenter = new UserLoginResponseFormatter();
         UserLoginDsGateway loginuser;
         try {
-            loginuser = new FileUser("./users.xls");
-        } catch (IOException e) {
-            throw new RuntimeException("Could not find file.");
+            loginuser = new UserGateway(System.getProperty("user.dir"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         UserLoginInputBoundary Logininteractor = new UserLoginInteractor(loginuser, loginpresenter);
         UserLoginController userLoginController = new UserLoginController(
@@ -70,6 +67,7 @@ public class Main {
         loginScreen.pack();
         loginScreen.setVisible(true);
 //        screens.add(loginScreen, "login");
+//        screens.add(loggedInScreen, "loggedIn");
 
     }
 

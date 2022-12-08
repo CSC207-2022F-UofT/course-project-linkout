@@ -4,6 +4,7 @@ import entities.User;
 import screens.record_report.RecordReportResultFrame;
 import screens.record_report.ReportFrame;
 import screens.review_screen.IReviewView;
+import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.ReviewCreationScreen;
 import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.user_info_screen.UserInfoScreen;

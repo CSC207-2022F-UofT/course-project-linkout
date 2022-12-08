@@ -1,6 +1,7 @@
 package screens.user_login;
 
 
+<<<<<<< HEAD
 import screens.record_report.RecordReportResultFrame;
 import screens.review_screen.IReviewView;
 import screens.review_screen.ReviewCreationSuccessScreen;
@@ -13,6 +14,8 @@ import use_cases.search_use_case.SearchGateway;
 import use_cases.search_use_case.SearchInteractor;
 import use_cases.user_action_use_case.*;
 
+=======
+>>>>>>> 012dd30cc56e506c23a8a0a4e0444a91f90b2bfa
 import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.*;
@@ -79,10 +82,18 @@ public class LoginScreen extends JFrame implements ActionListener {
         try {
             userLoginController.create(username.getText(),
                     String.valueOf(password.getPassword()));
+<<<<<<< HEAD
+=======
+            JOptionPane.showMessageDialog(this, username.getText() + " log in.");
+
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+>>>>>>> 012dd30cc56e506c23a8a0a4e0444a91f90b2bfa
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InvalidAttributeValueException e) {
             throw new RuntimeException(e);
+<<<<<<< HEAD
         }
         this.setVisible(false);
         JOptionPane.showMessageDialog(this, username.getText() + " log in.");
@@ -110,6 +121,8 @@ public class LoginScreen extends JFrame implements ActionListener {
             reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
         } catch (IOException e) {
             throw new RuntimeException(e);
+=======
+>>>>>>> 012dd30cc56e506c23a8a0a4e0444a91f90b2bfa
         }
         ReviewController reviewController = new ReviewController(reviewInteractor);
 
