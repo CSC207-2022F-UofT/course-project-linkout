@@ -17,7 +17,7 @@ public class RecordReportInteractor implements RecordReportInputBoundary {
      */
     public RecordReportInteractor(RecordReportOutputBoundary recordReportOB, RecordReportGateway recordReportGateway, ReportDatabaseGateway recordReportDB, String adminID) {
         this.recordReportOB = recordReportOB;
-        this.recordReportDG = recordReportDG;
+        this.recordReportDB = recordReportDB;
         this.recordReportGateway = recordReportGateway;
         this.adminID = adminID;
     }

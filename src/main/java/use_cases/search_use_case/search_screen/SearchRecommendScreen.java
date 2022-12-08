@@ -43,8 +43,6 @@ public class SearchRecommendScreen extends JFrame {
     private static RecommendController recommendController;
 
     private ReviewController reviewController;
-
-    private static RecordReportController reportController;
     
     private RecordReportController reportController;
 
@@ -75,10 +73,11 @@ public class SearchRecommendScreen extends JFrame {
 
 
         //report
+        RecordReportOutputData recordReportOD = new RecordReportOutputData();
         RecordReportResultFrame viewReport = new RecordReportResultFrame();
         RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
-        RecordReportGateway reportReportGateway = new RecordReportGateway();
-        ReportDatabaseGateway reportDatabaseGateway = new reportDatabase(System.getProperty("user.dir"));
+        RecordReportGateway recordReportGateway = new UserGateway(System.getProperty("user.dir"));
+        ReportDatabaseGateway reportDatabaseGateway = new ReportDatabase(System.getProperty("user.dir"));
         RecordReportInteractor reportInteractor = new RecordReportInteractor(reportPresenter, recordReportGateway, reportDatabaseGateway, "Admin");
         RecordReportController recordReportController = new RecordReportController(reportInteractor);
 
@@ -334,7 +333,7 @@ public class SearchRecommendScreen extends JFrame {
                         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                    }
                };
-               ButtonColumnRev reportButton = new ButtonColumnReview(table, reportAction, 11);
+               ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
             }
 
         } catch (Exception e) {

@@ -17,10 +17,11 @@ public class ReportFrame extends JFrame implements ActionListener {
     RecordReportController controller;
     String userID;
 
-    JTextField reportingUserID;
-    JTextField reportText;
-    JTextField additional;
+    JTextField reportingUserID = new JTextField(15);
+    JTextField reportText = new JTextField(15);
+    JTextField additional = new JTextField(15);
     JComboBox<String> category;
+    JButton ok, cancel;
 
     public static void main(String[] args) throws IOException {
         RecordReportOutputData recordReportOD = new RecordReportOutputData();
@@ -31,7 +32,7 @@ public class ReportFrame extends JFrame implements ActionListener {
         RecordReportInteractor reportInteractor = new RecordReportInteractor(reportPresenter, recordReportGateway,
                 recordReportDatabaseGateway, "Admin");
         RecordReportController recordReportController = new RecordReportController(reportInteractor);
-        ReportFrame frame = new ReportFrame(recordReportController, "Admin");
+        ReportFrame frame = new ReportFrame(recordReportController, "User");
         frame.setVisible(true);
     }
     public ReportFrame(RecordReportController controller, String userID) {
@@ -44,11 +45,14 @@ public class ReportFrame extends JFrame implements ActionListener {
         JLabel title = new JLabel("Report this user");
         title.setAlignmentX(0.5f);
 
-        reportingUserID = new JTextField("Your username:");
-        reportText = new JTextField("Write your report here");
-        additional = new JTextField("Include any additional information here");
-        JButton ok = new JButton("OK");
-        JButton cancel = new JButton("Cancel");
+        LabelTextPanel r1 = new LabelTextPanel(
+                new JLabel("Your username:"), reportingUserID);
+        LabelTextPanel re = new LabelTextPanel(
+                new JLabel("Write your report here:"), reportText);
+        LabelTextPanel se = new LabelTextPanel(
+                new JLabel("Include any additional information here:"), additional);
+        ok = new JButton("OK");
+        cancel = new JButton("Cancel");
 
         //Dropdown option menu
         String[] categories = {
@@ -68,16 +72,16 @@ public class ReportFrame extends JFrame implements ActionListener {
         getContentPane().setLayout(
                 new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)
         );
-        this.add(reportingUserID);
-        this.add(reportText);
-        this.add(additional);
+        getContentPane().add(r1);
+        getContentPane().add(re);
+        getContentPane().add(se);
         this.add(category);
         this.add(buttons);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (((JButton) e.getSource()).getName().equals("ok")) {
+        if (e.getSource() == ok) {
             try {
                 controller.createReport(
                         reportingUserID.getText(),
@@ -89,9 +93,9 @@ public class ReportFrame extends JFrame implements ActionListener {
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage());
             }
-        } else if (((JButton) e.getSource()).getName().equals("cancel")) {
+        } else if (e.getSource() == cancel) {
             //Do stuff
-            System.out.println("Helo");
+            System.out.println("Hello");
         }
     }
 }
