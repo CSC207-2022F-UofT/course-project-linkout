@@ -23,7 +23,7 @@ public class RestrictUserFrame extends JFrame implements ActionListener {
         RestrictUserOutputBoundary presenter = new RestrictUserPresenter(vm);
         RestrictUserInputBoundary interactor = new RestrictUserInteractor(presenter, gateway, database);
         RestrictUserController controller = new RestrictUserController(interactor);
-        AdminStartScreen frame = new AdminStartScreen(controller);
+        RestrictUserFrame frame = new RestrictUserFrame(controller);
         frame.setVisible(true);
     }
 
