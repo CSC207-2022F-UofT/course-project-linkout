@@ -23,6 +23,7 @@ Everyone collborated on each other's tasks, making a clear definition of the res
 ### Entities
 
 - The central entity is the account. Its childen are Admin and Profile, which in turn has children User, RegularUser, and VipUser.
+- Entities that represent creations by a user are Review and Report.
 
 ### Use cases / functionality
 
