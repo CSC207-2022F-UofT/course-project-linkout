@@ -4,6 +4,7 @@ import Gateway.DatabaseGateway;
 import Gateway.UserUpgrade;
 import entities.*;
 import use_cases.record_report_use_case.RecordReportGateway;
+import use_cases.restrict_user_use_case.RestrictUserGateway;
 import use_cases.user_action_use_case.LikesGateway;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
