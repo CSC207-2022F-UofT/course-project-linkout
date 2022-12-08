@@ -9,25 +9,25 @@ public class RestrictUserPresenter implements RestrictUserOutputBoundary {
     RestrictUserResultViewModel restrictUserResultViewModel;
     
     /**
+     * The constructor for the access report use case.
+     * @param restrictUserOutputData    The instance of the output data.
+     * @param accessReportViewModel     The instance of the view model, in which
+     *                                  the report will be presented.
+     */
+    public RestrictUserPresenter(RestrictUserOutputData restrictUserOutputData,
+                                 AccessReportResultViewModel accessReportViewModel) {
+        this.restrictUserOutputData = restrictUserOutputData;
+        this.accessReportViewModel = accessReportViewModel;
+    }
+    
+    /**
      * The constructor for the restrict user use case.
-     * @param restrictUserOutputData        The instance of the output data.
      * @param restrictUserResultViewModel   The instance of the view model, in which
      *                                      the success or failure of a user restriction
      *                                      is presented.
      */
-    public RestrictUserPresenter(RestrictUserOutputData restrictUserOutputData,
-                                 RestrictUserResultViewModel restrictUserResultViewModel) {
-        this.restrictUserOutputData = restrictUserOutputData;
+    public RestrictUserPresenter(RestrictUserResultViewModel restrictUserResultViewModel) {
         this.restrictUserResultViewModel = restrictUserResultViewModel;
-    }
-    
-    /**
-     * The constructor for the access report use case.
-     * @param accessReportViewModel     The instance of the view model, in which
-     *                                  the report will be presented.
-     */
-    public RestrictUserPresenter(AccessReportResultViewModel accessReportViewModel) {
-        this.accessReportViewModel = accessReportViewModel;
     }
     
     /**

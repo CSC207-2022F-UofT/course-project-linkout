@@ -20,7 +20,7 @@ public class RecordReportPresenter implements RecordReportOutputBoundary {
 
     /**
      * Calls the success view of the use case view model if success is true and the fail view
-     * of the it if success is false. Returns the instance of the recordReportOutputBoundary.
+     * of it when success is false. Returns the instance of the recordReportOutputBoundary.
      * @param success This is the success boolean variable.
      * @return recordReportOD This is the instance of the recordReportOutputBoundary.
      */

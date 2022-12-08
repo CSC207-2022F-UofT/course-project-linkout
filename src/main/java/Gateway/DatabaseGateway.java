@@ -128,7 +128,7 @@ public abstract class DatabaseGateway {
                 fileOut = new FileOutputStream(this.reportsfile);
                 break;
             default:
-                throw new InvalidAttributeValueException("SaveWorkbook only accept [popular, recommend, recommendbase, similar, profiles, likes, reviews]");
+                throw new InvalidAttributeValueException("SaveWorkbook only accept [popular, recommend, recommendbase, similar, profiles, likes, reviews, reports]");
         }
         //creating workbook instance that refers to .xls file
         wb.write(fileOut);

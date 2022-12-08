@@ -31,9 +31,7 @@ public class ReportFrame extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
     public ReportFrame(RecordReportController controller, String userID) {
-
         setBounds(150, 150, 780, 442);
-
         this.controller = controller;
         this.userID = userID;
 

@@ -38,7 +38,7 @@ public class ReportDatabase extends DatabaseGateway implements ReportDatabaseGat
             HSSFSheet sheet = wb.getSheetAt(0);
 
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-                int currid = loadIntCell(sheet.getRow(i).getCell(0));
+                int currid = loadIntCell(sheet.getRow(i).getCell(2));
                 if (currid == Integer.parseInt(reportID)) {
                     Row row = sheet.getRow(i);
                     return new Report(
