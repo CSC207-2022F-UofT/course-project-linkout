@@ -34,7 +34,7 @@ public class RestrictUserFrame extends JFrame implements ActionListener {
         LabelTextPanel r = new LabelTextPanel(
                 new JLabel("Enter the ID of the user to restrict:"), userID);
         LabelTextPanel t = new LabelTextPanel(
-                new JLabel("Enter the time of restriction in seconds from 1970:"), time);
+                new JLabel("Enter the time of restriction in seconds:"), time);
         ok = new JButton("OK");
         cancel = new JButton("Cancel");
 
