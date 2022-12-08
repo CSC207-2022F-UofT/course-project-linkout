@@ -1,4 +1,4 @@
-package useCases.user_action_use_case;
+package use_cases.user_action_use_case;
 
 import org.junit.jupiter.api.Test;
 import screens.user_like_screen.InMemoryUserLike;
@@ -55,7 +55,7 @@ class UserActInteractorTest {
     }
 
     @Test
-    void testMatch() {
+     void testMatch() {
         //1) UserActInteractor and prerequisite objects
         UserActDsGateway database = new InMemoryUserLike();
         try {

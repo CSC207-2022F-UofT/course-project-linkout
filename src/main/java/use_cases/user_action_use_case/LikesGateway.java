@@ -21,12 +21,20 @@ import java.util.List;
 public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
     private ReviewGatewayImplementation reviewGateway;
     private ProfileGateway profileGateway;
+    private UserGateway userGateway;
 
 
     public LikesGateway(String workingdir) {
         super(workingdir);
         this.profileGateway = new ProfileGateway(workingdir);
         this.reviewGateway = new ReviewGatewayImplementation(workingdir);
+    }
+
+    public LikesGateway(String workingdir, UserGateway userGateway) {
+        super(workingdir);
+        this.profileGateway = new ProfileGateway(workingdir);
+        this.reviewGateway = new ReviewGatewayImplementation(workingdir);
+        this.userGateway = userGateway;
     }
 
 

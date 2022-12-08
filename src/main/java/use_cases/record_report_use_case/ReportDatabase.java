@@ -6,13 +6,19 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 
-import javax.management.InvalidAttributeValueException;
-import java.io.IOException;
-
 public class ReportDatabase extends DatabaseGateway implements ReportDatabaseGateway {
+    /**
+     * The constructor for the database.
+     * @param w     The directory start string.
+     */
     public ReportDatabase(String w) { super(w); }
+
+    /**
+     * This can save a report to the database (in an .xls file).
+     * @param report                            The report object.
+     */
     @Override
-    public void saveReport(Report report) throws IOException, InvalidAttributeValueException {
+    public void saveReport(Report report) {
         try {
             HSSFWorkbook w = ReportsBook();
             HSSFSheet sheet = w.getSheetAt(0);
@@ -31,14 +37,19 @@ public class ReportDatabase extends DatabaseGateway implements ReportDatabaseGat
         }
     }
 
+    /**
+     * The method to get a report from the database.
+     * @param reportID                          The ID of the report.
+     * @return                                  The report to be accessed.
+     */
     @Override
-    public Report getReport(String reportID) throws IOException, InvalidAttributeValueException {
+    public Report getReport(String reportID) {
         try {
             HSSFWorkbook wb = ReportsBook();
             HSSFSheet sheet = wb.getSheetAt(0);
 
             for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
-                int currid = loadIntCell(sheet.getRow(i).getCell(0));
+                int currid = loadIntCell(sheet.getRow(i).getCell(2));
                 if (currid == Integer.parseInt(reportID)) {
                     Row row = sheet.getRow(i);
                     return new Report(

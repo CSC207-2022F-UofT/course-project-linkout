@@ -1,15 +1,12 @@
 package use_cases.user_manager_user_case;
 
-import entities.Profile;
 
-import java.util.Hashtable;
-import java.util.List;
 
 public class UserRequestModel {
     private final String accName;
-    private float restrictionTime = 0;
+    private float restrictionTime;
 
-    public UserRequestModel(String accName, float time){
+    public UserRequestModel(String accName, float time ){
         this.accName = accName;
         this.restrictionTime = time;
     }

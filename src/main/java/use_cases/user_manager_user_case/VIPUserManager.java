@@ -2,15 +2,14 @@ package use_cases.user_manager_user_case;
 
 
 import entities.User;
-import entities.UserFactory;
+
 import entities.VipUser;
 import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.user_action_use_case.LikesGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class VIPUserManager extends UserManagerInteractor{
     LikesGateway likesGateway;
@@ -21,8 +20,10 @@ public class VIPUserManager extends UserManagerInteractor{
     }
 
 
-
-
+    /**
+     * @param userRequestModel contains user's information
+     * @param invisible whether current user is in invisible mode
+     */
     public void invisibleVisit(UserRequestModel userRequestModel, boolean invisible) throws IOException, InvalidAttributeValueException {
         if (userDsGateway.findUser(userRequestModel.getAccName()) != null) {
             User user = findUserByName(userRequestModel.getAccName());
@@ -42,6 +43,9 @@ public class VIPUserManager extends UserManagerInteractor{
         }
     }
 
+    /**
+     * @param userRequestModel contains the user Information
+     */
     public void showLikeMe(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (userDsGateway.findUser(userRequestModel.getAccName()) != null) {
             User user = findUserByName(userRequestModel.getAccName());
