@@ -30,8 +30,6 @@ public class SearchRecommendScreen extends JFrame {
     private JTextField txtKeyword;
     private JTextField username;
 
-    private JTextField targetusername;
-
     private JTable table;
 
     private static UserActController likeController;
@@ -46,6 +44,8 @@ public class SearchRecommendScreen extends JFrame {
     private static RecordReportController reportController;
 
 
+
+
     /**
      * Launch the SearchMatch UI window.
      */
@@ -55,19 +55,20 @@ public class SearchRecommendScreen extends JFrame {
         SearchInputBoundaryImplementation searchInput = new SearchInputBoundaryImplementation();
         SearchController searchController = new SearchController(searchInput);
 
+
         //like function
         UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
-        LikesGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"));
-        UserActPresenter userActPresenter = new UserActPresenter();
-        UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
+        UserActDsGateway likeGateway = new LikesGateway(System.getProperty("user.dir"), userGateway);
+        UserActPresenterInterface likePresenter = new UserActPresenter();
+        UserActInputBoundary userActInteractor = new UserActInteractor(likeGateway, likePresenter);
         UserActController userActController = new UserActController(userActInteractor);
 
         //review function
-        IReviewView screen = new ReviewCreationSuccessScreen();
-        ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
+        IReviewViewImplementation viewReview = new IReviewViewImplementation();
+        ReviewPresenter reviewPresenter = new ReviewPresenter(viewReview);
         ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
-        UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
-        ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
+        //UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
+        ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateway);
         ReviewController reviewController = new ReviewController(reviewInteractor);
 
 
@@ -84,8 +85,8 @@ public class SearchRecommendScreen extends JFrame {
 //        //recommend function
 //        RecommendController recommendController = new RecommendController();
 
-        SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController, userActPresenter,
-                reviewController);
+        SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController,
+                (UserActPresenter) likePresenter, reviewController);
         frame.setVisible(true);
     }
 
@@ -103,7 +104,7 @@ public class SearchRecommendScreen extends JFrame {
         // Build the empty frame for UI
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setBounds(100, 100, 1450, 342);
+        setBounds(100, 100, 1400, 342);
 
         setTitle("Search for Match");
 
@@ -111,7 +112,7 @@ public class SearchRecommendScreen extends JFrame {
 
         // Create the ScrollPane
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(25, 72, 1400, 159);
+        scrollPane.setBounds(65, 72, 1300, 159);
         getContentPane().add(scrollPane);
 
         // Create the Label "Enter Your Username" beside the username entered field
@@ -120,19 +121,6 @@ public class SearchRecommendScreen extends JFrame {
         lblUsername.setBounds(55, 27, 144, 14);
         getContentPane().add(lblUsername);
 
-        // Create the Label "Want to find the one similar to" beside the username entered field
-        JLabel lblsimilarUsername = new JLabel("Want to find the one similar to ");
-        lblsimilarUsername.setBounds(600, 27, 300, 14);
-        getContentPane().add(lblsimilarUsername);
-
-        // Create a JTextField for Targetname Inputs (for finding similar users)
-        targetusername = new JTextField();
-        targetusername.setBounds(800, 24, 160, 20);
-
-        getContentPane().add(targetusername);
-
-        targetusername.setColumns(10);
-
         // Create a JTextField for Username Inputs
         username = new JTextField();
         username.setBounds(195, 24, 160, 20);
@@ -140,14 +128,6 @@ public class SearchRecommendScreen extends JFrame {
         getContentPane().add(username);
 
         username.setColumns(10);
-
-        // Create a JTextField for Keyword Inputs
-        txtKeyword = new JTextField();
-        txtKeyword.setBounds(195, 44, 160, 20);
-
-        getContentPane().add(txtKeyword);
-
-        txtKeyword.setColumns(10);
 
 
         // Create the Table for display the results
@@ -160,6 +140,14 @@ public class SearchRecommendScreen extends JFrame {
         lblSearch.setBounds(85, 47, 124, 14);
 
         getContentPane().add(lblSearch);
+
+        // Create a JTextField for Keyword Inputs
+        txtKeyword = new JTextField();
+        txtKeyword.setBounds(195, 44, 160, 20);
+
+        getContentPane().add(txtKeyword);
+
+        txtKeyword.setColumns(10);
 
 
         // Create the Button Search
@@ -181,25 +169,16 @@ public class SearchRecommendScreen extends JFrame {
 //      recommend results and display a new recommendation results)
         JButton btnRecommend = new JButton("Recommend");
 
-        btnRecommend.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg) {
-                GenerateRecommendResult();
+        btnRecommend.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent arg){
+//                GenerateRecommendResult();
+                JOptionPane.showMessageDialog(getContentPane(),"Need to add");
+
             }
         });
         btnRecommend.setBounds(365, 20, 119, 23);
         getContentPane().add(btnRecommend);
-
-        // Create a Button Find Similar (for users to find a list of users that are similar to the one entered by them)
-        JButton btnSimilar = new JButton("Similar");
-
-        btnSimilar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg) {
-                GenerateSimilarResult();
-            }
-        });
-        btnSimilar.setBounds(970, 20, 119, 23);
-        getContentPane().add(btnSimilar);
-
+//        GenerateRecommendResult();
     }
 
     private void GenerateSearchResult() {
@@ -235,7 +214,6 @@ public class SearchRecommendScreen extends JFrame {
         model.addColumn("Report");
 
         model.addColumn("Profile");
-
 
         try {
             // Storing the keywords and username entered as a String
@@ -288,11 +266,10 @@ public class SearchRecommendScreen extends JFrame {
                         // if target user already liked
                         catch (UserActionFailed error) {
                             JOptionPane.showMessageDialog(getContentPane(), error.getMessage());
-                        } catch (InvalidAttributeValueException ex) {
-                            throw new RuntimeException(ex);
                         }
                     }
                 };
+
                 ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
 
 
@@ -328,283 +305,148 @@ public class SearchRecommendScreen extends JFrame {
 //                       //report action defines here
 //                    }
 //                };
-//                ButtonColumnRev reportButton = new ButtonColumnReview(table, reportAction, 11);
+//                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void GenerateRecommendResult() {
-
-        // Make the table in UI empty -- Initialization
-        table.setModel(new DefaultTableModel());
-
-        // Model for Table by adding column titles
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-        model.addColumn("Age");
-
-        model.addColumn("Gender");
-
-        model.addColumn("Location");
-
-        model.addColumn("Sexuality");
-
-        model.addColumn("Height");
-
-        model.addColumn("SelfDescription");
-
-        model.addColumn("Weight");
-
-        model.addColumn("Hobbies");
-
-        model.addColumn("Username");
-
-        model.addColumn("Like");
-
-        model.addColumn("Review");
-
-        model.addColumn("Report");
-
-        model.addColumn("Profile");
-
-
-        try {
-            // Storing the keywords and username entered as a String
-            String userName = username.getText();
-
-            RecommendGateway recommendGateway = new RecommendGateway(System.getProperty("user.dir"));
-            RecommendInteractor recommendInteractor = new RecommendInteractor(recommendGateway);
-
-            RecommendController recommendController = new RecommendController(recommendInteractor);
-
-            RecommendResponseModel responseModel = recommendController.recommend(userName);
-
-            // Get the list of 20 matched users
-            List<User> recommendUsers = responseModel.getAllUsers();
-
-            // Iterating the list of matched users and updating the models with these matched users and
-            // their corresponding profile
-            for (int i = 0; i < recommendUsers.size(); i++) {
-
-                model.addRow(new Object[0]);
-
-                User currentUser = recommendUsers.get(i);
-
-                model.setValueAt(currentUser.displayProfile().getAge(), i, 0);
-
-                model.setValueAt(currentUser.displayProfile().getGender(), i, 1);
-
-                model.setValueAt(currentUser.displayProfile().getLocation(), i, 2);
-
-                model.setValueAt(currentUser.displayProfile().getSexuality(), i, 3);
-
-                model.setValueAt(currentUser.displayProfile().getHeight(), i, 4);
-
-                model.setValueAt(currentUser.displayProfile().getSelfDescription(), i, 5);
-
-                model.setValueAt(currentUser.displayProfile().getWeight(), i, 6);
-
-                model.setValueAt(currentUser.displayProfile().getHobbies(), i, 7);
-
-                model.setValueAt(currentUser.getAccountName(), i, 8);
-
-
-                // Create the Button Like
-                Action likeAction = new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.valueOf(e.getActionCommand());
-                        String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = null;
-                        try {
-                            message = likeController.like(userName, targetName);
-                        } catch (InvalidAttributeValueException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        JOptionPane.showMessageDialog(getContentPane(), message);
-                    }
-                };
-                ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
-
-
-                // Create the Button Review
-                Action reviewAction = new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reviewController);
-                        reviewCreationScreen.setVisible(true);
-                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    }
-                };
-                ButtonColumnReview reviewButton = new ButtonColumnReview(table, reviewAction, 10);
-
-                // Create the Button Profile
-                Action profileAction = new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        UserInfoScreen userinfoScreen = new UserInfoScreen();
-                        userinfoScreen.setVisible(true);
-                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    }
-                };
-                ButtonColumnProfile profileButton = new ButtonColumnProfile(table, profileAction, 12);
-
-
-//                // Create the Button Report
-//                Action reportAction = new AbstractAction()
+//    private void GenerateRecommendResult() {
+//
+//        // Make the table in UI empty -- Initialization
+//        table.setModel(new DefaultTableModel());
+//
+//        // Model for Table by adding column titles
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//
+//        model.addColumn("Age");
+//
+//        model.addColumn("Gender");
+//
+//        model.addColumn("Location");
+//
+//        model.addColumn("Sexuality");
+//
+//        model.addColumn("Height");
+//
+//        model.addColumn("SelfDescription");
+//
+//        model.addColumn("Weight");
+//
+//        model.addColumn("Hobbies");
+//
+//        model.addColumn("Username");
+//
+//        model.addColumn("Like");
+//
+//        model.addColumn("Review");
+//
+//        model.addColumn("Report");
+//
+//        model.addColumn("Profile");
+//
+//        try {
+//            // Storing the keywords and username entered as a String
+//            String userName = username.getText();
+//
+//            RecommendGateway recommendGateway = new RecommendGateway(System.getProperty("user.dir"));
+//            RecommendInteractor recommendInteractor = new RecommendInteractor(recommendGateway);
+//
+//            RecommendController recommendController = new RecommendController(recommendInteractor);
+//
+//            RecommendResponseModel responseModel = recommendController.recommend(userName);
+//
+//            // Get the list of 20 matched users
+//            List<User> recommendUsers = responseModel.getAllUsers();
+//
+//            // Iterating the list of matched users and updating the models with these matched users and
+//            // their corresponding profile
+//            for (int i = 0; i < recommendUsers.size(); i++) {
+//
+//                model.addRow(new Object[0]);
+//
+//                User currentUser = recommendUsers.get(i);
+//
+//                model.setValueAt(currentUser.displayProfile().getAge(), i, 0);
+//
+//                model.setValueAt(currentUser.displayProfile().getGender(), i, 1);
+//
+//                model.setValueAt(currentUser.displayProfile().getLocation(), i, 2);
+//
+//                model.setValueAt(currentUser.displayProfile().getSexuality(), i, 3);
+//
+//                model.setValueAt(currentUser.displayProfile().getHeight(), i, 4);
+//
+//                model.setValueAt(currentUser.displayProfile().getSelfDescription(), i, 5);
+//
+//                model.setValueAt(currentUser.displayProfile().getWeight(), i, 6);
+//
+//                model.setValueAt(currentUser.displayProfile().getHobbies(), i, 7);
+//
+//                model.setValueAt(currentUser.getAccountName(), i, 8);
+//
+//                // Create the Button Like
+//                Action likeAction = new AbstractAction()
 //                {
 //                    @Override
 //                    public void actionPerformed(ActionEvent e)
 //                    {
-//                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reportController);
-//                        reviewCreationScreen.setVisible(true);
-//                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                        int currRow = Integer.valueOf( e.getActionCommand() );
+//                        String targetName = (String) table.getModel().getValueAt(currRow, 8);
+//                        String message = likePresenter.prepareSuccessView(targetName);
+//                        JOptionPane.showMessageDialog(getContentPane(),message);
+//                        likeController.like(userName,targetName);
+//
 //                    }
 //                };
-//                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void GenerateSimilarResult() {
-
-        // Make the table in UI empty -- Initialization
-        table.setModel(new DefaultTableModel());
-
-        // Model for Table by adding column titles
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-        model.addColumn("Age");
-
-        model.addColumn("Gender");
-
-        model.addColumn("Location");
-
-        model.addColumn("Sexuality");
-
-        model.addColumn("Height");
-
-        model.addColumn("SelfDescription");
-
-        model.addColumn("Weight");
-
-        model.addColumn("Hobbies");
-
-        model.addColumn("Username");
-
-        model.addColumn("Like");
-
-        model.addColumn("Review");
-
-        model.addColumn("Report");
-
-        model.addColumn("Profile");
-
-
-        try {
-            // Storing the keywords and username entered as a String
-            String userName = username.getText();
-
-            String targetName = targetusername.getText();
-
-            RecommendGateway recommendGateway = new RecommendGateway(System.getProperty("user.dir"));
-            RecommendInteractor recommendInteractor = new RecommendInteractor(recommendGateway);
-
-            RecommendController recommendController = new RecommendController(recommendInteractor);
-
-            RecommendResponseModel responseModel = recommendController.recommend(userName, targetName);
-
-            // Get the list of similar users
-            List<User> recommendUsers = responseModel.getAllUsers();
-
-            // Iterating the list of matched users and updating the models with these matched users and
-            // their corresponding profile
-            for (int i = 0; i < recommendUsers.size(); i++) {
-
-                model.addRow(new Object[0]);
-
-                User currentUser = recommendUsers.get(i);
-
-                model.setValueAt(currentUser.displayProfile().getAge(), i, 0);
-
-                model.setValueAt(currentUser.displayProfile().getGender(), i, 1);
-
-                model.setValueAt(currentUser.displayProfile().getLocation(), i, 2);
-
-                model.setValueAt(currentUser.displayProfile().getSexuality(), i, 3);
-
-                model.setValueAt(currentUser.displayProfile().getHeight(), i, 4);
-
-                model.setValueAt(currentUser.displayProfile().getSelfDescription(), i, 5);
-
-                model.setValueAt(currentUser.displayProfile().getWeight(), i, 6);
-
-                model.setValueAt(currentUser.displayProfile().getHobbies(), i, 7);
-
-                model.setValueAt(currentUser.getAccountName(), i, 8);
-
-
-                // Create the Button Like
-                Action likeAction = new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.valueOf(e.getActionCommand());
-                        String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = null;
-                        try {
-                            message = likeController.like(userName, targetName);
-                        } catch (InvalidAttributeValueException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        JOptionPane.showMessageDialog(getContentPane(), message);
-                    }
-                };
-                ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
-
-
-                // Create the Button Review
-                Action reviewAction = new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reviewController);
-                        reviewCreationScreen.setVisible(true);
-                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    }
-                };
-                ButtonColumnReview reviewButton = new ButtonColumnReview(table, reviewAction, 10);
-
-                // Create the Button Profile
-                Action profileAction = new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        UserInfoScreen userinfoScreen = new UserInfoScreen();
-                        userinfoScreen.setVisible(true);
-                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    }
-                };
-                ButtonColumnProfile profileButton = new ButtonColumnProfile(table, profileAction, 12);
-
-
-//                // Create the Button Report
-//                Action reportAction = new AbstractAction()
+//                ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
+//
+//
+//
+//                // Create the Button Profile
+//                Action reviewAction = new AbstractAction()
 //                {
 //                    @Override
 //                    public void actionPerformed(ActionEvent e)
 //                    {
-//                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reportController);
+//                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reviewController);
 //                        reviewCreationScreen.setVisible(true);
 //                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //                    }
 //                };
-//                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//                ButtonColumnReview reviewButton = new ButtonColumnReview(table, reviewAction, 10);
+//
+////                // Create the Button Profile
+////                Action profileAction = new AbstractAction()
+////                {
+////                    @Override
+////                    public void actionPerformed(ActionEvent e)
+////                    {
+////                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(profileController);
+////                        reviewCreationScreen.setVisible(true);
+////                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+////                    }
+////                };
+////                ButtonColumnProfile profileButton = new ButtonColumnProfile(table, profileAction, 12);
+//
+//
+//
+////                // Create the Button Report
+////                Action reportAction = new AbstractAction()
+////                {
+////                    @Override
+////                    public void actionPerformed(ActionEvent e)
+////                    {
+////                        ReviewCreationScreen reviewCreationScreen = new ReviewCreationScreen(reportController);
+////                        reviewCreationScreen.setVisible(true);
+////                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+////                    }
+////                };
+////                ButtonColumnReview reportButton = new ButtonColumnReview(table, reportAction, 11);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     }
 }
