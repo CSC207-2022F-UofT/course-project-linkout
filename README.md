@@ -103,6 +103,32 @@ ReviewResponseModel
 - Click `Like Me (VIP)` to display all users the current user has liked (Function only available for VIP User)
 - Click `Set Invisible` to set the current user to invisible (Function only available for VIP User)
 
+#### Filing and saving / record report
+
+Key features:
+- A user can file a report against another user by the UI.
+- The report is stored in the database.
+- The admin is notified.
+- The user sees if this was successful by the UI.
+Relevant entities: User, Admin, Report
+
+#### Accessing report	
+
+Key features:
+- An admin enters the ID of the report to access by the UI.
+- The report is retrieved from the database.
+- The admin then sees the report shown by the UI.
+Relevant entities: Admin, Report
+
+#### Restrict user	
+
+Key features:
+- An admin, after viewing the report, can restrict a user by the UI.
+- A restriction duration is set for the user (in Unix seconds).
+- The admin sees if this was successful by the UI.
+- The user can no longer log in for this amount of time.
+Relevant entities: User, Admin
+
 ### Design patterns
 
 We have implemented the Factory design pattern for the User entity.
@@ -120,4 +146,4 @@ Here is the UML for Recommend Use Case
 
 ### Looking forward
 
-We surmise that we can extend our project by [].
+We surmise that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.
