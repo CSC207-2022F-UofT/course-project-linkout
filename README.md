@@ -86,24 +86,25 @@ ReviewResponseModel
 
 #### Search Use Case
 
->Everyone has their personal preference in terms of what type of <the one> they are interested in. The search use case provides the users with the functionality of search according to thier preference.
+>Everyone has their personal preference in terms of what type of <the one> they are interested in. The search use case provides the users with the functionality of search according to thier preference.\
+  
 >Search Function Workflow
-  (1) User log in successfully and automatically being promoted to the main page;
-  (2) User could type in the features they are looking in the field provide;
-  (3) Press search button.
-  (4) The app will generate a list of users that satisfied the following condition
-      (a) matches with the features 
-      (b) max of 20 matched users being displayed (for the purpose of overwhelming results that will exhasuted user's eyes). 
-      (c) similar to recommend, the list of matched users have not been seen by the user(who press the search button) beofre.
+  (1) User log in successfully and automatically being promoted to the main page;\
+  (2) User could type in the features they are looking in the field provide;\
+  (3) Press search button;\
+  (4) The app will generate a list of users that satisfied the following condition:\
+      (a) matches with the features; \
+      (b) max of 20 matched users being displayed (for the purpose of overwhelming results that will exhasuted user's eyes);\
+      (c) similar to recommend, the list of matched users have not been seen by the user(who press the search button) beofre.\
   (5) After the result being generated, the user could go through the basic info one by one (line by line) and navigate any function of the app they woudl   like to use (e.g. like the user, write review for the user, report the user, check profile, find similar)
  
 #### Search Classes
 >SearchController\
->SearchRequestModel
+>SearchRequestModel\
 SearchInputBoundary\
 SearchInteratcor\
-SearchDSGateway
-SearchGateway
+SearchDSGateway\
+SearchGateway\
 SearchOutputBoundary\
 SearchPresenter\
 SearchResponseModel
