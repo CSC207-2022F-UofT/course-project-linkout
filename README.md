@@ -60,7 +60,7 @@ app will display the users with the desired gender.
 >4. Delete a review: input the review’s id
 >5. Hide a review (VIP): input the review’s id (to be implemented later)
 
-#### Classes
+##### Classes
 
 >ReviewController\
 >ReviewRequestModel
@@ -72,7 +72,7 @@ ReviewOutputBoundary\
 ReviewPresenter\
 ReviewResponseModel
 
-#### How the code works
+##### How the code works
 
 >The add review’s flow goes like this: when the ReviewController takes in the input information from the screen, it then
 > constructs a ReviewRequestModel and puts all input information into the request model, it then calls ReviewInputBoundary
