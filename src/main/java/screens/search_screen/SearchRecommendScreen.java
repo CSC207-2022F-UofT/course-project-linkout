@@ -2,6 +2,7 @@ package screens.search_screen;
 import entities.User;
 
 import screens.review_screen.IReviewView;
+import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.ReviewCreationScreen;
 import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.user_info_screen.UserInfoScreen;
