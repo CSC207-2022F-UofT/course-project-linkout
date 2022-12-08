@@ -130,6 +130,12 @@ Key features:
 - The user can no longer log in for this amount of time.
 Relevant entities: User, Admin
 
+#### UserLike use case
+>1. A user is able to like another user.
+>2. If two users both liked each other, they are matched, and have access to each other's contact information.
+##### The flow
+When User A clicked a like button somewhere on a screen, it triggered the action perform method inside the screen class, and the action perform method is going to call the controller and pass in necessary data. Then the controller bunddle the input data into an instance of class InputData, and tell the interactor to do its job through an interface meanwhile passing in the input data. After the interactor has done its work, it will first save the user A’s action into database through UserActDsGateway interface(implemented by LikeGateway), then it asks the presenter to return a view, meanwhile the controller detected the result, then the view module detected the change in controller, and updates the screen, so user gets alerted.
+
 ### Design patterns
 
 We have implemented the Factory design pattern for the User entity.
