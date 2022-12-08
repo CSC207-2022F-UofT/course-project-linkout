@@ -7,6 +7,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface SearchInputBoundary {
-    SearchResponseModel search(SearchRequestModel requestModel) throws IOException, InvalidAttributeValueException;
+    SearchResponseModel searchSheet(SearchRequestModel requestModel) throws IOException, InvalidAttributeValueException;
 }
 

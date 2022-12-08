@@ -1,10 +1,24 @@
 package screens.user_login;
 
 
+import screens.record_report.RecordReportResultFrame;
+import screens.review_screen.IReviewView;
+import screens.review_screen.ReviewCreationSuccessScreen;
+import use_cases.record_report_use_case.*;
+import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.review_use_case.*;
+import use_cases.search_use_case.SearchController;
+import screens.search_screen.SearchRecommendScreen;
+import use_cases.search_use_case.SearchGateway;
+import use_cases.search_use_case.SearchInteractor;
+import use_cases.user_action_use_case.*;
+
+import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 // Frameworks/Drivers layer
 
@@ -62,13 +76,56 @@ public class LoginScreen extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
 
         System.out.println("Click " + evt.getActionCommand());
-        try{
+        try {
             userLoginController.create(username.getText(),
                     String.valueOf(password.getPassword()));
-            JOptionPane.showMessageDialog(this, username.getText() + " log in.");
-
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
+            throw new RuntimeException(e);
         }
+        this.setVisible(false);
+        JOptionPane.showMessageDialog(this, username.getText() + " log in.");
+
+        //Pop up search UI
+            //search function
+            SearchGateway searchGateway = new SearchGateway(System.getProperty("user.dir"));
+            SearchInteractor searchInteractor = new SearchInteractor(searchGateway);
+            SearchController searchController = new SearchController(searchInteractor);
+
+            //like function
+            UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
+            LikesGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"), userGateway);
+            UserActPresenter userActPresenter = new UserActPresenter();
+            UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
+            UserActController userActController = new UserActController(userActInteractor);
+
+            //review function
+            IReviewView screen = new ReviewCreationSuccessScreen();
+            ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
+            ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
+            UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
+        ReviewInputBoundary reviewInteractor = null;
+        try {
+            reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ReviewController reviewController = new ReviewController(reviewInteractor);
+
+            //report
+            RecordReportOutputData recordReportOD = new RecordReportOutputData();
+            RecordReportResultFrame viewReport = new RecordReportResultFrame();
+            UserGateway recordReportGateway = new UserGateway(System.getProperty("user.dir"));
+            RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
+            ReportDatabaseGateway recordReportDatabaseGateway = new ReportDatabase(System.getProperty("user.dir"));
+            RecordReportInteractor reportInteractor = new RecordReportInteractor(reportPresenter, recordReportGateway,
+                    recordReportDatabaseGateway, "Admin");
+            RecordReportController recordReportController = new RecordReportController(reportInteractor);
+
+
+            SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController,
+                    reviewController, recordReportController);
+            frame.setVisible(true);
     }
 }
