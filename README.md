@@ -104,7 +104,7 @@ ReviewResponseModel
 - Click `Like Me (VIP)` to display all users the current user has liked (Function only available for VIP User)
 - Click `Set Invisible` to set the current user to invisible (Function only available for VIP User)
 
-#### Filing and saving / record report
+#### Filing and saving / record report use case
 
 Key features:
 - A user can file a report against another user by the UI.
@@ -113,7 +113,7 @@ Key features:
 - The user sees if this was successful by the UI.
 Relevant entities: User, Admin, Report
 
-#### Accessing report	
+#### Accessing report	use case
 
 Key features:
 - An admin enters the ID of the report to access by the UI.
@@ -121,7 +121,7 @@ Key features:
 - The admin then sees the report shown by the UI.
 Relevant entities: Admin, Report
 
-#### Restrict user	
+#### Restrict user use case
 
 Key features:
 - An admin, after viewing the report, can restrict a user by the UI.
