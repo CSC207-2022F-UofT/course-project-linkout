@@ -1,6 +1,4 @@
 package entities;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Report {
     private String reportingUserID;
@@ -12,7 +10,8 @@ public class Report {
     private String supportingEvidence;
 
     /**
-     * Constructor for the report class. Note that the reportID is self-generated.
+     * Constructor for the report class, used when a new Report is to be saved.
+     * Note that the reportID is self-generated.
      *
      * @param r1    The ID of the user who made the report.
      * @param r2    The ID of the user which the report concerns.
@@ -28,6 +27,28 @@ public class Report {
         category = c;
         reportText = t;
         supportingEvidence = se;
+
+    }
+
+    /**
+     * Constructor used for retrieving a report from the database.
+     *
+     * @param r1    The ID of the user who made the report.
+     * @param r2    The ID of the user which the report concerns.
+     * @param id    The ID of the report.
+     * @param c     The category of the report.
+     * @param t     The text of the report.
+     * @param se    Any supporting evidence (e.g., links to images) for the report.
+     */
+    public Report(String r1, String r2, String id, String c, String t,
+                  String se) {
+        reportingUserID = r1;
+        reportedUserID = r2;
+        reportID = id;
+        category = c;
+        reportText = t;
+        supportingEvidence = se;
+
     }
 
     /*

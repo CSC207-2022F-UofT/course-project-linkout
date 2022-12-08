@@ -1,8 +1,7 @@
 package use_cases.record_report_use_case;
-import java.util.ArrayList;
 
 public class RecordReportController {
-    RecordReportInputBoundary recordReportIB; // Should this be final?
+    RecordReportInputBoundary recordReportIB;
 
     /**
      * Constructor

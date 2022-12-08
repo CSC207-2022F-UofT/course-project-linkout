@@ -61,7 +61,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     @Override
     public Admin findAdmin(String adminID) {
-        return new Admin("Admin", "Admin");
+        return new Admin("Admin", adminID);
     }
 
     @Override
@@ -117,6 +117,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         SaveWorkbook(wb, "profiles");
     }
 
+
     public boolean upgrade(String accName, boolean status) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ProfilesStyleBook();
         //creating a Sheet object to retrieve the object
@@ -135,3 +136,4 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     }
 }
+
