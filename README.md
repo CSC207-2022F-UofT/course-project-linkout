@@ -15,7 +15,7 @@ Joe Cui, Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
 - Yifei Zhang
 - Ryan Shi
 - Chensheng Xu
-- Qingyi Hu
+- Qingyi Hu: Review usecase
 - Zezhou Cui
 - Weilin Yin: User Manager Use case, User, RegularUser, VipUser
 
@@ -23,7 +23,8 @@ Joe Cui, Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
 
 ### Entities
 
-- The central entity is the account. Its childen are Admin and Profile, which in turn has children User, RegularUser, and VipUser.
+- The central entity is the account. Its children are Admin and Profile, which in turn has children User, RegularUser, and VipUser.
+- Entity Review is an object representing a review a user writes to another user.
 
 ### Use cases / functionality
 
@@ -71,26 +72,28 @@ app will display the users with the desired gender.
 
 ##### Classes
 
->ReviewController\
->ReviewRequestModel
-ReviewInputBoundary\
-ReviewInteratcor\
-ReviewGateway
-ReviewGatewayImplementation
-ReviewOutputBoundary\
-ReviewPresenter\
-ReviewResponseModel
+>- ReviewController
+>- ReviewRequestModel
+>- ReviewInputBoundary
+>- ReviewInteratcor
+>- ReviewGateway
+>- ReviewGatewayImplementation
+>- ReviewOutputBoundary
+>- ReviewPresenter
+>- ReviewResponseModel
 
 ##### How the code works
 
->The add review’s flow goes like this: when the ReviewController takes in the input information from the screen, it then
+> ##### The add review’s flow goes like this:
+> when the ReviewController takes in the input information from the screen, it then
 > constructs a ReviewRequestModel and puts all input information into the request model, it then calls ReviewInputBoundary
 > to add the review to the system. The ReviewInteratcor which implements ReviewInputBoundary will construct the review
 > object, call the ReviewGateway to save the review to the database, and call ReviewOutputBoundary to report the success
 > of adding the review, and the ReviewPresenter which implements the ReviewOutputBoundary will execute the implemented
 > method and return a ReviewResponseModel.
 
->The delete review’s flow is basically the same. It’s just now a request model is not needed since the user only need to
+> ##### The delete review’s flow is basically the same:
+> It’s just now a request model is not needed since the user only need to
 > input the review’s id to delete it.
 
 #### User Use Case
