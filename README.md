@@ -88,7 +88,7 @@ ReviewResponseModel
 
 >Everyone has their personal preference in terms of what type of <the one> they are interested in. The search use case provides the users with the functionality of search according to thier preference.\
   
->Search Function Workflow
+>Search Function Workflow\
   (1) User log in successfully and automatically being promoted to the main page;\
   (2) User could type in the features they are looking in the field provide;\
   (3) Press search button;\
@@ -109,7 +109,7 @@ SearchOutputBoundary\
 SearchPresenter\
 SearchResponseModel
 
-  ###### How the code works
+###### How the code works
 
 > The SearchController takes in the input information(keywords entered + username) from the screen, it then
 > constructs a SearchRequestModel and puts all input information into the request model, it then calls SearchInputBoundary
