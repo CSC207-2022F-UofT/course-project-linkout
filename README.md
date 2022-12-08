@@ -4,6 +4,8 @@ A versatile modern dating application for all your relationship needs! The inter
 **Caution**: This app can only accommodate MacOS system!!!
 
 ## Group members:
+Joe ?
+Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
 
 ## Project outline:
 
