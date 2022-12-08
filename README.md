@@ -84,7 +84,7 @@ app will display the users with the desired gender.
 
 ##### How the code works
 
-> ##### The add review’s flow goes like this:
+> #### The add review’s flow goes like this:
 > when the ReviewController takes in the input information from the screen, it then
 > constructs a ReviewRequestModel and puts all input information into the request model, it then calls ReviewInputBoundary
 > to add the review to the system. The ReviewInteratcor which implements ReviewInputBoundary will construct the review
@@ -92,7 +92,7 @@ app will display the users with the desired gender.
 > of adding the review, and the ReviewPresenter which implements the ReviewOutputBoundary will execute the implemented
 > method and return a ReviewResponseModel.
 
-> ##### The delete review’s flow is basically the same:
+> #### The delete review’s flow is basically the same:
 > It’s just now a request model is not needed since the user only need to
 > input the review’s id to delete it.
 
