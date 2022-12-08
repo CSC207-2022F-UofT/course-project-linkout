@@ -49,9 +49,7 @@ class UserActInteractorTest {
         // 3) run the use case
         try {
             interactor.like(inputData);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidAttributeValueException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }
@@ -62,9 +60,7 @@ class UserActInteractorTest {
         UserActDsGateway database = new InMemoryUserLike();
         try {
             database.setLike("czz2", "czz1");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidAttributeValueException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
 
@@ -99,9 +95,7 @@ class UserActInteractorTest {
         // 3) run the use case
         try {
             interactor.like(inputData);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidAttributeValueException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }
@@ -112,9 +106,7 @@ class UserActInteractorTest {
         UserActDsGateway database = new InMemoryUserLike();
         try {
             database.setLike("czz1", "czz2");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidAttributeValueException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
 
@@ -144,9 +136,7 @@ class UserActInteractorTest {
         // 3) run the use case
         try {
             interactor.like(inputData);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidAttributeValueException e) {
+        } catch (IOException | InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
     }

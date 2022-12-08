@@ -56,6 +56,7 @@ public abstract class User extends Account {
         this.reviews = reviews;
     }
 
+
     /**
      * Adds a report to the user's list of reports.
      * @param report    The report filed against this user.
@@ -155,15 +156,5 @@ public abstract class User extends Account {
         this.restrictionInitialTime = System.currentTimeMillis();
 
     }
-
-    public float calculateRemainingTime(){
-        float currentTime = System.currentTimeMillis();
-        if (currentTime >= restrictionDuration + restrictionInitialTime){
-            return 0;
-        }else{
-            return restrictionInitialTime + restrictionDuration - currentTime;
-        }
-    }
-
 
 }

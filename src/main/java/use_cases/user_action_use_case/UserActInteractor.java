@@ -27,7 +27,7 @@ public class UserActInteractor implements UserActInputBoundary{
     public String like(UserActInputData inputData) throws IOException, InvalidAttributeValueException {
         String actionerName = inputData.getAccName();
         String targetName = inputData.getTargetName();
-        User actioner = userActDsGateway.findUser(actionerName);
+        //User actioner = userActDsGateway.findUser(actionerName);
         User targetUser = userActDsGateway.findUser(actionerName);
         // check if matched
         if (userActDsGateway.isLiked(targetName, actionerName) ){
@@ -44,7 +44,5 @@ public class UserActInteractor implements UserActInputBoundary{
         //present success view.
         return presenterInterface.prepareSuccessView(targetName);
     }
-
-
 
 }
