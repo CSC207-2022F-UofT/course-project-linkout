@@ -1,6 +1,7 @@
 package use_cases.regular_user_register_use_case;
 
 import Gateway.DatabaseGateway;
+import Gateway.UserUpgrade;
 import entities.*;
 import use_cases.record_report_use_case.RecordReportGateway;
 import use_cases.user_action_use_case.LikesGateway;
@@ -11,12 +12,13 @@ import use_cases.review_use_case.ReviewGatewayImplementation;
 
 
 import javax.management.InvalidAttributeValueException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
-public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway {
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade {
 
     private ProfileGateway profileGateway;
 
@@ -38,7 +40,7 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
 
     @Override
     public Admin findAdmin(String adminID) {
-        return new Admin("Admin", "Admin");
+        return new Admin("Admin", adminID);
     }
 
     @Override
@@ -71,6 +73,27 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
         row.createCell(13).setCellValue(requestModel.getRestrictionDuration());
 
         SaveWorkbook(wb, "profiles");
+    }
+
+
+
+
+    public boolean upgrade(String accName, boolean status) throws IOException, InvalidAttributeValueException {
+        HSSFWorkbook wb = ProfilesStyleBook();
+        //creating a Sheet object to retrieve the object
+        HSSFSheet sheet = wb.getSheetAt(0);
+        String currname;
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            currname = sheet.getRow(i).getCell(8).toString();
+            if (currname.equals(accName)) {
+                sheet.getRow(i).getCell(10).setCellValue(status);
+                SaveWorkbook(wb, "profiles");
+                return true;
+            }
+        }
+
+        return false;
+
     }
 }
 
