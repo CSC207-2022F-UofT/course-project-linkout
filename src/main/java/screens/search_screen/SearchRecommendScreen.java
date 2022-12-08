@@ -4,7 +4,6 @@ import entities.User;
 import screens.record_report.RecordReportResultFrame;
 import screens.record_report.ReportFrame;
 import screens.review_screen.IReviewView;
-import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.ReviewCreationScreen;
 import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.user_info_screen.UserInfoScreen;
@@ -15,6 +14,7 @@ import use_cases.review_use_case.*;
 import use_cases.search_use_case.*;
 import use_cases.user_action_use_case.*;
 
+import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 
 import javax.swing.table.DefaultTableModel;
@@ -27,20 +27,18 @@ import java.util.List;
 
 public class SearchRecommendScreen extends JFrame {
 
-    private JTextField txtKeyword;
-    private JTextField username;
+    private final JTextField txtKeyword;
+    private final JTextField username;
 
-    private JTable table;
+    private final JTable table;
 
     private static UserActController likeController;
 
     private static SearchController searchController;
 
-    private static RecommendController recommendController;
+    private final ReviewController reviewController;
 
-    private ReviewController reviewController;
-
-    private RecordReportController reportController;
+    private final RecordReportController reportController;
 
 
     /**
@@ -54,9 +52,8 @@ public class SearchRecommendScreen extends JFrame {
         SearchController searchController = new SearchController(searchInteractor);
 
         //like function
-        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
-        LikesGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"), userGateway);
-        UserActPresenter userActPresenter = new UserActPresenter();
+        UserActDsGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"));
+        UserActPresenterInterface userActPresenter = new UserActPresenter();
         UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
         UserActController userActController = new UserActController(userActInteractor);
 
@@ -89,7 +86,6 @@ public class SearchRecommendScreen extends JFrame {
                                  RecordReportController recordReportController) {
 
         likeController = likecontroller;
-//        recommendController = recommendcontroller;
         searchController = searchcontroller;
         reviewController = reviewcontroller;
         reportController = recordReportController;
@@ -251,7 +247,7 @@ public class SearchRecommendScreen extends JFrame {
                 Action likeAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.valueOf(e.getActionCommand());
+                        int currRow = Integer.parseInt(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
                         //likeController.like(userName,targetName);
                         //String message = likePresenter.prepareSuccessView(targetName);
@@ -296,7 +292,7 @@ public class SearchRecommendScreen extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        int currRow = Integer.valueOf(e.getActionCommand());
+                        int currRow = Integer.parseInt(e.getActionCommand());
                         String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
@@ -406,9 +402,10 @@ public class SearchRecommendScreen extends JFrame {
                 Action likeAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.valueOf(e.getActionCommand());
+                        int currRow = Integer.parseInt(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = likeController.like(userName, targetName);
+                        String message = null;
+                        message = likeController.like(userName, targetName);
                         JOptionPane.showMessageDialog(getContentPane(), message);
                     }
                 };
@@ -444,7 +441,7 @@ public class SearchRecommendScreen extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        int currRow = Integer.valueOf(e.getActionCommand());
+                        int currRow = Integer.parseInt(e.getActionCommand());
                         String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
@@ -457,7 +454,7 @@ public class SearchRecommendScreen extends JFrame {
                 Action similarAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.valueOf(e.getActionCommand());
+                        int currRow = Integer.parseInt(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
                         //likeController.like(userName,targetName);
                         //String message = likePresenter.prepareSuccessView(targetName);
@@ -556,7 +553,8 @@ public class SearchRecommendScreen extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = likeController.like(userName, targetName);
+                        String message = null;
+                        message = likeController.like(userName, targetName);
                         JOptionPane.showMessageDialog(getContentPane(), message);
                     }
                 };

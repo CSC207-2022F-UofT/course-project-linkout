@@ -1,21 +1,19 @@
 package screens.user_login;
 
 
-<<<<<<< HEAD
 import screens.record_report.RecordReportResultFrame;
 import screens.review_screen.IReviewView;
 import screens.review_screen.ReviewCreationSuccessScreen;
+import screens.search_screen.SearchRecommendScreen;
 import use_cases.record_report_use_case.*;
 import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.review_use_case.*;
 import use_cases.search_use_case.SearchController;
-import screens.search_screen.SearchRecommendScreen;
+import use_cases.search_use_case.SearchDSGateway;
 import use_cases.search_use_case.SearchGateway;
 import use_cases.search_use_case.SearchInteractor;
 import use_cases.user_action_use_case.*;
 
-=======
->>>>>>> 012dd30cc56e506c23a8a0a4e0444a91f90b2bfa
 import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.*;
@@ -79,35 +77,22 @@ public class LoginScreen extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
 
         System.out.println("Click " + evt.getActionCommand());
-        try {
+        try{
             userLoginController.create(username.getText(),
                     String.valueOf(password.getPassword()));
-<<<<<<< HEAD
-=======
+
+            this.setVisible(false);
             JOptionPane.showMessageDialog(this, username.getText() + " log in.");
 
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
->>>>>>> 012dd30cc56e506c23a8a0a4e0444a91f90b2bfa
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidAttributeValueException e) {
-            throw new RuntimeException(e);
-<<<<<<< HEAD
-        }
-        this.setVisible(false);
-        JOptionPane.showMessageDialog(this, username.getText() + " log in.");
-
-        //Pop up search UI
+            //Pop up search UI
             //search function
-            SearchGateway searchGateway = new SearchGateway(System.getProperty("user.dir"));
-            SearchInteractor searchInteractor = new SearchInteractor(searchGateway);
+            SearchDSGateway searchDSGateway = new SearchGateway(System.getProperty("user.dir"));
+            SearchInteractor searchInteractor = new SearchInteractor(searchDSGateway);
             SearchController searchController = new SearchController(searchInteractor);
 
             //like function
-            UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
-            LikesGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"), userGateway);
-            UserActPresenter userActPresenter = new UserActPresenter();
+            UserActDsGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"));
+            UserActPresenterInterface userActPresenter = new UserActPresenter();
             UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
             UserActController userActController = new UserActController(userActInteractor);
 
@@ -116,15 +101,8 @@ public class LoginScreen extends JFrame implements ActionListener {
             ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
             ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
             UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
-        ReviewInputBoundary reviewInteractor = null;
-        try {
-            reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-=======
->>>>>>> 012dd30cc56e506c23a8a0a4e0444a91f90b2bfa
-        }
-        ReviewController reviewController = new ReviewController(reviewInteractor);
+            ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
+            ReviewController reviewController = new ReviewController(reviewInteractor);
 
             //report
             RecordReportOutputData recordReportOD = new RecordReportOutputData();
@@ -140,5 +118,11 @@ public class LoginScreen extends JFrame implements ActionListener {
             SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController,
                     reviewController, recordReportController);
             frame.setVisible(true);
+
+        } catch (HeadlessException | IOException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (InvalidAttributeValueException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

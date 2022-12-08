@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SearchResponseModel {
 
-    private List<User> twentyMatchedUsers;
+    private final List<User> twentyMatchedUsers;
 
     /**
      * Create a new SearchResponseModel with a List of 20 users that matched with the interested features

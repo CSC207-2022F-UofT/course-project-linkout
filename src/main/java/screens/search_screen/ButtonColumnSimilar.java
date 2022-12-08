@@ -13,14 +13,15 @@ import javax.swing.table.*;
 public class ButtonColumnSimilar extends AbstractCellEditor
         implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener
 {
-    private JTable table;
-    private Action action;
-    private int mnemonic;
-    private Border originalBorder;
+
+    private final JTable table;
+    private final Action action;
+
+    private final Border originalBorder;
     private Border focusBorder;
 
-    private JButton renderButton;
-    private JButton editButton;
+    private final JButton renderButton;
+    private final JButton editButton;
     private Object editorValue;
     private boolean isButtonColumnEditor;
 
@@ -141,4 +142,6 @@ public class ButtonColumnSimilar extends AbstractCellEditor
     public void mouseClicked(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
+
 }
+
