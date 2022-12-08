@@ -1,4 +1,3 @@
-
 import entities.AllUserFactory;
 import entities.RegUserFactory;
 import screens.regularuser_register_screen.RegisterScreen;
@@ -67,4 +66,9 @@ public class Main {
 
         loginScreen.pack();
         loginScreen.setVisible(true);
-    }}
+    }
+}
+
+
+
+

@@ -13,6 +13,7 @@ import use_cases.search_use_case.SearchGateway;
 import use_cases.search_use_case.SearchInteractor;
 import use_cases.user_action_use_case.*;
 
+import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -119,8 +120,6 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         } catch (HeadlessException | IOException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         } catch (InvalidAttributeValueException e) {
             throw new RuntimeException(e);
         }
