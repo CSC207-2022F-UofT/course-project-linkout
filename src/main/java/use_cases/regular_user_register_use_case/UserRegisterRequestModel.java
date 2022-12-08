@@ -26,6 +26,20 @@ public class UserRegisterRequestModel {
 
     private String selfDescription;
 
+    /**
+     * @param AccountName the accountname of user
+     * @param password the password of user
+     * @param repeatPassword the repeatPassword of user
+     * @param location the location of user
+     * @param gender the gender of user
+     * @param age the age of user
+     * @param sexuality the sexuality of user
+     * @param hobbies the hobbies of user
+     * @param height the height of user
+     * @param weight the weight of user
+     * @param contactInformation the contactInformation of user
+     * @param selfDescription the selfDescription of user
+     */
     public UserRegisterRequestModel(String AccountName, String password, String repeatPassword, String location,
                                     String gender, String age, String sexuality,
                                     String hobbies, String height, String weight, String contactInformation,

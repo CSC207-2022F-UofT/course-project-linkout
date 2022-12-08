@@ -7,5 +7,4 @@ import java.io.IOException;
 
 public interface RestrictUserGateway {
     User findUser(String userID) throws IOException, InvalidAttributeValueException;
-    Admin findAdmin(String adminID);
 }

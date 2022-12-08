@@ -1,6 +1,5 @@
 package screens.user_login;
 
-
 import screens.record_report.RecordReportResultFrame;
 import screens.review_screen.IReviewView;
 import screens.review_screen.ReviewCreationSuccessScreen;
@@ -120,6 +119,10 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         } catch (HeadlessException | IOException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAttributeValueException e) {
+            throw new RuntimeException(e);
         }
     }
 }

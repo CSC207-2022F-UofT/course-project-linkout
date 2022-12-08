@@ -1,9 +1,11 @@
 package use_cases.restrict_user_use_case;
 import entities.*;
+import use_cases.record_report_use_case.ReportDatabaseGateway;
 
 public class RestrictUserInteractor implements RestrictUserInputBoundary{
     RestrictUserOutputBoundary restrictUserOB;
     RestrictUserGateway restrictUserGateway;
+    ReportDatabaseGateway reportDatabaseGateway;
     boolean success;
     
     /**
@@ -11,11 +13,14 @@ public class RestrictUserInteractor implements RestrictUserInputBoundary{
      * the same interactor since they are related use cases.)
      *
      * @param restrictUserOB        The instance of the output boundary to be used in the return.
+     * @param reportDatabaseGateway The instance of the database gateway.
      * @param restrictUserGateway   The gateway instance.
      */
-    public RestrictUserInteractor(RestrictUserOutputBoundary restrictUserOB, RestrictUserGateway restrictUserGateway) {
+    public RestrictUserInteractor(RestrictUserOutputBoundary restrictUserOB, RestrictUserGateway restrictUserGateway,
+                                  ReportDatabaseGateway reportDatabaseGateway) {
         this.restrictUserOB = restrictUserOB;
         this.restrictUserGateway = restrictUserGateway;
+        this.reportDatabaseGateway = reportDatabaseGateway;
     }
 
     // The reported user will often be the user restricted, hence they use the same
@@ -33,8 +38,7 @@ public class RestrictUserInteractor implements RestrictUserInputBoundary{
     @Override
     public RestrictUserOutputData accessReport(RestrictUserInputData inputData) {
         try {
-            User user = restrictUserGateway.findUser(inputData.getUserID());
-            Report r = user.getNewestReport(); // Getting the newest report rather than the entire reports list is a design decision.
+            Report r = reportDatabaseGateway.getReport(inputData.getReportID()); // Getting the newest report rather than the entire reports list is a design decision.
             RestrictUserOutputData outputData = new RestrictUserOutputData(
                     r.getReportingUserID(), r.getReportedUserID(), r.getCategory(),
                     r.getReportText(), r.getSupportingEvidence());
