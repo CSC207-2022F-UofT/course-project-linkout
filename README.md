@@ -18,7 +18,7 @@ Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
 - Chensheng Xu
 - Qingyi Hu
 - Zezhou Cui
-- Alex
+- Weilin Yin: User Manager Use case, User, RegularUser, VipUser
 
 ## Project outline:
 
@@ -93,6 +93,17 @@ ReviewResponseModel
 
 >The delete review’s flow is basically the same. It’s just now a request model is not needed since the user only need to
 > input the review’s id to delete it.
+
+#### User Use Case
+
+- User inputs the account name of the user and click `Confirm` first, then click `Profile` button to view this user's profile
+- Click `Liked` to view all users liked by the current user
+- Click `Status` to view the account status, including Vip Status (boolean), Restriction Status (boolean), and Restriction Duration(float)
+- Click `Show Review` to view all the reviews the current user received
+- Click `Delete Review` to delete specific review by inputting id of the review
+- Click `Upgrade` to upgrade a Regular User to VIP user
+- Click `Like Me (VIP)` to display all users the current user has liked (Function only available for VIP User)
+- Click `Set Invisible` to set the current user to invisible (Function only available for VIP User)
 
 ### Design patterns
 
