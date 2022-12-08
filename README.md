@@ -6,18 +6,17 @@ A versatile modern dating application for all your relationship needs! The inter
 - This app can only accommodate MacOS system!!!
 - The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
 
-## Group members:
-Joe Cui, Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
-
 ## Project outline
 
-- Yanlin Li: Recommend User Case, Gateway
-- Yifei Zhang
-- Ryan Shi
-- Chensheng Xu
-- Qingyi Hu
-- Zezhou Cui
-- Weilin Yin: User Manager Use case, User, RegularUser, VipUser
+## Group members & responsibilities:
+Everyone collborated on each other's tasks, making a clear definition of the responsibilities rather difficult. However, in general, the group members had the following responsibilities:
+- Yanlin (Tristal) Li: Recommend User Case, Gateway
+- Yifei Zhang: Register, login
+- Chengyan (Ryan) Shi: Report, report gateway, record report, access report, restrict user
+- Chensheng (Michelle) Xu: Search
+- Qingyi (Clara) Hu
+- Zezhou (Joe) Cui
+- Weilin (Alex) Yin: User Manager Use case, User, RegularUser, VipUser
 
 ## Project outline:
 
@@ -118,10 +117,6 @@ Here is the UML for Recommend Use Case
 #### Recommend Use Case
 
 ![](images/recommendTestCoverage.png)
-
-### Testing
-
-Our testing code coverage is displayed in the following screenshot:
 
 ### Looking forward
 
