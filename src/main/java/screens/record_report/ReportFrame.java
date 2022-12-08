@@ -52,7 +52,7 @@ public class ReportFrame extends JFrame implements ActionListener {
                 "Bullying or harassment", "Hate speech or symbols",
                 "Scam or fraud", "Violence", "Spam", "I just don't like it",
                 "Other"};
-        category = new JComboBox<String>(categories);
+        category = new JComboBox<>(categories);
 
 
         JPanel buttons = new JPanel();
@@ -60,9 +60,7 @@ public class ReportFrame extends JFrame implements ActionListener {
         buttons.add(cancel);
 
         ok.addActionListener(this);
-        cancel.addActionListener(e -> {
-            this.dispose();
-        });
+        cancel.addActionListener(e -> this.dispose());
 
         getContentPane().setLayout(
                 new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)

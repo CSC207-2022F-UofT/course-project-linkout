@@ -52,7 +52,7 @@ public class AdminStartScreen extends JFrame implements ActionListener {
         if (e.getSource() == access) {
             AccessReportFrame frame = new AccessReportFrame(controller);
             frame.setVisible(true);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         } else if (e.getSource() == restrict) {
             RestrictUserFrame frame = new RestrictUserFrame(controller1);
             frame.setVisible(true);
