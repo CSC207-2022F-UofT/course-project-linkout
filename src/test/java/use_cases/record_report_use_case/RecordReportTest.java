@@ -11,8 +11,7 @@ import use_cases.regular_user_register_use_case.UserGateway;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RecordReportTest {
     @Test
@@ -22,10 +21,12 @@ public class RecordReportTest {
                 "Oh no.");
         assertEquals(r1.getReportText(), "I don't like username 2.");
 
-
-        Report r2 = new Report("Username 1", "Username 2", "1", "12", "Bullying or harassment", "Oh no.");
-        assertEquals(r2.getCategory(), "12");
+        Report r2 = new Report("Username 1", "Username 2", "1", "Bullying or harassment", "what", "Oh no.");
+        assertEquals(r2.getCategory(), "Bullying or harassment");
         assertEquals(r2.getReportID(), "1");
+        assertEquals(r2.getReportedUserID(), "Username 2");
+        assertEquals(r2.getReportingUserID(), "Username 1");
+        assertEquals(r2.getReportText(), "what");
         assertEquals(r2.getSupportingEvidence(), "Oh no.");
     }
     @Test

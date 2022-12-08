@@ -1,12 +1,13 @@
 package screens.user_login;
 
-
+import screens.access_report_and_restrict_user.*;
 import screens.record_report.RecordReportResultFrame;
 import screens.review_screen.IReviewView;
 import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.search_screen.SearchRecommendScreen;
 import use_cases.record_report_use_case.*;
 import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.restrict_user_use_case.*;
 import use_cases.review_use_case.*;
 import use_cases.search_use_case.SearchController;
 import use_cases.search_use_case.SearchDSGateway;

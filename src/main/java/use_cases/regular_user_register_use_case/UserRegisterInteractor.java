@@ -17,6 +17,11 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary {
 
     final AllUserFactory regUserFactory;
 
+    /**
+     * @param userRegisterDfGateway the gateway of account
+     * @param userRegisterPresenter the presenter of register
+     * @param regUserFactory the factory of user
+     */
     public UserRegisterInteractor(UserRegisterDsGateway userRegisterDfGateway,
                                   UserRegisterPresenter userRegisterPresenter,
                                   AllUserFactory regUserFactory) {

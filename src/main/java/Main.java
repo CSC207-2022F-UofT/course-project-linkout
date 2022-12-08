@@ -1,19 +1,20 @@
-
-import entities.RegUserFactory;
 import entities.AllUserFactory;
-import screens.regularuser_register_screen.*;
+import entities.RegUserFactory;
+import screens.regularuser_register_screen.RegisterScreen;
+import screens.regularuser_register_screen.UserRegisterController;
+import screens.regularuser_register_screen.UserRegisterResponseFormatter;
+import screens.user_login.LoginScreen;
 import screens.user_login.UserLoginController;
 import screens.user_login.UserLoginResponseFormatter;
-import screens.user_login.LoginScreen;
 import use_cases.regular_user_register_use_case.*;
 import use_cases.user_login_use_case.UserLoginDsGateway;
 import use_cases.user_login_use_case.UserLoginInputBoundary;
 import use_cases.user_login_use_case.UserLoginInteractor;
 import use_cases.user_login_use_case.UserLoginPresenter;
-
-import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 import java.awt.*;
+
+import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
 public class Main {
@@ -24,7 +25,6 @@ public class Main {
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
-
         // Create the parts to plug into the Use Case+Entities enginel
 
         UserRegisterDsGateway user;
@@ -70,5 +70,6 @@ public class Main {
 //        screens.add(loggedInScreen, "loggedIn");
 
     }
-
 }
+
+

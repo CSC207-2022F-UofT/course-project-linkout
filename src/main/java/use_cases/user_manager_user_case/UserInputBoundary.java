@@ -6,15 +6,15 @@ import java.io.IOException;
 
 public interface UserInputBoundary {
 
-    public void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
+    void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
-    public void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
+    void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
-    public void showReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
+    void showReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
 
-    public void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
+    void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
-    public void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
+    void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 
 }

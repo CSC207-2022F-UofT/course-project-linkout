@@ -19,6 +19,9 @@ public class UserManagerInteractor implements UserInputBoundary {
         this.userPresenter = userPresenter;
     }
 
+    /**
+     * @param userRequestModel contains the information of the user
+     */
     public void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (findUserByName(userRequestModel.getAccName()) != null) {
             User user = findUserByName(userRequestModel.getAccName());
@@ -28,6 +31,9 @@ public class UserManagerInteractor implements UserInputBoundary {
         }
     }
 
+    /**
+     * @param userRequestModel contains the information of the user
+     */
     public void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
@@ -38,7 +44,9 @@ public class UserManagerInteractor implements UserInputBoundary {
     }
 
 
-
+    /**
+     * @param userRequestModel contains the information of the user
+     */
     public void showReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
@@ -51,7 +59,9 @@ public class UserManagerInteractor implements UserInputBoundary {
 
 
 
-
+    /**
+     * @param userRequestModel contains the information of the user
+     */
     public void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
@@ -65,6 +75,9 @@ public class UserManagerInteractor implements UserInputBoundary {
         }
     }
 
+    /**
+     * @param userRequestModel contains the information of the user
+     */
     public void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
         if (findUserByName(userRequestModel.getAccName()) != null){
             User user = findUserByName(userRequestModel.getAccName());
@@ -74,6 +87,11 @@ public class UserManagerInteractor implements UserInputBoundary {
         }
     }
 
+
+    /**
+     * @param accName the account name of the user
+     * @return the User associated with this Account Name
+     */
     User findUserByName(String accName) throws IOException, InvalidAttributeValueException {
         return this.userDsGateway.findUser(accName);
     }

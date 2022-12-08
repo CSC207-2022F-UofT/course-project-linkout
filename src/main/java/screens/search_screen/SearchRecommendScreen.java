@@ -14,7 +14,6 @@ import use_cases.review_use_case.*;
 import use_cases.search_use_case.*;
 import use_cases.user_action_use_case.*;
 
-import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 
 import javax.swing.table.DefaultTableModel;
@@ -32,14 +31,14 @@ public class SearchRecommendScreen extends JFrame {
 
     private final JTable table;
 
-    private static UserActController likeController;
+    private final UserActController likeController;
 
-    private static SearchController searchController;
+    private final SearchController searchController;
 
-    private final ReviewController reviewController;
 
-    private final RecordReportController reportController;
+    private ReviewController reviewController;
 
+    private RecordReportController reportController;
 
     /**
      * Launch the SearchMatch UI window.
@@ -247,7 +246,7 @@ public class SearchRecommendScreen extends JFrame {
                 Action likeAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
                         //likeController.like(userName,targetName);
                         //String message = likePresenter.prepareSuccessView(targetName);
@@ -292,7 +291,7 @@ public class SearchRecommendScreen extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
@@ -307,8 +306,6 @@ public class SearchRecommendScreen extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        //likeController.like(userName,targetName);
-                        //String message = likePresenter.prepareSuccessView(targetName);
                         GenerateSimilarResult(targetName);
                     }
                 };
@@ -402,10 +399,10 @@ public class SearchRecommendScreen extends JFrame {
                 Action likeAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = null;
-                        message = likeController.like(userName, targetName);
+
+                        String message = likeController.like(userName, targetName);
                         JOptionPane.showMessageDialog(getContentPane(), message);
                     }
                 };
@@ -441,7 +438,7 @@ public class SearchRecommendScreen extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
@@ -454,10 +451,8 @@ public class SearchRecommendScreen extends JFrame {
                 Action similarAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        //likeController.like(userName,targetName);
-                        //String message = likePresenter.prepareSuccessView(targetName);
                         GenerateSimilarResult(targetName);
                     }
                 };
@@ -553,8 +548,7 @@ public class SearchRecommendScreen extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = null;
-                        message = likeController.like(userName, targetName);
+                        String message = likeController.like(userName, targetName);
                         JOptionPane.showMessageDialog(getContentPane(), message);
                     }
                 };

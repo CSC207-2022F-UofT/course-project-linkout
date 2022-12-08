@@ -5,6 +5,10 @@ public class UserRegisterResponseModel {
     String login;
     String creationTime;
 
+    /**
+     * @param login the accountname of user
+     * @param creationTime the create time of account
+     */
     public UserRegisterResponseModel(String login, String creationTime) {
         this.login = login;
         this.creationTime = creationTime;
