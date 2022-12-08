@@ -37,9 +37,7 @@ public class AccessReportFrame extends JFrame implements ActionListener {
         cancel = new JButton("Cancel");
 
         ok.addActionListener(this);
-        cancel.addActionListener(e -> {
-            this.dispose();
-        });
+        cancel.addActionListener(e -> this.dispose());
 
         JPanel buttons = new JPanel();
         buttons.add(ok);
