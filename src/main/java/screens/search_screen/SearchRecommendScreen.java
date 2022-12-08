@@ -4,7 +4,6 @@ import entities.User;
 import screens.record_report.RecordReportResultFrame;
 import screens.record_report.ReportFrame;
 import screens.review_screen.IReviewView;
-import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.ReviewCreationScreen;
 import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.user_info_screen.UserInfoScreen;
@@ -15,7 +14,6 @@ import use_cases.review_use_case.*;
 import use_cases.search_use_case.*;
 import use_cases.user_action_use_case.*;
 
-import javax.management.InvalidAttributeValueException;
 import javax.swing.*;
 
 import javax.swing.table.DefaultTableModel;
@@ -33,16 +31,14 @@ public class SearchRecommendScreen extends JFrame {
 
     private final JTable table;
 
+    private final UserActController likeController;
 
-    private static UserActController likeController;
-
-    private static SearchController searchController;
-
-    private final ReviewController reviewController;
-
-    private final RecordReportController reportController;
+    private final SearchController searchController;
 
 
+    private ReviewController reviewController;
+
+    private RecordReportController reportController;
 
 
     /**
@@ -55,21 +51,18 @@ public class SearchRecommendScreen extends JFrame {
         SearchInteractor searchInteractor = new SearchInteractor(searchDSGateway);
         SearchController searchController = new SearchController(searchInteractor);
 
-
         //like function
-
         UserActDsGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"));
         UserActPresenterInterface userActPresenter = new UserActPresenter();
         UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
-
         UserActController userActController = new UserActController(userActInteractor);
 
         //review function
-        IReviewViewImplementation viewReview = new IReviewViewImplementation();
-        ReviewPresenter reviewPresenter = new ReviewPresenter(viewReview);
+        IReviewView screen = new ReviewCreationSuccessScreen();
+        ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
         ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
-        //UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
-        ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateway);
+        UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
+        ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
         ReviewController reviewController = new ReviewController(reviewInteractor);
 
         //report
@@ -81,7 +74,6 @@ public class SearchRecommendScreen extends JFrame {
         RecordReportInteractor reportInteractor = new RecordReportInteractor(reportPresenter, recordReportGateway,
                 recordReportDatabaseGateway, "Admin");
         RecordReportController recordReportController = new RecordReportController(reportInteractor);
-
 
 
         SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController,
@@ -102,7 +94,7 @@ public class SearchRecommendScreen extends JFrame {
         // Build the empty frame for UI
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setBounds(100, 100, 1400, 342);
+        setBounds(100, 100, 1450, 342);
 
         setTitle("Search for Match");
 
@@ -110,7 +102,7 @@ public class SearchRecommendScreen extends JFrame {
 
         // Create the ScrollPane
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(65, 72, 1300, 159);
+        scrollPane.setBounds(25, 72, 1400, 159);
         getContentPane().add(scrollPane);
 
         // Create the Label "Enter Your Username" beside the username entered field
@@ -119,6 +111,7 @@ public class SearchRecommendScreen extends JFrame {
         lblUsername.setBounds(55, 27, 144, 14);
         getContentPane().add(lblUsername);
 
+
         // Create a JTextField for Username Inputs
         username = new JTextField();
         username.setBounds(195, 24, 160, 20);
@@ -126,6 +119,14 @@ public class SearchRecommendScreen extends JFrame {
         getContentPane().add(username);
 
         username.setColumns(10);
+
+        // Create a JTextField for Keyword Inputs
+        txtKeyword = new JTextField();
+        txtKeyword.setBounds(195, 44, 160, 20);
+
+        getContentPane().add(txtKeyword);
+
+        txtKeyword.setColumns(10);
 
 
         // Create the Table for display the results
@@ -138,14 +139,6 @@ public class SearchRecommendScreen extends JFrame {
         lblSearch.setBounds(85, 47, 124, 14);
 
         getContentPane().add(lblSearch);
-
-        // Create a JTextField for Keyword Inputs
-        txtKeyword = new JTextField();
-        txtKeyword.setBounds(195, 44, 160, 20);
-
-        getContentPane().add(txtKeyword);
-
-        txtKeyword.setColumns(10);
 
 
         // Create the Button Search
@@ -167,11 +160,9 @@ public class SearchRecommendScreen extends JFrame {
 //      recommend results and display a new recommendation results)
         JButton btnRecommend = new JButton("Recommend");
 
-        btnRecommend.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent arg){
-//                GenerateRecommendResult();
-                JOptionPane.showMessageDialog(getContentPane(),"Need to add");
-
+        btnRecommend.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg) {
+                GenerateRecommendResult();
             }
         });
         btnRecommend.setBounds(365, 20, 119, 23);
@@ -215,6 +206,7 @@ public class SearchRecommendScreen extends JFrame {
 
         model.addColumn("Similar");
 
+
         try {
             // Storing the keywords and username entered as a String
             String searchTexts = txtKeyword.getText();
@@ -255,7 +247,7 @@ public class SearchRecommendScreen extends JFrame {
                 Action likeAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
                         //likeController.like(userName,targetName);
                         //String message = likePresenter.prepareSuccessView(targetName);
@@ -264,12 +256,11 @@ public class SearchRecommendScreen extends JFrame {
                             JOptionPane.showMessageDialog(getContentPane(), message);
                         }
                         // if target user already liked
-                        catch (UserActionFailed | InvalidAttributeValueException error) {
+                        catch (UserActionFailed error) {
                             JOptionPane.showMessageDialog(getContentPane(), error.getMessage());
                         }
                     }
                 };
-
                 ButtonColumnLike likeButton = new ButtonColumnLike(table, likeAction, 9);
 
 
@@ -301,7 +292,7 @@ public class SearchRecommendScreen extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
@@ -316,19 +307,15 @@ public class SearchRecommendScreen extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        //likeController.like(userName,targetName);
-                        //String message = likePresenter.prepareSuccessView(targetName);
                         GenerateSimilarResult(targetName);
                     }
                 };
                 ButtonColumnSimilar similarButton = new ButtonColumnSimilar(table, similarAction, 13);
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void GenerateRecommendResult() {
@@ -413,14 +400,9 @@ public class SearchRecommendScreen extends JFrame {
                 Action likeAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = null;
-                        try {
-                            message = likeController.like(userName, targetName);
-                        } catch (InvalidAttributeValueException ex) {
-                            throw new RuntimeException(ex);
-                        }
+                        String message = likeController.like(userName, targetName);
                         JOptionPane.showMessageDialog(getContentPane(), message);
                     }
                 };
@@ -456,7 +438,7 @@ public class SearchRecommendScreen extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String userID = (String) table.getModel().getValueAt(currRow, 8);
                         ReportFrame reportFrame = new ReportFrame(reportController, userID);
                         reportFrame.setVisible(true);
@@ -469,10 +451,8 @@ public class SearchRecommendScreen extends JFrame {
                 Action similarAction = new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int currRow = Integer.parseInt(e.getActionCommand());
+                        int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        //likeController.like(userName,targetName);
-                        //String message = likePresenter.prepareSuccessView(targetName);
                         GenerateSimilarResult(targetName);
                     }
                 };
@@ -568,12 +548,7 @@ public class SearchRecommendScreen extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
-                        String message = null;
-                        try {
-                            message = likeController.like(userName, targetName);
-                        } catch (InvalidAttributeValueException ex) {
-                            throw new RuntimeException(ex);
-                        }
+                        String message = likeController.like(userName, targetName);
                         JOptionPane.showMessageDialog(getContentPane(), message);
                     }
                 };
