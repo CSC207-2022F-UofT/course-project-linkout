@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade,
-        UserLoginDsGateway {
+        UserLoginDsGateway, RestrictUserGateway {
 
     private ProfileGateway profileGateway;
 
@@ -100,9 +100,8 @@ public class UserGateway extends DatabaseGateway implements UserRegisterDsGatewa
     }
 
     @Override
-    public boolean MatchingNameAndPassword(String accountName, String Password) throws IOException,
-            InvalidAttributeValueException {
-        if (existsByName(accountName)) {
+    public boolean MatchingNameAndPassword(String accountName, String Password) throws IOException, InvalidAttributeValueException {
+        if (!existsByName(accountName)) {
             return false;
         }
 
