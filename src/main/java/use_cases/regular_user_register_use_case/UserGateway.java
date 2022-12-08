@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade,
-        UserLoginDsGateway {
+        UserLoginDsGateway, RestrictUserGateway{
 
     private ProfileGateway profileGateway;
 
