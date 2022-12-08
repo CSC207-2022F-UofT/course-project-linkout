@@ -82,41 +82,58 @@ public class LoginScreen extends JFrame implements ActionListener {
 
             this.setVisible(false);
             JOptionPane.showMessageDialog(this, username.getText() + " log in.");
+            
+            if (username.getText().equals("Admin") && password.getText().equals("Admin")) {
+                AccessReportResultViewModel vm = new AccessReportResultFrame();
+                RestrictUserResultViewModel vm1 = new RestrictUserResultFrame();
+                RestrictUserOutputData outputData = new RestrictUserOutputData("r1", "r2", "c", "t", "se");
+                RestrictUserGateway gateway = new UserGateway(System.getProperty("user.dir"));
+                ReportDatabaseGateway database = new ReportDatabase(System.getProperty("user.dir"));
+                RestrictUserOutputBoundary presenter = new RestrictUserPresenter(outputData, vm);
+                RestrictUserOutputBoundary presenter1 = new RestrictUserPresenter(vm1);
+                RestrictUserInputBoundary interactor = new RestrictUserInteractor(presenter, gateway, database);
+                RestrictUserInputBoundary interactor1 = new RestrictUserInteractor(presenter1, gateway, database);
+                RestrictUserController controller = new RestrictUserController(interactor);
+                RestrictUserController controller1 = new RestrictUserController(interactor1);
+                AdminStartScreen frame = new AdminStartScreen(controller, controller1);
+                frame.setVisible(true);   
+            } else {
+            
+                //Pop up search UI
+                //search function
+                SearchDSGateway searchDSGateway = new SearchGateway(System.getProperty("user.dir"));
+                SearchInteractor searchInteractor = new SearchInteractor(searchDSGateway);
+                SearchController searchController = new SearchController(searchInteractor);
 
-            //Pop up search UI
-            //search function
-            SearchDSGateway searchDSGateway = new SearchGateway(System.getProperty("user.dir"));
-            SearchInteractor searchInteractor = new SearchInteractor(searchDSGateway);
-            SearchController searchController = new SearchController(searchInteractor);
+                //like function
+                UserActDsGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"));
+                UserActPresenterInterface userActPresenter = new UserActPresenter();
+                UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
+                UserActController userActController = new UserActController(userActInteractor);
 
-            //like function
-            UserActDsGateway userActDsGateway = new LikesGateway(System.getProperty("user.dir"));
-            UserActPresenterInterface userActPresenter = new UserActPresenter();
-            UserActInputBoundary userActInteractor = new UserActInteractor(userActDsGateway, userActPresenter);
-            UserActController userActController = new UserActController(userActInteractor);
+                //review function
+                IReviewView screen = new ReviewCreationSuccessScreen();
+                ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
+                ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
+                UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
+                ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
+                ReviewController reviewController = new ReviewController(reviewInteractor);
 
-            //review function
-            IReviewView screen = new ReviewCreationSuccessScreen();
-            ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
-            ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
-            UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));
-            ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateways);
-            ReviewController reviewController = new ReviewController(reviewInteractor);
-
-            //report
-            RecordReportOutputData recordReportOD = new RecordReportOutputData();
-            RecordReportResultFrame viewReport = new RecordReportResultFrame();
-            UserGateway recordReportGateway = new UserGateway(System.getProperty("user.dir"));
-            RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
-            ReportDatabaseGateway recordReportDatabaseGateway = new ReportDatabase(System.getProperty("user.dir"));
-            RecordReportInteractor reportInteractor = new RecordReportInteractor(reportPresenter, recordReportGateway,
-                    recordReportDatabaseGateway, "Admin");
-            RecordReportController recordReportController = new RecordReportController(reportInteractor);
+                //report
+                RecordReportOutputData recordReportOD = new RecordReportOutputData();
+                RecordReportResultFrame viewReport = new RecordReportResultFrame();
+                UserGateway recordReportGateway = new UserGateway(System.getProperty("user.dir"));
+                RecordReportPresenter reportPresenter = new RecordReportPresenter(recordReportOD, viewReport);
+                ReportDatabaseGateway recordReportDatabaseGateway = new ReportDatabase(System.getProperty("user.dir"));
+                RecordReportInteractor reportInteractor = new RecordReportInteractor(reportPresenter, recordReportGateway,
+                        recordReportDatabaseGateway, "Admin");
+                RecordReportController recordReportController = new RecordReportController(reportInteractor);
 
 
-            SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController,
-                    reviewController, recordReportController);
-            frame.setVisible(true);
+                SearchRecommendScreen frame = new SearchRecommendScreen(searchController, userActController,
+                        reviewController, recordReportController);
+                frame.setVisible(true);
+            }
 
         } catch (HeadlessException | IOException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
