@@ -31,7 +31,7 @@ class RecommendControllerTest {
 
         RecommendPresenter presenter = new RecommendPresenter(){
             @Override
-            public List<User> PrepareRecommendView(RecommendResponseModel responseModel) {
+            public List<User> prepareRecommendView(RecommendResponseModel responseModel) {
                 assertNotNull(responseModel.getAllUsers());
                 assertTrue(responseModel.getAllUsers() instanceof List);
                 return null;
@@ -41,8 +41,8 @@ class RecommendControllerTest {
         RecommendResponseModel recommended1 = recommendController.recommend("acc1");
         RecommendResponseModel recommended2 = recommendController.recommend("acc1", "acc47");
 
-        presenter.PrepareRecommendView(recommended1);
-        presenter.PrepareRecommendView(recommended2);
+        presenter.prepareRecommendView(recommended1);
+        presenter.prepareRecommendView(recommended2);
 
         initializeDataset();
 

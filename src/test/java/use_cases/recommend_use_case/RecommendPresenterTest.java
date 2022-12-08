@@ -24,7 +24,7 @@ class RecommendPresenterTest {
         RecommendResponseModel responseModel = new RecommendResponseModel(userList);
 
         RecommendPresenter presenter = new RecommendPresenter();
-        assertEquals(presenter.PrepareRecommendView(responseModel).get(0).getAccountName(), "acc1");
+        assertEquals(presenter.prepareRecommendView(responseModel).get(0).getAccountName(), "acc1");
 
     }
 }

@@ -20,7 +20,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 
-public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade, UserLoginDsGateway {
+public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade, UserLoginDsGateway, RestrictUserGateway {
 
     private ProfileGateway profileGateway;
 

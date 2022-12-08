@@ -22,21 +22,11 @@ public class RecordReportTest {
                 "Oh no.");
         assertEquals(r1.getReportText(), "I don't like username 2.");
 
-<<<<<<< HEAD
-        se = new ArrayList<String>();
-        se.add("I don't like username 2.");
-        se.add("Oh no.");
 
-        Report r2 = new Report("Username 1", "Username 2", "12", "Bullying or harassment", "Oh no.");
-        //assertEquals(r2.getCategory(), "Bullying or harassment");
-        //assertEquals(r2.getReportID(), "12");
-        assertEquals(r2.getSupportingEvidence(), se);
-=======
         Report r2 = new Report("Username 1", "Username 2", "1", "12", "Bullying or harassment", "Oh no.");
         assertEquals(r2.getCategory(), "12");
         assertEquals(r2.getReportID(), "1");
         assertEquals(r2.getSupportingEvidence(), "Oh no.");
->>>>>>> 8bbd86fc93539cb37375008b1424a1873387c327
     }
     @Test
     void recordReport() {

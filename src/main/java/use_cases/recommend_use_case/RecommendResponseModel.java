@@ -6,13 +6,20 @@ import java.util.List;
 
 public class RecommendResponseModel {
 
-    private List<User> recommendedUsers;
+    private final List<User> recommendedUsers;
 
 
+    /**
+     * @param lsusers the list of users to recommend
+     */
     public RecommendResponseModel(List<User> lsusers){
         recommendedUsers = lsusers;
     }
 
+
+    /**
+     * @return the list of users to recommend
+     */
     public List<User> getAllUsers(){
         return recommendedUsers;
     }
