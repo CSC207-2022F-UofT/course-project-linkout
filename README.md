@@ -1,6 +1,7 @@
 # 2022 Fall CSC207H1 Group 127 Project: LinkedOut
 
-A versatile modern dating application for all your relationship needs! The interface is based on Java Swing.\
+A versatile modern dating application for all your relationship needs! The interface is based on Java Swing.
+
 **Notes**:
 - This app can only accommodate MacOS system!!!
 - The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
@@ -9,11 +10,13 @@ A versatile modern dating application for all your relationship needs! The inter
 Joe ?
 Clara Hu, Tristal Li, Ryan Shi, Michelle Xu, Alex Yin, Yifei Zhang.
 
-## Project outline:
+## Project outline
 
-### Entities:
+### Entities
 
-### Use cases / functionality:
+- The central entity is the account. Its childen are Admin and Profile, which in turn has children User, RegularUser, and VipUser.
+
+### Use cases / functionality
 
 #### Recommend Use Case
 
@@ -49,7 +52,8 @@ will pick 10 users with similar "liking patterns" (liked by similar group of use
 filter out the users who have already been seen, and combine to a maximum of 40 users to recommend. After that, the 
 app will display the users with the desired gender. 
 
-#### Review usecase:
+#### Review usecase
+
 >1. When two users liked each other, they can write reviews for each other
 >2. A review object contains: int rating, String comment, String writer (writer’s name), String receiver (receiver’s name), int id
 >3. Create a review: input writer’s name, receiver’s name, comment and rating
@@ -57,6 +61,7 @@ app will display the users with the desired gender.
 >5. Hide a review (VIP): input the review’s id (to be implemented later)
 
 #### Classes
+
 >ReviewController\
 >ReviewRequestModel
 ReviewInputBoundary\
@@ -68,6 +73,7 @@ ReviewPresenter\
 ReviewResponseModel
 
 #### How the code works
+
 >The add review’s flow goes like this: when the ReviewController takes in the input information from the screen, it then
 > constructs a ReviewRequestModel and puts all input information into the request model, it then calls ReviewInputBoundary
 > to add the review to the system. The ReviewInteratcor which implements ReviewInputBoundary will construct the review
@@ -77,10 +83,17 @@ ReviewResponseModel
 
 >The delete review’s flow is basically the same. It’s just now a request model is not needed since the user only need to
 > input the review’s id to delete it.
-### Design patterns:
+
+### Design patterns
 
 We have implemented the Factory design pattern for the User entity.
 
 Design patterns which would be useful if added:
 
-### Testing:
+### Testing
+
+Our testing code coverage is displayed in the following screenshot:
+
+### Looking forward
+
+We surmise that we can extend our project by [].
