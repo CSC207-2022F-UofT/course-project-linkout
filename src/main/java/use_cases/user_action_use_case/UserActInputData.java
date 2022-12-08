@@ -5,16 +5,11 @@ public class UserActInputData {
     private final String accName;
     private final String targetName;
 
-    private boolean isLiking = true;
+    //private boolean isLiking = true;
 
     public UserActInputData(String accName, String targetName) {
         this.accName = accName;
         this.targetName = targetName;
-    }
-    public UserActInputData(String accName, String targetName, boolean isLiking) {
-        this.accName = accName;
-        this.targetName = targetName;
-        this.isLiking = isLiking;
     }
 
     public String getAccName() {
@@ -26,7 +21,4 @@ public class UserActInputData {
     }
 
 
-    public boolean isLiking() {
-        return isLiking;
-    }
 }

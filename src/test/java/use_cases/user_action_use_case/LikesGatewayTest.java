@@ -4,7 +4,7 @@ import entities.User;
 import entities.VipUser;
 import org.junit.jupiter.api.Test;
 import use_cases.recommend_use_case.RecommendGateway;
-import use_cases.regular_user_register_use_case.UserGateway;
+
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -16,7 +16,7 @@ class LikesGatewayTest {
 
     public void initializeDataset() throws IOException, InterruptedException {
         RecommendGateway db = new RecommendGateway(System.getProperty("user.dir"));
-        // Reinitiate dataset
+        // Re-initiate dataset
         String[] command1 = {"rm", String.format("%s/src/main/data/likes.xls", db.getWorkingDir())};
         String[] command2 = {"cp", String.format("%s/src/main/data/data_storage/likes.xls", db.getWorkingDir()),
                 String.format("%s/src/main/data", db.getWorkingDir())};
