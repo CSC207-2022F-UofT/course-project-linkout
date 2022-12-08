@@ -1,7 +1,9 @@
 # 2022 Fall CSC207H1 Group 127 Project: LinkedOut
 
 A versatile modern dating application for all your relationship needs! The interface is based on Java Swing.\
-**Caution**: This app can only accommodate MacOS system!!!
+**Notes**:
+- This app can only accommodate MacOS system!!!
+- The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
 
 ## Group members:
 Joe ?
