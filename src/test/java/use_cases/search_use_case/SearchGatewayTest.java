@@ -69,8 +69,8 @@ public class SearchGatewayTest {
                 HSSFSheet sheet = wb.getSheetAt(0);
 
                 List<User> toSave = new ArrayList<>();
-                toSave.add(userGateway.findUser("acc1"));
-                db.SaveSeen("acc0", toSave);
+                toSave.add(userGateway.findUser("acc0"));
+                db.SaveSeen("acc1", toSave);
 
                 fis=new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/data/likes.xls"));
                 wb=new HSSFWorkbook(fis);

@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SearchInteractorTest {
     @Test
     public void searchSheet() throws IOException, InvalidAttributeValueException {
-        SearchDSGateway searchDSGateway = new SearchGateway(System.getProperty("user.dir"));
-        SearchInteractor searchInteractor = new SearchInteractor(searchDSGateway);
         SearchPresenter presenter = new SearchPresenter() {
             @Override
             public List<User> SearchResultView(SearchResponseModel responseModel) {
@@ -26,8 +24,11 @@ public class SearchInteractorTest {
         //Input data
         String keyword = "22";
         String userName = "acc1";
+        SearchDSGateway searchDSGateway = new SearchGateway(System.getProperty("user.dir"));
+        SearchInteractor searchInteractor = new SearchInteractor(searchDSGateway);
         SearchRequestModel requestModel = new SearchRequestModel(keyword, userName);
         SearchResponseModel responseModel = searchInteractor.searchSheet(requestModel);
+        List<User> twentyMatchedUsers = searchDSGateway.searchSheet(keyword,userName);
         presenter.SearchResultView(responseModel);
     }
 }

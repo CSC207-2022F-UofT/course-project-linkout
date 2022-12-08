@@ -13,6 +13,8 @@ public class SearchController {
     }
     public SearchResponseModel searchSheet(String keywords, String userName) throws IOException, InvalidAttributeValueException {
         SearchRequestModel requestModel = new SearchRequestModel(keywords, userName);
+        String keyword = requestModel.getKeywords();
+        String username = requestModel.getUsername();
         return searchInput.searchSheet(requestModel);
     }
 }
