@@ -1,8 +1,8 @@
 package use_cases.user_manager_user_case;
 
 
-import Gateway.DatabaseConnect;
 import entities.*;
+import use_cases.regular_user_register_use_case.UserGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RegularUserManager extends UserManagerInteractor {
 
-    public RegularUserManager(DatabaseConnect userDsGateway, UserOutputBoundary userPresenter){
+    public RegularUserManager(UserGateway userDsGateway, UserOutputBoundary userPresenter){
         super(userDsGateway, userPresenter);
     }
 

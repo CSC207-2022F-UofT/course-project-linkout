@@ -1,9 +1,11 @@
 package use_cases.user_manager_user_case;
 
-import Gateway.DatabaseConnect;
+
 import entities.User;
 import entities.UserFactory;
 import entities.VipUser;
+import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.user_action_use_case.LikesGateway;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
@@ -11,27 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VIPUserManager extends UserManagerInteractor{
+    LikesGateway likesGateway;
 
-
-    public VIPUserManager(DatabaseConnect userDsGateway, UserOutputBoundary userPresenter){
+    public VIPUserManager(UserGateway userDsGateway, UserOutputBoundary userPresenter){
         super(userDsGateway, userPresenter);
+        likesGateway = new LikesGateway(System.getProperty("user.dir"));
     }
 
-    public void hideReview(UserRequestModel userRequestModel, Integer review_ids) throws IOException, InvalidAttributeValueException {
-        if (userDsGateway.findUser(userRequestModel.getAccName()) != null) {
-            User user = findUserByName(userRequestModel.getAccName());
-            if (user.showVip()){
-                VipUser vUser = (VipUser) user;
-                userDsGateway.deleteReview(review_ids);
-                userPresenter.prepareSuccessView(vUser.hideReview(review_ids));
-            }
-            else {
-                userPresenter.prepareFailedView("Only VIP user can hide review");
-            }
-        }else {
-            userPresenter.prepareFailedView("User does not exist.");
-        }
-    }
+
+
 
     public void invisibleVisit(UserRequestModel userRequestModel, boolean invisible) throws IOException, InvalidAttributeValueException {
         if (userDsGateway.findUser(userRequestModel.getAccName()) != null) {
@@ -56,7 +46,7 @@ public class VIPUserManager extends UserManagerInteractor{
         if (userDsGateway.findUser(userRequestModel.getAccName()) != null) {
             User user = findUserByName(userRequestModel.getAccName());
             if (user.showVip()){
-                userPresenter.prepareLikedMeView(userDsGateway.findLikedMe(user.getAccountName()));
+                userPresenter.prepareLikedMeView(likesGateway.findLikedMe(user.getAccountName()));
             }
             else {
                 userPresenter.prepareFailedView("Only VIP user can see who liked him/her");

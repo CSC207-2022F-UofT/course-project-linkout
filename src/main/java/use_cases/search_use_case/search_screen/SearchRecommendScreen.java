@@ -4,13 +4,12 @@ import entities.User;
 import screens.review_screen.IReviewViewImplementation;
 import screens.review_screen.ReviewCreationScreen;
 import screens.user_info_screen.UserInfoScreen;
-import use_cases.recommend_use_case.RecommendController;
+import use_cases.recommend_use_case.*;
 import use_cases.record_report_use_case.RecordReportController;
-import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.review_use_case.*;
-import use_cases.search_use_case.SearchController;
-import use_cases.search_use_case.SearchInputBoundaryImplementation;
-import use_cases.search_use_case.SearchResponseModel;
+import use_cases.regular_user_register_use_case.UserGateway;
+//import use_cases.review_use_case.*;
+import use_cases.search_use_case.*;
 import use_cases.user_action_use_case.*;
 
 import javax.swing.*;

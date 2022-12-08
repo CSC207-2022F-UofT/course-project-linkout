@@ -5,7 +5,14 @@ public class RestrictUserInteractor implements RestrictUserInputBoundary{
     RestrictUserOutputBoundary restrictUserOB;
     RestrictUserGateway restrictUserGateway;
     boolean success;
-
+    
+    /**
+     * Constructor for the restrict user and access report interactors. (They use
+     * the same interactor since they are related use cases.)
+     *
+     * @param restrictUserOB        The instance of the output boundary to be used in the return.
+     * @param restrictUserGateway   The gateway instance.
+     */
     public RestrictUserInteractor(RestrictUserOutputBoundary restrictUserOB, RestrictUserGateway restrictUserGateway) {
         this.restrictUserOB = restrictUserOB;
         this.restrictUserGateway = restrictUserGateway;
