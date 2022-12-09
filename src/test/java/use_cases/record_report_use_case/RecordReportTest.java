@@ -9,6 +9,7 @@ import screens.record_report.TestingReportDatabase;
 import use_cases.regular_user_register_use_case.UserGateway;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,5 +48,47 @@ public class RecordReportTest {
                 recordReportGateway, reportDatabaseGateway,"Admin");
         RecordReportInputData inputData = new RecordReportInputData("acc0", "acc1", "1", "Text", "Additional info");
         interactor.createReport(inputData);
+    }
+    @Test
+    void controllerTest() {
+        ReportDatabaseGateway reportDatabaseGateway = new TestingReportDatabase();
+        RecordReportGateway recordReportGateway = new UserGateway(System.getProperty("user.dir"));
+        RecordReportOutputData outputData = new RecordReportOutputData();
+        RecordReportResultViewModel viewModel = new RecordReportTestScreen();
+        RecordReportOutputBoundary recordReportPresenter = new RecordReportPresenter(outputData, viewModel) {
+            @Override
+            public RecordReportOutputData responseView(boolean success) {
+                assertTrue(success);
+                return null;
+            }
+        };
+
+        RecordReportInputBoundary interactor = new RecordReportInteractor(recordReportPresenter,
+                recordReportGateway, reportDatabaseGateway,"Admin");
+        RecordReportController controller = new RecordReportController(interactor);
+        controller.createReport("","","","","");
+    }
+
+    @Test
+    void presenterTest() {
+        RecordReportOutputData outputData = new RecordReportOutputData();
+        RecordReportResultViewModel viewModel = new RecordReportTestScreen();
+        RecordReportOutputBoundary recordReportPresenter = new RecordReportPresenter(outputData, viewModel) {
+            public void setTimestamp() {
+                String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                recordReportOD.setTimestamp(timestamp);
+                assertNotNull(recordReportOD.getTimestamp());
+            }
+        };
+    }
+
+    @Test
+    void databaseTest() {
+        ReportDatabaseGateway db = new ReportDatabase(System.getProperty("user.dir"));
+        Report r = db.getReport("0");
+        assertNotNull(r);
+        db.saveReport(new Report("","","2","","",""));
+        Report b = db.getReport("2");
+        assertNotNull(b);
     }
 }

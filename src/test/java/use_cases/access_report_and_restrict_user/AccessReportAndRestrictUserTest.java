@@ -43,8 +43,9 @@ public class AccessReportAndRestrictUserTest {
             }
         };
 
-        RestrictUserInteractor interactor = new RestrictUserInteractor(presenter, restrictUserGateway, gateway);
+        RestrictUserInputBoundary interactor = new RestrictUserInteractor(presenter, restrictUserGateway, gateway);
         RestrictUserInputData inputData = new RestrictUserInputData("3");
         interactor.accessReport(inputData);
+        RestrictUserController controller = new RestrictUserController(interactor);
     }
 }
