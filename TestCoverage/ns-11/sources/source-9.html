@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > SearchInputBoundary</title>
+  <title>Coverage Report > UserOutputBoundary</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,17 +17,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.search_use_case</a>
+    <a href="../index.html">use_cases.user_manager_user_case</a>
 </div>
 
-<h1>Coverage Summary for Class: SearchInputBoundary (use_cases.search_use_case)</h1>
+<h1>Coverage Summary for Class: UserOutputBoundary (use_cases.user_manager_user_case)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">SearchInputBoundary</td>
+  <td class="name">UserOutputBoundary</td>
 </tr>
 
 </table>
@@ -37,15 +37,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;
-<i class="no-highlight">2</i>&nbsp;package use_cases.search_use_case;
-<i class="no-highlight">3</i>&nbsp;import javax.management.InvalidAttributeValueException;
-<i class="no-highlight">4</i>&nbsp;import java.io.IOException;
-<i class="no-highlight">5</i>&nbsp;
-<i class="no-highlight">6</i>&nbsp;
-<i class="no-highlight">7</i>&nbsp;public interface SearchInputBoundary {
-<i class="no-highlight">8</i>&nbsp;    SearchResponseModel searchSheet(SearchRequestModel requestModel) throws IOException, InvalidAttributeValueException;
-<i class="no-highlight">9</i>&nbsp;}
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.user_manager_user_case;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import entities.Profile;
+<i class="no-highlight">4</i>&nbsp;
+<i class="no-highlight">5</i>&nbsp;import java.util.Hashtable;
+<i class="no-highlight">6</i>&nbsp;import java.util.List;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;public interface UserOutputBoundary {
+<i class="no-highlight">9</i>&nbsp;    void prepareLikedView(List&lt;String&gt; liked);
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;    void prepareFailedView(String e);
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;    void prepareAccStatusView(boolean status, float time);
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    void prepareSuccessView(boolean status);
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    void prepareProfileView(Profile profile);
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    void prepareLikedMeView(List&lt;String&gt; likedMe);
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    void prepareReviewView(Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews);
+<i class="no-highlight">23</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -72,7 +86,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

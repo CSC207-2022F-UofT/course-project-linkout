@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > UserRegisterResponseModel</title>
+  <title>Coverage Report > SearchResponseModel</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.regular_user_register_use_case</a>
+    <a href="../index.html">use_cases.search_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: UserRegisterResponseModel (use_cases.regular_user_register_use_case)</h1>
+<h1>Coverage Summary for Class: SearchResponseModel (use_cases.search_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,29 +39,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">UserRegisterResponseModel</td>
+  <td class="name">SearchResponseModel</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/5)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/7)
+    (3/3)
   </span>
 </td>
 </tr>
@@ -73,39 +73,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.regular_user_register_use_case;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.search_use_case;
 <i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;public class UserRegisterResponseModel {
+<i class="no-highlight">3</i>&nbsp;import entities.User;
 <i class="no-highlight">4</i>&nbsp;
-<i class="no-highlight">5</i>&nbsp;    String login;
-<i class="no-highlight">6</i>&nbsp;    String creationTime;
+<i class="no-highlight">5</i>&nbsp;import java.util.List;
+<i class="no-highlight">6</i>&nbsp;
 <i class="no-highlight">7</i>&nbsp;
-<i class="no-highlight">8</i>&nbsp;    /**
-<i class="no-highlight">9</i>&nbsp;     * @param login the accountname of user
-<i class="no-highlight">10</i>&nbsp;     * @param creationTime the create time of account
-<i class="no-highlight">11</i>&nbsp;     */
-<b class="nc"><i class="no-highlight">12</i>&nbsp;    public UserRegisterResponseModel(String login, String creationTime) {</b>
-<b class="nc"><i class="no-highlight">13</i>&nbsp;        this.login = login;</b>
-<b class="nc"><i class="no-highlight">14</i>&nbsp;        this.creationTime = creationTime;</b>
-<i class="no-highlight">15</i>&nbsp;    }
-<i class="no-highlight">16</i>&nbsp;
-<i class="no-highlight">17</i>&nbsp;    public String getLogin() {
-<b class="nc"><i class="no-highlight">18</i>&nbsp;        return login;</b>
-<i class="no-highlight">19</i>&nbsp;    }
-<i class="no-highlight">20</i>&nbsp;
-<i class="no-highlight">21</i>&nbsp;    public void setLogin(String login) {
-<b class="nc"><i class="no-highlight">22</i>&nbsp;        this.login = login;</b>
-<i class="no-highlight">23</i>&nbsp;    }
-<i class="no-highlight">24</i>&nbsp;
-<i class="no-highlight">25</i>&nbsp;    public String getCreationTime() {
-<b class="nc"><i class="no-highlight">26</i>&nbsp;        return creationTime;</b>
-<i class="no-highlight">27</i>&nbsp;    }
-<i class="no-highlight">28</i>&nbsp;
-<i class="no-highlight">29</i>&nbsp;    public void setCreationTime(String creationTime) {
-<b class="nc"><i class="no-highlight">30</i>&nbsp;        this.creationTime = creationTime;</b>
-<i class="no-highlight">31</i>&nbsp;    }
-<i class="no-highlight">32</i>&nbsp;
-<i class="no-highlight">33</i>&nbsp;}
+<i class="no-highlight">8</i>&nbsp;public class SearchResponseModel {
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;    private final List&lt;User&gt; twentyMatchedUsers;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;    /**
+<i class="no-highlight">13</i>&nbsp;     * Create a new SearchResponseModel with a List of 20 users that matched with the interested features
+<i class="no-highlight">14</i>&nbsp;     *
+<i class="no-highlight">15</i>&nbsp;     * @param twentyMatchedUsers a List of users that matched with the interested features
+<i class="no-highlight">16</i>&nbsp;     */
+<i class="no-highlight">17</i>&nbsp;
+<b class="fc"><i class="no-highlight">18</i>&nbsp;    public SearchResponseModel(List&lt;User&gt; twentyMatchedUsers){</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;        this.twentyMatchedUsers = twentyMatchedUsers;</b>
+<i class="no-highlight">20</i>&nbsp;    }
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    public List&lt;User&gt; getTwentyMatchedUsers(){
+<b class="fc"><i class="no-highlight">23</i>&nbsp;        return this.twentyMatchedUsers;</b>
+<i class="no-highlight">24</i>&nbsp;    }
+<i class="no-highlight">25</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -132,7 +124,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

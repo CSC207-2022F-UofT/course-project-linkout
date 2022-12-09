@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > InMemoryReview</title>
+  <title>Coverage Report > UserInformation</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,53 +17,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">screens.review_screen</a>
+    <a href="../index.html">screens.user_info_screen</a>
 </div>
 
-<h1>Coverage Summary for Class: InMemoryReview (screens.review_screen)</h1>
+<h1>Coverage Summary for Class: UserInformation (screens.user_info_screen)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
-<th class="coverageStat 
-">
-  Method, %
-</th>
-<th class="coverageStat 
-">
-  Line, %
-</th>
 </tr>
 <tr>
-  <td class="name">InMemoryReview</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (5/5)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (8/8)
-  </span>
-</td>
+  <td class="name">UserInformation</td>
 </tr>
 
 </table>
@@ -73,40 +37,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package screens.review_screen;
-<i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;import entities.Review;
-<i class="no-highlight">4</i>&nbsp;import use_cases.review_use_case.ReviewGateway;
-<i class="no-highlight">5</i>&nbsp;
-<i class="no-highlight">6</i>&nbsp;import java.util.HashMap;
-<i class="no-highlight">7</i>&nbsp;import java.util.Map;
-<i class="no-highlight">8</i>&nbsp;
-<b class="fc"><i class="no-highlight">9</i>&nbsp;public class InMemoryReview implements ReviewGateway {</b>
-<b class="fc"><i class="no-highlight">10</i>&nbsp;    final private Map&lt;Integer, Review&gt; reviews = new HashMap&lt;&gt;();</b>
-<i class="no-highlight">11</i>&nbsp;
-<i class="no-highlight">12</i>&nbsp;    @Override
-<i class="no-highlight">13</i>&nbsp;    public void saveReview(Review review) {
-<b class="fc"><i class="no-highlight">14</i>&nbsp;        System.out.println(&quot;Save &quot; + review.getId() + review.getComment());</b>
-<b class="fc"><i class="no-highlight">15</i>&nbsp;        reviews.put(review.getId(), review);</b>
-<i class="no-highlight">16</i>&nbsp;    }
-<i class="no-highlight">17</i>&nbsp;
-<i class="no-highlight">18</i>&nbsp;    @Override
-<i class="no-highlight">19</i>&nbsp;    public void removeReview(int id, String username){
-<b class="fc"><i class="no-highlight">20</i>&nbsp;        System.out.println(&quot;Move Success&quot;);</b>
-<b class="fc"><i class="no-highlight">21</i>&nbsp;        reviews.remove(id);</b>
-<i class="no-highlight">22</i>&nbsp;    }
-<i class="no-highlight">23</i>&nbsp;
-<i class="no-highlight">24</i>&nbsp;    @Override
-<i class="no-highlight">25</i>&nbsp;    public Review findReview(int reviewId){
-<b class="fc"><i class="no-highlight">26</i>&nbsp;        return reviews.get(reviewId);</b>
-<i class="no-highlight">27</i>&nbsp;    }
-<i class="no-highlight">28</i>&nbsp;
-<i class="no-highlight">29</i>&nbsp;    @Override
-<i class="no-highlight">30</i>&nbsp;    public int getLargestReviewId(){
-<b class="fc"><i class="no-highlight">31</i>&nbsp;        return 0;</b>
-<i class="no-highlight">32</i>&nbsp;    }
-<i class="no-highlight">33</i>&nbsp;
-<i class="no-highlight">34</i>&nbsp;}
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package screens.user_info_screen;
+<i class="no-highlight">2</i>&nbsp;import entities.Profile;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;import javax.swing.*;
+<i class="no-highlight">5</i>&nbsp;import java.util.Hashtable;
+<i class="no-highlight">6</i>&nbsp;import java.util.List;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;public interface UserInformation {
+<i class="no-highlight">9</i>&nbsp;    public void showLiked(List&lt;String&gt; accName);
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;    public void showFailedMessage(String message);
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;    public void showAccStatus(boolean status, float time);
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;    public void showSuccessMessage(String message);
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    public void showProfile(Profile profile);
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;    public void showReview(Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews);
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;    public void showLikedMe(List&lt;String&gt; likedme);
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -133,7 +86,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

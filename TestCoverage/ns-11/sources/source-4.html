@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > SearchPresenter</title>
+  <title>Coverage Report > UserPresenter</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.search_use_case</a>
+    <a href="../index.html">use_cases.user_manager_user_case</a>
 </div>
 
-<h1>Coverage Summary for Class: SearchPresenter (use_cases.search_use_case)</h1>
+<h1>Coverage Summary for Class: UserPresenter (use_cases.user_manager_user_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">SearchPresenter</td>
+  <td class="name">UserPresenter</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -53,7 +53,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (2/2)
+    (8/8)
   </span>
 </td>
 <td class="coverageStat">
@@ -61,7 +61,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (2/2)
+    (9/9)
   </span>
 </td>
 </tr>
@@ -73,27 +73,81 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.search_use_case;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.user_manager_user_case;
 <i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;import entities.User;
-<i class="no-highlight">4</i>&nbsp;import use_cases.search_use_case.SearchOutputBoundary;
-<i class="no-highlight">5</i>&nbsp;import use_cases.search_use_case.SearchResponseModel;
-<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import entities.Profile;
+<i class="no-highlight">4</i>&nbsp;import screens.user_info_screen.UserInformation;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;import java.util.Hashtable;
 <i class="no-highlight">7</i>&nbsp;import java.util.List;
 <i class="no-highlight">8</i>&nbsp;
-<b class="fc"><i class="no-highlight">9</i>&nbsp;public class SearchPresenter implements SearchOutputBoundary {</b>
-<i class="no-highlight">10</i>&nbsp;
-<i class="no-highlight">11</i>&nbsp;    /**
-<i class="no-highlight">12</i>&nbsp;     * this method presents an ArrayList that contains 20 users that matched with the keywords entered 
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;public class UserPresenter implements UserOutputBoundary {
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;    private final UserInformation userInfoScreen;
 <i class="no-highlight">13</i>&nbsp;
-<i class="no-highlight">14</i>&nbsp;     * @return List&lt;User&gt;
-<i class="no-highlight">15</i>&nbsp;     */
-<i class="no-highlight">16</i>&nbsp;
-<i class="no-highlight">17</i>&nbsp;    @Override
-<i class="no-highlight">18</i>&nbsp;    public List&lt;User&gt; SearchResultView(SearchResponseModel responseModel) {
-<b class="fc"><i class="no-highlight">19</i>&nbsp;        return responseModel.getTwentyMatchedUsers();</b>
-<i class="no-highlight">20</i>&nbsp;    }
-<i class="no-highlight">21</i>&nbsp;}
+<b class="fc"><i class="no-highlight">14</i>&nbsp;    public UserPresenter(UserInformation userInfoScreen) {</b>
+<b class="fc"><i class="no-highlight">15</i>&nbsp;        this.userInfoScreen = userInfoScreen;</b>
+<i class="no-highlight">16</i>&nbsp;    }
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    /**
+<i class="no-highlight">19</i>&nbsp;     * @param liked a list of user account names of the current user likes
+<i class="no-highlight">20</i>&nbsp;     */
+<i class="no-highlight">21</i>&nbsp;    @Override
+<i class="no-highlight">22</i>&nbsp;    public void prepareLikedView(List&lt;String&gt; liked) {
+<b class="fc"><i class="no-highlight">23</i>&nbsp;        userInfoScreen.showLiked(liked);</b>
+<i class="no-highlight">24</i>&nbsp;    }
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;    /**
+<i class="no-highlight">27</i>&nbsp;     * @param e fail message
+<i class="no-highlight">28</i>&nbsp;     */
+<i class="no-highlight">29</i>&nbsp;    @Override
+<i class="no-highlight">30</i>&nbsp;    public void prepareFailedView(String e) {
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        userInfoScreen.showFailedMessage(e);</b>
+<i class="no-highlight">32</i>&nbsp;    }
+<i class="no-highlight">33</i>&nbsp;
+<i class="no-highlight">34</i>&nbsp;    /**
+<i class="no-highlight">35</i>&nbsp;     * @param status user VIP status
+<i class="no-highlight">36</i>&nbsp;     * @param time user Restricted Duration
+<i class="no-highlight">37</i>&nbsp;     */
+<i class="no-highlight">38</i>&nbsp;    @Override
+<i class="no-highlight">39</i>&nbsp;    public void prepareAccStatusView(boolean status, float time) {
+<b class="fc"><i class="no-highlight">40</i>&nbsp;        userInfoScreen.showAccStatus(status, time);</b>
+<i class="no-highlight">41</i>&nbsp;    }
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;
+<i class="no-highlight">44</i>&nbsp;    /**
+<i class="no-highlight">45</i>&nbsp;     * @param status true if operation is successful
+<i class="no-highlight">46</i>&nbsp;     */
+<i class="no-highlight">47</i>&nbsp;    @Override
+<i class="no-highlight">48</i>&nbsp;    public void prepareSuccessView(boolean status) {
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        userInfoScreen.showSuccessMessage(&quot;Success!&quot;);</b>
+<i class="no-highlight">50</i>&nbsp;    }
+<i class="no-highlight">51</i>&nbsp;
+<i class="no-highlight">52</i>&nbsp;    /**
+<i class="no-highlight">53</i>&nbsp;     * @param profile user&#39;s profile that need to show
+<i class="no-highlight">54</i>&nbsp;     */
+<i class="no-highlight">55</i>&nbsp;    @Override
+<i class="no-highlight">56</i>&nbsp;    public void prepareProfileView(Profile profile) {
+<b class="fc"><i class="no-highlight">57</i>&nbsp;        userInfoScreen.showProfile(profile);</b>
+<i class="no-highlight">58</i>&nbsp;    }
+<i class="no-highlight">59</i>&nbsp;
+<i class="no-highlight">60</i>&nbsp;    /**
+<i class="no-highlight">61</i>&nbsp;     * @param likedMe List of account names of the users that likes the current user
+<i class="no-highlight">62</i>&nbsp;     */
+<i class="no-highlight">63</i>&nbsp;    @Override
+<i class="no-highlight">64</i>&nbsp;    public void prepareLikedMeView(List&lt;String&gt; likedMe) {
+<b class="fc"><i class="no-highlight">65</i>&nbsp;        userInfoScreen.showLikedMe(likedMe);</b>
+<i class="no-highlight">66</i>&nbsp;    }
+<i class="no-highlight">67</i>&nbsp;
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;    /**
+<i class="no-highlight">70</i>&nbsp;     * @param reviews a hashtable of review id as key, a list of rating, comment as the value of hashtable
+<i class="no-highlight">71</i>&nbsp;     */
+<i class="no-highlight">72</i>&nbsp;    public void prepareReviewView(Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews){
+<b class="fc"><i class="no-highlight">73</i>&nbsp;        userInfoScreen.showReview(reviews);</b>
+<i class="no-highlight">74</i>&nbsp;    }
+<i class="no-highlight">75</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -120,7 +174,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Account</title>
+  <title>Coverage Report > AccessRestrictTestScreen</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">entities</a>
+    <a href="../index.html">screens.access_report_and_restrict_user</a>
 </div>
 
-<h1>Coverage Summary for Class: Account (entities)</h1>
+<h1>Coverage Summary for Class: AccessRestrictTestScreen (screens.access_report_and_restrict_user)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Account</td>
+  <td class="name">AccessRestrictTestScreen</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -50,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    33.3%
   </span>
   <span class="absValue">
-    (3/6)
+    (1/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    62.5%
+    33.3%
   </span>
   <span class="absValue">
-    (5/8)
+    (1/3)
   </span>
 </td>
 </tr>
@@ -73,43 +73,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package entities;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package screens.access_report_and_restrict_user;
 <i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;abstract public class Account implements AccountRegister{
-<i class="no-highlight">4</i>&nbsp;    private String password;
-<i class="no-highlight">5</i>&nbsp;    private String accountName;
-<i class="no-highlight">6</i>&nbsp;
-<i class="no-highlight">7</i>&nbsp;    /**
-<i class="no-highlight">8</i>&nbsp;     * Create a new Account with password and accountName.
-<i class="no-highlight">9</i>&nbsp;     *
-<i class="no-highlight">10</i>&nbsp;     * @param password the password of this single Account.
-<i class="no-highlight">11</i>&nbsp;     * @param accountName the accountName of this single Account.
-<i class="no-highlight">12</i>&nbsp;     */
-<i class="no-highlight">13</i>&nbsp;
-<b class="fc"><i class="no-highlight">14</i>&nbsp;    public Account(String password, String accountName) {</b>
-<b class="fc"><i class="no-highlight">15</i>&nbsp;        this.password = password;</b>
-<b class="fc"><i class="no-highlight">16</i>&nbsp;        this.accountName = accountName;</b>
-<i class="no-highlight">17</i>&nbsp;    }
-<i class="no-highlight">18</i>&nbsp;
-<i class="no-highlight">19</i>&nbsp;    public String getAccountName() {
-<b class="fc"><i class="no-highlight">20</i>&nbsp;        return accountName;</b>
-<i class="no-highlight">21</i>&nbsp;    }
-<i class="no-highlight">22</i>&nbsp;
-<i class="no-highlight">23</i>&nbsp;    public void setAccountName(String accountName) {
-<b class="nc"><i class="no-highlight">24</i>&nbsp;        this.accountName = accountName;</b>
-<i class="no-highlight">25</i>&nbsp;    }
-<i class="no-highlight">26</i>&nbsp;
-<i class="no-highlight">27</i>&nbsp;    public String getPassword() {
-<b class="fc"><i class="no-highlight">28</i>&nbsp;        return password;</b>
-<i class="no-highlight">29</i>&nbsp;    }
-<i class="no-highlight">30</i>&nbsp;
-<i class="no-highlight">31</i>&nbsp;    public void setPassword(String password) {
-<b class="nc"><i class="no-highlight">32</i>&nbsp;        this.password = password;</b>
-<i class="no-highlight">33</i>&nbsp;    }
-<i class="no-highlight">34</i>&nbsp;    public boolean passwordIsValid() {
-<b class="nc"><i class="no-highlight">35</i>&nbsp;        return password != null &amp;&amp; password.length() &gt; 3;</b>
-<i class="no-highlight">36</i>&nbsp;    }
-<i class="no-highlight">37</i>&nbsp;}
+<b class="fc"><i class="no-highlight">3</i>&nbsp;public class AccessRestrictTestScreen implements AccessReportResultViewModel{</b>
+<i class="no-highlight">4</i>&nbsp;    @Override
+<b class="nc"><i class="no-highlight">5</i>&nbsp;    public void displayReport(String r1, String r2, String c, String t, String se) { System.out.println(&quot;Test passed.&quot;); }</b>
+<i class="no-highlight">6</i>&nbsp;    @Override
+<b class="nc"><i class="no-highlight">7</i>&nbsp;    public void failView() { System.out.println(&quot;Test failed&quot;); }</b>
+<i class="no-highlight">8</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -136,7 +107,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

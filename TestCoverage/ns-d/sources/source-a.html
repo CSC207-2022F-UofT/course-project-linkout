@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RecordReportGateway</title>
+  <title>Coverage Report > ReviewInputBoundary</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,17 +17,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.record_report_use_case</a>
+    <a href="../index.html">use_cases.review_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: RecordReportGateway (use_cases.record_report_use_case)</h1>
+<h1>Coverage Summary for Class: ReviewInputBoundary (use_cases.review_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">RecordReportGateway</td>
+  <td class="name">ReviewInputBoundary</td>
 </tr>
 
 </table>
@@ -37,17 +37,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
-<i class="no-highlight">2</i>&nbsp;import entities.Admin;
-<i class="no-highlight">3</i>&nbsp;import entities.User;
-<i class="no-highlight">4</i>&nbsp;
-<i class="no-highlight">5</i>&nbsp;import javax.management.InvalidAttributeValueException;
-<i class="no-highlight">6</i>&nbsp;import java.io.IOException;
-<i class="no-highlight">7</i>&nbsp;
-<i class="no-highlight">8</i>&nbsp;public interface RecordReportGateway {
-<i class="no-highlight">9</i>&nbsp;    User findUser(String userID) throws IOException, InvalidAttributeValueException;
-<i class="no-highlight">10</i>&nbsp;    Admin findAdmin(String adminID);
-<i class="no-highlight">11</i>&nbsp;}
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.review_use_case;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import javax.management.InvalidAttributeValueException;
+<i class="no-highlight">4</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;public interface ReviewInputBoundary {
+<i class="no-highlight">7</i>&nbsp;    ReviewResponseModel addReview(ReviewRequestModel requestModel) throws IOException, InvalidAttributeValueException;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;    ReviewResponseModel deleteReview(int id) throws IOException, InvalidAttributeValueException;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;//    ReviewResponseModel hideReview(int id) throws IOException, InvalidAttributeValueException;
+<i class="no-highlight">12</i>&nbsp;//    this method requires manipulating view which is implemented last, will do it if time permitted
+<i class="no-highlight">13</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -74,7 +76,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RecordReportInputData</title>
+  <title>Coverage Report > ReviewController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.record_report_use_case</a>
+    <a href="../index.html">use_cases.review_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: RecordReportInputData (use_cases.record_report_use_case)</h1>
+<h1>Coverage Summary for Class: ReviewController (use_cases.review_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RecordReportInputData</td>
+  <td class="name">ReviewController</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -53,15 +53,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (6/6)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    85.7%
   </span>
   <span class="absValue">
-    (11/11)
+    (6/7)
   </span>
 </td>
 </tr>
@@ -73,45 +73,69 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.review_use_case;
 <i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;public class RecordReportInputData {
-<i class="no-highlight">4</i>&nbsp;    private String reportingUserID;
-<i class="no-highlight">5</i>&nbsp;    private String reportedUserID;
-<i class="no-highlight">6</i>&nbsp;    private String category;
-<i class="no-highlight">7</i>&nbsp;    private String reportText;
-<i class="no-highlight">8</i>&nbsp;    private String supportingEvidence;
+<i class="no-highlight">3</i>&nbsp;import javax.management.InvalidAttributeValueException;
+<i class="no-highlight">4</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;public class ReviewController {
+<i class="no-highlight">7</i>&nbsp;    private final ReviewInputBoundary reviewInput;
+<i class="no-highlight">8</i>&nbsp;
 <i class="no-highlight">9</i>&nbsp;
-<i class="no-highlight">10</i>&nbsp;    
-<i class="no-highlight">11</i>&nbsp;    /**
-<i class="no-highlight">12</i>&nbsp;     * The constructor instantiating an input data object containing the
-<i class="no-highlight">13</i>&nbsp;     * information relating to a report object.
-<i class="no-highlight">14</i>&nbsp;     *
-<i class="no-highlight">15</i>&nbsp;     * @param r1    The ID of the user who made the report.
-<i class="no-highlight">16</i>&nbsp;     * @param r2    The ID of the user which the report concerns.
-<i class="no-highlight">17</i>&nbsp;     * @param c     The category of the report.
-<i class="no-highlight">18</i>&nbsp;     * @param t     The text of the report.
-<i class="no-highlight">19</i>&nbsp;     * @param se    Any supporting evidence (e.g., links to images) for the report.
-<i class="no-highlight">20</i>&nbsp;     */
-<i class="no-highlight">21</i>&nbsp;
-<i class="no-highlight">22</i>&nbsp;    public RecordReportInputData(String r1, String r2, String c,
-<b class="fc"><i class="no-highlight">23</i>&nbsp;                                 String t, String se) {</b>
-<b class="fc"><i class="no-highlight">24</i>&nbsp;        reportingUserID = r1;</b>
-<b class="fc"><i class="no-highlight">25</i>&nbsp;        reportedUserID = r2;</b>
-<b class="fc"><i class="no-highlight">26</i>&nbsp;        category = c;</b>
-<b class="fc"><i class="no-highlight">27</i>&nbsp;        reportText = t;</b>
-<b class="fc"><i class="no-highlight">28</i>&nbsp;        supportingEvidence = se;</b>
-<i class="no-highlight">29</i>&nbsp;    }
-<i class="no-highlight">30</i>&nbsp;
-<i class="no-highlight">31</i>&nbsp;    /*
-<i class="no-highlight">32</i>&nbsp;    Getters.
-<i class="no-highlight">33</i>&nbsp;     */
-<b class="fc"><i class="no-highlight">34</i>&nbsp;    public String getReportingUserID() { return reportingUserID; }</b>
-<b class="fc"><i class="no-highlight">35</i>&nbsp;    public String getReportedUserID() { return reportedUserID; }</b>
-<b class="fc"><i class="no-highlight">36</i>&nbsp;    public String getCategory() { return category; }</b>
-<b class="fc"><i class="no-highlight">37</i>&nbsp;    public String getReportText() { return reportText; }</b>
-<b class="fc"><i class="no-highlight">38</i>&nbsp;    public String getSupportingEvidence() { return supportingEvidence; }</b>
-<i class="no-highlight">39</i>&nbsp;}
+<i class="no-highlight">10</i>&nbsp;    /**
+<i class="no-highlight">11</i>&nbsp;     * Initialize a ReviewController
+<i class="no-highlight">12</i>&nbsp;     *
+<i class="no-highlight">13</i>&nbsp;     * @param reviewInput  a ReviewInputBoundary object
+<i class="no-highlight">14</i>&nbsp;     */
+<b class="fc"><i class="no-highlight">15</i>&nbsp;    public ReviewController(ReviewInputBoundary reviewInput) {</b>
+<b class="fc"><i class="no-highlight">16</i>&nbsp;        this.reviewInput = reviewInput;</b>
+<i class="no-highlight">17</i>&nbsp;    }
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    /**
+<i class="no-highlight">21</i>&nbsp;     * this method adds a review object to the receiver&#39;s review list by packing all inout info
+<i class="no-highlight">22</i>&nbsp;     * into a ReviewRequestModel and calling the addReview method from reviewInput if the ReviewRequestModel
+<i class="no-highlight">23</i>&nbsp;     * object is considered to be complete. Otherwise, it throws an IncompleteReviewException.
+<i class="no-highlight">24</i>&nbsp;     *
+<i class="no-highlight">25</i>&nbsp;     * @param rating rating of the review (1,2,3,4,5)
+<i class="no-highlight">26</i>&nbsp;     * @param comment comment of the review
+<i class="no-highlight">27</i>&nbsp;     * @param writer accountname of the writer
+<i class="no-highlight">28</i>&nbsp;     * @param receiver accountname of the receiver
+<i class="no-highlight">29</i>&nbsp;     * @return ReviewResponseModel
+<i class="no-highlight">30</i>&nbsp;     * @throws IncompleteReviewException declaring the ReviewRequestModel is not complete
+<i class="no-highlight">31</i>&nbsp;     */
+<i class="no-highlight">32</i>&nbsp;    public ReviewResponseModel addReview(int rating, String comment, String writer, String receiver) throws IncompleteReviewException, IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">33</i>&nbsp;        ReviewRequestModel requestModel = new ReviewRequestModel(rating, comment, writer, receiver);</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;        if (requestModel.isComplete()) {</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;            return reviewInput.addReview(requestModel);</b>
+<i class="no-highlight">36</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">37</i>&nbsp;        throw new IncompleteReviewException();</b>
+<i class="no-highlight">38</i>&nbsp;    }
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;    /**
+<i class="no-highlight">42</i>&nbsp;     * this method deletes a review object from the receiver&#39;s review list if the receiver iputs thier accountname and
+<i class="no-highlight">43</i>&nbsp;     * ID of the review to be deleted
+<i class="no-highlight">44</i>&nbsp;     *
+<i class="no-highlight">45</i>&nbsp;     * @param id ID of the review to be deleted
+<i class="no-highlight">46</i>&nbsp;     * @return ReviewResponseModel
+<i class="no-highlight">47</i>&nbsp;     */
+<i class="no-highlight">48</i>&nbsp;    public ReviewResponseModel deleteReview(int id) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        return reviewInput.deleteReview(id);</b>
+<i class="no-highlight">50</i>&nbsp;    }
+<i class="no-highlight">51</i>&nbsp;
+<i class="no-highlight">52</i>&nbsp;//    /**
+<i class="no-highlight">53</i>&nbsp;//     * this method hides a review object from the receiver&#39;s review list if the receiver iputs thier accountname and
+<i class="no-highlight">54</i>&nbsp;//     * ID of the review to be hided
+<i class="no-highlight">55</i>&nbsp;//     * @param id ID of the review to be hided
+<i class="no-highlight">56</i>&nbsp;//     * @return ReviewResponseModel
+<i class="no-highlight">57</i>&nbsp;//     */
+<i class="no-highlight">58</i>&nbsp;//    public ReviewResponseModel hideReview(int id) throws IOException, InvalidAttributeValueException {
+<i class="no-highlight">59</i>&nbsp;//        return reviewInput.hideReview(id);
+<i class="no-highlight">60</i>&nbsp;//    }
+<i class="no-highlight">61</i>&nbsp;//    this method requires manipulating view which is implemented last, will do it if time permitted
+<i class="no-highlight">62</i>&nbsp;}
+<i class="no-highlight">63</i>&nbsp;
 </div>
 </pre>
 </div>
@@ -138,7 +162,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

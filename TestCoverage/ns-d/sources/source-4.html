@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RecordReportOutputData</title>
+  <title>Coverage Report > ReviewInteractor</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.record_report_use_case</a>
+    <a href="../index.html">use_cases.review_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: RecordReportOutputData (use_cases.record_report_use_case)</h1>
+<h1>Coverage Summary for Class: ReviewInteractor (use_cases.review_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RecordReportOutputData</td>
+  <td class="name">ReviewInteractor</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -50,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    100%
   </span>
   <span class="absValue">
-    (1/3)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (2/4)
+    (24/24)
   </span>
 </td>
 </tr>
@@ -73,25 +73,102 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
-<i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;public class RecordReportOutputData {
-<i class="no-highlight">4</i>&nbsp;    private String timestamp;
-<i class="no-highlight">5</i>&nbsp;    
-<i class="no-highlight">6</i>&nbsp;    /**
-<i class="no-highlight">7</i>&nbsp;     * The constructor instantiating an output data object containing the timestamp
-<i class="no-highlight">8</i>&nbsp;     * corresponding to the report&#39;s creation.
-<i class="no-highlight">9</i>&nbsp;     */
-<b class="fc"><i class="no-highlight">10</i>&nbsp;    public RecordReportOutputData() {</b>
-<b class="fc"><i class="no-highlight">11</i>&nbsp;        timestamp = &quot;&quot;;</b>
-<i class="no-highlight">12</i>&nbsp;    }
-<i class="no-highlight">13</i>&nbsp;    
-<i class="no-highlight">14</i>&nbsp;    /*
-<i class="no-highlight">15</i>&nbsp;    Getters and setters.
-<i class="no-highlight">16</i>&nbsp;     */
-<b class="nc"><i class="no-highlight">17</i>&nbsp;    public String getTimestamp() { return timestamp; }</b>
-<b class="nc"><i class="no-highlight">18</i>&nbsp;    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }</b>
-<i class="no-highlight">19</i>&nbsp;}
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.review_use_case;
+<i class="no-highlight">2</i>&nbsp;import use_cases.regular_user_register_use_case.UserGateway;
+<i class="no-highlight">3</i>&nbsp;import entities.*;
+<i class="no-highlight">4</i>&nbsp;
+<i class="no-highlight">5</i>&nbsp;import javax.management.InvalidAttributeValueException;
+<i class="no-highlight">6</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">7</i>&nbsp;import java.time.LocalDateTime;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;public class ReviewInteractor implements ReviewInputBoundary{
+<i class="no-highlight">10</i>&nbsp;    private final ReviewOutputBoundary outputBoundary;
+<i class="no-highlight">11</i>&nbsp;    private final ReviewGateway reviewGateway;
+<i class="no-highlight">12</i>&nbsp;    private final UserGateway userGateway;
+<i class="no-highlight">13</i>&nbsp;    private int count;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    /**
+<i class="no-highlight">18</i>&nbsp;     * Initialize a ReviewInteractor
+<i class="no-highlight">19</i>&nbsp;     * @param outputBoundary a ReviewOutputBoundary object
+<i class="no-highlight">20</i>&nbsp;     * @param reviewGateway a ReviewGateway object
+<i class="no-highlight">21</i>&nbsp;     * @param userGateway a UserGateway object
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;     */
+<i class="no-highlight">24</i>&nbsp;
+<b class="fc"><i class="no-highlight">25</i>&nbsp;    public ReviewInteractor(ReviewOutputBoundary outputBoundary, ReviewGateway reviewGateway, UserGateway userGateway) throws IOException {</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        this.outputBoundary = outputBoundary;</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        this.reviewGateway = reviewGateway;</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        this.userGateway = userGateway;</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        this.count = reviewGateway.getLargestReviewId();</b>
+<i class="no-highlight">30</i>&nbsp;    }
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;    /**
+<i class="no-highlight">34</i>&nbsp;     * this method adds the review object to the receiver&#39;s review list, save the review to the database and return a
+<i class="no-highlight">35</i>&nbsp;     * ReviewResponseModel object which includes the content of the review and the status of the review.
+<i class="no-highlight">36</i>&nbsp;     *
+<i class="no-highlight">37</i>&nbsp;     * @param review a ReviewRequestModel object gathering the input info (rating, comment, writer&#39;s and receiver&#39;s accountname)
+<i class="no-highlight">38</i>&nbsp;     * @return a ReviewResponseModel object which includes the content of the review and the status of the review (added, deleted, hided)
+<i class="no-highlight">39</i>&nbsp;     */
+<i class="no-highlight">40</i>&nbsp;    @Override
+<i class="no-highlight">41</i>&nbsp;    public ReviewResponseModel addReview(ReviewRequestModel review) throws IOException, InvalidAttributeValueException {
+<i class="no-highlight">42</i>&nbsp;        //TODO: check if two users like each other
+<b class="fc"><i class="no-highlight">43</i>&nbsp;        User receiver = userGateway.findUser(review.getReceiver());</b>
+<b class="fc"><i class="no-highlight">44</i>&nbsp;        int id = count++;</b>
+<b class="fc"><i class="no-highlight">45</i>&nbsp;        Review reviewObject = new Review(review.getRating(), review.getComment(), review.getWriter(), review.getReceiver(), id);</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;        receiver.addReviews(reviewObject);</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        reviewGateway.saveReview(reviewObject);</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        String reviewString = &quot;Review:\n&quot; + &quot;Comment: &quot; + review.getComment() + &quot;\n&quot; +</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;                &quot;Rating: &quot; + review.getRating() + &quot;\n&quot; + &quot;Writer: &quot; + review.getWriter() + &quot;\n&quot; +</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;                &quot;Receiver: &quot; + review.getReceiver();</b>
+<b class="fc"><i class="no-highlight">51</i>&nbsp;        LocalDateTime now = LocalDateTime.now();</b>
+<b class="fc"><i class="no-highlight">52</i>&nbsp;        ReviewResponseModel response = new ReviewResponseModel(reviewString, &quot;added&quot;, now.toString());</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;        return outputBoundary.reportReview(response);</b>
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;    }
+<i class="no-highlight">56</i>&nbsp;
+<i class="no-highlight">57</i>&nbsp;    /**
+<i class="no-highlight">58</i>&nbsp;     * this method deletes the review object from the receiver&#39;s review list, move the review from the database and return a
+<i class="no-highlight">59</i>&nbsp;     * ReviewResponseModel object which includes the content of the review and the status of the review (deleted).
+<i class="no-highlight">60</i>&nbsp;     *
+<i class="no-highlight">61</i>&nbsp;     * @param id ID of the review
+<i class="no-highlight">62</i>&nbsp;     * @return a ReviewResponseModel object which includes the content of the review and the status of the review (added, deleted, hided)
+<i class="no-highlight">63</i>&nbsp;     */
+<i class="no-highlight">64</i>&nbsp;    @Override
+<i class="no-highlight">65</i>&nbsp;    public ReviewResponseModel deleteReview(int id) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">66</i>&nbsp;        Review review = reviewGateway.findReview(id);</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;        String receivername = review.getReceiver();</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;        User receiver = userGateway.findUser(receivername);</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;        receiver.deleteReview(id);</b>
+<b class="fc"><i class="no-highlight">70</i>&nbsp;        reviewGateway.removeReview(id, receivername);</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;        LocalDateTime now = LocalDateTime.now();</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;        ReviewResponseModel response = new ReviewResponseModel(&quot;deleted&quot;, now.toString());</b>
+<b class="fc"><i class="no-highlight">73</i>&nbsp;        return outputBoundary.reportReview(response);</b>
+<i class="no-highlight">74</i>&nbsp;    }
+<i class="no-highlight">75</i>&nbsp;
+<i class="no-highlight">76</i>&nbsp;//    /**
+<i class="no-highlight">77</i>&nbsp;//     * this method hides the review object from the receiver&#39;s review list, do not delte the review from the database
+<i class="no-highlight">78</i>&nbsp;//     * and return a ReviewResponseModel object which includes the content of the review and the status of the
+<i class="no-highlight">79</i>&nbsp;//     * review (hided).
+<i class="no-highlight">80</i>&nbsp;//     *
+<i class="no-highlight">81</i>&nbsp;//     * @param id ID of the review
+<i class="no-highlight">82</i>&nbsp;//     * @return a ReviewResponseModel object which includes the content of the review and the status of the review (added, deleted, hided)
+<i class="no-highlight">83</i>&nbsp;//     */
+<i class="no-highlight">84</i>&nbsp;//    @Override
+<i class="no-highlight">85</i>&nbsp;//    public ReviewResponseModel hideReview(int id) throws IOException, InvalidAttributeValueException {
+<i class="no-highlight">86</i>&nbsp;//        Review review = reviewGateway.findReview(id);
+<i class="no-highlight">87</i>&nbsp;//        String receivername = review.getReceiver();
+<i class="no-highlight">88</i>&nbsp;//        User receiver = userGateway.findUser(receivername);
+<i class="no-highlight">89</i>&nbsp;//        // TODO: manipulate view here?
+<i class="no-highlight">90</i>&nbsp;//        LocalDateTime now = LocalDateTime.now();
+<i class="no-highlight">91</i>&nbsp;//        ReviewResponseModel response = new ReviewResponseModel(&quot;hided&quot;, now.toString());
+<i class="no-highlight">92</i>&nbsp;//        return outputBoundary.reportReview(response);
+<i class="no-highlight">93</i>&nbsp;//    }
+<i class="no-highlight">94</i>&nbsp;//    this method requires manipulating view which is implemented last, will do it if time permitted
+<i class="no-highlight">95</i>&nbsp;
+<i class="no-highlight">96</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -118,7 +195,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

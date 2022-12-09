@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RecordReportOutputData</title>
+  <title>Coverage Report > RecordReportPresenter</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -20,7 +20,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">use_cases.record_report_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: RecordReportOutputData (use_cases.record_report_use_case)</h1>
+<h1>Coverage Summary for Class: RecordReportPresenter (use_cases.record_report_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RecordReportOutputData</td>
+  <td class="name">RecordReportPresenter</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -58,10 +58,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    33.3%
   </span>
   <span class="absValue">
-    (2/4)
+    (3/9)
   </span>
 </td>
 </tr>
@@ -74,24 +74,47 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
-<i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;public class RecordReportOutputData {
-<i class="no-highlight">4</i>&nbsp;    private String timestamp;
-<i class="no-highlight">5</i>&nbsp;    
-<i class="no-highlight">6</i>&nbsp;    /**
-<i class="no-highlight">7</i>&nbsp;     * The constructor instantiating an output data object containing the timestamp
-<i class="no-highlight">8</i>&nbsp;     * corresponding to the report&#39;s creation.
-<i class="no-highlight">9</i>&nbsp;     */
-<b class="fc"><i class="no-highlight">10</i>&nbsp;    public RecordReportOutputData() {</b>
-<b class="fc"><i class="no-highlight">11</i>&nbsp;        timestamp = &quot;&quot;;</b>
-<i class="no-highlight">12</i>&nbsp;    }
-<i class="no-highlight">13</i>&nbsp;    
-<i class="no-highlight">14</i>&nbsp;    /*
-<i class="no-highlight">15</i>&nbsp;    Getters and setters.
-<i class="no-highlight">16</i>&nbsp;     */
-<b class="nc"><i class="no-highlight">17</i>&nbsp;    public String getTimestamp() { return timestamp; }</b>
-<b class="nc"><i class="no-highlight">18</i>&nbsp;    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }</b>
-<i class="no-highlight">19</i>&nbsp;}
+<i class="no-highlight">2</i>&nbsp;import screens.record_report.RecordReportResultViewModel;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;import java.text.SimpleDateFormat;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;public class RecordReportPresenter implements RecordReportOutputBoundary {
+<i class="no-highlight">7</i>&nbsp;    RecordReportOutputData recordReportOD;
+<i class="no-highlight">8</i>&nbsp;    RecordReportResultViewModel recordReportRVM;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;    /**
+<i class="no-highlight">11</i>&nbsp;     * Constructor for the presenter class.
+<i class="no-highlight">12</i>&nbsp;     * @param recordReportOD    An instance of the output data.
+<i class="no-highlight">13</i>&nbsp;     * @param recordReportRVM   An instance of the view model.
+<i class="no-highlight">14</i>&nbsp;     */
+<i class="no-highlight">15</i>&nbsp;    public RecordReportPresenter(RecordReportOutputData recordReportOD,
+<b class="fc"><i class="no-highlight">16</i>&nbsp;                                 RecordReportResultViewModel recordReportRVM) {</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        this.recordReportOD = recordReportOD;</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;        this.recordReportRVM = recordReportRVM;</b>
+<i class="no-highlight">19</i>&nbsp;    }
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;    /**
+<i class="no-highlight">22</i>&nbsp;     * Calls the success view of the use case view model if success is true and the fail view
+<i class="no-highlight">23</i>&nbsp;     * of it when success is false. Returns the instance of the recordReportOutputBoundary.
+<i class="no-highlight">24</i>&nbsp;     * @param success This is the success boolean variable.
+<i class="no-highlight">25</i>&nbsp;     * @return recordReportOD This is the instance of the recordReportOutputBoundary.
+<i class="no-highlight">26</i>&nbsp;     */
+<i class="no-highlight">27</i>&nbsp;    @Override
+<i class="no-highlight">28</i>&nbsp;    public RecordReportOutputData responseView(boolean success) {
+<b class="nc"><i class="no-highlight">29</i>&nbsp;        if (success) recordReportRVM.successView();</b>
+<b class="nc"><i class="no-highlight">30</i>&nbsp;        else recordReportRVM.failView();</b>
+<b class="nc"><i class="no-highlight">31</i>&nbsp;        this.setTimestamp();</b>
+<b class="nc"><i class="no-highlight">32</i>&nbsp;        return recordReportOD;</b>
+<i class="no-highlight">33</i>&nbsp;    }
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    /**
+<i class="no-highlight">36</i>&nbsp;     * Assigns a timestamp to the instance of the recordReportOutputBoundary.
+<i class="no-highlight">37</i>&nbsp;     */
+<i class="no-highlight">38</i>&nbsp;    public void setTimestamp() {
+<b class="nc"><i class="no-highlight">39</i>&nbsp;        String timestamp = new SimpleDateFormat(&quot;yyyy.MM.dd.HH.mm.ss&quot;).format(new java.util.Date());</b>
+<b class="nc"><i class="no-highlight">40</i>&nbsp;        recordReportOD.setTimestamp(timestamp);</b>
+<i class="no-highlight">41</i>&nbsp;    }
+<i class="no-highlight">42</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -118,7 +141,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:02</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

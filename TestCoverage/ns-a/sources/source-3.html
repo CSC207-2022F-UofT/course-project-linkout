@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RecordReportInteractor</title>
+  <title>Coverage Report > RecordReportOutputData</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -20,7 +20,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">use_cases.record_report_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: RecordReportInteractor (use_cases.record_report_use_case)</h1>
+<h1>Coverage Summary for Class: RecordReportOutputData (use_cases.record_report_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RecordReportInteractor</td>
+  <td class="name">RecordReportOutputData</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -50,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    33.3%
   </span>
   <span class="absValue">
-    (2/2)
+    (1/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    87.5%
+    50%
   </span>
   <span class="absValue">
-    (14/16)
+    (2/4)
   </span>
 </td>
 </tr>
@@ -74,59 +74,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
-<i class="no-highlight">2</i>&nbsp;import entities.*;
-<i class="no-highlight">3</i>&nbsp;
-<i class="no-highlight">4</i>&nbsp;public class RecordReportInteractor implements RecordReportInputBoundary {
-<i class="no-highlight">5</i>&nbsp;    RecordReportOutputBoundary recordReportOB;
-<i class="no-highlight">6</i>&nbsp;    ReportDatabaseGateway recordReportDB;
-<i class="no-highlight">7</i>&nbsp;    RecordReportGateway recordReportGateway;
-<i class="no-highlight">8</i>&nbsp;    boolean success;
-<i class="no-highlight">9</i>&nbsp;    String adminID;
-<i class="no-highlight">10</i>&nbsp;    
-<i class="no-highlight">11</i>&nbsp;    /**
-<i class="no-highlight">12</i>&nbsp;     * The constructor of an interactor object.
-<i class="no-highlight">13</i>&nbsp;     * @param recordReportOB        The instance of the output boundary.
-<i class="no-highlight">14</i>&nbsp;     * @param recordReportGateway   The instance of the gateway.
-<i class="no-highlight">15</i>&nbsp;     * @param recordReportDB        The instance of the database gateway.
-<i class="no-highlight">16</i>&nbsp;     * @param adminID               The admin ID (to be determined outside this use case).
-<i class="no-highlight">17</i>&nbsp;     */
-<b class="fc"><i class="no-highlight">18</i>&nbsp;    public RecordReportInteractor(RecordReportOutputBoundary recordReportOB, RecordReportGateway recordReportGateway, ReportDatabaseGateway recordReportDB, String adminID) {</b>
-<b class="fc"><i class="no-highlight">19</i>&nbsp;        this.recordReportOB = recordReportOB;</b>
-<b class="fc"><i class="no-highlight">20</i>&nbsp;        this.recordReportDB = recordReportDB;</b>
-<b class="fc"><i class="no-highlight">21</i>&nbsp;        this.recordReportGateway = recordReportGateway;</b>
-<b class="fc"><i class="no-highlight">22</i>&nbsp;        this.adminID = adminID;</b>
-<i class="no-highlight">23</i>&nbsp;    }
-<i class="no-highlight">24</i>&nbsp;    
-<i class="no-highlight">25</i>&nbsp;    /**
-<i class="no-highlight">26</i>&nbsp;     * The primary function of the functionality of the record report use case.
-<i class="no-highlight">27</i>&nbsp;     * A report object is created and stored in the user&#39;s reports attribute.
-<i class="no-highlight">28</i>&nbsp;     * The admin is simultaneously notified. If this succeeds, the success view
-<i class="no-highlight">29</i>&nbsp;     * is prepared. If this fails, the catch clause will be reached and the fail
-<i class="no-highlight">30</i>&nbsp;     * view is prepared.
-<i class="no-highlight">31</i>&nbsp;     *
-<i class="no-highlight">32</i>&nbsp;     * @param r The instance of the input data.
-<i class="no-highlight">33</i>&nbsp;     * @return  The responseView function.
-<i class="no-highlight">34</i>&nbsp;     */
-<i class="no-highlight">35</i>&nbsp;    @Override
-<i class="no-highlight">36</i>&nbsp;    public RecordReportOutputData createReport(RecordReportInputData r) {
-<b class="fc"><i class="no-highlight">37</i>&nbsp;        Report report = new Report(r.getReportingUserID(), r.getReportedUserID(),</b>
-<b class="fc"><i class="no-highlight">38</i>&nbsp;                r.getCategory(), r.getReportText(), r.getSupportingEvidence());</b>
-<i class="no-highlight">39</i>&nbsp;
-<i class="no-highlight">40</i>&nbsp;        try {
-<b class="fc"><i class="no-highlight">41</i>&nbsp;            Admin admin = recordReportGateway.findAdmin(adminID);</b>
-<b class="fc"><i class="no-highlight">42</i>&nbsp;            if (admin != null) {</b>
-<b class="fc"><i class="no-highlight">43</i>&nbsp;                recordReportDB.saveReport(report);</b>
-<b class="fc"><i class="no-highlight">44</i>&nbsp;                String message = &quot;A new report has been filed against &quot; + report.getReportedUserID();</b>
-<b class="fc"><i class="no-highlight">45</i>&nbsp;                admin.addMessage(message);</b>
-<b class="fc"><i class="no-highlight">46</i>&nbsp;                success = true;</b>
-<i class="no-highlight">47</i>&nbsp;            }
-<i class="no-highlight">48</i>&nbsp;
-<b class="fc"><i class="no-highlight">49</i>&nbsp;            return recordReportOB.responseView(success);</b>
-<b class="nc"><i class="no-highlight">50</i>&nbsp;        } catch (Exception e) {</b>
-<b class="nc"><i class="no-highlight">51</i>&nbsp;            return recordReportOB.responseView(success);</b>
-<i class="no-highlight">52</i>&nbsp;        }
-<i class="no-highlight">53</i>&nbsp;    }
-<i class="no-highlight">54</i>&nbsp;}
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;public class RecordReportOutputData {
+<i class="no-highlight">4</i>&nbsp;    private String timestamp;
+<i class="no-highlight">5</i>&nbsp;    
+<i class="no-highlight">6</i>&nbsp;    /**
+<i class="no-highlight">7</i>&nbsp;     * The constructor instantiating an output data object containing the timestamp
+<i class="no-highlight">8</i>&nbsp;     * corresponding to the report&#39;s creation.
+<i class="no-highlight">9</i>&nbsp;     */
+<b class="fc"><i class="no-highlight">10</i>&nbsp;    public RecordReportOutputData() {</b>
+<b class="fc"><i class="no-highlight">11</i>&nbsp;        timestamp = &quot;&quot;;</b>
+<i class="no-highlight">12</i>&nbsp;    }
+<i class="no-highlight">13</i>&nbsp;    
+<i class="no-highlight">14</i>&nbsp;    /*
+<i class="no-highlight">15</i>&nbsp;    Getters and setters.
+<i class="no-highlight">16</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">17</i>&nbsp;    public String getTimestamp() { return timestamp; }</b>
+<b class="nc"><i class="no-highlight">18</i>&nbsp;    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }</b>
+<i class="no-highlight">19</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -153,7 +118,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:02</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

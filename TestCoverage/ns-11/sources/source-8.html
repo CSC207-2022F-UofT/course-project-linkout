@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > SearchDSGateway</title>
+  <title>Coverage Report > UserInputBoundary</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,17 +17,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.search_use_case</a>
+    <a href="../index.html">use_cases.user_manager_user_case</a>
 </div>
 
-<h1>Coverage Summary for Class: SearchDSGateway (use_cases.search_use_case)</h1>
+<h1>Coverage Summary for Class: UserInputBoundary (use_cases.user_manager_user_case)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">SearchDSGateway</td>
+  <td class="name">UserInputBoundary</td>
 </tr>
 
 </table>
@@ -37,21 +37,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.search_use_case;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.user_manager_user_case;
 <i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;import entities.User;
+<i class="no-highlight">3</i>&nbsp;
 <i class="no-highlight">4</i>&nbsp;import javax.management.InvalidAttributeValueException;
 <i class="no-highlight">5</i>&nbsp;import java.io.IOException;
-<i class="no-highlight">6</i>&nbsp;import java.util.List;
-<i class="no-highlight">7</i>&nbsp;
-<i class="no-highlight">8</i>&nbsp;public interface SearchDSGateway {
-<i class="no-highlight">9</i>&nbsp;    List&lt;User&gt; searchSheet(String keywords, String username) throws IOException, InvalidAttributeValueException;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;public interface UserInputBoundary {
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;    void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 <i class="no-highlight">10</i>&nbsp;
-<i class="no-highlight">11</i>&nbsp;    String getWorkingDir();
+<i class="no-highlight">11</i>&nbsp;    void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 <i class="no-highlight">12</i>&nbsp;
-<i class="no-highlight">13</i>&nbsp;    void SaveSeen(String username, List&lt;User&gt; usersViewed) throws IOException, InvalidAttributeValueException;
+<i class="no-highlight">13</i>&nbsp;    void showReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
 <i class="no-highlight">14</i>&nbsp;
-<i class="no-highlight">15</i>&nbsp;}
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -78,7 +83,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

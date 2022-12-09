@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > SearchRequestModel</title>
+  <title>Coverage Report > UserRequestModel</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.search_use_case</a>
+    <a href="../index.html">use_cases.user_manager_user_case</a>
 </div>
 
-<h1>Coverage Summary for Class: SearchRequestModel (use_cases.search_use_case)</h1>
+<h1>Coverage Summary for Class: UserRequestModel (use_cases.user_manager_user_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">SearchRequestModel</td>
+  <td class="name">UserRequestModel</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -73,38 +73,27 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.search_use_case;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.user_manager_user_case;
 <i class="no-highlight">2</i>&nbsp;
 <i class="no-highlight">3</i>&nbsp;
-<i class="no-highlight">4</i>&nbsp;public class SearchRequestModel {
-<i class="no-highlight">5</i>&nbsp;
-<i class="no-highlight">6</i>&nbsp;    private final String keywords;
-<i class="no-highlight">7</i>&nbsp;    private final String username;
+<i class="no-highlight">4</i>&nbsp;
+<i class="no-highlight">5</i>&nbsp;public class UserRequestModel {
+<i class="no-highlight">6</i>&nbsp;    private final String accName;
+<i class="no-highlight">7</i>&nbsp;    private float restrictionTime;
 <i class="no-highlight">8</i>&nbsp;
-<i class="no-highlight">9</i>&nbsp;    /**
-<i class="no-highlight">10</i>&nbsp;     * Create a new SearchRequestModel with valid keywords entered by the user as the input data.
-<i class="no-highlight">11</i>&nbsp;     * &lt;p&gt;
-<i class="no-highlight">12</i>&nbsp;     * Preconditions:
-<i class="no-highlight">13</i>&nbsp;     * (1) keywords entered is not empty;
-<i class="no-highlight">14</i>&nbsp;     * (2) keywords entered is in the form that each feature intereted is separated by comma (e.g. &quot;tennnis, 22, straight&quot;)
-<i class="no-highlight">15</i>&nbsp;     *
-<i class="no-highlight">16</i>&nbsp;     * @param keywords the valid keywords entered by the user
-<i class="no-highlight">17</i>&nbsp;     * @param username the user who is searching
-<i class="no-highlight">18</i>&nbsp;     */
-<i class="no-highlight">19</i>&nbsp;
-<b class="fc"><i class="no-highlight">20</i>&nbsp;    public SearchRequestModel(String keywords, String username) {</b>
-<b class="fc"><i class="no-highlight">21</i>&nbsp;        this.keywords = keywords;</b>
-<b class="fc"><i class="no-highlight">22</i>&nbsp;        this.username = username;</b>
-<i class="no-highlight">23</i>&nbsp;    }
-<i class="no-highlight">24</i>&nbsp;
-<i class="no-highlight">25</i>&nbsp;    public String getKeywords() {
-<b class="fc"><i class="no-highlight">26</i>&nbsp;        return keywords;</b>
-<i class="no-highlight">27</i>&nbsp;    }
-<i class="no-highlight">28</i>&nbsp;
-<i class="no-highlight">29</i>&nbsp;    public String getUsername() {
-<b class="fc"><i class="no-highlight">30</i>&nbsp;        return username;</b>
-<i class="no-highlight">31</i>&nbsp;    }
-<i class="no-highlight">32</i>&nbsp;}
+<b class="fc"><i class="no-highlight">9</i>&nbsp;    public UserRequestModel(String accName, float time ){</b>
+<b class="fc"><i class="no-highlight">10</i>&nbsp;        this.accName = accName;</b>
+<b class="fc"><i class="no-highlight">11</i>&nbsp;        this.restrictionTime = time;</b>
+<i class="no-highlight">12</i>&nbsp;    }
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;    public String getAccName(){
+<b class="fc"><i class="no-highlight">15</i>&nbsp;        return accName;</b>
+<i class="no-highlight">16</i>&nbsp;    }
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    public float getRestrictionTime(){
+<b class="fc"><i class="no-highlight">19</i>&nbsp;        return restrictionTime;</b>
+<i class="no-highlight">20</i>&nbsp;    }
+<i class="no-highlight">21</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -131,7 +120,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

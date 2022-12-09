@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RecordReportController</title>
+  <title>Coverage Report > IncompleteReviewException</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.record_report_use_case</a>
+    <a href="../index.html">use_cases.review_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: RecordReportController (use_cases.record_report_use_case)</h1>
+<h1>Coverage Summary for Class: IncompleteReviewException (use_cases.review_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RecordReportController</td>
+  <td class="name">IncompleteReviewException</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -53,7 +53,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/2)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
@@ -61,7 +61,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/4)
+    (0/1)
   </span>
 </td>
 </tr>
@@ -73,35 +73,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.review_use_case;
 <i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;
-<i class="no-highlight">4</i>&nbsp;public class RecordReportController {
-<i class="no-highlight">5</i>&nbsp;    RecordReportInputBoundary recordReportIB;
-<i class="no-highlight">6</i>&nbsp;
-<i class="no-highlight">7</i>&nbsp;    /**
-<i class="no-highlight">8</i>&nbsp;     * Constructor
-<i class="no-highlight">9</i>&nbsp;     * @param recordReportIB    The instance of the input boundary (usually the interactor).
-<i class="no-highlight">10</i>&nbsp;     */
-<b class="nc"><i class="no-highlight">11</i>&nbsp;    public RecordReportController(RecordReportInputBoundary recordReportIB) {</b>
-<b class="nc"><i class="no-highlight">12</i>&nbsp;        this.recordReportIB = recordReportIB;</b>
-<i class="no-highlight">13</i>&nbsp;    }
-<i class="no-highlight">14</i>&nbsp;
-<i class="no-highlight">15</i>&nbsp;    /**
-<i class="no-highlight">16</i>&nbsp;     * Creates a report from the specified parameters. It is passed to the interactor.
-<i class="no-highlight">17</i>&nbsp;     * @param r1    The ID of the user who made the report.
-<i class="no-highlight">18</i>&nbsp;     * @param r2    The ID of the user which the report concerns.
-<i class="no-highlight">19</i>&nbsp;     * @param c     The category of the report.
-<i class="no-highlight">20</i>&nbsp;     * @param t     The text of the report.
-<i class="no-highlight">21</i>&nbsp;     * @param se    Any supporting evidence (e.g., links to images) for the report.
-<i class="no-highlight">22</i>&nbsp;     * @return recordReportIB
-<i class="no-highlight">23</i>&nbsp;     */
-<i class="no-highlight">24</i>&nbsp;    public RecordReportOutputData createReport(String r1, String r2, String c,
-<i class="no-highlight">25</i>&nbsp;                                               String t, String se) {
-<b class="nc"><i class="no-highlight">26</i>&nbsp;        RecordReportInputData recordReportID = new RecordReportInputData(r1, r2, c, t, se);</b>
-<b class="nc"><i class="no-highlight">27</i>&nbsp;        return recordReportIB.createReport(recordReportID);</b>
-<i class="no-highlight">28</i>&nbsp;    }
-<i class="no-highlight">29</i>&nbsp;}
+<i class="no-highlight">3</i>&nbsp;public class IncompleteReviewException extends Exception{
+<i class="no-highlight">4</i>&nbsp;    public IncompleteReviewException() {
+<b class="nc"><i class="no-highlight">5</i>&nbsp;        super(&quot;This review is not complete.&quot;);</b>
+<i class="no-highlight">6</i>&nbsp;    }
+<i class="no-highlight">7</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -128,7 +106,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

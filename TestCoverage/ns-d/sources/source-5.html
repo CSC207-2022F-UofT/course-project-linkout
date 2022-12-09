@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > RecordReportPresenter</title>
+  <title>Coverage Report > ReviewPresenter</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.record_report_use_case</a>
+    <a href="../index.html">use_cases.review_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: RecordReportPresenter (use_cases.record_report_use_case)</h1>
+<h1>Coverage Summary for Class: ReviewPresenter (use_cases.review_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RecordReportPresenter</td>
+  <td class="name">ReviewPresenter</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -50,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    100%
   </span>
   <span class="absValue">
-    (1/3)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    100%
   </span>
   <span class="absValue">
-    (3/9)
+    (6/6)
   </span>
 </td>
 </tr>
@@ -73,48 +73,39 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
-<i class="no-highlight">2</i>&nbsp;import screens.record_report.RecordReportResultViewModel;
-<i class="no-highlight">3</i>&nbsp;
-<i class="no-highlight">4</i>&nbsp;import java.text.SimpleDateFormat;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.review_use_case;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.time.LocalDateTime;
+<i class="no-highlight">4</i>&nbsp;import java.time.format.DateTimeFormatter;
 <i class="no-highlight">5</i>&nbsp;
-<i class="no-highlight">6</i>&nbsp;public class RecordReportPresenter implements RecordReportOutputBoundary {
-<i class="no-highlight">7</i>&nbsp;    RecordReportOutputData recordReportOD;
-<i class="no-highlight">8</i>&nbsp;    RecordReportResultViewModel recordReportRVM;
+<i class="no-highlight">6</i>&nbsp;import screens.review_screen.IReviewView;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;public class ReviewPresenter implements ReviewOutputBoundary{
 <i class="no-highlight">9</i>&nbsp;
-<i class="no-highlight">10</i>&nbsp;    /**
-<i class="no-highlight">11</i>&nbsp;     * Constructor for the presenter class.
-<i class="no-highlight">12</i>&nbsp;     * @param recordReportOD    An instance of the output data.
-<i class="no-highlight">13</i>&nbsp;     * @param recordReportRVM   An instance of the view model.
-<i class="no-highlight">14</i>&nbsp;     */
-<i class="no-highlight">15</i>&nbsp;    public RecordReportPresenter(RecordReportOutputData recordReportOD,
-<b class="fc"><i class="no-highlight">16</i>&nbsp;                                 RecordReportResultViewModel recordReportRVM) {</b>
-<b class="fc"><i class="no-highlight">17</i>&nbsp;        this.recordReportOD = recordReportOD;</b>
-<b class="fc"><i class="no-highlight">18</i>&nbsp;        this.recordReportRVM = recordReportRVM;</b>
-<i class="no-highlight">19</i>&nbsp;    }
-<i class="no-highlight">20</i>&nbsp;
-<i class="no-highlight">21</i>&nbsp;    /**
-<i class="no-highlight">22</i>&nbsp;     * Calls the success view of the use case view model if success is true and the fail view
-<i class="no-highlight">23</i>&nbsp;     * of it when success is false. Returns the instance of the recordReportOutputBoundary.
-<i class="no-highlight">24</i>&nbsp;     * @param success This is the success boolean variable.
-<i class="no-highlight">25</i>&nbsp;     * @return recordReportOD This is the instance of the recordReportOutputBoundary.
-<i class="no-highlight">26</i>&nbsp;     */
-<i class="no-highlight">27</i>&nbsp;    @Override
-<i class="no-highlight">28</i>&nbsp;    public RecordReportOutputData responseView(boolean success) {
-<b class="nc"><i class="no-highlight">29</i>&nbsp;        if (success) recordReportRVM.successView();</b>
-<b class="nc"><i class="no-highlight">30</i>&nbsp;        else recordReportRVM.failView();</b>
-<b class="nc"><i class="no-highlight">31</i>&nbsp;        this.setTimestamp();</b>
-<b class="nc"><i class="no-highlight">32</i>&nbsp;        return recordReportOD;</b>
-<i class="no-highlight">33</i>&nbsp;    }
-<i class="no-highlight">34</i>&nbsp;
-<i class="no-highlight">35</i>&nbsp;    /**
-<i class="no-highlight">36</i>&nbsp;     * Assigns a timestamp to the instance of the recordReportOutputBoundary.
-<i class="no-highlight">37</i>&nbsp;     */
-<i class="no-highlight">38</i>&nbsp;    public void setTimestamp() {
-<b class="nc"><i class="no-highlight">39</i>&nbsp;        String timestamp = new SimpleDateFormat(&quot;yyyy.MM.dd.HH.mm.ss&quot;).format(new java.util.Date());</b>
-<b class="nc"><i class="no-highlight">40</i>&nbsp;        recordReportOD.setTimestamp(timestamp);</b>
-<i class="no-highlight">41</i>&nbsp;    }
-<i class="no-highlight">42</i>&nbsp;}
+<i class="no-highlight">10</i>&nbsp;    private IReviewView iView;
+<i class="no-highlight">11</i>&nbsp;
+<b class="fc"><i class="no-highlight">12</i>&nbsp;    public ReviewPresenter(IReviewView iView) {</b>
+<b class="fc"><i class="no-highlight">13</i>&nbsp;        this.iView = iView;</b>
+<i class="no-highlight">14</i>&nbsp;    }
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    /**
+<i class="no-highlight">17</i>&nbsp;     * this method reports the status pf a review after an action (add,delete,hide) is performed on this
+<i class="no-highlight">18</i>&nbsp;     * review，along with the time the action is performed.
+<i class="no-highlight">19</i>&nbsp;     *
+<i class="no-highlight">20</i>&nbsp;     * @param responseModel a ReviewResponseModel containing the content, status and action time of a review
+<i class="no-highlight">21</i>&nbsp;     *                      when the review is added. When a review is deleted or hided, the response model will
+<i class="no-highlight">22</i>&nbsp;     *                      only have the status and action time of the review.
+<i class="no-highlight">23</i>&nbsp;     * @return ReviewResponseModel
+<i class="no-highlight">24</i>&nbsp;     */
+<i class="no-highlight">25</i>&nbsp;    @Override
+<i class="no-highlight">26</i>&nbsp;    public ReviewResponseModel reportReview(ReviewResponseModel responseModel) {
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        LocalDateTime responseTime = LocalDateTime.parse(responseModel.getCreationTime());</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        responseModel.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern(&quot;hh:mm:ss&quot;)));</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        iView.updateMessage();</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        return responseModel;</b>
+<i class="no-highlight">31</i>&nbsp;    }
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -141,7 +132,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>

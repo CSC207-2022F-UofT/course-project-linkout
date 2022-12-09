@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > UserRegisterRequestModel</title>
+  <title>Coverage Report > SearchRequestModel</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/highlight-idea.css";
@@ -17,10 +17,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">use_cases.regular_user_register_use_case</a>
+    <a href="../index.html">use_cases.search_use_case</a>
 </div>
 
-<h1>Coverage Summary for Class: UserRegisterRequestModel (use_cases.regular_user_register_use_case)</h1>
+<h1>Coverage Summary for Class: SearchRequestModel (use_cases.search_use_case)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,29 +39,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">UserRegisterRequestModel</td>
+  <td class="name">SearchRequestModel</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/26)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/38)
+    (5/5)
   </span>
 </td>
 </tr>
@@ -73,166 +73,38 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.regular_user_register_use_case;
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.search_use_case;
 <i class="no-highlight">2</i>&nbsp;
-<i class="no-highlight">3</i>&nbsp;import entities.Profile;
-<i class="no-highlight">4</i>&nbsp;
-<i class="no-highlight">5</i>&nbsp;public class UserRegisterRequestModel {
-<i class="no-highlight">6</i>&nbsp;
-<i class="no-highlight">7</i>&nbsp;    private String AccountName;
-<i class="no-highlight">8</i>&nbsp;    private String password;
-<i class="no-highlight">9</i>&nbsp;    private String repeatPassword;
-<i class="no-highlight">10</i>&nbsp;
-<i class="no-highlight">11</i>&nbsp;    private String location;
-<i class="no-highlight">12</i>&nbsp;
-<i class="no-highlight">13</i>&nbsp;    private String gender;
-<i class="no-highlight">14</i>&nbsp;
-<i class="no-highlight">15</i>&nbsp;    private String age;
-<i class="no-highlight">16</i>&nbsp;
-<i class="no-highlight">17</i>&nbsp;    private String sexuality;
-<i class="no-highlight">18</i>&nbsp;
-<i class="no-highlight">19</i>&nbsp;    private String hobbies;
-<i class="no-highlight">20</i>&nbsp;
-<i class="no-highlight">21</i>&nbsp;    private String height;
-<i class="no-highlight">22</i>&nbsp;
-<i class="no-highlight">23</i>&nbsp;    private String weight;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;public class SearchRequestModel {
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;    private final String keywords;
+<i class="no-highlight">7</i>&nbsp;    private final String username;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;    /**
+<i class="no-highlight">10</i>&nbsp;     * Create a new SearchRequestModel with valid keywords entered by the user as the input data.
+<i class="no-highlight">11</i>&nbsp;     * &lt;p&gt;
+<i class="no-highlight">12</i>&nbsp;     * Preconditions:
+<i class="no-highlight">13</i>&nbsp;     * (1) keywords entered is not empty;
+<i class="no-highlight">14</i>&nbsp;     * (2) keywords entered is in the form that each feature intereted is separated by comma (e.g. &quot;tennnis, 22, straight&quot;)
+<i class="no-highlight">15</i>&nbsp;     *
+<i class="no-highlight">16</i>&nbsp;     * @param keywords the valid keywords entered by the user
+<i class="no-highlight">17</i>&nbsp;     * @param username the user who is searching
+<i class="no-highlight">18</i>&nbsp;     */
+<i class="no-highlight">19</i>&nbsp;
+<b class="fc"><i class="no-highlight">20</i>&nbsp;    public SearchRequestModel(String keywords, String username) {</b>
+<b class="fc"><i class="no-highlight">21</i>&nbsp;        this.keywords = keywords;</b>
+<b class="fc"><i class="no-highlight">22</i>&nbsp;        this.username = username;</b>
+<i class="no-highlight">23</i>&nbsp;    }
 <i class="no-highlight">24</i>&nbsp;
-<i class="no-highlight">25</i>&nbsp;    private String contactInformation;
-<i class="no-highlight">26</i>&nbsp;
-<i class="no-highlight">27</i>&nbsp;    private String selfDescription;
+<i class="no-highlight">25</i>&nbsp;    public String getKeywords() {
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        return keywords;</b>
+<i class="no-highlight">27</i>&nbsp;    }
 <i class="no-highlight">28</i>&nbsp;
-<i class="no-highlight">29</i>&nbsp;    /**
-<i class="no-highlight">30</i>&nbsp;     * @param AccountName the accountname of user
-<i class="no-highlight">31</i>&nbsp;     * @param password the password of user
-<i class="no-highlight">32</i>&nbsp;     * @param repeatPassword the repeatPassword of user
-<i class="no-highlight">33</i>&nbsp;     * @param location the location of user
-<i class="no-highlight">34</i>&nbsp;     * @param gender the gender of user
-<i class="no-highlight">35</i>&nbsp;     * @param age the age of user
-<i class="no-highlight">36</i>&nbsp;     * @param sexuality the sexuality of user
-<i class="no-highlight">37</i>&nbsp;     * @param hobbies the hobbies of user
-<i class="no-highlight">38</i>&nbsp;     * @param height the height of user
-<i class="no-highlight">39</i>&nbsp;     * @param weight the weight of user
-<i class="no-highlight">40</i>&nbsp;     * @param contactInformation the contactInformation of user
-<i class="no-highlight">41</i>&nbsp;     * @param selfDescription the selfDescription of user
-<i class="no-highlight">42</i>&nbsp;     */
-<i class="no-highlight">43</i>&nbsp;    public UserRegisterRequestModel(String AccountName, String password, String repeatPassword, String location,
-<i class="no-highlight">44</i>&nbsp;                                    String gender, String age, String sexuality,
-<i class="no-highlight">45</i>&nbsp;                                    String hobbies, String height, String weight, String contactInformation,
-<b class="nc"><i class="no-highlight">46</i>&nbsp;                                    String selfDescription) {</b>
-<b class="nc"><i class="no-highlight">47</i>&nbsp;        this.AccountName = AccountName;</b>
-<b class="nc"><i class="no-highlight">48</i>&nbsp;        this.password = password;</b>
-<b class="nc"><i class="no-highlight">49</i>&nbsp;        this.repeatPassword = repeatPassword;</b>
-<b class="nc"><i class="no-highlight">50</i>&nbsp;        this.location = location;</b>
-<b class="nc"><i class="no-highlight">51</i>&nbsp;        this.gender = gender;</b>
-<b class="nc"><i class="no-highlight">52</i>&nbsp;        this.age = age;</b>
-<b class="nc"><i class="no-highlight">53</i>&nbsp;        this.sexuality = sexuality;</b>
-<b class="nc"><i class="no-highlight">54</i>&nbsp;        this.hobbies = hobbies;</b>
-<b class="nc"><i class="no-highlight">55</i>&nbsp;        this.height = height;</b>
-<b class="nc"><i class="no-highlight">56</i>&nbsp;        this.weight = weight;</b>
-<b class="nc"><i class="no-highlight">57</i>&nbsp;        this.contactInformation = contactInformation;</b>
-<b class="nc"><i class="no-highlight">58</i>&nbsp;        this.selfDescription = selfDescription;</b>
-<i class="no-highlight">59</i>&nbsp;    }
-<i class="no-highlight">60</i>&nbsp;
-<i class="no-highlight">61</i>&nbsp;    String getAccountName() {
-<b class="nc"><i class="no-highlight">62</i>&nbsp;        return AccountName;</b>
-<i class="no-highlight">63</i>&nbsp;    }
-<i class="no-highlight">64</i>&nbsp;
-<i class="no-highlight">65</i>&nbsp;    void setName(String name) {
-<b class="nc"><i class="no-highlight">66</i>&nbsp;        this.AccountName = name;</b>
-<i class="no-highlight">67</i>&nbsp;    }
-<i class="no-highlight">68</i>&nbsp;
-<i class="no-highlight">69</i>&nbsp;    String getPassword() {
-<b class="nc"><i class="no-highlight">70</i>&nbsp;        return password;</b>
-<i class="no-highlight">71</i>&nbsp;    }
-<i class="no-highlight">72</i>&nbsp;
-<i class="no-highlight">73</i>&nbsp;    void setPassword(String password) {
-<b class="nc"><i class="no-highlight">74</i>&nbsp;        this.password = password;</b>
-<i class="no-highlight">75</i>&nbsp;    }
-<i class="no-highlight">76</i>&nbsp;
-<i class="no-highlight">77</i>&nbsp;    public String getRepeatPassword() {
-<b class="nc"><i class="no-highlight">78</i>&nbsp;        return repeatPassword;</b>
-<i class="no-highlight">79</i>&nbsp;    }
-<i class="no-highlight">80</i>&nbsp;
-<i class="no-highlight">81</i>&nbsp;    public void setRepeatPassword(String repeatPassword) {
-<b class="nc"><i class="no-highlight">82</i>&nbsp;        this.repeatPassword = repeatPassword;</b>
-<i class="no-highlight">83</i>&nbsp;    }
-<i class="no-highlight">84</i>&nbsp;
-<i class="no-highlight">85</i>&nbsp;    public String getContactInformation() {
-<b class="nc"><i class="no-highlight">86</i>&nbsp;        return contactInformation;</b>
-<i class="no-highlight">87</i>&nbsp;    }
-<i class="no-highlight">88</i>&nbsp;
-<i class="no-highlight">89</i>&nbsp;    public String getWeight() {
-<b class="nc"><i class="no-highlight">90</i>&nbsp;        return weight;</b>
-<i class="no-highlight">91</i>&nbsp;    }
-<i class="no-highlight">92</i>&nbsp;
-<i class="no-highlight">93</i>&nbsp;    public String getAge() {
-<b class="nc"><i class="no-highlight">94</i>&nbsp;        return age;</b>
-<i class="no-highlight">95</i>&nbsp;    }
-<i class="no-highlight">96</i>&nbsp;
-<i class="no-highlight">97</i>&nbsp;    public String getHeight() {
-<b class="nc"><i class="no-highlight">98</i>&nbsp;        return height;</b>
-<i class="no-highlight">99</i>&nbsp;    }
-<i class="no-highlight">100</i>&nbsp;
-<i class="no-highlight">101</i>&nbsp;    public String getHobbies() {
-<b class="nc"><i class="no-highlight">102</i>&nbsp;        return hobbies;</b>
-<i class="no-highlight">103</i>&nbsp;    }
-<i class="no-highlight">104</i>&nbsp;
-<i class="no-highlight">105</i>&nbsp;    public String getGender() {
-<b class="nc"><i class="no-highlight">106</i>&nbsp;        return gender;</b>
-<i class="no-highlight">107</i>&nbsp;    }
-<i class="no-highlight">108</i>&nbsp;
-<i class="no-highlight">109</i>&nbsp;    public String getLocation() {
-<b class="nc"><i class="no-highlight">110</i>&nbsp;        return location;</b>
-<i class="no-highlight">111</i>&nbsp;    }
-<i class="no-highlight">112</i>&nbsp;
-<i class="no-highlight">113</i>&nbsp;    public String getSexuality() {
-<b class="nc"><i class="no-highlight">114</i>&nbsp;        return sexuality;</b>
-<i class="no-highlight">115</i>&nbsp;    }
-<i class="no-highlight">116</i>&nbsp;
-<i class="no-highlight">117</i>&nbsp;    public String getSelfDescription() {
-<b class="nc"><i class="no-highlight">118</i>&nbsp;        return selfDescription;</b>
-<i class="no-highlight">119</i>&nbsp;    }
-<i class="no-highlight">120</i>&nbsp;
-<i class="no-highlight">121</i>&nbsp;    public void setAge(String age) {
-<b class="nc"><i class="no-highlight">122</i>&nbsp;        this.age = age;</b>
-<i class="no-highlight">123</i>&nbsp;    }
-<i class="no-highlight">124</i>&nbsp;
-<i class="no-highlight">125</i>&nbsp;    public void setContactInformation(String contactInformation) {
-<b class="nc"><i class="no-highlight">126</i>&nbsp;        this.contactInformation = contactInformation;</b>
-<i class="no-highlight">127</i>&nbsp;    }
-<i class="no-highlight">128</i>&nbsp;
-<i class="no-highlight">129</i>&nbsp;    public void setGender(String gender) {
-<b class="nc"><i class="no-highlight">130</i>&nbsp;        this.gender = gender;</b>
-<i class="no-highlight">131</i>&nbsp;    }
-<i class="no-highlight">132</i>&nbsp;
-<i class="no-highlight">133</i>&nbsp;    public void setHeight(String height) {
-<b class="nc"><i class="no-highlight">134</i>&nbsp;        this.height = height;</b>
-<i class="no-highlight">135</i>&nbsp;    }
-<i class="no-highlight">136</i>&nbsp;
-<i class="no-highlight">137</i>&nbsp;    public void setHobbies(String hobbies) {
-<b class="nc"><i class="no-highlight">138</i>&nbsp;        this.hobbies = hobbies;</b>
-<i class="no-highlight">139</i>&nbsp;    }
-<i class="no-highlight">140</i>&nbsp;
-<i class="no-highlight">141</i>&nbsp;    public void setLocation(String location) {
-<b class="nc"><i class="no-highlight">142</i>&nbsp;        this.location = location;</b>
-<i class="no-highlight">143</i>&nbsp;    }
-<i class="no-highlight">144</i>&nbsp;
-<i class="no-highlight">145</i>&nbsp;    public void setSexuality(String sexuality) {
-<b class="nc"><i class="no-highlight">146</i>&nbsp;        this.sexuality = sexuality;</b>
-<i class="no-highlight">147</i>&nbsp;    }
-<i class="no-highlight">148</i>&nbsp;
-<i class="no-highlight">149</i>&nbsp;    public void setSelfDescription(String selfDescription) {
-<b class="nc"><i class="no-highlight">150</i>&nbsp;        this.selfDescription = selfDescription;</b>
-<i class="no-highlight">151</i>&nbsp;    }
-<i class="no-highlight">152</i>&nbsp;
-<i class="no-highlight">153</i>&nbsp;    public void setWeight(String weight) {
-<b class="nc"><i class="no-highlight">154</i>&nbsp;        this.weight = weight;</b>
-<i class="no-highlight">155</i>&nbsp;    }
-<i class="no-highlight">156</i>&nbsp;
-<b class="nc"><i class="no-highlight">157</i>&nbsp;    public Profile getProfile(){return new Profile(location, gender, age, sexuality,</b>
-<i class="no-highlight">158</i>&nbsp;            hobbies, height, weight, contactInformation,
-<i class="no-highlight">159</i>&nbsp;        selfDescription);}
-<i class="no-highlight">160</i>&nbsp;}
+<i class="no-highlight">29</i>&nbsp;    public String getUsername() {
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        return username;</b>
+<i class="no-highlight">31</i>&nbsp;    }
+<i class="no-highlight">32</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -259,7 +131,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-12-08 23:48</div>
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
 </div>
 </body>
 </html>
