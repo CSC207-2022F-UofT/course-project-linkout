@@ -1,4 +1,4 @@
-package use_cases.user_use_case;
+package use_cases.user_manager_user_case;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;

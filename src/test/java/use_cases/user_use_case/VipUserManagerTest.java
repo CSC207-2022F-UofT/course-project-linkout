@@ -23,7 +23,7 @@ public class VipUserManagerTest {
         this.userGateway = new UserGateway(System.getProperty("user.dir"));
         this.userPresenter = new UserPresenter(userInfoScreen);
         VIPUserManager vipUserManager = new VIPUserManager(userGateway, userPresenter);
-        vipUserManager.invisibleVisit(model, true);
+        //vipUserManager.invisibleVisit(model, true);
     }
 
     @Test
@@ -33,6 +33,6 @@ public class VipUserManagerTest {
         this.userGateway = new UserGateway(System.getProperty("user.dir"));
         this.userPresenter = new UserPresenter(userInfoScreen);
         VIPUserManager vipUserManager = new VIPUserManager(userGateway, userPresenter);
-        vipUserManager.showLikeMe(model);
+        //vipUserManager.showLikeMe(model);
     }
 }

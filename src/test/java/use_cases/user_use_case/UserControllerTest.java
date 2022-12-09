@@ -89,20 +89,29 @@ class UserControllerTest {
     @Test
     void setInvisibleVisit() throws IOException, InvalidAttributeValueException {
         User user = userGateway.findUser(model.getAccName());
-        if (!user.showVip()) {
-            new Fail(new Throwable("failed"));
-        }
+        UserController userController = new UserController(interactor);
+        userController.setInvisibleVisit(model, true);
+    }
+
+    @Test
+    void viewLikedMeVIPTest() throws IOException, InvalidAttributeValueException {
+        User user = userGateway.findUser(model.getAccName());
+        UserController userController = new UserController(interactor);
+        userController.viewLikedMeVIP(model);
+
     }
 
 
     @Test
     void changeVIPStatus() throws IOException, InvalidAttributeValueException {
+        this.model = new UserRequestModel("acc5", 0);
+        UserInfoScreen userInfoScreen = new UserInfoScreen();
+        this.userGateway = new UserGateway(System.getProperty("user.dir"));
+        this.userPresenter = new UserPresenter(userInfoScreen);
+        this.interactor = new UserManagerInteractor(userGateway, userPresenter);
         User user = userGateway.findUser(model.getAccName());
-        if (user.showVip()) {
-            new Fail(new Throwable("failed"));
-        }else{
-            RegularUser regularUser = (RegularUser) user;
-            assertNotNull(regularUser.upgrade());
-        }
+        UserController userController = new UserController(interactor);
+        userController.changeVIPStatus(model);
+
     }
 }

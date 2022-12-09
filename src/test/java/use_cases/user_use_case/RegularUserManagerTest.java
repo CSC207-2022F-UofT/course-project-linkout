@@ -22,7 +22,7 @@ public class RegularUserManagerTest {
 
     @Test
     void testUpgrade() throws IOException, InvalidAttributeValueException {
-        this.model = new UserRequestModel("acc4", 0);
+        this.model = new UserRequestModel("acc3", 0);
         UserInfoScreen userInfoScreen = new UserInfoScreen();
         this.userGateway = new UserGateway(System.getProperty("user.dir"));
         this.userPresenter = new UserPresenter(userInfoScreen);
@@ -30,6 +30,18 @@ public class RegularUserManagerTest {
         regularUserManager.upgrade(model);
         User user = userGateway.findUser(model.getAccName());
         assertTrue(user.showVip());
+
+    }
+    @Test
+    void testUpgradeNotVIP() throws IOException, InvalidAttributeValueException {
+        this.model = new UserRequestModel("acc5", 0);
+        UserInfoScreen userInfoScreen = new UserInfoScreen();
+        this.userGateway = new UserGateway(System.getProperty("user.dir"));
+        this.userPresenter = new UserPresenter(userInfoScreen);
+        RegularUserManager regularUserManager = new RegularUserManager(userGateway, userPresenter);
+        regularUserManager.upgrade(model);
+        User user = userGateway.findUser(model.getAccName());
+        assertTrue(!user.showVip());
 
     }
 }
