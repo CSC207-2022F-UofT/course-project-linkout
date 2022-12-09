@@ -157,4 +157,4 @@ Here is the UML for Recommend Use Case
 
 ### Looking forward
 
-We surmise that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.
+We believe that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.
