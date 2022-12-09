@@ -5,6 +5,7 @@ A versatile modern dating application for all your relationship needs! The inter
 **Notes**:
 - This app can only accommodate MacOS system!!!
 - The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
+- Please disregard the code percentages under Languages to the right: the non-Java code originates from the auxiliary packages which are rather large in file size.
 
 ## Project outline
 
@@ -136,6 +137,46 @@ Relevant entities: User, Admin
 #### UserLike use case
 >1. A user is able to like another user.
 >2. If two users both liked each other, they are matched, and have access to each other's contact information.
+
+##### The registration Use Case
+When using an app, the first thing you need to do is to register an account.
+For instance, when the user wants to create an account, the user opens the application and make a registration.
+To register, the user need to enter the account, password and profile, which is location, gender, age, sexuality, 
+hobbies, height, weight, contactInformation, selfDescription.
+Then
+1.The app will check if there are any duplicate usernames, if there exist a duplicate, then app will alert the user.
+2.The app will check if the password and repeat password matches. The User need to enter password same as twice.
+3.The app will store the user which means registration successful.
+
+##### Classes
+>- UserRegisterDsGateway
+>- UserRegisterDsRequestModel
+>- UserRegisterInputBoundary
+>- UserRegisterInteratcor
+>- UserGateway
+>- ProfileGateway
+>- UserRegisterPresenter
+>- UserRegisterRequestModel
+>- UserRegisterResponseModel
+
+##### The Login Use Case
+After the registration, the user need to log in to use the app.
+For instance, when the user wants to log in, the user opens the application.
+To log in, the user need to enter the account, password.
+Then
+1.The app will check if the account does not exist, if the account does not exist, then app will alert the user.
+2.The app will check if the account and password matches. 
+3.The app will log in the user.
+
+##### Classes
+>- UserLoginDsGateway
+>- UserLoginRequestModel
+>- UserLoginInputBoundary
+>- UserLoginInteratcor
+>- UserGateway
+>- UserLoginPresenter
+>- UserLoginResponseModel
+
 ##### The flow
 When User A clicked a like button somewhere on a screen, it triggered the action perform method inside the screen class, and the action perform method is going to call the controller and pass in necessary data. Then the controller bunddle the input data into an instance of class InputData, and tell the interactor to do its job through an interface meanwhile passing in the input data. After the interactor has done its work, it will first save the user A’s action into database through UserActDsGateway interface(implemented by LikeGateway), then it asks the presenter to return a view, meanwhile the controller detected the result, then the view module detected the change in controller, and updates the screen, so user gets alerted.
 
@@ -156,4 +197,4 @@ Here is the UML for Recommend Use Case
 
 ### Looking forward
 
-We surmise that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.
+We believe that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.
