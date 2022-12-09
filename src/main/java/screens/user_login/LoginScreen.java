@@ -98,7 +98,7 @@ public class LoginScreen extends JFrame implements ActionListener {
                 RestrictUserController controller = new RestrictUserController(interactor);
                 RestrictUserController controller1 = new RestrictUserController(interactor1);
                 AdminStartScreen frame = new AdminStartScreen(controller, controller1);
-                frame.setVisible(true);
+      frame.setVisible(true);
             } else {
                 //Pop up search UI
                 //search function

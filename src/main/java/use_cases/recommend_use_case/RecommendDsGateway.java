@@ -10,10 +10,10 @@ public interface RecommendDsGateway {
 
     String getWorkingDir();
 
-    List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException;
+    List<User> loadAllUser(String type) throws IOException, InvalidAttributeValueException;
 
 
     boolean hasLiked(String username) throws IOException, InvalidAttributeValueException;
 
-    void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException;
+    void saveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException;
 }

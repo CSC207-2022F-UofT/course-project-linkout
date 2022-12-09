@@ -17,8 +17,10 @@ import use_cases.user_manager_user_case.UserDsGateway;
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
+
 public class UserGateway extends DatabaseGateway implements UserRegisterDsGateway, RecordReportGateway, UserUpgrade,
         UserLoginDsGateway, UserDsGateway, RestrictUserGateway{
+
 
     private ProfileGateway profileGateway;
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import java.util.List;
 public class SearchInteractor implements SearchInputBoundary {
+
     private final SearchDSGateway searchDSGateway;
     public SearchInteractor(SearchDSGateway searchDSGateway) {
         this.searchDSGateway = searchDSGateway;
@@ -21,3 +22,4 @@ public class SearchInteractor implements SearchInputBoundary {
         return responseModel;
     }
 }
+

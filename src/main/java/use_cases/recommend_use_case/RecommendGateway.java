@@ -20,11 +20,14 @@ import java.util.List;
 
 public class RecommendGateway extends DatabaseGateway implements RecommendDsGateway {
 
-    private ProfileGateway profileGateway;
-    private LikesGateway likesGateway;
+    private final ProfileGateway profileGateway;
+    private final LikesGateway likesGateway;
 
-    private ReviewGatewayImplementation reviewGateway;
+    private final ReviewGatewayImplementation reviewGateway;
 
+    /**
+     * @param workingdir the current working directory
+     */
     public RecommendGateway(String workingdir) {
         super(workingdir);
         profileGateway = new ProfileGateway(workingdir);
@@ -32,13 +35,22 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
         reviewGateway = new ReviewGatewayImplementation(workingdir);
     }
 
+    /**
+     * @return the working directory
+     */
     @Override
     public String getWorkingDir(){
         return super.workingdir;
     }
 
+    /**
+     * @param type the type of file you would like to load
+     * @return a list of users
+     * @throws IOException Can't find database
+     * @throws InvalidAttributeValueException Wrong type
+     */
     @Override
-    public List<User> LoadAllUser(String type) throws IOException, InvalidAttributeValueException {
+    public List<User> loadAllUser(String type) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = ProfilesStyleBook(type);
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
@@ -63,14 +75,27 @@ public class RecommendGateway extends DatabaseGateway implements RecommendDsGate
         return users;
     }
 
+    /**
+     * Check whether a user has liked other users
+     * @param username the username of the user
+     * @return a boolean of whether one has liked other users
+     * @throws IOException Can't find database
+     */
     @Override
-    public boolean hasLiked(String username) throws IOException, InvalidAttributeValueException {
+    public boolean hasLiked(String username) throws IOException {
         List<String> liked = likesGateway.findLiked(username);
         return (!liked.isEmpty());
     }
 
+    /**
+     * check whether a user has seen another user
+     * @param username the username of the user
+     * @param usersviewed the username of the target user
+     * @throws IOException Can't find database
+     * @throws InvalidAttributeValueException Wrong type
+     */
     @Override
-    public void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException {
+    public void saveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);

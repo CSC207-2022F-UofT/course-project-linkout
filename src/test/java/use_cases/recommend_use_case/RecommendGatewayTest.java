@@ -11,13 +11,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.*;
-import java.io.File;
 import java.io.FileInputStream;
-import java.util.Objects;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
 import use_cases.regular_user_register_use_case.UserGateway;
 
 class RecommendGatewayTest {
@@ -49,10 +45,10 @@ class RecommendGatewayTest {
         RecommendInteractor interactor = new RecommendInteractor(db){
             @Override
             public RecommendResponseModel Recommend(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
-                List<User> recommend = db.LoadAllUser("recommend");
+                List<User> recommend = db.loadAllUser("recommend");
                 assertNotNull(recommend);
 
-                FileInputStream fis=new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/data/recommend.xls"));
+                FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"/src/main/data/recommend.xls");
                 HSSFWorkbook wb=new HSSFWorkbook(fis);
                 int numUsers = wb.getSheetAt(0).getPhysicalNumberOfRows() - 1;
                 assertEquals(recommend.size(), numUsers);
@@ -82,16 +78,16 @@ class RecommendGatewayTest {
         RecommendInteractor interactor = new RecommendInteractor(db){
             @Override
             public RecommendResponseModel Recommend(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
-                FileInputStream fis=new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/data/likes.xls"));
+                FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"/src/main/data/likes.xls");
                 HSSFWorkbook wb=new HSSFWorkbook(fis);
                 HSSFSheet sheet = wb.getSheetAt(0);
                 int numRowsBefore = sheet.getPhysicalNumberOfRows();
 
                 List<User> toSave = new ArrayList<>();
                 toSave.add(userGateway.findUser("acc1"));
-                db.SaveSeen("acc0", toSave);
+                db.saveSeen("acc0", toSave);
 
-                fis=new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/data/likes.xls"));
+                fis=new FileInputStream(System.getProperty("user.dir")+"/src/main/data/likes.xls");
                 wb=new HSSFWorkbook(fis);
                 sheet = wb.getSheetAt(0);
                 int numRowsAfter = sheet.getPhysicalNumberOfRows();

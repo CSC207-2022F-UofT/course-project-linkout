@@ -2,7 +2,6 @@ package use_cases.recommend_use_case;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import use_cases.regular_user_register_use_case.UserGateway;
 import entities.User;
 import org.junit.Test;
 
@@ -35,7 +34,7 @@ public class RecommendInteractorTest {
         RecommendInteractor interactor = new RecommendInteractor(recommendGateway);
         RecommendPresenter presenter = new RecommendPresenter(){
             @Override
-            public List<User> PrepareRecommendView(RecommendResponseModel responseModel) {
+            public List<User> prepareRecommendView(RecommendResponseModel responseModel) {
                 assertNotNull(responseModel.getAllUsers());
                 assertTrue(responseModel.getAllUsers() instanceof List);
                 return null;
@@ -46,19 +45,19 @@ public class RecommendInteractorTest {
         RecommendRequestModel requestModel1 = new RecommendRequestModel("acc0");
         RecommendResponseModel responseModel1 = interactor.Recommend(requestModel1);
 
-        presenter.PrepareRecommendView(responseModel1);
+        presenter.prepareRecommendView(responseModel1);
 
         // Test Recommend
         RecommendRequestModel requestModel2 = new RecommendRequestModel("acc1");
         RecommendResponseModel responseModel2 = interactor.Recommend(requestModel2);
 
-        presenter.PrepareRecommendView(responseModel2);
+        presenter.prepareRecommendView(responseModel2);
 
         // Test Similar
         RecommendRequestModel requestModel3 = new RecommendRequestModel("acc1", "acc10");
         RecommendResponseModel responseModel3 = interactor.Recommend(requestModel3);
 
-        presenter.PrepareRecommendView(responseModel3);
+        presenter.prepareRecommendView(responseModel3);
         initializeDataset();
 
 

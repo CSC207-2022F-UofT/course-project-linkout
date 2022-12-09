@@ -13,6 +13,7 @@ import javax.swing.table.*;
 public class ButtonColumnSimilar extends AbstractCellEditor
         implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener
 {
+
     private final JTable table;
     private final Action action;
 
@@ -141,4 +142,6 @@ public class ButtonColumnSimilar extends AbstractCellEditor
     public void mouseClicked(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
+
 }
+

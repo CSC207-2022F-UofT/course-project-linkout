@@ -14,19 +14,17 @@ import use_cases.user_login_use_case.UserLoginPresenter;
 import javax.swing.*;
 import java.awt.*;
 
-
+import javax.management.InvalidAttributeValueException;
+import java.io.IOException;
 
 public class Main {
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InvalidAttributeValueException {
 
         // Build the main program window
         JFrame application = new JFrame("RegularUserRegister");
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
-
         // Create the parts to plug into the Use Case+Entities enginel
 
         UserRegisterDsGateway user;
@@ -61,14 +59,17 @@ public class Main {
         UserLoginController userLoginController = new UserLoginController(
                 Logininteractor
         );
-
+//
+//        WelcomeScreen welcomeScreen = new WelcomeScreen();
         LoginScreen loginScreen = new LoginScreen(userLoginController);
-
+////        LoggedInScreen loggedInScreen = new LoggedInScreen();
+////        screens.add(welcomeScreen, "register");
         loginScreen.pack();
         loginScreen.setVisible(true);
+//        screens.add(loginScreen, "login");
+//        screens.add(loggedInScreen, "loggedIn");
+
     }
 }
-
-
 
 

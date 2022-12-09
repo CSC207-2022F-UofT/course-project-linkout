@@ -22,6 +22,9 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
     private final ProfileGateway profileGateway;
 
 
+    /**
+     * @param workingdir working directory
+     */
     public LikesGateway(String workingdir) {
         super(workingdir);
         this.profileGateway = new ProfileGateway(workingdir);
@@ -29,6 +32,11 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
     }
 
 
+    /**
+     * @param usrname the user's username
+     * @return a list of usernames of users he/she likes
+     * @throws IOException Can't find database
+     */
     public List<String> findLiked(String usrname) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
@@ -48,6 +56,11 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
         return liked;
     }
 
+    /**
+     * @param usrname the user's username
+     * @return list of usernames of users who liked the selected user
+     * @throws IOException Can't find database
+     */
     public List<String> findLikedMe(String usrname) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
@@ -67,6 +80,12 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
         return liked;
     }
 
+    /**
+     * @param username the user's username
+     * @param userviewed the seen user
+     * @return whether a user has seen another user in boolean
+     * @throws IOException Can't find database
+     */
     public boolean isSeen(String username, String userviewed) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object

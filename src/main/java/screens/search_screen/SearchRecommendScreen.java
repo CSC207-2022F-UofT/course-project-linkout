@@ -40,7 +40,6 @@ public class SearchRecommendScreen extends JFrame {
 
     private RecordReportController reportController;
 
-
     /**
      * Launch the SearchMatch UI window.
      */
@@ -402,6 +401,7 @@ public class SearchRecommendScreen extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         int currRow = Integer.valueOf(e.getActionCommand());
                         String targetName = (String) table.getModel().getValueAt(currRow, 8);
+
                         String message = likeController.like(userName, targetName);
                         JOptionPane.showMessageDialog(getContentPane(), message);
                     }

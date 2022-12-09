@@ -1,16 +1,17 @@
 package use_cases.recommend_use_case;
 
 import entities.User;
-import use_cases.recommend_use_case.RecommendOutputBoundary;
-import use_cases.recommend_use_case.RecommendResponseModel;
 
 import java.util.List;
 
-public class RecommendPresenter implements RecommendOutputBoundary {
+public class RecommendPresenter {
 
 
-    @Override
-    public List<User> PrepareRecommendView(RecommendResponseModel responseModel) {
+    /**
+     * @param responseModel the recommend response model
+     * @return a list of users to recommend
+     */
+    public List<User> prepareRecommendView(RecommendResponseModel responseModel) {
         return responseModel.getAllUsers();
     }
 

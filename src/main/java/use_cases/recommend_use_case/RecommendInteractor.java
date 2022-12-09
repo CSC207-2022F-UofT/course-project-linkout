@@ -1,7 +1,6 @@
 package use_cases.recommend_use_case;
 
 import entities.User;
-import entities.UserFactory;
 
 import javax.management.InvalidAttributeValueException;
 import java.io.BufferedReader;
@@ -12,14 +11,17 @@ import java.util.List;
 public class RecommendInteractor implements RecommendInputBoundary{
 
 
-    private RecommendDsGateway db;
+    private final RecommendDsGateway db;
 
 
+    /**
+     * @param database the current working directory
+     */
     public RecommendInteractor(RecommendDsGateway database){
         this.db = database;
     }
 
-    private void UpdatePopular(String username) throws IOException {
+    private void updatePopular(String username) throws IOException {
 
         String[] command = {"bash", "-c", "source "+String.format("%s/src/main/recommendmodel/venv/bin/activate; ", db.getWorkingDir())+
                 "python "+String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir())+
@@ -43,7 +45,12 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
 
-    private void UpdateSimilar(String username, String userviewed) throws IOException {
+    /**
+     * @param username the user need to recommend
+     * @param userviewed the target user for similarity
+     * @throws IOException Can't find database
+     */
+    private void updateSimilar(String username, String userviewed) throws IOException {
 
         String[] command = {"bash", "-c", "source "+String.format("%s/src/main/recommendmodel/venv/bin/activate; ", db.getWorkingDir())+
                 "python "+String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir())+
@@ -67,7 +74,11 @@ public class RecommendInteractor implements RecommendInputBoundary{
         }
     }
 
-    private void UpdateRecommend(String username) throws IOException {
+    /**
+     * @param username the user need to recommend
+     * @throws IOException Can't find database
+     */
+    private void updateRecommend(String username) throws IOException {
 
         String[] command = {"bash", "-c", "source "+String.format("%s/src/main/recommendmodel/venv/bin/activate; ", db.getWorkingDir())+
                 "python "+String.format("%s/src/main/recommendmodel/recommend.py", db.getWorkingDir())+
@@ -91,31 +102,52 @@ public class RecommendInteractor implements RecommendInputBoundary{
     }
 
 
+    /**
+     * @param requestModel the recommend request model
+     * @return the recommend response model
+     * @throws IOException Can't find database
+     * @throws InvalidAttributeValueException Wrong type
+     */
     private RecommendResponseModel Popular(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
-        UpdatePopular(username);
-        List<User> popular = db.LoadAllUser("popular");
+        updatePopular(username);
+        List<User> popular = db.loadAllUser("popular");
         return new RecommendResponseModel(popular);
     }
 
-
+    /**
+     * @param requestModel the recommend request model
+     * @return the recommend response model
+     * @throws IOException Can't find database
+     * @throws InvalidAttributeValueException Wrong type
+     */
     private RecommendResponseModel Similar(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
-        UpdateSimilar(username, requestModel.getSimilarTo());
-        List<User> recommended = db.LoadAllUser("similar");
+        updateSimilar(username, requestModel.getSimilarTo());
+        List<User> recommended = db.loadAllUser("similar");
         return new RecommendResponseModel(recommended);
     }
 
 
-
+    /**
+     * @param requestModel the recommend request model
+     * @return the recommend response model
+     * @throws IOException Can't find database
+     * @throws InvalidAttributeValueException Wrong type
+     */
     private RecommendResponseModel RecommendUsers(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         String username = requestModel.getUsername();
-        UpdateRecommend(username);
-        List<User> recommend = db.LoadAllUser("recommend");
-        RecommendResponseModel recommendInfo = new RecommendResponseModel(recommend);
-        return recommendInfo;
+        updateRecommend(username);
+        List<User> recommend = db.loadAllUser("recommend");
+        return new RecommendResponseModel(recommend);
     }
 
+    /**
+     * @param requestModel the recommend request model
+     * @return the recommend response model
+     * @throws IOException Can't find database
+     * @throws InvalidAttributeValueException Wrong type
+     */
     @Override
     public RecommendResponseModel Recommend(RecommendRequestModel requestModel) throws IOException, InvalidAttributeValueException {
         RecommendResponseModel responseModel;
@@ -126,7 +158,7 @@ public class RecommendInteractor implements RecommendInputBoundary{
         } else {
             responseModel = Popular(requestModel);
         }
-        db.SaveSeen(requestModel.getUsername(), responseModel.getAllUsers());
+        db.saveSeen(requestModel.getUsername(), responseModel.getAllUsers());
         return responseModel;
     }
 

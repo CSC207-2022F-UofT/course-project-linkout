@@ -89,4 +89,13 @@ class UserGatewayTest {
     }
 
 
+    @Test
+    void MatchingNameAndPassword() throws IOException, InvalidAttributeValueException, InterruptedException {
+        initializeDataset();
+
+        UserGateway userGateway = new UserGateway(System.getProperty("user.dir"));
+        assertTrue(userGateway.MatchingNameAndPassword("acc1", "abcd"));
+        assertFalse(userGateway.MatchingNameAndPassword("acc1", "abccc"));
+        assertFalse(userGateway.MatchingNameAndPassword("accTest", "abccc"));
+    }
 }

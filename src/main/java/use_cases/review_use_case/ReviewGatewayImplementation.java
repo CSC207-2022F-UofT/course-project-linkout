@@ -180,7 +180,7 @@ public class ReviewGatewayImplementation extends DatabaseGateway implements use_
             if (sheetlikes.getRow(i).getPhysicalNumberOfCells() != 4){
                 continue;
             }
-            currusername = loadStringCell(sheetlikes.getRow(i).getCell(0));
+            currusername = loadStringCell(sheetlikes.getRow(i).getCell(1));
             currid = loadIntCell(sheetlikes.getRow(i).getCell(3));
             if ((currusername.equals(username)) & (currid == id)) {
                 sheetlikes.getRow(i).removeCell(sheetlikes.getRow(i).getCell(3));
