@@ -9,7 +9,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import use_cases.regular_user_register_use_case.ProfileGateway;
-import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.review_use_case.ReviewGatewayImplementation;
 
 import javax.management.InvalidAttributeValueException;
@@ -19,9 +18,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
-    private ReviewGatewayImplementation reviewGateway;
-    private ProfileGateway profileGateway;
-    private UserGateway userGateway;
+    private final ReviewGatewayImplementation reviewGateway;
+    private final ProfileGateway profileGateway;
 
 
     public LikesGateway(String workingdir) {
@@ -30,19 +28,12 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
         this.reviewGateway = new ReviewGatewayImplementation(workingdir);
     }
 
-    public LikesGateway(String workingdir, UserGateway userGateway) {
-        super(workingdir);
-        this.profileGateway = new ProfileGateway(workingdir);
-        this.reviewGateway = new ReviewGatewayImplementation(workingdir);
-        this.userGateway = userGateway;
-    }
-
 
     public List<String> findLiked(String usrname) throws IOException {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
-        List<String> liked = new ArrayList<String>();
+        List<String> liked = new ArrayList<>();
         String currname;
         String likeuser;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
@@ -61,7 +52,7 @@ public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
         HSSFWorkbook wb = LikesBook();
         //creating a Sheet object to retrieve the object
         HSSFSheet sheet=wb.getSheetAt(0);
-        List<String> liked = new ArrayList<String>();
+        List<String> liked = new ArrayList<>();
         String currname;
         String likeuser;
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
