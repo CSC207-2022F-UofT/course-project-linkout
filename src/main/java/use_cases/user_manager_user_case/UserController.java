@@ -1,6 +1,8 @@
 package use_cases.user_manager_user_case;
 
 
+import use_cases.regular_user_register_use_case.UserGateway;
+
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 
@@ -8,7 +10,9 @@ public class UserController {
 
     private final UserInputBoundary userInput;
 
-    public UserController(UserInputBoundary interactor){ this.userInput = interactor;}
+    public UserController(UserInputBoundary interactor){
+        this.userInput = interactor;
+    }
 
     /**
      * @param userRequestModel the userRequestModel that contains user information
@@ -24,7 +28,8 @@ public class UserController {
      * @param userRequestModel the userRequestModel that contains user information
      */
     public void changeVIPStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
-        ((RegularUserManager) userInput).upgrade(userRequestModel);}
+        RegularUserManager regularUserManager = (RegularUserManager) userInput;
+        regularUserManager.upgrade(userRequestModel);}
 
 
 

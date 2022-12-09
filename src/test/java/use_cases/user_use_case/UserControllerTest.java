@@ -29,7 +29,7 @@ class UserControllerTest {
         UserInfoScreen userInfoScreen = new UserInfoScreen();
         this.userGateway = new UserGateway(System.getProperty("user.dir"));
         this.userPresenter = new UserPresenter(userInfoScreen);
-        this.interactor = new UserManagerInteractor(userGateway, userPresenter);
+        this.interactor = new VIPUserManager(userGateway, userPresenter);
     }
 
     @Test
@@ -108,7 +108,7 @@ class UserControllerTest {
         UserInfoScreen userInfoScreen = new UserInfoScreen();
         this.userGateway = new UserGateway(System.getProperty("user.dir"));
         this.userPresenter = new UserPresenter(userInfoScreen);
-        this.interactor = new UserManagerInteractor(userGateway, userPresenter);
+        this.interactor = new VIPUserManager(userGateway, userPresenter);
         User user = userGateway.findUser(model.getAccName());
         UserController userController = new UserController(interactor);
         userController.changeVIPStatus(model);
