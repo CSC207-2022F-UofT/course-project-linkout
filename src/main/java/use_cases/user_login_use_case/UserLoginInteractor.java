@@ -10,6 +10,10 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
     final UserLoginDsGateway userLoginDsGateway;
     final UserLoginPresenter userLoginPresenter;
 
+    /**
+     * @param userLoginDsGateway the gateway of account
+     * @param userLoginPresenter the presenter of account
+     */
     public UserLoginInteractor(UserLoginDsGateway userLoginDsGateway, UserLoginPresenter userLoginPresenter) {
         this.userLoginDsGateway = userLoginDsGateway;
         this.userLoginPresenter = userLoginPresenter;

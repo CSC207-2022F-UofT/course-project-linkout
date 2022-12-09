@@ -6,18 +6,18 @@ import java.util.Hashtable;
 import java.util.List;
 
 public interface UserOutputBoundary {
-    public void prepareLikedView(List<String> liked);
+    void prepareLikedView(List<String> liked);
 
-    public void prepareFailedView(String e);
+    void prepareFailedView(String e);
 
-    public void prepareAccStatusView(boolean status, float time);
+    void prepareAccStatusView(boolean status, float time);
 
 
-    public void prepareSuccessView(boolean status);
+    void prepareSuccessView(boolean status);
 
-    public void prepareProfileView(Profile profile);
+    void prepareProfileView(Profile profile);
 
-    public void prepareLikedMeView(List<String> likedMe);
+    void prepareLikedMeView(List<String> likedMe);
 
-    public void prepareReviewView(Hashtable<Integer, List<Object>> reviews);
+    void prepareReviewView(Hashtable<Integer, List<Object>> reviews);
 }

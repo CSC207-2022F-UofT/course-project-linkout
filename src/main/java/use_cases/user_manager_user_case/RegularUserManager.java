@@ -14,6 +14,9 @@ public class RegularUserManager extends UserManagerInteractor {
         super(userDsGateway, userPresenter);
     }
 
+    /**
+     * @param username the username of the Regular User who wants to upgrade
+     */
     public void upgrade(UserRequestModel username) throws IOException, InvalidAttributeValueException {
         if (userDsGateway.findUser(username.getAccName()) != null) {
             User user = super.findUserByName(username.getAccName());

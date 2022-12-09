@@ -26,11 +26,11 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
 
     private ProfileGateway profileGateway;
     public SearchGateway(String workingdir)  {
-            super(workingdir);
-            likesGateway = new LikesGateway(workingdir);
-            reviewGateway = new ReviewGatewayImplementation(workingdir);
-            profileGateway = new ProfileGateway(workingdir);
-        }
+        super(workingdir);
+        likesGateway = new LikesGateway(workingdir);
+        reviewGateway = new ReviewGatewayImplementation(workingdir);
+        profileGateway = new ProfileGateway(workingdir);
+    }
 
     /**
      * this method <searchSheet> searches for the first users that matched the keywords entered from the database and return a
@@ -137,21 +137,21 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
             else{twentyMatchedUsers = uniqueDup;}
 
             for (Row row : twentyMatchedUsers) {
-                    Profile profile = profileGateway.CreateProfile(row);
-                    String usrname = row.getCell(8).toString();
-                    String password = row.getCell(9).toString();
-                    String isVip = row.getCell(10).toString();
-                    List<String> liked = likesGateway.findLiked(usrname);
-                    List<String> likedme = likesGateway.findLikedMe(usrname);
-                    Hashtable<Integer, List<Object>> reviews = reviewGateway.getReviews(usrname);
-                    User user;
-                    if (isVip.equals("TRUE")) {
-                        user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
-                    } else {
-                        user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
-                    }
-                    users.add(user);
+                Profile profile = profileGateway.CreateProfile(row);
+                String usrname = row.getCell(8).toString();
+                String password = row.getCell(9).toString();
+                String isVip = row.getCell(10).toString();
+                List<String> liked = likesGateway.findLiked(usrname);
+                List<String> likedme = likesGateway.findLikedMe(usrname);
+                Hashtable<Integer, List<Object>> reviews = reviewGateway.getReviews(usrname);
+                User user;
+                if (isVip.equals("TRUE")) {
+                    user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);
+                } else {
+                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);
                 }
+                users.add(user);
+            }
         }
         //save twenty matched users as seen for recommend usage
         this.SaveSeen(username, users);
@@ -160,7 +160,10 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
         return users;
     }
 
-
+    @Override
+    public String getWorkingDir(){
+        return super.workingdir;
+    }
     @Override
     public void SaveSeen(String username, List<User> usersviewed) throws IOException, InvalidAttributeValueException {
         HSSFWorkbook wb = LikesBook();
@@ -180,7 +183,6 @@ public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
     }
 
 }
-
 
 
 

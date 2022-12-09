@@ -1,18 +1,15 @@
 package use_cases.access_report_and_restrict_user;
 
 import entities.Report;
-import entities.User;
 import org.junit.jupiter.api.Test;
 import screens.access_report_and_restrict_user.AccessReportResultViewModel;
 import screens.access_report_and_restrict_user.AccessRestrictTestScreen;
 import screens.record_report.TestingReportDatabase;
-import use_cases.record_report_use_case.ReportDatabase;
 import use_cases.record_report_use_case.ReportDatabaseGateway;
 import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.restrict_user_use_case.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AccessReportAndRestrictUserTest {
     @Test
@@ -32,6 +29,11 @@ public class AccessReportAndRestrictUserTest {
             @Override
             public RestrictUserOutputData displayReport(RestrictUserOutputData outputData) {
                 assertEquals("Category", outputData.getCategory());
+                assertEquals("acc0", outputData.getReportingUserID());
+                assertEquals("acc1", outputData.getReportedUserID());
+                assertEquals("Text", outputData.getReportText());
+                assertEquals("SE", outputData.getSupportingEvidence());
+                assertNotNull(outputData);
                 return null;
             }
             @Override
