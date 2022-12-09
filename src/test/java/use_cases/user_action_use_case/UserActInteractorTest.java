@@ -126,7 +126,7 @@ class UserActInteractorTest {
 
             @Override
             public String prepareFailView(String error) {
-                fail("failed as expected!");
+                assertTrue(true);
                 return null;
             }
         };
