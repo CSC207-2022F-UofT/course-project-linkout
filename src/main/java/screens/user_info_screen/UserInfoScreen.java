@@ -5,6 +5,7 @@ import screens.regularuser_register_screen.LabelTextPanel;
 import screens.review_screen.IReviewView;
 import screens.review_screen.ReviewCreationSuccessScreen;
 import screens.review_screen.ReviewDeletionScreen;
+import screens.review_screen.ReviewTestScreen;
 import use_cases.regular_user_register_use_case.UserGateway;
 import use_cases.review_use_case.*;
 import use_cases.user_manager_user_case.*;
@@ -271,7 +272,7 @@ public class UserInfoScreen extends JPanel implements UserInformation, ActionLis
         }
         else if (Objects.equals(evt.getActionCommand(), "Delete Review")) {
             try {
-                IReviewView screen = new ReviewCreationSuccessScreen();
+                IReviewView screen = new ReviewTestScreen();
                 ReviewPresenter reviewPresenter = new ReviewPresenter(screen);
                 ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
                 UserGateway userGateways = new UserGateway(System.getProperty("user.dir"));

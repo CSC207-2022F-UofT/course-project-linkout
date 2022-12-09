@@ -184,6 +184,10 @@ When User A clicked a like button somewhere on a screen, it triggered the action
 
 We have implemented the Factory design pattern for the User entity.
 
+#### Gateway Structure
+
+![](images/Gateway.png)
+
 #### Recommend Use Case
 Here is the UML for Recommend Use Case
 
@@ -195,6 +199,8 @@ Here is the UML for Recommend Use Case
 
 ![](images/recommendTestCoverage.png)
 
-### Looking forward
+### Future Improvements
 
-We believe that we can extend our project by improving the UI, which may be chief among our focus (and perhaps the most straightforward) given its importance in the accessibility of our program.
+1. We believe that we can extend our project by improving the UI, which may be chief among our focus 
+(and perhaps the most straightforward) given its importance in the accessibility of our program.
+2. We can use different database system, like psql database accessed by Apache Spark. 
