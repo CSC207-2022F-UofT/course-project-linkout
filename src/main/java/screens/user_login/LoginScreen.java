@@ -84,7 +84,7 @@ public class LoginScreen extends JFrame implements ActionListener {
 
             this.setVisible(false);
             JOptionPane.showMessageDialog(this, username.getText() + " log in.");
-            
+
             if (username.getText().equals("Admin") && password.getText().equals("Admin")) {
                 AccessReportResultViewModel vm = new AccessReportResultFrame();
                 RestrictUserResultViewModel vm1 = new RestrictUserResultFrame();
@@ -98,9 +98,8 @@ public class LoginScreen extends JFrame implements ActionListener {
                 RestrictUserController controller = new RestrictUserController(interactor);
                 RestrictUserController controller1 = new RestrictUserController(interactor1);
                 AdminStartScreen frame = new AdminStartScreen(controller, controller1);
-                frame.setVisible(true);   
+      frame.setVisible(true);
             } else {
-            
                 //Pop up search UI
                 //search function
                 SearchDSGateway searchDSGateway = new SearchGateway(System.getProperty("user.dir"));

@@ -2,7 +2,7 @@ package use_cases.user_action_use_case;
 
 import org.junit.jupiter.api.Test;
 import screens.user_like_screen.InMemoryUserLike;
-import use_cases.user_action_use_case.*;
+
 
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
