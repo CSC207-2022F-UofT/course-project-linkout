@@ -1,7 +1,7 @@
 package use_cases.regular_user_register_use_case;
 
 import Gateway.DatabaseGateway;
-import use_cases.user_use_case.UserUpgrade;
+import use_cases.user_manager_user_case.UserUpgrade;
 import entities.*;
 import use_cases.record_report_use_case.RecordReportGateway;
 import use_cases.restrict_user_use_case.RestrictUserGateway;

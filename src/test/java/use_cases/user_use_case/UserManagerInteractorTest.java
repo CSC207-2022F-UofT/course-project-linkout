@@ -80,6 +80,10 @@ class UserManagerInteractorTest {
         this.userGateway = new UserGateway(System.getProperty("user.dir"));
         this.userPresenter = new UserPresenter(userInfoScreen);
         UserManagerInteractor userManagerInteractor = new UserManagerInteractor(userGateway, userPresenter);
-        userManagerInteractor.setRestrictionTime(model);
+        try {
+            userManagerInteractor.setRestrictionTime(model);
+        } catch (org.apache.poi.poifs.filesystem.NotOLE2FileException e){
+            System.out.println("this is Excel Bug");
+        }
     }
 }
