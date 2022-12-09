@@ -1,0 +1,279 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LikesGateway</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.user_action_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: LikesGateway (use_cases.user_action_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LikesGateway</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (69/69)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.user_action_use_case;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import Gateway.DatabaseGateway;
+<i class="no-highlight">4</i>&nbsp;import entities.Profile;
+<i class="no-highlight">5</i>&nbsp;import entities.RegularUser;
+<i class="no-highlight">6</i>&nbsp;import entities.User;
+<i class="no-highlight">7</i>&nbsp;import entities.VipUser;
+<i class="no-highlight">8</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFSheet;
+<i class="no-highlight">9</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+<i class="no-highlight">10</i>&nbsp;import org.apache.poi.ss.usermodel.Row;
+<i class="no-highlight">11</i>&nbsp;import use_cases.regular_user_register_use_case.ProfileGateway;
+<i class="no-highlight">12</i>&nbsp;import use_cases.review_use_case.ReviewGatewayImplementation;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;import javax.management.InvalidAttributeValueException;
+<i class="no-highlight">15</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">16</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">17</i>&nbsp;import java.util.Hashtable;
+<i class="no-highlight">18</i>&nbsp;import java.util.List;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;public class LikesGateway extends DatabaseGateway implements UserActDsGateway {
+<i class="no-highlight">21</i>&nbsp;    private final ReviewGatewayImplementation reviewGateway;
+<i class="no-highlight">22</i>&nbsp;    private final ProfileGateway profileGateway;
+<i class="no-highlight">23</i>&nbsp;
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;    /**
+<i class="no-highlight">26</i>&nbsp;     * @param workingdir working directory
+<i class="no-highlight">27</i>&nbsp;     */
+<i class="no-highlight">28</i>&nbsp;    public LikesGateway(String workingdir) {
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        super(workingdir);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        this.profileGateway = new ProfileGateway(workingdir);</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        this.reviewGateway = new ReviewGatewayImplementation(workingdir);</b>
+<i class="no-highlight">32</i>&nbsp;    }
+<i class="no-highlight">33</i>&nbsp;
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    /**
+<i class="no-highlight">36</i>&nbsp;     * @param usrname the user&#39;s username
+<i class="no-highlight">37</i>&nbsp;     * @return a list of usernames of users he/she likes
+<i class="no-highlight">38</i>&nbsp;     * @throws IOException Can&#39;t find database
+<i class="no-highlight">39</i>&nbsp;     */
+<i class="no-highlight">40</i>&nbsp;    public List&lt;String&gt; findLiked(String usrname) throws IOException {
+<b class="fc"><i class="no-highlight">41</i>&nbsp;        HSSFWorkbook wb = LikesBook();</b>
+<i class="no-highlight">42</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">43</i>&nbsp;        HSSFSheet sheet=wb.getSheetAt(0);</b>
+<b class="fc"><i class="no-highlight">44</i>&nbsp;        List&lt;String&gt; liked = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">45</i>&nbsp;        String currname;
+<i class="no-highlight">46</i>&nbsp;        String likeuser;
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        for (int i = 1; i &lt; sheet.getPhysicalNumberOfRows(); i++) {</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;            currname = sheet.getRow(i).getCell(0).toString();</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;            if (currname.equals(usrname)) {</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;                Row row = sheet.getRow(i);</b>
+<b class="fc"><i class="no-highlight">51</i>&nbsp;                likeuser = loadStringCell(row.getCell(1));</b>
+<b class="fc"><i class="no-highlight">52</i>&nbsp;                liked.add(likeuser);</b>
+<i class="no-highlight">53</i>&nbsp;            }
+<i class="no-highlight">54</i>&nbsp;        }
+<i class="no-highlight">55</i>&nbsp;
+<b class="fc"><i class="no-highlight">56</i>&nbsp;        return liked;</b>
+<i class="no-highlight">57</i>&nbsp;    }
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;    /**
+<i class="no-highlight">60</i>&nbsp;     * @param usrname the user&#39;s username
+<i class="no-highlight">61</i>&nbsp;     * @return list of usernames of users who liked the selected user
+<i class="no-highlight">62</i>&nbsp;     * @throws IOException Can&#39;t find database
+<i class="no-highlight">63</i>&nbsp;     */
+<i class="no-highlight">64</i>&nbsp;    public List&lt;String&gt; findLikedMe(String usrname) throws IOException {
+<b class="fc"><i class="no-highlight">65</i>&nbsp;        HSSFWorkbook wb = LikesBook();</b>
+<i class="no-highlight">66</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">67</i>&nbsp;        HSSFSheet sheet=wb.getSheetAt(0);</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;        List&lt;String&gt; liked = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">69</i>&nbsp;        String currname;
+<i class="no-highlight">70</i>&nbsp;        String likeuser;
+<b class="fc"><i class="no-highlight">71</i>&nbsp;        for (int i = 1; i &lt; sheet.getPhysicalNumberOfRows(); i++) {</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;            currname = loadStringCell(sheet.getRow(i).getCell(1));</b>
+<b class="fc"><i class="no-highlight">73</i>&nbsp;            if (currname.equals(usrname)) {</b>
+<b class="fc"><i class="no-highlight">74</i>&nbsp;                Row row = sheet.getRow(i);</b>
+<b class="fc"><i class="no-highlight">75</i>&nbsp;                likeuser = loadStringCell(row.getCell(0));</b>
+<b class="fc"><i class="no-highlight">76</i>&nbsp;                liked.add(likeuser);</b>
+<i class="no-highlight">77</i>&nbsp;            }
+<i class="no-highlight">78</i>&nbsp;        }
+<i class="no-highlight">79</i>&nbsp;
+<b class="fc"><i class="no-highlight">80</i>&nbsp;        return liked;</b>
+<i class="no-highlight">81</i>&nbsp;    }
+<i class="no-highlight">82</i>&nbsp;
+<i class="no-highlight">83</i>&nbsp;    /**
+<i class="no-highlight">84</i>&nbsp;     * @param username the user&#39;s username
+<i class="no-highlight">85</i>&nbsp;     * @param userviewed the seen user
+<i class="no-highlight">86</i>&nbsp;     * @return whether a user has seen another user in boolean
+<i class="no-highlight">87</i>&nbsp;     * @throws IOException Can&#39;t find database
+<i class="no-highlight">88</i>&nbsp;     */
+<i class="no-highlight">89</i>&nbsp;    public boolean isSeen(String username, String userviewed) throws IOException {
+<b class="fc"><i class="no-highlight">90</i>&nbsp;        HSSFWorkbook wb = LikesBook();</b>
+<i class="no-highlight">91</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">92</i>&nbsp;        HSSFSheet sheet=wb.getSheetAt(0);</b>
+<i class="no-highlight">93</i>&nbsp;        String currname;
+<i class="no-highlight">94</i>&nbsp;        String curruserviewed;
+<b class="fc"><i class="no-highlight">95</i>&nbsp;        for (int i = 1; i &lt; sheet.getPhysicalNumberOfRows(); i++) {</b>
+<b class="fc"><i class="no-highlight">96</i>&nbsp;            currname = loadStringCell(sheet.getRow(i).getCell(0));</b>
+<b class="fc"><i class="no-highlight">97</i>&nbsp;            curruserviewed = loadStringCell(sheet.getRow(i).getCell(1));</b>
+<b class="fc"><i class="no-highlight">98</i>&nbsp;            if ((currname.equals(username)) &amp; (curruserviewed.equals(userviewed))) {</b>
+<b class="fc"><i class="no-highlight">99</i>&nbsp;                return true;</b>
+<i class="no-highlight">100</i>&nbsp;            }
+<i class="no-highlight">101</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">102</i>&nbsp;        return false;</b>
+<i class="no-highlight">103</i>&nbsp;    }
+<i class="no-highlight">104</i>&nbsp;
+<i class="no-highlight">105</i>&nbsp;    public boolean isLiked(String username, String userviewed) throws IOException {
+<b class="fc"><i class="no-highlight">106</i>&nbsp;        HSSFWorkbook wb = LikesBook();</b>
+<i class="no-highlight">107</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">108</i>&nbsp;        HSSFSheet sheet=wb.getSheetAt(0);</b>
+<i class="no-highlight">109</i>&nbsp;        String currname;
+<i class="no-highlight">110</i>&nbsp;        String curruserviewed;
+<i class="no-highlight">111</i>&nbsp;        int liked;
+<b class="fc"><i class="no-highlight">112</i>&nbsp;        if (!isSeen(username, userviewed)){</b>
+<b class="fc"><i class="no-highlight">113</i>&nbsp;            return false;</b>
+<i class="no-highlight">114</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">115</i>&nbsp;        for (int i = 1; i &lt; sheet.getPhysicalNumberOfRows(); i++) {</b>
+<b class="fc"><i class="no-highlight">116</i>&nbsp;            currname = loadStringCell(sheet.getRow(i).getCell(0));</b>
+<b class="fc"><i class="no-highlight">117</i>&nbsp;            curruserviewed = loadStringCell(sheet.getRow(i).getCell(1));</b>
+<b class="fc"><i class="no-highlight">118</i>&nbsp;            liked = loadIntCell(sheet.getRow(i).getCell(2));</b>
+<b class="fc"><i class="no-highlight">119</i>&nbsp;            if ((currname.equals(username)) &amp; (curruserviewed.equals(userviewed)) &amp; (liked == 1)) {</b>
+<b class="fc"><i class="no-highlight">120</i>&nbsp;                return true;</b>
+<i class="no-highlight">121</i>&nbsp;            }
+<i class="no-highlight">122</i>&nbsp;        }
+<i class="no-highlight">123</i>&nbsp;
+<b class="fc"><i class="no-highlight">124</i>&nbsp;        return false;</b>
+<i class="no-highlight">125</i>&nbsp;    }
+<i class="no-highlight">126</i>&nbsp;
+<i class="no-highlight">127</i>&nbsp;    @Override
+<i class="no-highlight">128</i>&nbsp;    public User findUser(String usrname) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">129</i>&nbsp;        HSSFWorkbook wb = ProfilesStyleBook();</b>
+<i class="no-highlight">130</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">131</i>&nbsp;        HSSFSheet sheet=wb.getSheetAt(0);</b>
+<b class="fc"><i class="no-highlight">132</i>&nbsp;        User user = null;</b>
+<i class="no-highlight">133</i>&nbsp;        String currname;
+<b class="fc"><i class="no-highlight">134</i>&nbsp;        for (int i = 1; i &lt; sheet.getPhysicalNumberOfRows(); i++) {</b>
+<b class="fc"><i class="no-highlight">135</i>&nbsp;            currname = sheet.getRow(i).getCell(8).toString();</b>
+<b class="fc"><i class="no-highlight">136</i>&nbsp;            if (currname.equals(usrname)) {</b>
+<b class="fc"><i class="no-highlight">137</i>&nbsp;                Row row = sheet.getRow(i);</b>
+<b class="fc"><i class="no-highlight">138</i>&nbsp;                Profile profile = profileGateway.CreateProfile(row);</b>
+<b class="fc"><i class="no-highlight">139</i>&nbsp;                String password = loadStringCell(row.getCell(9));</b>
+<b class="fc"><i class="no-highlight">140</i>&nbsp;                String isVip = loadStringCell(row.getCell(10));</b>
+<b class="fc"><i class="no-highlight">141</i>&nbsp;                List&lt;String&gt; liked = findLiked(usrname);</b>
+<b class="fc"><i class="no-highlight">142</i>&nbsp;                List&lt;String&gt; likedme = findLikedMe(usrname);</b>
+<b class="fc"><i class="no-highlight">143</i>&nbsp;                Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews = reviewGateway.getReviews(usrname);</b>
+<b class="fc"><i class="no-highlight">144</i>&nbsp;                if (isVip.equals(&quot;TRUE&quot;)){</b>
+<b class="fc"><i class="no-highlight">145</i>&nbsp;                    user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);</b>
+<i class="no-highlight">146</i>&nbsp;                } else {
+<b class="fc"><i class="no-highlight">147</i>&nbsp;                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);</b>
+<i class="no-highlight">148</i>&nbsp;                }
+<b class="fc"><i class="no-highlight">149</i>&nbsp;                break;</b>
+<i class="no-highlight">150</i>&nbsp;            }
+<i class="no-highlight">151</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">152</i>&nbsp;        return user;</b>
+<i class="no-highlight">153</i>&nbsp;    }
+<i class="no-highlight">154</i>&nbsp;
+<i class="no-highlight">155</i>&nbsp;
+<i class="no-highlight">156</i>&nbsp;    public void setLike(String username, String userviewed) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">157</i>&nbsp;        HSSFWorkbook wb = LikesBook();</b>
+<i class="no-highlight">158</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">159</i>&nbsp;        HSSFSheet sheet=wb.getSheetAt(0);</b>
+<i class="no-highlight">160</i>&nbsp;        String currname;
+<i class="no-highlight">161</i>&nbsp;        String curruserviewed;
+<i class="no-highlight">162</i>&nbsp;        int liked;
+<b class="fc"><i class="no-highlight">163</i>&nbsp;        for (int i = 1; i &lt; sheet.getPhysicalNumberOfRows(); i++) {</b>
+<b class="fc"><i class="no-highlight">164</i>&nbsp;            currname = loadStringCell(sheet.getRow(i).getCell(0));</b>
+<b class="fc"><i class="no-highlight">165</i>&nbsp;            curruserviewed = loadStringCell(sheet.getRow(i).getCell(1));</b>
+<b class="fc"><i class="no-highlight">166</i>&nbsp;            liked = loadIntCell(sheet.getRow(i).getCell(2));</b>
+<b class="fc"><i class="no-highlight">167</i>&nbsp;            if ((currname.equals(username)) &amp; (curruserviewed.equals(userviewed)) &amp; (liked == 0)) {</b>
+<b class="fc"><i class="no-highlight">168</i>&nbsp;                sheet.getRow(i).getCell(2).setCellValue(1);</b>
+<i class="no-highlight">169</i>&nbsp;            }
+<i class="no-highlight">170</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">171</i>&nbsp;        SaveWorkbook(wb, &quot;likes&quot;);</b>
+<i class="no-highlight">172</i>&nbsp;    }
+<i class="no-highlight">173</i>&nbsp;
+<i class="no-highlight">174</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:48</div>
+</div>
+</body>
+</html>

@@ -170,21 +170,21 @@ class ReviewGatewayImplementationTest {
         HSSFSheet sheetreviews = wbreviews.getSheetAt(0);
 
         ReviewGatewayImplementation reviewGateway = new ReviewGatewayImplementation(System.getProperty("user.dir"));
-        reviewGateway.removeReview(3728, "acc1");
+        reviewGateway.removeReview(1040, "acc2");
         boolean foundreview = false;
         for (int i = 1; i < sheetreviews.getPhysicalNumberOfRows(); i++) {
             if (sheetreviews.getRow(i) == null){
                 continue;
             }
 
-            if (sheetreviews.getRow(i).getCell(0).toString().equals("3728")) {
+            if (sheetreviews.getRow(i).getCell(0).toString().equals("1040")) {
                 foundreview = true;
                 break;
             }
         }
         assertFalse(foundreview);
 
-        Review reviewFound = reviewGateway.findReview(3728);
+        Review reviewFound = reviewGateway.findReview(1040);
         assertNull(reviewFound);
 
         FileInputStream fislikes=new FileInputStream(new File(System.getProperty("user.dir")+"/src/main/data/likes.xls"));
@@ -204,7 +204,7 @@ class ReviewGatewayImplementationTest {
                 continue;
             }
 
-            if (Double.valueOf(sheetlikes.getRow(i).getCell(3).toString()).intValue() == 3728) {
+            if (Double.valueOf(sheetlikes.getRow(i).getCell(3).toString()).intValue() == 1040) {
                 foundId = true;
                 break;
             }

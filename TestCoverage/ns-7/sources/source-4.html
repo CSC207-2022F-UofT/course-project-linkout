@@ -1,0 +1,206 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ReviewCreationScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">screens.review_screen</a>
+</div>
+
+<h1>Coverage Summary for Class: ReviewCreationScreen (screens.review_screen)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReviewCreationScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/44)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package screens.review_screen;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import use_cases.regular_user_register_use_case.UserGateway;
+<i class="no-highlight">4</i>&nbsp;import use_cases.review_use_case.*;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;import javax.swing.*;
+<i class="no-highlight">7</i>&nbsp;import java.awt.*;
+<i class="no-highlight">8</i>&nbsp;import java.awt.event.ActionEvent;
+<i class="no-highlight">9</i>&nbsp;import java.awt.event.ActionListener;
+<i class="no-highlight">10</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;import static java.lang.Integer.parseInt;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;public class ReviewCreationScreen extends JFrame implements ActionListener, IReviewView {
+<b class="nc"><i class="no-highlight">15</i>&nbsp;    JTextField receiverName = new JTextField(15);</b>
+<b class="nc"><i class="no-highlight">16</i>&nbsp;    JTextField writerName = new JTextField(15);</b>
+<b class="nc"><i class="no-highlight">17</i>&nbsp;    JTextField comment = new JTextField(15);</b>
+<b class="nc"><i class="no-highlight">18</i>&nbsp;    JTextField rating = new JTextField(15);</b>
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    public static void main(String[] args) throws IOException {
+<b class="nc"><i class="no-highlight">21</i>&nbsp;        IReviewViewImplementation viewReview = new IReviewViewImplementation();</b>
+<b class="nc"><i class="no-highlight">22</i>&nbsp;        ReviewPresenter reviewPresenter = new ReviewPresenter(viewReview);</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        ReviewGatewayImplementation reviewsGateway = new ReviewGatewayImplementation(System.getProperty(&quot;user.dir&quot;));</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        UserGateway userGateway = new UserGateway(System.getProperty(&quot;user.dir&quot;));</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        ReviewInputBoundary reviewInteractor = new ReviewInteractor(reviewPresenter, reviewsGateway, userGateway);</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;        ReviewController reviewController = new ReviewController(reviewInteractor);</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;        ReviewCreationScreen frame = new ReviewCreationScreen(reviewController);</b>
+<b class="nc"><i class="no-highlight">28</i>&nbsp;        frame.setVisible(true);</b>
+<i class="no-highlight">29</i>&nbsp;    }
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;    /**
+<i class="no-highlight">32</i>&nbsp;     * The controller
+<i class="no-highlight">33</i>&nbsp;     */
+<i class="no-highlight">34</i>&nbsp;    ReviewController reviewController;
+<i class="no-highlight">35</i>&nbsp;
+<i class="no-highlight">36</i>&nbsp;    /**
+<i class="no-highlight">37</i>&nbsp;     * A window with a title and a JButton.
+<i class="no-highlight">38</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">39</i>&nbsp;    public ReviewCreationScreen(ReviewController controller) {</b>
+<i class="no-highlight">40</i>&nbsp;
+<b class="nc"><i class="no-highlight">41</i>&nbsp;        setBounds(150, 150, 680, 342);</b>
+<i class="no-highlight">42</i>&nbsp;
+<b class="nc"><i class="no-highlight">43</i>&nbsp;        this.reviewController = controller;</b>
+<i class="no-highlight">44</i>&nbsp;
+<b class="nc"><i class="no-highlight">45</i>&nbsp;        JLabel title = new JLabel(&quot;Review Creation Screen&quot;);</b>
+<b class="nc"><i class="no-highlight">46</i>&nbsp;        title.setAlignmentX(Component.CENTER_ALIGNMENT);</b>
+<i class="no-highlight">47</i>&nbsp;
+<b class="nc"><i class="no-highlight">48</i>&nbsp;        LabelTextPanel receivernameInfo = new LabelTextPanel(</b>
+<i class="no-highlight">49</i>&nbsp;                new JLabel(&quot;Input receiver&#39;s name&quot;), receiverName);
+<b class="nc"><i class="no-highlight">50</i>&nbsp;        LabelTextPanel writernameInfo = new LabelTextPanel(</b>
+<i class="no-highlight">51</i>&nbsp;                new JLabel(&quot;Input writer&#39;s name&quot;), writerName);
+<b class="nc"><i class="no-highlight">52</i>&nbsp;        LabelTextPanel commentInfo = new LabelTextPanel(</b>
+<i class="no-highlight">53</i>&nbsp;                new JLabel(&quot;Input comment&quot;), comment);
+<b class="nc"><i class="no-highlight">54</i>&nbsp;        LabelTextPanel ratingInfo = new LabelTextPanel(</b>
+<i class="no-highlight">55</i>&nbsp;                new JLabel(&quot;Input rating&quot;), rating);
+<i class="no-highlight">56</i>&nbsp;
+<i class="no-highlight">57</i>&nbsp;
+<b class="nc"><i class="no-highlight">58</i>&nbsp;        JButton create = new JButton(&quot;Create&quot;);</b>
+<b class="nc"><i class="no-highlight">59</i>&nbsp;        JButton cancel = new JButton(&quot;Cancel&quot;);</b>
+<i class="no-highlight">60</i>&nbsp;
+<b class="nc"><i class="no-highlight">61</i>&nbsp;        JPanel buttons = new JPanel();</b>
+<b class="nc"><i class="no-highlight">62</i>&nbsp;        buttons.add(create);</b>
+<b class="nc"><i class="no-highlight">63</i>&nbsp;        buttons.add(cancel);</b>
+<i class="no-highlight">64</i>&nbsp;
+<b class="nc"><i class="no-highlight">65</i>&nbsp;        create.addActionListener(this);</b>
+<b class="nc"><i class="no-highlight">66</i>&nbsp;        cancel.addActionListener(this);</b>
+<i class="no-highlight">67</i>&nbsp;
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        getContentPane().setLayout(</b>
+<b class="nc"><i class="no-highlight">69</i>&nbsp;                new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)</b>
+<i class="no-highlight">70</i>&nbsp;        );
+<i class="no-highlight">71</i>&nbsp;
+<i class="no-highlight">72</i>&nbsp;
+<b class="nc"><i class="no-highlight">73</i>&nbsp;        getContentPane().add(title);</b>
+<b class="nc"><i class="no-highlight">74</i>&nbsp;        getContentPane().add(receivernameInfo);</b>
+<b class="nc"><i class="no-highlight">75</i>&nbsp;        getContentPane().add(writernameInfo);</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        getContentPane().add(commentInfo);</b>
+<b class="nc"><i class="no-highlight">77</i>&nbsp;        getContentPane().add(ratingInfo);</b>
+<b class="nc"><i class="no-highlight">78</i>&nbsp;        getContentPane().add(buttons);</b>
+<i class="no-highlight">79</i>&nbsp;
+<i class="no-highlight">80</i>&nbsp;    }
+<i class="no-highlight">81</i>&nbsp;
+<i class="no-highlight">82</i>&nbsp;    /**
+<i class="no-highlight">83</i>&nbsp;     * React to a button click that results in evt.
+<i class="no-highlight">84</i>&nbsp;     */
+<i class="no-highlight">85</i>&nbsp;    public void actionPerformed(ActionEvent evt) {
+<b class="nc"><i class="no-highlight">86</i>&nbsp;        System.out.println(&quot;Click &quot; + evt.getActionCommand());</b>
+<i class="no-highlight">87</i>&nbsp;
+<i class="no-highlight">88</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">89</i>&nbsp;            int ratingInt = parseInt(rating.getText());</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;            JOptionPane.showMessageDialog(this, &quot;Review is created sucessfully&quot;);</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;            reviewController.addReview(ratingInt, comment.getText(), writerName.getText(), receiverName.getText());</b>
+<b class="nc"><i class="no-highlight">92</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;            JOptionPane.showMessageDialog(this, e.getMessage());</b>
+<b class="nc"><i class="no-highlight">94</i>&nbsp;        }</b>
+<i class="no-highlight">95</i>&nbsp;    }
+<i class="no-highlight">96</i>&nbsp;
+<i class="no-highlight">97</i>&nbsp;    @Override
+<i class="no-highlight">98</i>&nbsp;    public void updateMessage() {
+<b class="nc"><i class="no-highlight">99</i>&nbsp;        JOptionPane.showMessageDialog(getContentPane(), receiverName.getText() + &quot;&#39;s review created.&quot;);</b>
+<i class="no-highlight">100</i>&nbsp;    }
+<i class="no-highlight">101</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:48</div>
+</div>
+</body>
+</html>

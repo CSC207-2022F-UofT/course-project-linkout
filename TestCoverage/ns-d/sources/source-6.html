@@ -1,0 +1,176 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ReportDatabase</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.record_report_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: ReportDatabase (use_cases.record_report_use_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReportDatabase</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.record_report_use_case;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import Gateway.DatabaseGateway;
+<i class="no-highlight">4</i>&nbsp;import entities.Report;
+<i class="no-highlight">5</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFSheet;
+<i class="no-highlight">6</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+<i class="no-highlight">7</i>&nbsp;import org.apache.poi.ss.usermodel.Row;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;public class ReportDatabase extends DatabaseGateway implements ReportDatabaseGateway {
+<i class="no-highlight">10</i>&nbsp;    /**
+<i class="no-highlight">11</i>&nbsp;     * The constructor for the database.
+<i class="no-highlight">12</i>&nbsp;     * @param w     The directory start string.
+<i class="no-highlight">13</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">14</i>&nbsp;    public ReportDatabase(String w) { super(w); }</b>
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    /**
+<i class="no-highlight">17</i>&nbsp;     * This can save a report to the database (in an .xls file).
+<i class="no-highlight">18</i>&nbsp;     * @param report                            The report object.
+<i class="no-highlight">19</i>&nbsp;     */
+<i class="no-highlight">20</i>&nbsp;    @Override
+<i class="no-highlight">21</i>&nbsp;    public void saveReport(Report report) {
+<i class="no-highlight">22</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">23</i>&nbsp;            HSSFWorkbook w = ReportsBook();</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;            HSSFSheet sheet = w.getSheetAt(0);</b>
+<i class="no-highlight">25</i>&nbsp;
+<b class="nc"><i class="no-highlight">26</i>&nbsp;            Row rowReport = sheet.createRow(sheet.getPhysicalNumberOfRows());</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;            rowReport.createCell(0).setCellValue(report.getReportingUserID());</b>
+<b class="nc"><i class="no-highlight">28</i>&nbsp;            rowReport.createCell(1).setCellValue(report.getReportedUserID());</b>
+<b class="nc"><i class="no-highlight">29</i>&nbsp;            rowReport.createCell(2).setCellValue(report.getReportID());</b>
+<b class="nc"><i class="no-highlight">30</i>&nbsp;            rowReport.createCell(3).setCellValue(report.getCategory());</b>
+<b class="nc"><i class="no-highlight">31</i>&nbsp;            rowReport.createCell(4).setCellValue(report.getReportText());</b>
+<b class="nc"><i class="no-highlight">32</i>&nbsp;            rowReport.createCell(5).setCellValue(report.getSupportingEvidence());</b>
+<i class="no-highlight">33</i>&nbsp;
+<b class="nc"><i class="no-highlight">34</i>&nbsp;            SaveWorkbook(w, &quot;reports&quot;);</b>
+<b class="nc"><i class="no-highlight">35</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i class="no-highlight">36</i>&nbsp;            System.out.println(&quot;Something happened with ReportDatabase.&quot;);</b>
+<b class="nc"><i class="no-highlight">37</i>&nbsp;        }</b>
+<i class="no-highlight">38</i>&nbsp;    }
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;    /**
+<i class="no-highlight">41</i>&nbsp;     * The method to get a report from the database.
+<i class="no-highlight">42</i>&nbsp;     * @param reportID                          The ID of the report.
+<i class="no-highlight">43</i>&nbsp;     * @return                                  The report to be accessed.
+<i class="no-highlight">44</i>&nbsp;     */
+<i class="no-highlight">45</i>&nbsp;    @Override
+<i class="no-highlight">46</i>&nbsp;    public Report getReport(String reportID) {
+<i class="no-highlight">47</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">48</i>&nbsp;            HSSFWorkbook wb = ReportsBook();</b>
+<b class="nc"><i class="no-highlight">49</i>&nbsp;            HSSFSheet sheet = wb.getSheetAt(0);</b>
+<i class="no-highlight">50</i>&nbsp;
+<b class="nc"><i class="no-highlight">51</i>&nbsp;            for (int i = 1; i &lt; sheet.getPhysicalNumberOfRows(); i++) {</b>
+<b class="nc"><i class="no-highlight">52</i>&nbsp;                int currid = loadIntCell(sheet.getRow(i).getCell(2));</b>
+<b class="nc"><i class="no-highlight">53</i>&nbsp;                if (currid == Integer.parseInt(reportID)) {</b>
+<b class="nc"><i class="no-highlight">54</i>&nbsp;                    Row row = sheet.getRow(i);</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;                    return new Report(</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;                            loadStringCell(row.getCell(0)),</b>
+<b class="nc"><i class="no-highlight">57</i>&nbsp;                            loadStringCell(row.getCell(1)),</b>
+<b class="nc"><i class="no-highlight">58</i>&nbsp;                            loadStringCell(row.getCell(2)),</b>
+<b class="nc"><i class="no-highlight">59</i>&nbsp;                            loadStringCell(row.getCell(3)),</b>
+<b class="nc"><i class="no-highlight">60</i>&nbsp;                            loadStringCell(row.getCell(4)),</b>
+<b class="nc"><i class="no-highlight">61</i>&nbsp;                            loadStringCell(row.getCell(5))</b>
+<i class="no-highlight">62</i>&nbsp;                    );
+<i class="no-highlight">63</i>&nbsp;                }
+<i class="no-highlight">64</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">65</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i class="no-highlight">66</i>&nbsp;            System.out.println(&quot;Something happened with ReportDatabase.&quot;);</b>
+<b class="nc"><i class="no-highlight">67</i>&nbsp;        }</b>
+<i class="no-highlight">68</i>&nbsp;
+<b class="nc"><i class="no-highlight">69</i>&nbsp;        return new Report(&quot;Error or requested report doesn&#39;t exist.&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;);</b>
+<i class="no-highlight">70</i>&nbsp;    }
+<i class="no-highlight">71</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:48</div>
+</div>
+</body>
+</html>

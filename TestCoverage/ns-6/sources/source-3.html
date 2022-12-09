@@ -1,0 +1,236 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RegisterScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">screens.regularuser_register_screen</a>
+</div>
+
+<h1>Coverage Summary for Class: RegisterScreen (screens.regularuser_register_screen)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RegisterScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/64)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package screens.regularuser_register_screen;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import javax.swing.*;
+<i class="no-highlight">4</i>&nbsp;import java.awt.*;
+<i class="no-highlight">5</i>&nbsp;import java.awt.event.ActionEvent;
+<i class="no-highlight">6</i>&nbsp;import java.awt.event.ActionListener;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;// Frameworks/Drivers layer
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;public class RegisterScreen extends JPanel implements ActionListener {
+<i class="no-highlight">11</i>&nbsp;    /**
+<i class="no-highlight">12</i>&nbsp;     * The username chosen by the user
+<i class="no-highlight">13</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">14</i>&nbsp;    JTextField username = new JTextField(15);</b>
+<i class="no-highlight">15</i>&nbsp;    /**
+<i class="no-highlight">16</i>&nbsp;     * The password
+<i class="no-highlight">17</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">18</i>&nbsp;    JPasswordField password = new JPasswordField(15);</b>
+<i class="no-highlight">19</i>&nbsp;    /**
+<i class="no-highlight">20</i>&nbsp;     * The second password to make sure the user understands
+<i class="no-highlight">21</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">22</i>&nbsp;    JPasswordField repeatPassword = new JPasswordField(15);</b>
+<i class="no-highlight">23</i>&nbsp;
+<b class="nc"><i class="no-highlight">24</i>&nbsp;    JTextField location = new JTextField(15);</b>
+<i class="no-highlight">25</i>&nbsp;
+<b class="nc"><i class="no-highlight">26</i>&nbsp;    JTextField gender = new JTextField(15);</b>
+<i class="no-highlight">27</i>&nbsp;
+<b class="nc"><i class="no-highlight">28</i>&nbsp;    JTextField age = new JTextField(15);</b>
+<i class="no-highlight">29</i>&nbsp;
+<b class="nc"><i class="no-highlight">30</i>&nbsp;    JTextField sexuality = new JTextField(15);</b>
+<i class="no-highlight">31</i>&nbsp;
+<b class="nc"><i class="no-highlight">32</i>&nbsp;    JTextField hobbies = new JTextField(15);</b>
+<i class="no-highlight">33</i>&nbsp;
+<b class="nc"><i class="no-highlight">34</i>&nbsp;    JTextField height = new JTextField(15);</b>
+<i class="no-highlight">35</i>&nbsp;
+<b class="nc"><i class="no-highlight">36</i>&nbsp;    JTextField weight = new JTextField(15);</b>
+<i class="no-highlight">37</i>&nbsp;
+<b class="nc"><i class="no-highlight">38</i>&nbsp;    JTextField contactInformation = new JTextField(15);</b>
+<i class="no-highlight">39</i>&nbsp;
+<b class="nc"><i class="no-highlight">40</i>&nbsp;    JTextField selfDescription = new JTextField(15);</b>
+<i class="no-highlight">41</i>&nbsp;    /**
+<i class="no-highlight">42</i>&nbsp;     * The controller
+<i class="no-highlight">43</i>&nbsp;     */
+<i class="no-highlight">44</i>&nbsp;    UserRegisterController userRegisterController;
+<i class="no-highlight">45</i>&nbsp;
+<i class="no-highlight">46</i>&nbsp;    /**
+<i class="no-highlight">47</i>&nbsp;     * A window with a title and a JButton.
+<i class="no-highlight">48</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">49</i>&nbsp;    public RegisterScreen(UserRegisterController controller) {</b>
+<i class="no-highlight">50</i>&nbsp;
+<b class="nc"><i class="no-highlight">51</i>&nbsp;        this.userRegisterController = controller;</b>
+<i class="no-highlight">52</i>&nbsp;
+<b class="nc"><i class="no-highlight">53</i>&nbsp;        JLabel title = new JLabel(&quot;Register Screen&quot;);</b>
+<b class="nc"><i class="no-highlight">54</i>&nbsp;        title.setAlignmentX(Component.CENTER_ALIGNMENT);</b>
+<i class="no-highlight">55</i>&nbsp;
+<b class="nc"><i class="no-highlight">56</i>&nbsp;        LabelTextPanel usernameInfo = new LabelTextPanel(</b>
+<i class="no-highlight">57</i>&nbsp;                new JLabel(&quot;Choose username&quot;), username);
+<b class="nc"><i class="no-highlight">58</i>&nbsp;        LabelTextPanel passwordInfo = new LabelTextPanel(</b>
+<i class="no-highlight">59</i>&nbsp;                new JLabel(&quot;Choose password&quot;), password);
+<b class="nc"><i class="no-highlight">60</i>&nbsp;        LabelTextPanel repeatPasswordInfo = new LabelTextPanel(</b>
+<i class="no-highlight">61</i>&nbsp;                new JLabel(&quot;Enter password again&quot;), repeatPassword);
+<b class="nc"><i class="no-highlight">62</i>&nbsp;        LabelTextPanel locationInfo = new LabelTextPanel(</b>
+<i class="no-highlight">63</i>&nbsp;                new JLabel(&quot;Enter location&quot;), location);
+<b class="nc"><i class="no-highlight">64</i>&nbsp;        LabelTextPanel genderInfo = new LabelTextPanel(</b>
+<i class="no-highlight">65</i>&nbsp;                new JLabel(&quot;Enter gender&quot;), gender);
+<b class="nc"><i class="no-highlight">66</i>&nbsp;        LabelTextPanel ageInfo = new LabelTextPanel(</b>
+<i class="no-highlight">67</i>&nbsp;                new JLabel(&quot;Enter age&quot;), age);
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        LabelTextPanel sexualityInfo = new LabelTextPanel(</b>
+<i class="no-highlight">69</i>&nbsp;                new JLabel(&quot;Enter sexuality&quot;), sexuality);
+<b class="nc"><i class="no-highlight">70</i>&nbsp;        LabelTextPanel hobbiesInfo = new LabelTextPanel(</b>
+<i class="no-highlight">71</i>&nbsp;                new JLabel(&quot;Enter hobbies&quot;), hobbies);
+<b class="nc"><i class="no-highlight">72</i>&nbsp;        LabelTextPanel heightInfo = new LabelTextPanel(</b>
+<i class="no-highlight">73</i>&nbsp;                new JLabel(&quot;Enter height&quot;), height);
+<b class="nc"><i class="no-highlight">74</i>&nbsp;        LabelTextPanel weightInfo = new LabelTextPanel(</b>
+<i class="no-highlight">75</i>&nbsp;                new JLabel(&quot;Enter weight&quot;), weight);
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        LabelTextPanel contactInformationInfo = new LabelTextPanel(</b>
+<i class="no-highlight">77</i>&nbsp;                new JLabel(&quot;Enter contactInformation&quot;), contactInformation);
+<b class="nc"><i class="no-highlight">78</i>&nbsp;        LabelTextPanel selfDescriptionInfo = new LabelTextPanel(</b>
+<i class="no-highlight">79</i>&nbsp;                new JLabel(&quot;Enter selfDescription&quot;), selfDescription);
+<i class="no-highlight">80</i>&nbsp;
+<b class="nc"><i class="no-highlight">81</i>&nbsp;        JButton signUp = new JButton(&quot;Sign up&quot;);</b>
+<b class="nc"><i class="no-highlight">82</i>&nbsp;        JButton cancel = new JButton(&quot;Cancel&quot;);</b>
+<i class="no-highlight">83</i>&nbsp;
+<b class="nc"><i class="no-highlight">84</i>&nbsp;        JPanel buttons = new JPanel();</b>
+<b class="nc"><i class="no-highlight">85</i>&nbsp;        buttons.add(signUp);</b>
+<b class="nc"><i class="no-highlight">86</i>&nbsp;        buttons.add(cancel);</b>
+<i class="no-highlight">87</i>&nbsp;
+<b class="nc"><i class="no-highlight">88</i>&nbsp;        signUp.addActionListener(this);</b>
+<b class="nc"><i class="no-highlight">89</i>&nbsp;        cancel.addActionListener(this);</b>
+<i class="no-highlight">90</i>&nbsp;
+<b class="nc"><i class="no-highlight">91</i>&nbsp;        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));</b>
+<i class="no-highlight">92</i>&nbsp;
+<b class="nc"><i class="no-highlight">93</i>&nbsp;        this.add(title);</b>
+<b class="nc"><i class="no-highlight">94</i>&nbsp;        this.add(usernameInfo);</b>
+<b class="nc"><i class="no-highlight">95</i>&nbsp;        this.add(passwordInfo);</b>
+<b class="nc"><i class="no-highlight">96</i>&nbsp;        this.add(repeatPasswordInfo);</b>
+<b class="nc"><i class="no-highlight">97</i>&nbsp;        this.add(locationInfo);</b>
+<b class="nc"><i class="no-highlight">98</i>&nbsp;        this.add(genderInfo);</b>
+<b class="nc"><i class="no-highlight">99</i>&nbsp;        this.add(ageInfo);</b>
+<b class="nc"><i class="no-highlight">100</i>&nbsp;        this.add(sexualityInfo);</b>
+<b class="nc"><i class="no-highlight">101</i>&nbsp;        this.add(hobbiesInfo);</b>
+<b class="nc"><i class="no-highlight">102</i>&nbsp;        this.add(heightInfo);</b>
+<b class="nc"><i class="no-highlight">103</i>&nbsp;        this.add(weightInfo);</b>
+<b class="nc"><i class="no-highlight">104</i>&nbsp;        this.add(contactInformationInfo);</b>
+<b class="nc"><i class="no-highlight">105</i>&nbsp;        this.add(selfDescriptionInfo);</b>
+<b class="nc"><i class="no-highlight">106</i>&nbsp;        this.add(buttons);</b>
+<i class="no-highlight">107</i>&nbsp;
+<i class="no-highlight">108</i>&nbsp;    }
+<i class="no-highlight">109</i>&nbsp;
+<i class="no-highlight">110</i>&nbsp;    /**
+<i class="no-highlight">111</i>&nbsp;     * React to a button click that results in evt.
+<i class="no-highlight">112</i>&nbsp;     */
+<i class="no-highlight">113</i>&nbsp;    public void actionPerformed(ActionEvent evt) {
+<b class="nc"><i class="no-highlight">114</i>&nbsp;        System.out.println(&quot;Click &quot; + evt.getActionCommand());</b>
+<i class="no-highlight">115</i>&nbsp;
+<i class="no-highlight">116</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">117</i>&nbsp;            userRegisterController.create(username.getText(),</b>
+<b class="nc"><i class="no-highlight">118</i>&nbsp;                    String.valueOf(password.getPassword()),</b>
+<b class="nc"><i class="no-highlight">119</i>&nbsp;                    String.valueOf(repeatPassword.getPassword()),</b>
+<b class="nc"><i class="no-highlight">120</i>&nbsp;                    String.valueOf(location.getText()), String.valueOf(gender.getText()),</b>
+<b class="nc"><i class="no-highlight">121</i>&nbsp;                    String.valueOf(age.getText()),</b>
+<b class="nc"><i class="no-highlight">122</i>&nbsp;                    String.valueOf(sexuality.getText()),</b>
+<b class="nc"><i class="no-highlight">123</i>&nbsp;                    String.valueOf(hobbies.getText()), String.valueOf(height.getText()),</b>
+<b class="nc"><i class="no-highlight">124</i>&nbsp;                    String.valueOf(weight.getText()),</b>
+<b class="nc"><i class="no-highlight">125</i>&nbsp;                    String.valueOf(contactInformation.getText()), String.valueOf(selfDescription.getText()));</b>
+<b class="nc"><i class="no-highlight">126</i>&nbsp;            JOptionPane.showMessageDialog(this, username.getText() + &quot; created.&quot;);</b>
+<b class="nc"><i class="no-highlight">127</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i class="no-highlight">128</i>&nbsp;            JOptionPane.showMessageDialog(this, e.getMessage());</b>
+<b class="nc"><i class="no-highlight">129</i>&nbsp;        }</b>
+<i class="no-highlight">130</i>&nbsp;    }
+<i class="no-highlight">131</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:48</div>
+</div>
+</body>
+</html>

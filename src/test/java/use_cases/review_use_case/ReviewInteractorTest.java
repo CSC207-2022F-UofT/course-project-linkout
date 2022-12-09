@@ -77,10 +77,10 @@ class ReviewInteractorTest {
         ReviewInputBoundary interactor = new ReviewInteractor(
                 presenter, reviewRepository, userGateway);
 
-        Review review = new Review(5, "good guy", "Alice", "Bob", 1);
+        Review review = new Review(5, "good guy", "acc1", "acc216", 99999);
         reviewRepository.saveReview(review);
 
-        interactor.deleteReview(1);
+        interactor.deleteReview(99999);
 
     }
 

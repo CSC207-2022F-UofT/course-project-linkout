@@ -1,0 +1,265 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > User</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entities</a>
+</div>
+
+<h1>Coverage Summary for Class: User (entities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    72.7%
+  </span>
+  <span class="absValue">
+    (16/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    76.6%
+  </span>
+  <span class="absValue">
+    (36/47)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package entities;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">4</i>&nbsp;import java.util.Hashtable;
+<i class="no-highlight">5</i>&nbsp;import java.util.List;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;public abstract class User extends Account {
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;    private final Profile profile;
+<b class="fc"><i class="no-highlight">10</i>&nbsp;    private boolean isVIP = false;</b>
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;
+<b class="fc"><i class="no-highlight">13</i>&nbsp;    private List&lt;String&gt; liked = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">14</i>&nbsp;    private List&lt;String&gt; likedme = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">15</i>&nbsp;    protected Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews = new Hashtable&lt;&gt;();</b>
+<i class="no-highlight">16</i>&nbsp;    private int restrictionDuration;
+<i class="no-highlight">17</i>&nbsp;    private float restrictionInitialTime;
+<b class="fc"><i class="no-highlight">18</i>&nbsp;    private List&lt;Report&gt; reports = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;    /**
+<i class="no-highlight">22</i>&nbsp;     * Create a user with its profile and can be a vip user if isVIP param is true.
+<i class="no-highlight">23</i>&nbsp;     *
+<i class="no-highlight">24</i>&nbsp;     * @param profile the profile for this user.
+<i class="no-highlight">25</i>&nbsp;     * @param isVIP the VIP status of this user.
+<i class="no-highlight">26</i>&nbsp;     */
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    // For VIPUser constructor
+<i class="no-highlight">30</i>&nbsp;    public User(String password, String accountName, Profile profile, boolean isVIP){
+<b class="nc"><i class="no-highlight">31</i>&nbsp;        super(password, accountName);</b>
+<b class="nc"><i class="no-highlight">32</i>&nbsp;        this.profile = profile;</b>
+<b class="nc"><i class="no-highlight">33</i>&nbsp;        this.isVIP = isVIP;</b>
+<i class="no-highlight">34</i>&nbsp;    }
+<i class="no-highlight">35</i>&nbsp;
+<i class="no-highlight">36</i>&nbsp;    public User(String password, String accountName, Profile profile, boolean isVIP, List&lt;String&gt; liked, List&lt;String&gt; likedme, Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews){
+<b class="fc"><i class="no-highlight">37</i>&nbsp;        super(password, accountName);</b>
+<b class="fc"><i class="no-highlight">38</i>&nbsp;        this.profile = profile;</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;        this.liked = liked;</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;        this.likedme = likedme;</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;        this.reviews = reviews;</b>
+<b class="fc"><i class="no-highlight">42</i>&nbsp;        this.isVIP = isVIP;</b>
+<i class="no-highlight">43</i>&nbsp;    }
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;    // For RegularUser constructor.
+<i class="no-highlight">46</i>&nbsp;    public User(String password, String accountName, Profile profile){
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        super(password, accountName);</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        this.profile = profile;</b>
+<i class="no-highlight">49</i>&nbsp;    }
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;    public User(String password, String accountName, Profile profile, List&lt;String&gt; liked, List&lt;String&gt; likedme, Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews){
+<b class="fc"><i class="no-highlight">52</i>&nbsp;        super(password, accountName);</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;        this.profile = profile;</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;        this.liked = liked;</b>
+<b class="fc"><i class="no-highlight">55</i>&nbsp;        this.likedme = likedme;</b>
+<b class="fc"><i class="no-highlight">56</i>&nbsp;        this.reviews = reviews;</b>
+<i class="no-highlight">57</i>&nbsp;    }
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;
+<i class="no-highlight">60</i>&nbsp;    /**
+<i class="no-highlight">61</i>&nbsp;     * Adds a report to the user&#39;s list of reports.
+<i class="no-highlight">62</i>&nbsp;     * @param report    The report filed against this user.
+<i class="no-highlight">63</i>&nbsp;     */
+<i class="no-highlight">64</i>&nbsp;    public void addReport(Report report) {
+<b class="nc"><i class="no-highlight">65</i>&nbsp;        reports.add(report);</b>
+<i class="no-highlight">66</i>&nbsp;    }
+<i class="no-highlight">67</i>&nbsp;
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;    public boolean setRestrictedTime(float setTime){
+<b class="fc"><i class="no-highlight">70</i>&nbsp;        this.restrictionInitialTime = setTime;</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;        return true;</b>
+<i class="no-highlight">72</i>&nbsp;    }
+<i class="no-highlight">73</i>&nbsp;
+<b class="fc"><i class="no-highlight">74</i>&nbsp;    public Profile displayProfile(){ return this.profile;}</b>
+<i class="no-highlight">75</i>&nbsp;
+<b class="fc"><i class="no-highlight">76</i>&nbsp;    public List&lt;String&gt; showLiked(){ return this.liked;}</b>
+<i class="no-highlight">77</i>&nbsp;
+<b class="fc"><i class="no-highlight">78</i>&nbsp;    public boolean showVip(){ return this.isVIP;}</b>
+<i class="no-highlight">79</i>&nbsp;
+<i class="no-highlight">80</i>&nbsp;    public boolean setVipStatus(boolean isvip){
+<b class="nc"><i class="no-highlight">81</i>&nbsp;        this.isVIP = isvip;</b>
+<b class="nc"><i class="no-highlight">82</i>&nbsp;        return true;</b>
+<i class="no-highlight">83</i>&nbsp;    }
+<i class="no-highlight">84</i>&nbsp;
+<b class="fc"><i class="no-highlight">85</i>&nbsp;    public List&lt;String&gt; showLikedMe(){ return this.likedme;}</b>
+<i class="no-highlight">86</i>&nbsp;
+<b class="fc"><i class="no-highlight">87</i>&nbsp;    public Hashtable&lt;Integer, List&lt;Object&gt;&gt; getReviews(){ return this.reviews;}</b>
+<i class="no-highlight">88</i>&nbsp;
+<i class="no-highlight">89</i>&nbsp;    /**
+<i class="no-highlight">90</i>&nbsp;     * Gets the newest report filed against this user.
+<i class="no-highlight">91</i>&nbsp;     * @return      The report
+<i class="no-highlight">92</i>&nbsp;     */
+<b class="nc"><i class="no-highlight">93</i>&nbsp;    public Report getNewestReport() { return reports.get(reports.size() - 1); }</b>
+<i class="no-highlight">94</i>&nbsp;
+<i class="no-highlight">95</i>&nbsp;
+<i class="no-highlight">96</i>&nbsp;    /**
+<i class="no-highlight">97</i>&nbsp;     * Adds a review to the user&#39;s list of reports.
+<i class="no-highlight">98</i>&nbsp;     * @param review    The review.
+<i class="no-highlight">99</i>&nbsp;     */
+<i class="no-highlight">100</i>&nbsp;    public void addReviews(Review review){
+<b class="fc"><i class="no-highlight">101</i>&nbsp;        Integer revId = review.getId();</b>
+<b class="fc"><i class="no-highlight">102</i>&nbsp;        List&lt;Object&gt; revBody = extractReviewBody(review);</b>
+<b class="fc"><i class="no-highlight">103</i>&nbsp;        this.reviews.put(revId, revBody);</b>
+<i class="no-highlight">104</i>&nbsp;    }
+<i class="no-highlight">105</i>&nbsp;
+<i class="no-highlight">106</i>&nbsp;    /**
+<i class="no-highlight">107</i>&nbsp;     * Will return true if restriction is cleared. This is determined by seeing
+<i class="no-highlight">108</i>&nbsp;     * whether the restriction duration, in seconds, have fully elapsed since the user
+<i class="no-highlight">109</i>&nbsp;     * was restricted.
+<i class="no-highlight">110</i>&nbsp;     *
+<i class="no-highlight">111</i>&nbsp;     * @return  True or false.
+<i class="no-highlight">112</i>&nbsp;     */
+<i class="no-highlight">113</i>&nbsp;    public boolean isRestricted(){
+<b class="fc"><i class="no-highlight">114</i>&nbsp;        return System.currentTimeMillis() &gt;= restrictionInitialTime + restrictionDuration;</b>
+<i class="no-highlight">115</i>&nbsp;    }
+<i class="no-highlight">116</i>&nbsp;
+<i class="no-highlight">117</i>&nbsp;    /**
+<i class="no-highlight">118</i>&nbsp;     * Gets the text from a review.
+<i class="no-highlight">119</i>&nbsp;     * @param review    The review object that we want to get the text from.
+<i class="no-highlight">120</i>&nbsp;     * @return          The text of the review.
+<i class="no-highlight">121</i>&nbsp;     */
+<i class="no-highlight">122</i>&nbsp;    private List&lt;Object&gt; extractReviewBody(Review review){
+<b class="fc"><i class="no-highlight">123</i>&nbsp;        List&lt;Object&gt; revBody = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">124</i>&nbsp;        revBody.add(review.getRating());</b>
+<b class="fc"><i class="no-highlight">125</i>&nbsp;        revBody.add(review.getComment());</b>
+<b class="fc"><i class="no-highlight">126</i>&nbsp;        return revBody;</b>
+<i class="no-highlight">127</i>&nbsp;    }
+<i class="no-highlight">128</i>&nbsp;
+<i class="no-highlight">129</i>&nbsp;    /**
+<i class="no-highlight">130</i>&nbsp;     * Sees if the password of this user is valid.
+<i class="no-highlight">131</i>&nbsp;     * @return  True or false
+<i class="no-highlight">132</i>&nbsp;     */
+<i class="no-highlight">133</i>&nbsp;    public boolean passwordIsValid() {
+<b class="nc"><i class="no-highlight">134</i>&nbsp;        return this.getPassword().length() &gt;= 3;</b>
+<i class="no-highlight">135</i>&nbsp;    }
+<i class="no-highlight">136</i>&nbsp;
+<i class="no-highlight">137</i>&nbsp;    /**
+<i class="no-highlight">138</i>&nbsp;     * Remove the review with the given id.
+<i class="no-highlight">139</i>&nbsp;     * @param id    The id of the review.
+<i class="no-highlight">140</i>&nbsp;     */
+<i class="no-highlight">141</i>&nbsp;    public void deleteReview(int id){
+<b class="fc"><i class="no-highlight">142</i>&nbsp;        this.reviews.remove(id);</b>
+<i class="no-highlight">143</i>&nbsp;    }
+<i class="no-highlight">144</i>&nbsp;
+<i class="no-highlight">145</i>&nbsp;    public void like(String targetName) {
+<b class="nc"><i class="no-highlight">146</i>&nbsp;        this.liked.add(targetName);</b>
+<i class="no-highlight">147</i>&nbsp;    }
+<i class="no-highlight">148</i>&nbsp;    public String findContactInfo(){
+<b class="fc"><i class="no-highlight">149</i>&nbsp;        return this.profile.getContactInformation();</b>
+<i class="no-highlight">150</i>&nbsp;    }
+<i class="no-highlight">151</i>&nbsp;
+<i class="no-highlight">152</i>&nbsp;    // Getters and setters
+<b class="fc"><i class="no-highlight">153</i>&nbsp;    public float getRestrictionDuration() { return restrictionDuration; }</b>
+<i class="no-highlight">154</i>&nbsp;    public void setRestrictionDuration(int restrictionDuration) {
+<b class="nc"><i class="no-highlight">155</i>&nbsp;        this.restrictionDuration = restrictionDuration;</b>
+<b class="nc"><i class="no-highlight">156</i>&nbsp;        this.restrictionInitialTime = System.currentTimeMillis();</b>
+<i class="no-highlight">157</i>&nbsp;
+<i class="no-highlight">158</i>&nbsp;    }
+<i class="no-highlight">159</i>&nbsp;
+<i class="no-highlight">160</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:48</div>
+</div>
+</body>
+</html>
