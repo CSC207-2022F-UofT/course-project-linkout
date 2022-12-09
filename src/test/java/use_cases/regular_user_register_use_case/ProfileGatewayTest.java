@@ -40,7 +40,7 @@ class ProfileGatewayTest {
         ProfileGateway profileGateway = new ProfileGateway(System.getProperty("user.dir"));
         Profile profileCreated = profileGateway.CreateProfile(row);
         assertNotNull(profileCreated);
-        assertEquals("south san francisco, california", profileCreated.getLocation());
+        assertEquals("atherton, california", profileCreated.getLocation());
 
     }
 

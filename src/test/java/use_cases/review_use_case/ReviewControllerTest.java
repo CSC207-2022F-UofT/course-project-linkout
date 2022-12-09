@@ -75,7 +75,7 @@ class ReviewControllerTest {
                 presenter, reviewRepository, userGateway);
         ReviewController controller = new ReviewController(interactor);
 
-        Review review = new Review(5, "good guy", "Alice", "Bob", 99999);
+        Review review = new Review(5, "good guy", "acc1", "acc216", 99999);
         reviewRepository.saveReview(review);
 
         controller.deleteReview(99999);

@@ -1,0 +1,320 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SearchGateway</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.search_use_case</a>
+</div>
+
+<h1>Coverage Summary for Class: SearchGateway (use_cases.search_use_case)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SearchGateway</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98.6%
+  </span>
+  <span class="absValue">
+    (72/73)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SearchGateway$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98.6%
+  </span>
+  <span class="absValue">
+    (73/74)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.search_use_case;
+<i class="no-highlight">2</i>&nbsp;import Gateway.DatabaseGateway;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;import use_cases.regular_user_register_use_case.ProfileGateway;
+<i class="no-highlight">5</i>&nbsp;import use_cases.review_use_case.ReviewGatewayImplementation;
+<i class="no-highlight">6</i>&nbsp;import entities.RegularUser;
+<i class="no-highlight">7</i>&nbsp;import entities.User;
+<i class="no-highlight">8</i>&nbsp;import entities.VipUser;
+<i class="no-highlight">9</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFCell;
+<i class="no-highlight">10</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFRow;
+<i class="no-highlight">11</i>&nbsp;import entities.Profile;
+<i class="no-highlight">12</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFSheet;
+<i class="no-highlight">13</i>&nbsp;import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+<i class="no-highlight">14</i>&nbsp;import org.apache.poi.ss.usermodel.Row;
+<i class="no-highlight">15</i>&nbsp;import use_cases.user_action_use_case.LikesGateway;
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;import javax.management.InvalidAttributeValueException;
+<i class="no-highlight">18</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">19</i>&nbsp;import java.util.*;
+<i class="no-highlight">20</i>&nbsp;import java.util.function.Function;
+<i class="no-highlight">21</i>&nbsp;import java.util.stream.Collectors;
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;public class SearchGateway extends DatabaseGateway implements SearchDSGateway{
+<i class="no-highlight">24</i>&nbsp;    private LikesGateway likesGateway;
+<i class="no-highlight">25</i>&nbsp;    private ReviewGatewayImplementation reviewGateway;
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;    private ProfileGateway profileGateway;
+<i class="no-highlight">28</i>&nbsp;    public SearchGateway(String workingdir)  {
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        super(workingdir);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        likesGateway = new LikesGateway(workingdir);</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        reviewGateway = new ReviewGatewayImplementation(workingdir);</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        profileGateway = new ProfileGateway(workingdir);</b>
+<i class="no-highlight">33</i>&nbsp;    }
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    /**
+<i class="no-highlight">36</i>&nbsp;     * this method &lt;searchSheet&gt; searches for the first users that matched the keywords entered from the database and return a
+<i class="no-highlight">37</i>&nbsp;     * SearchResponseModel object which includes an arraylist of 20 matched users along with their corresponding profiles.
+<i class="no-highlight">38</i>&nbsp;     *
+<i class="no-highlight">39</i>&nbsp;     * @param keywords the keywords entered by the users
+<i class="no-highlight">40</i>&nbsp;     * @return List&lt;User&gt; a list of 20 matched users along with their corresponding profiles
+<i class="no-highlight">41</i>&nbsp;     */
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    public List&lt;User&gt; searchSheet(String keywords, String username) throws IOException, InvalidAttributeValueException {
+<i class="no-highlight">44</i>&nbsp;
+<b class="fc"><i class="no-highlight">45</i>&nbsp;        HSSFWorkbook wb = ProfilesStyleBook();</b>
+<i class="no-highlight">46</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        HSSFSheet sheet = wb.getSheetAt(0);</b>
+<i class="no-highlight">48</i>&nbsp;
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        String searchTexts = keywords;</b>
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;        // Convert searchTexts to all lowercase to match database
+<b class="fc"><i class="no-highlight">52</i>&nbsp;        String searchText = searchTexts.toLowerCase();</b>
+<i class="no-highlight">53</i>&nbsp;
+<i class="no-highlight">54</i>&nbsp;        // Separate the search text into individual keyword(e.g.[&#39;tennis&#39;, &#39;gay&#39;])
+<b class="fc"><i class="no-highlight">55</i>&nbsp;        String[] searchTextList = searchText.split(&quot;,&quot;);</b>
+<i class="no-highlight">56</i>&nbsp;
+<i class="no-highlight">57</i>&nbsp;        // Create a variable to store rows that contains the searchText
+<b class="fc"><i class="no-highlight">58</i>&nbsp;        List&lt;Row&gt; filteredRows = new ArrayList&lt;Row&gt;();</b>
+<i class="no-highlight">59</i>&nbsp;        ;
+<i class="no-highlight">60</i>&nbsp;
+<i class="no-highlight">61</i>&nbsp;        // Iterate through the keywords
+<b class="fc"><i class="no-highlight">62</i>&nbsp;        for (int i = 0; i &lt; searchTextList.length; i++) {</b>
+<i class="no-highlight">63</i>&nbsp;            //Iterate rows
+<b class="fc"><i class="no-highlight">64</i>&nbsp;            for (int j = sheet.getFirstRowNum(); j &lt;= sheet.getLastRowNum(); j++) {</b>
+<i class="no-highlight">65</i>&nbsp;
+<b class="fc"><i class="no-highlight">66</i>&nbsp;                HSSFRow row = sheet.getRow(j);</b>
+<i class="no-highlight">67</i>&nbsp;
+<i class="no-highlight">68</i>&nbsp;                // Handle when searchText is double
+<b class="fc"><i class="no-highlight">69</i>&nbsp;                Double doubleValue = null;</b>
+<i class="no-highlight">70</i>&nbsp;                try {
+<b class="fc"><i class="no-highlight">71</i>&nbsp;                    doubleValue = Double.parseDouble(searchTextList[i]);</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;                } catch (Exception e) {</b>
+<b class="fc"><i class="no-highlight">73</i>&nbsp;                }</b>
+<i class="no-highlight">74</i>&nbsp;
+<i class="no-highlight">75</i>&nbsp;                // Iterate columns
+<b class="fc"><i class="no-highlight">76</i>&nbsp;                for (int k = row.getFirstCellNum(); k &lt; row.getLastCellNum(); k++) {</b>
+<b class="fc"><i class="no-highlight">77</i>&nbsp;                    HSSFCell cell = row.getCell(k);</b>
+<i class="no-highlight">78</i>&nbsp;
+<i class="no-highlight">79</i>&nbsp;                    // Handle empty cells
+<b class="fc"><i class="no-highlight">80</i>&nbsp;                    if (cell == null) {</b>
+<b class="nc"><i class="no-highlight">81</i>&nbsp;                        continue;</b>
+<i class="no-highlight">82</i>&nbsp;                    }
+<i class="no-highlight">83</i>&nbsp;
+<i class="no-highlight">84</i>&nbsp;                    // Search based on cell types (String OR Numeric)
+<b class="fc"><i class="no-highlight">85</i>&nbsp;                    switch (cell.getCellType()) {</b>
+<i class="no-highlight">86</i>&nbsp;
+<i class="no-highlight">87</i>&nbsp;                        // Handle cell with String values
+<i class="no-highlight">88</i>&nbsp;                        case STRING:
+<b class="fc"><i class="no-highlight">89</i>&nbsp;                            if (searchTextList[i] != null &amp;&amp; searchTextList[i].equals(cell.getStringCellValue())) {</b>
+<b class="fc"><i class="no-highlight">90</i>&nbsp;                                filteredRows.add(row);</b>
+<i class="no-highlight">91</i>&nbsp;                            }
+<i class="no-highlight">92</i>&nbsp;                            break;
+<i class="no-highlight">93</i>&nbsp;
+<i class="no-highlight">94</i>&nbsp;
+<i class="no-highlight">95</i>&nbsp;                        // Handle cell with numeric values
+<i class="no-highlight">96</i>&nbsp;                        case NUMERIC:
+<b class="fc"><i class="no-highlight">97</i>&nbsp;                            if (doubleValue != null &amp;&amp; doubleValue.doubleValue() == cell.getNumericCellValue()) {</b>
+<b class="fc"><i class="no-highlight">98</i>&nbsp;                                filteredRows.add(row);</b>
+<i class="no-highlight">99</i>&nbsp;                            }
+<i class="no-highlight">100</i>&nbsp;                            break;
+<i class="no-highlight">101</i>&nbsp;                    }
+<i class="no-highlight">102</i>&nbsp;                }
+<i class="no-highlight">103</i>&nbsp;            }
+<i class="no-highlight">104</i>&nbsp;        }
+<i class="no-highlight">105</i>&nbsp;
+<i class="no-highlight">106</i>&nbsp;        // Only keep rows that has been duplicated for n(number of keywords) times(i.e. keep rows that matched with
+<i class="no-highlight">107</i>&nbsp;        // all keywords
+<i class="no-highlight">108</i>&nbsp;        // dup is the filter list that contains only users satisfies all keywords entered
+<b class="fc"><i class="no-highlight">109</i>&nbsp;        List&lt;Row&gt; dup = new ArrayList&lt;Row&gt;();</b>
+<i class="no-highlight">110</i>&nbsp;        ;
+<b class="fc"><i class="no-highlight">111</i>&nbsp;        int numberOfKeyword = searchTextList.length;</b>
+<i class="no-highlight">112</i>&nbsp;
+<b class="fc"><i class="no-highlight">113</i>&nbsp;        Map&lt;Row, Long&gt; occurrences = filteredRows.stream()</b>
+<b class="fc"><i class="no-highlight">114</i>&nbsp;                .collect(Collectors.groupingBy(</b>
+<b class="fc"><i class="no-highlight">115</i>&nbsp;                        Function.identity(),</b>
+<b class="fc"><i class="no-highlight">116</i>&nbsp;                        Collectors.counting()));</b>
+<b class="fc"><i class="no-highlight">117</i>&nbsp;        occurrences.values().removeIf(v -&gt; v &lt; numberOfKeyword);</b>
+<b class="fc"><i class="no-highlight">118</i>&nbsp;        for (Row key : occurrences.keySet()) {</b>
+<b class="fc"><i class="no-highlight">119</i>&nbsp;            dup.add(key);</b>
+<b class="fc"><i class="no-highlight">120</i>&nbsp;        }</b>
+<i class="no-highlight">121</i>&nbsp;
+<i class="no-highlight">122</i>&nbsp;        // Create a sub-arraylist that contains 20 of the matched users along with their corresponding profiles
+<b class="fc"><i class="no-highlight">123</i>&nbsp;        List&lt;Row&gt; twentyMatchedUsers = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">124</i>&nbsp;        List&lt;User&gt; users = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">125</i>&nbsp;        if (dup.size() != 0) {</b>
+<b class="fc"><i class="no-highlight">126</i>&nbsp;            List&lt;Row&gt; uniqueDup = dup</b>
+<b class="fc"><i class="no-highlight">127</i>&nbsp;                    .stream() // get stream for original list</b>
+<b class="fc"><i class="no-highlight">128</i>&nbsp;                    .distinct() // distinct method removes duplicates</b>
+<b class="fc"><i class="no-highlight">129</i>&nbsp;                    .collect(Collectors.toList());</b>
+<i class="no-highlight">130</i>&nbsp;
+<i class="no-highlight">131</i>&nbsp;            // Make sure we only count the at most 20 users that satisfied features identified from keywords entered
+<b class="fc"><i class="no-highlight">132</i>&nbsp;            if (dup.size() &gt; 20) {</b>
+<b class="fc"><i class="no-highlight">133</i>&nbsp;                for (int i = 0; i &lt; 20; i++) {</b>
+<b class="fc"><i class="no-highlight">134</i>&nbsp;                    twentyMatchedUsers.add(uniqueDup.get(i));</b>
+<i class="no-highlight">135</i>&nbsp;                }
+<i class="no-highlight">136</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">137</i>&nbsp;            else{twentyMatchedUsers = uniqueDup;}</b>
+<i class="no-highlight">138</i>&nbsp;
+<b class="fc"><i class="no-highlight">139</i>&nbsp;            for (Row row : twentyMatchedUsers) {</b>
+<b class="fc"><i class="no-highlight">140</i>&nbsp;                Profile profile = profileGateway.CreateProfile(row);</b>
+<b class="fc"><i class="no-highlight">141</i>&nbsp;                String usrname = row.getCell(8).toString();</b>
+<b class="fc"><i class="no-highlight">142</i>&nbsp;                String password = row.getCell(9).toString();</b>
+<b class="fc"><i class="no-highlight">143</i>&nbsp;                String isVip = row.getCell(10).toString();</b>
+<b class="fc"><i class="no-highlight">144</i>&nbsp;                List&lt;String&gt; liked = likesGateway.findLiked(usrname);</b>
+<b class="fc"><i class="no-highlight">145</i>&nbsp;                List&lt;String&gt; likedme = likesGateway.findLikedMe(usrname);</b>
+<b class="fc"><i class="no-highlight">146</i>&nbsp;                Hashtable&lt;Integer, List&lt;Object&gt;&gt; reviews = reviewGateway.getReviews(usrname);</b>
+<i class="no-highlight">147</i>&nbsp;                User user;
+<b class="fc"><i class="no-highlight">148</i>&nbsp;                if (isVip.equals(&quot;TRUE&quot;)) {</b>
+<b class="fc"><i class="no-highlight">149</i>&nbsp;                    user = new VipUser(password, usrname, profile, true, liked, likedme, reviews);</b>
+<i class="no-highlight">150</i>&nbsp;                } else {
+<b class="fc"><i class="no-highlight">151</i>&nbsp;                    user = new RegularUser(password, usrname, profile, liked, likedme, reviews);</b>
+<i class="no-highlight">152</i>&nbsp;                }
+<b class="fc"><i class="no-highlight">153</i>&nbsp;                users.add(user);</b>
+<b class="fc"><i class="no-highlight">154</i>&nbsp;            }</b>
+<i class="no-highlight">155</i>&nbsp;        }
+<i class="no-highlight">156</i>&nbsp;        //save twenty matched users as seen for recommend usage
+<b class="fc"><i class="no-highlight">157</i>&nbsp;        this.SaveSeen(username, users);</b>
+<i class="no-highlight">158</i>&nbsp;
+<i class="no-highlight">159</i>&nbsp;        //return the twenty matched users in the form of List&lt;User&gt;
+<b class="fc"><i class="no-highlight">160</i>&nbsp;        return users;</b>
+<i class="no-highlight">161</i>&nbsp;    }
+<i class="no-highlight">162</i>&nbsp;
+<i class="no-highlight">163</i>&nbsp;    @Override
+<i class="no-highlight">164</i>&nbsp;    public String getWorkingDir(){
+<b class="fc"><i class="no-highlight">165</i>&nbsp;        return super.workingdir;</b>
+<i class="no-highlight">166</i>&nbsp;    }
+<i class="no-highlight">167</i>&nbsp;    @Override
+<i class="no-highlight">168</i>&nbsp;    public void SaveSeen(String username, List&lt;User&gt; usersviewed) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">169</i>&nbsp;        HSSFWorkbook wb = LikesBook();</b>
+<i class="no-highlight">170</i>&nbsp;        //creating a Sheet object to retrieve the object
+<b class="fc"><i class="no-highlight">171</i>&nbsp;        HSSFSheet sheet=wb.getSheetAt(0);</b>
+<i class="no-highlight">172</i>&nbsp;
+<b class="fc"><i class="no-highlight">173</i>&nbsp;        for (User userviewed:usersviewed){</b>
+<b class="fc"><i class="no-highlight">174</i>&nbsp;            if (likesGateway.isSeen(username, userviewed.getAccountName())){</b>
+<i class="no-highlight">175</i>&nbsp;                return;
+<i class="no-highlight">176</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">177</i>&nbsp;            Row row = sheet.createRow(sheet.getPhysicalNumberOfRows());</b>
+<b class="fc"><i class="no-highlight">178</i>&nbsp;            row.createCell(0).setCellValue(username);</b>
+<b class="fc"><i class="no-highlight">179</i>&nbsp;            row.createCell(1).setCellValue(userviewed.getAccountName());</b>
+<b class="fc"><i class="no-highlight">180</i>&nbsp;            row.createCell(2).setCellValue(0);</b>
+<b class="fc"><i class="no-highlight">181</i>&nbsp;        }</b>
+<b class="fc"><i class="no-highlight">182</i>&nbsp;        SaveWorkbook(wb,&quot;likes&quot;);</b>
+<i class="no-highlight">183</i>&nbsp;    }
+<i class="no-highlight">184</i>&nbsp;
+<i class="no-highlight">185</i>&nbsp;}
+<i class="no-highlight">186</i>&nbsp;
+<i class="no-highlight">187</i>&nbsp;
+<i class="no-highlight">188</i>&nbsp;
+<i class="no-highlight">189</i>&nbsp;
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
+</div>
+</body>
+</html>

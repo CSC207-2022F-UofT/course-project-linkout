@@ -2,6 +2,8 @@
 
 A versatile modern dating application for all your relationship needs! The interface is based on Java Swing.
 
+The Demo video is here: https://youtu.be/Fc_-o80U5nE
+
 **Notes**:
 - This app can only accommodate MacOS system!!!
 - The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
@@ -61,6 +63,25 @@ some users A has "liked" as the basis of recommendation. Based on our database, 
 will pick 10 users with similar "liking patterns" (liked by similar group of users) for each selected basis user, 
 filter out the users who have already been seen, and combine to a maximum of 40 users to recommend. After that, the 
 app will display the users with the desired gender. 
+
+##### Classes
+>- RecommendController
+>- RecommendDsGateway
+>- RecommendGateway
+>- RecommendInputBoundary
+>- RecommendInteractor
+>- RecommendPresenter
+>- RecommendRequestModel
+>- RecommendResponseModel
+
+##### The flow
+
+When a user clicks Recommend or Similar button, RecommendController receives a RecommendRequestModel item, which includes the 
+username (and the target user username). The RecommendController uses an input boundary item, which is implemented by RecommendInteractor. 
+The interactor calls a python script (recommend.py) to do the data analysis and modelling, and the recommend result is 
+displayed in a .xls file. The RecommendInteractor then reads the .xls file by calling the RecommendDsModel, which is implemented by 
+RecommendGateway, and outputs the result as a RecommendResponseModel item. RecommendPresenter receives the item and transfer
+it into a list of Users, which was then passed to the UI. 
 
 #### Review usecase
 
@@ -195,9 +216,8 @@ Here is the UML for Recommend Use Case
 
 ### Testing:
 
-#### Recommend Use Case
-
-![](images/recommendTestCoverage.png)
+Here is the coverage report screenshot. You can see the full report in the TestCoverage folder (TestCoverage/index.html)
+![](images/coverage.png)
 
 ### Future Improvements
 

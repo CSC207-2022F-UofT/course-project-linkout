@@ -1,0 +1,137 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RegularUserManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.user_manager_user_case</a>
+</div>
+
+<h1>Coverage Summary for Class: RegularUserManager (use_cases.user_manager_user_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RegularUserManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.user_manager_user_case;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;import entities.*;
+<i class="no-highlight">5</i>&nbsp;import use_cases.regular_user_register_use_case.UserGateway;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;import javax.management.InvalidAttributeValueException;
+<i class="no-highlight">8</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;public class RegularUserManager extends UserManagerInteractor {
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;    public RegularUserManager(UserGateway userDsGateway, UserOutputBoundary userPresenter){
+<b class="fc"><i class="no-highlight">14</i>&nbsp;        super(userDsGateway, userPresenter);</b>
+<i class="no-highlight">15</i>&nbsp;    }
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    /**
+<i class="no-highlight">18</i>&nbsp;     * @param username the username of the Regular User who wants to upgrade
+<i class="no-highlight">19</i>&nbsp;     */
+<i class="no-highlight">20</i>&nbsp;    public void upgrade(UserRequestModel username) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">21</i>&nbsp;        if (userDsGateway.findUser(username.getAccName()) != null) {</b>
+<b class="fc"><i class="no-highlight">22</i>&nbsp;            User user = super.findUserByName(username.getAccName());</b>
+<b class="fc"><i class="no-highlight">23</i>&nbsp;            if (!user.showVip()){</b>
+<b class="fc"><i class="no-highlight">24</i>&nbsp;                userPresenter.prepareSuccessView(userDsGateway.upgrade(username.getAccName(), true));</b>
+<i class="no-highlight">25</i>&nbsp;            }else {
+<b class="fc"><i class="no-highlight">26</i>&nbsp;                userPresenter.prepareFailedView(&quot;User cannot be upgraded&quot;);</b>
+<i class="no-highlight">27</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        }else {</b>
+<b class="nc"><i class="no-highlight">29</i>&nbsp;            userPresenter.prepareFailedView(&quot;User does not exist.&quot;);</b>
+<i class="no-highlight">30</i>&nbsp;        }
+<i class="no-highlight">31</i>&nbsp;    }
+<i class="no-highlight">32</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
+</div>
+</body>
+</html>

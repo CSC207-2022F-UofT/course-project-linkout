@@ -1,0 +1,204 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserManagerInteractor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">use_cases.user_manager_user_case</a>
+</div>
+
+<h1>Coverage Summary for Class: UserManagerInteractor (use_cases.user_manager_user_case)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserManagerInteractor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80.6%
+  </span>
+  <span class="absValue">
+    (25/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package use_cases.user_manager_user_case;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;
+<i class="no-highlight">4</i>&nbsp;import entities.*;
+<i class="no-highlight">5</i>&nbsp;import use_cases.regular_user_register_use_case.UserGateway;
+<i class="no-highlight">6</i>&nbsp;import javax.management.InvalidAttributeValueException;
+<i class="no-highlight">7</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;public class UserManagerInteractor implements UserInputBoundary {
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;    final UserGateway userDsGateway;
+<i class="no-highlight">13</i>&nbsp;    final UserOutputBoundary userPresenter;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;
+<b class="fc"><i class="no-highlight">17</i>&nbsp;    public UserManagerInteractor(UserGateway userDsGateway, UserOutputBoundary userPresenter){</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;        this.userDsGateway = userDsGateway;</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;        this.userPresenter = userPresenter;</b>
+<i class="no-highlight">20</i>&nbsp;    }
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    /**
+<i class="no-highlight">23</i>&nbsp;     * @param userRequestModel contains the information of the user
+<i class="no-highlight">24</i>&nbsp;     */
+<i class="no-highlight">25</i>&nbsp;    public void viewLiked(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        if (findUserByName(userRequestModel.getAccName()) != null) {</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;            User user = findUserByName(userRequestModel.getAccName());</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;            userPresenter.prepareLikedView(user.showLiked());</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        }else {</b>
+<b class="nc"><i class="no-highlight">30</i>&nbsp;            userPresenter.prepareFailedView(&quot;User does not exist&quot;);</b>
+<i class="no-highlight">31</i>&nbsp;        }
+<i class="no-highlight">32</i>&nbsp;    }
+<i class="no-highlight">33</i>&nbsp;
+<i class="no-highlight">34</i>&nbsp;    /**
+<i class="no-highlight">35</i>&nbsp;     * @param userRequestModel contains the information of the user
+<i class="no-highlight">36</i>&nbsp;     */
+<i class="no-highlight">37</i>&nbsp;    public void viewAccountStatus(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">38</i>&nbsp;        if (findUserByName(userRequestModel.getAccName()) != null){</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;            User user = findUserByName(userRequestModel.getAccName());</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;            userPresenter.prepareAccStatusView(user.showVip(), user.getRestrictionDuration());</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;        }else {</b>
+<b class="nc"><i class="no-highlight">42</i>&nbsp;            userPresenter.prepareFailedView(&quot;User does not exist&quot;);</b>
+<i class="no-highlight">43</i>&nbsp;        }
+<i class="no-highlight">44</i>&nbsp;    }
+<i class="no-highlight">45</i>&nbsp;
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;    /**
+<i class="no-highlight">48</i>&nbsp;     * @param userRequestModel contains the information of the user
+<i class="no-highlight">49</i>&nbsp;     */
+<i class="no-highlight">50</i>&nbsp;    public void showReview(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">51</i>&nbsp;        if (findUserByName(userRequestModel.getAccName()) != null){</b>
+<b class="fc"><i class="no-highlight">52</i>&nbsp;            User user = findUserByName(userRequestModel.getAccName());</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;            userPresenter.prepareReviewView(user.getReviews());</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;        }else {</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;            userPresenter.prepareFailedView(&quot;User does not exist&quot;);</b>
+<i class="no-highlight">56</i>&nbsp;        }
+<i class="no-highlight">57</i>&nbsp;    }
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;
+<i class="no-highlight">60</i>&nbsp;
+<i class="no-highlight">61</i>&nbsp;
+<i class="no-highlight">62</i>&nbsp;    /**
+<i class="no-highlight">63</i>&nbsp;     * @param userRequestModel contains the information of the user
+<i class="no-highlight">64</i>&nbsp;     */
+<i class="no-highlight">65</i>&nbsp;    public void setRestrictionTime(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">66</i>&nbsp;        if (findUserByName(userRequestModel.getAccName()) != null){</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;            User user = findUserByName(userRequestModel.getAccName());</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;            if (user.getRestrictionDuration() != 0){</b>
+<b class="nc"><i class="no-highlight">69</i>&nbsp;                userPresenter.prepareFailedView(&quot;User already restricted&quot;);</b>
+<i class="no-highlight">70</i>&nbsp;            }else {
+<b class="fc"><i class="no-highlight">71</i>&nbsp;                userPresenter.prepareSuccessView(user.setRestrictedTime(userRequestModel.getRestrictionTime()));</b>
+<i class="no-highlight">72</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">73</i>&nbsp;        }else {</b>
+<b class="nc"><i class="no-highlight">74</i>&nbsp;            userPresenter.prepareFailedView(&quot;User does not exist&quot;);</b>
+<i class="no-highlight">75</i>&nbsp;        }
+<i class="no-highlight">76</i>&nbsp;    }
+<i class="no-highlight">77</i>&nbsp;
+<i class="no-highlight">78</i>&nbsp;    /**
+<i class="no-highlight">79</i>&nbsp;     * @param userRequestModel contains the information of the user
+<i class="no-highlight">80</i>&nbsp;     */
+<i class="no-highlight">81</i>&nbsp;    public void showProfile(UserRequestModel userRequestModel) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">82</i>&nbsp;        if (findUserByName(userRequestModel.getAccName()) != null){</b>
+<b class="fc"><i class="no-highlight">83</i>&nbsp;            User user = findUserByName(userRequestModel.getAccName());</b>
+<b class="fc"><i class="no-highlight">84</i>&nbsp;            userPresenter.prepareProfileView(user.displayProfile());</b>
+<b class="fc"><i class="no-highlight">85</i>&nbsp;        }else {</b>
+<b class="nc"><i class="no-highlight">86</i>&nbsp;            userPresenter.prepareFailedView(&quot;User does not exist&quot;);</b>
+<i class="no-highlight">87</i>&nbsp;        }
+<i class="no-highlight">88</i>&nbsp;    }
+<i class="no-highlight">89</i>&nbsp;
+<i class="no-highlight">90</i>&nbsp;
+<i class="no-highlight">91</i>&nbsp;    /**
+<i class="no-highlight">92</i>&nbsp;     * @param accName the account name of the user
+<i class="no-highlight">93</i>&nbsp;     * @return the User associated with this Account Name
+<i class="no-highlight">94</i>&nbsp;     */
+<i class="no-highlight">95</i>&nbsp;    User findUserByName(String accName) throws IOException, InvalidAttributeValueException {
+<b class="fc"><i class="no-highlight">96</i>&nbsp;        return this.userDsGateway.findUser(accName);</b>
+<i class="no-highlight">97</i>&nbsp;    }
+<i class="no-highlight">98</i>&nbsp;
+<i class="no-highlight">99</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 23:59</div>
+</div>
+</body>
+</html>
