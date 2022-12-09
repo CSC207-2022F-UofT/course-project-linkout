@@ -5,6 +5,7 @@ A versatile modern dating application for all your relationship needs! The inter
 **Notes**:
 - This app can only accommodate MacOS system!!!
 - The Apache Excel POI package and a Python interpreter are required to run this program. The link to the Apache package is under src/"Package required for accessing database".
+- Please disregard the code percentages under Languages to the right: the non-Java code originates from the auxiliary packages which are rather large in file size.
 
 ## Project outline
 
