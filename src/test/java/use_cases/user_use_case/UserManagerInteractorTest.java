@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import screens.user_info_screen.UserInfoScreen;
 import use_cases.regular_user_register_use_case.UserGateway;
+import use_cases.user_manager_user_case.UserManagerInteractor;
 import use_cases.user_manager_user_case.UserOutputBoundary;
 import use_cases.user_manager_user_case.UserPresenter;
 import use_cases.user_manager_user_case.UserRequestModel;
@@ -69,6 +70,20 @@ class UserManagerInteractorTest {
             assertNotNull(testUser.displayProfile());
         } catch (IOException | InvalidAttributeValueException e){
             System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    void setRestrictionTime() throws IOException, InvalidAttributeValueException {
+        this.model = new UserRequestModel("acc1", 0);
+        UserInfoScreen userInfoScreen = new UserInfoScreen();
+        this.userGateway = new UserGateway(System.getProperty("user.dir"));
+        this.userPresenter = new UserPresenter(userInfoScreen);
+        UserManagerInteractor userManagerInteractor = new UserManagerInteractor(userGateway, userPresenter);
+        try {
+            userManagerInteractor.setRestrictionTime(model);
+        } catch (org.apache.poi.poifs.filesystem.NotOLE2FileException e){
+            System.out.println("this is Excel Bug");
         }
     }
 }
